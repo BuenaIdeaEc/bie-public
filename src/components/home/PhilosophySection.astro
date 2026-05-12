@@ -1,0 +1,91 @@
+---
+const stats = [
+  { value: '92', suffix: '', label: 'Agentes IA activos' },
+  { value: '99', suffix: '%', label: 'Operación autónoma' },
+  { value: '6', suffix: '', label: 'Capas de valor' },
+];
+---
+
+<section
+  style="background: var(--color-bie-blue); position:relative; overflow:hidden;"
+  class="sec"
+  aria-labelledby="philosophy-heading"
+>
+  <!-- Subtle dot grid -->
+  <div style="
+    position:absolute; inset:0; pointer-events:none;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+  " aria-hidden="true"></div>
+
+  <div class="ctn" style="position:relative; z-index:1;">
+    <div style="
+      display:grid; grid-template-columns:1fr;
+      gap:3rem; align-items:center;
+    " class="philosophy-grid">
+
+      <!-- Text side -->
+      <div data-fade>
+        <span class="tag" style="color:var(--color-bie-gold);">Cómo trabajamos</span>
+        <h2 id="philosophy-heading" class="t-h2" style="color:white; margin-bottom:1.25rem;">
+          99% inteligencia artificial.<br>1% criterio humano.
+        </h2>
+        <p style="font-size:1.0625rem; color:rgba(255,255,255,0.65); line-height:1.75; margin-bottom:1.25rem;">
+          BIE opera bajo un modelo que parece imposible — y por eso pocos lo intentan:
+          99% de las operaciones del día a día las ejecutan agentes de IA. El 1%
+          restante somos humanos del equipo BIE tomando decisiones estratégicas.
+        </p>
+        <p style="font-size:1.0625rem; color:rgba(255,255,255,0.65); line-height:1.75; margin-bottom:2rem;">
+          Esta proporción no es un eslogan. Es la métrica que aplicamos a nuestro
+          propio negocio y que replicamos en cada cliente. Si funciona para nosotros,
+          funciona para ti.
+        </p>
+        <a href="/sobre-bie" class="btn btn-outline-white">
+          Conocer la filosofía BIE
+        </a>
+      </div>
+
+      <!-- Stats side -->
+      <div style="
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:1.5rem;
+      " class="stats-grid" data-fade data-delay="150">
+        {stats.map(s => (
+          <div style="
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+          ">
+            <p style="
+              font-size: clamp(2.25rem, 5vw, 3.5rem);
+              font-weight: 700;
+              letter-spacing: -0.04em;
+              line-height: 1;
+              color: white;
+              margin-bottom: 0.5rem;
+            ">
+              {s.value}<span style="color:var(--color-bie-gold);">{s.suffix}</span>
+            </p>
+            <p style="font-size:0.8125rem; color:rgba(255,255,255,0.45); line-height:1.4; font-weight:500;">
+              {s.label}
+            </p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 1024px) {
+    .philosophy-grid { grid-template-columns: 1fr 1fr !important; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  }
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr !important; }
+  }
+</style>

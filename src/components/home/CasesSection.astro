@@ -1,0 +1,128 @@
+---
+import { caseStudies } from '../../data/cases.ts';
+---
+
+<section
+  style="background: var(--color-bg-primary);"
+  class="sec"
+  aria-labelledby="cases-heading"
+>
+  <div class="ctn">
+
+    <!-- Header row -->
+    <div style="
+      display:flex; flex-wrap:wrap;
+      align-items:flex-end; justify-content:space-between;
+      gap:1.5rem; margin-bottom:3rem;
+    " data-fade>
+      <div style="max-width:480px;">
+        <span class="tag">Proyectos en producción</span>
+        <h2 id="cases-heading" class="t-h2" style="color:var(--color-text-primary); margin-bottom:0.5rem;">
+          No vendemos teoría. Vendemos lo que ya tenemos funcionando.
+        </h2>
+      </div>
+      <a href="/casos/island-estates" style="
+        display:inline-flex; align-items:center; gap:0.375rem;
+        font-size:0.875rem; font-weight:600;
+        color:var(--color-bie-accent); text-decoration:none;
+        transition: gap 0.15s;
+        flex-shrink:0;
+      " class="all-cases-link">
+        Ver todos los casos
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <!-- 2-col grid, first card spans full width on mobile -->
+    <div style="
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    " class="cases-grid">
+      {caseStudies.map((c, i) => (
+        <article
+          class={`card case-card ${i === 0 ? 'case-featured' : ''}`}
+          style="overflow:hidden; position:relative;"
+          data-fade
+          data-delay={String(i * 80)}
+        >
+          <!-- Cover image or placeholder -->
+          <div style="
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1B3A5C 0%, #2E75B6 100%);
+            overflow: hidden;
+            position: relative;
+          ">
+            {c.status === 'development' && (
+              <div style="
+                position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+                flex-direction:column; gap:0.5rem;
+              ">
+                <span style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5);">En desarrollo</span>
+              </div>
+            )}
+            <img
+              src={c.cover}
+              alt={c.coverAlt}
+              loading="lazy"
+              width="760"
+              height="428"
+              style="
+                width:100%; height:100%; object-fit:cover;
+                transition:transform 0.5s ease;
+              "
+              class="case-img"
+              onerror="this.style.display='none'"
+            />
+          </div>
+
+          <div style="padding: 1.5rem;">
+            <!-- Industry -->
+            <p style="font-size:0.6875rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--color-text-tertiary); margin-bottom:0.5rem;">
+              {c.industry}
+              {c.status === 'development' && <span style="margin-left:0.5rem; color:var(--color-bie-gold);">· En desarrollo</span>}
+            </p>
+
+            <h3 style="font-size:1.0625rem; font-weight:600; color:var(--color-text-primary); line-height:1.35; margin-bottom:0.875rem; letter-spacing:-0.01em;">
+              {c.headline}
+            </h3>
+
+            <!-- Metric -->
+            <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:1rem;">
+              <span style="font-size:1.75rem; font-weight:700; letter-spacing:-0.03em; color:var(--color-bie-blue); line-height:1;">
+                {c.metric}
+              </span>
+              <span style="font-size:0.875rem; color:var(--color-text-secondary);">
+                {c.metricLabel}
+              </span>
+            </div>
+
+            <a
+              href={c.href}
+              style="
+                display:inline-flex; align-items:center; gap:0.375rem;
+                font-size:0.875rem; font-weight:600;
+                color:var(--color-bie-accent); text-decoration:none;
+                transition: gap 0.15s;
+              "
+              class="case-read-link"
+            >
+              Ver caso completo
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @media (min-width: 768px) {
+    .cases-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  .case-card:hover .case-img { transform: scale(1.03); }
+  .case-card:hover .case-read-link { gap: 0.625rem !important; }
+  .all-cases-link:hover { gap: 0.625rem !important; }
+</style>

@@ -1,0 +1,173 @@
+---
+import '../styles/global.css';
+import Nav from '../components/global/Nav.astro';
+import Footer from '../components/global/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonical?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage = '/images/og/og-default.jpg',
+  canonical,
+  noIndex = false,
+} = Astro.props;
+
+const siteUrl = 'https://businessintelligence.solutions';
+const canonicalUrl = canonical ?? `${siteUrl}${Astro.url.pathname}`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={`${siteUrl}${ogImage}`} />
+    <meta property="og:locale" content="es_EC" />
+    <meta property="og:site_name" content="BIE Business Intelligence Enhancer" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
+
+    <link rel="canonical" href={canonicalUrl} />
+    <title>{title}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/icons/logo.svg" />
+
+    <!-- Inter font — self-hosted approach or Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Schema.org Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "BIE Business Intelligence Enhancer",
+        "url": "https://businessintelligence.solutions",
+        "logo": "https://businessintelligence.solutions/icons/logo.svg",
+        "description": "Construcción y operación de ecosistemas de agentes IA para PyMEs en Ecuador y Latinoamérica.",
+        "address": { "@type": "PostalAddress", "addressCountry": "EC", "addressLocality": "Guayaquil" },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+593-99-882-5303",
+          "contactType": "customer service",
+          "availableLanguage": ["Spanish", "English"]
+        },
+        "sameAs": ["https://linkedin.com/company/bie-ec"]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido</a>
+
+    <Nav currentPath={Astro.url.pathname} />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- WhatsApp float -->
+    <a
+      href="https://wa.me/593998825303?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20BIE."
+      class="wa-float"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Chatear por WhatsApp"
+    >
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.029 18.88a7.945 7.945 0 01-3.793-.965l-4.205 1.104 1.126-4.111a7.955 7.955 0 01-1.063-3.969C4.094 7.067 7.748 3.413 12.029 3.413c4.281 0 7.935 3.654 7.935 7.935-.001 4.282-3.654 7.532-7.935 7.532z"/>
+      </svg>
+    </a>
+
+    <!-- Mobile sticky CTA -->
+    <div class="mobile-cta" id="mobile-cta" role="complementary" aria-label="Acción rápida">
+      <a href="/contacto" class="btn btn-primary" style="flex:1; font-size:0.9375rem;">
+        Pedir diagnóstico
+      </a>
+      <a
+        href="https://wa.me/593998825303"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-outline"
+        style="width:48px; padding:0; flex-shrink:0;"
+        aria-label="WhatsApp"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.029 18.88a7.945 7.945 0 01-3.793-.965l-4.205 1.104 1.126-4.111a7.955 7.955 0 01-1.063-3.969C4.094 7.067 7.748 3.413 12.029 3.413c4.281 0 7.935 3.654 7.935 7.935-.001 4.282-3.654 7.532-7.935 7.532z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Global JS: nav scroll, fade-in, mobile CTA hide -->
+    <script>
+      // Nav scroll state
+      const nav = document.getElementById('site-nav');
+      window.addEventListener('scroll', () => {
+        nav?.classList.toggle('scrolled', window.scrollY > 48);
+      }, { passive: true });
+
+      // Scroll fade-in
+      const fades = document.querySelectorAll('[data-fade]');
+      if (fades.length) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              const delay = (e.target as HTMLElement).dataset.delay ?? '0';
+              setTimeout(() => e.target.classList.add('visible'), parseInt(delay));
+              observer.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+        fades.forEach(el => observer.observe(el));
+      }
+
+      // Mobile CTA: hide when contact form is visible
+      const mobileCta = document.getElementById('mobile-cta');
+      const contactForm = document.querySelector('[data-contact-section]');
+      if (mobileCta && contactForm) {
+        const io = new IntersectionObserver(([entry]) => {
+          mobileCta.classList.toggle('hidden-cta', entry.isIntersecting);
+        }, { threshold: 0.15 });
+        io.observe(contactForm);
+      }
+
+      // Mobile nav toggle
+      const hamburger = document.getElementById('nav-hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburger?.addEventListener('click', () => {
+        const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!isOpen));
+        mobileMenu?.classList.toggle('hidden', isOpen);
+        mobileMenu?.setAttribute('aria-hidden', String(isOpen));
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+---
+---
+
+<section
+  style="
+    position: relative;
+    min-height: calc(100vh - 68px);
+    display: flex;
+    align-items: center;
+    background: var(--color-bie-blue);
+    overflow: hidden;
+  "
+  aria-labelledby="hero-heading"
+>
+  <!-- Background radial glow -->
+  <div style="
+    position:absolute; inset:0; pointer-events:none;
+    background: radial-gradient(ellipse 80% 60% at 50% -5%, rgba(46,117,182,0.45), transparent);
+  " aria-hidden="true" id="hero-glow"></div>
+
+  <!-- Subtle dot grid texture -->
+  <div style="
+    position:absolute; inset:0; pointer-events:none;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.5;
+  " aria-hidden="true"></div>
+
+  <div class="ctn" style="
+    position: relative; z-index: 1;
+    padding-top: 5rem; padding-bottom: 5rem;
+    width: 100%;
+  ">
+    <div style="max-width: 720px;">
+
+      <!-- Eyebrow badge -->
+      <div
+        data-fade
+        style="
+          display: inline-flex; align-items: center; gap: 0.5rem;
+          padding: 0.375rem 0.875rem;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.15);
+          color: rgba(255,255,255,0.75);
+          font-size: 0.75rem; font-weight: 700;
+          letter-spacing: 0.1em; text-transform: uppercase;
+          margin-bottom: 1.75rem;
+        "
+      >
+        <span style="width:6px; height:6px; border-radius:50%; background:var(--color-bie-gold); flex-shrink:0;"></span>
+        Business Intelligence Enhancer · Ecuador
+      </div>
+
+      <!-- Main headline -->
+      <h1
+        id="hero-heading"
+        data-fade
+        data-delay="120"
+        style="
+          font-size: clamp(2.125rem, 5.5vw, 3.625rem);
+          font-weight: 700;
+          letter-spacing: -0.025em;
+          line-height: 1.07;
+          color: white;
+          margin-bottom: 1.5rem;
+        "
+      >
+        Construimos ecosistemas de IA que operan tu negocio
+        <span style="color: var(--color-bie-gold);"> mientras tú decides.</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p
+        data-fade
+        data-delay="240"
+        style="
+          font-size: clamp(1rem, 2vw, 1.25rem);
+          color: rgba(255,255,255,0.65);
+          line-height: 1.7;
+          margin-bottom: 2.25rem;
+          max-width: 54ch;
+        "
+      >
+        No vendemos software. Diseñamos, construimos y operamos equipos de agentes
+        de inteligencia artificial — del nivel de un equipo humano experto — para
+        empresas que quieren crecer sin contratar más gente.
+      </p>
+
+      <!-- CTAs -->
+      <div
+        data-fade
+        data-delay="360"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          margin-bottom: 2.5rem;
+        "
+      >
+        <a href="/contacto" class="btn btn-white">
+          Pedir diagnóstico gratuito
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="/servicios" class="btn btn-outline-white">
+          Ver cadena de valor
+        </a>
+      </div>
+
+      <!-- Trust microcopy -->
+      <div
+        data-fade
+        data-delay="480"
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+          align-items: center;
+        "
+      >
+        {[
+          '99% autónomo',
+          'Implementación en semanas',
+          'Resultados medibles en 30 días',
+        ].map(text => (
+          <span style="display:flex; align-items:center; gap:0.375rem; font-size:0.8125rem; color:rgba(255,255,255,0.4);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--color-bie-gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+            {text}
+          </span>
+        ))}
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Hero scroll indicator -->
+  <div style="
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.375rem;
+    color: rgba(255,255,255,0.25); font-size: 0.6875rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  " aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<style>
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+</style>

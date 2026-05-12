@@ -1,0 +1,155 @@
+---
+interface Props {
+  currentPath: string;
+}
+const { currentPath } = Astro.props;
+
+const links = [
+  { label: 'Servicios',   href: '/servicios' },
+  { label: 'Sobre BIE',   href: '/sobre-bie' },
+  { label: 'Casos',       href: '/casos/island-estates' },
+  { label: 'Satélites',   href: '/satelites' },
+  { label: 'Contacto',    href: '/contacto' },
+];
+---
+
+<header
+  id="site-nav"
+  style="
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    height: 68px;
+    background: transparent;
+    transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  "
+  role="banner"
+>
+  <div class="ctn" style="height:100%; display:flex; align-items:center; gap:2rem;">
+
+    <!-- Logo -->
+    <a
+      href="/"
+      aria-label="BIE — Inicio"
+      style="flex-shrink:0; display:flex; align-items:center;"
+    >
+      <img
+        src="/icons/logo.svg"
+        alt="BIE Business Intelligence Enhancer"
+        width="108" height="36"
+        style="height:36px; width:auto;"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Desktop nav links -->
+    <nav
+      class="desktop-nav"
+      aria-label="Navegación principal"
+      style="flex:1; display:none; align-items:center; justify-content:center; gap:1.75rem;"
+    >
+      {links.slice(0, -1).map(link => (
+        <a
+          href={link.href}
+          style={`
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: ${currentPath.startsWith(link.href) ? 'var(--color-bie-accent)' : 'var(--color-text-secondary)'};
+            transition: color 0.15s;
+            text-decoration: none;
+          `}
+          class="nav-link"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Desktop CTA -->
+    <div class="desktop-cta" style="margin-left:auto; flex-shrink:0; display:none;">
+      <a href="/contacto" class="btn btn-primary btn-sm">
+        Pedir diagnóstico
+      </a>
+    </div>
+
+    <!-- Hamburger (mobile) -->
+    <button
+      id="nav-hamburger"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+      style="
+        margin-left: auto;
+        width: 44px; height: 44px;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 5px;
+        background: transparent; border: none; cursor: pointer;
+        border-radius: 8px;
+        padding: 0;
+        transition: background 0.15s;
+      "
+      class="hamburger"
+    >
+      <span class="ham-line" style="display:block; width:22px; height:2px; background:var(--color-text-primary); border-radius:2px; transition: transform 0.2s, opacity 0.2s;"></span>
+      <span class="ham-line" style="display:block; width:22px; height:2px; background:var(--color-text-primary); border-radius:2px; transition: transform 0.2s, opacity 0.2s;"></span>
+      <span class="ham-line" style="display:block; width:22px; height:2px; background:var(--color-text-primary); border-radius:2px; transition: transform 0.2s, opacity 0.2s;"></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile drawer -->
+  <div
+    id="mobile-menu"
+    aria-hidden="true"
+    class="hidden"
+    style="
+      position: absolute;
+      top: 68px; left: 0; right: 0;
+      background: var(--color-bg-primary);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: var(--shadow-card-hover);
+      padding: 0.5rem 1rem 1.5rem;
+    "
+  >
+    <nav aria-label="Menú móvil">
+      {links.map(link => (
+        <a
+          href={link.href}
+          style="
+            display: flex; align-items: center;
+            padding: 0.875rem 0.75rem;
+            border-radius: 0.625rem;
+            font-size: 0.9375rem; font-weight: 500;
+            color: var(--color-text-primary);
+            min-height: 48px;
+            transition: background 0.15s;
+            text-decoration: none;
+          "
+          class="mobile-nav-link"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="/contacto"
+        class="btn btn-primary"
+        style="width:100%; margin-top:0.75rem; font-size:0.9375rem; text-align:center;"
+      >
+        Pedir diagnóstico gratuito
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- Spacer so content doesn't hide behind fixed nav -->
+<div style="height:68px;" aria-hidden="true"></div>
+
+<style>
+  @media (min-width: 768px) {
+    .hamburger { display: none !important; }
+    .desktop-nav { display: flex !important; }
+    .desktop-cta { display: block !important; }
+  }
+
+  .nav-link:hover { color: var(--color-text-primary) !important; }
+  .mobile-nav-link:hover { background: var(--color-bg-secondary); }
+  .hamburger:hover { background: var(--color-bg-secondary); }
+</style>
