@@ -1,78 +1,117 @@
 ---
 const points = [
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,
-    heading: 'Procesos manuales que consumen tiempo',
-    body: 'Tu equipo dedica horas a tareas repetitivas que un agente IA podría ejecutar en segundos, con más consistencia y sin errores.',
+    heading: 'Procesos manuales que consumen tu equipo',
+    body: 'Horas diarias en tareas repetitivas que un agente IA ejecutaría en segundos — con más consistencia y sin errores humanos.',
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="10"/></svg>`,
     heading: 'Invertiste en tecnología y el resultado decepcionó',
-    body: 'Los proyectos de transformación digital duran 6-12 meses, exceden el presupuesto y dependen de equipos técnicos que no tienes — ni quieres mantener.',
+    body: 'Los proyectos de transformación digital toman 6–12 meses, exceden el presupuesto y dependen de equipos técnicos que no tienes ni quieres mantener.',
   },
   {
-    icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>`,
-    heading: 'Agencias entregan, no operan',
-    body: 'Te entregaron un software. Pero nadie lo opera, nadie lo mantiene y nadie mide si realmente funciona para tu negocio.',
+    heading: 'Agencias construyen y desaparecen',
+    body: 'Te entregaron software. Nadie lo opera, nadie lo mantiene y nadie mide si realmente funciona para tu negocio.',
   },
 ];
 ---
 
 <section
-  style="background: var(--color-bg-secondary);"
+  style="background: var(--color-bg-primary);"
   class="sec"
   aria-labelledby="problem-heading"
 >
   <div class="ctn">
+    <div class="prob-layout">
 
-    <div style="max-width: var(--width-prose); margin-bottom: 3.5rem;" data-fade>
-      <span class="tag">El problema que resolvemos</span>
-      <h2 id="problem-heading" class="t-h2" style="color:var(--color-text-primary); margin-bottom:1rem;">
-        La brecha entre querer IA y tenerla funcionando
-      </h2>
-      <p style="font-size:1.125rem; color:var(--color-text-secondary); line-height:1.7;">
-        Los negocios pierden tiempo y dinero en procesos manuales que un equipo de IA
-        podría ejecutar mejor. BIE existe para cerrar esa brecha: tecnología de élite,
-        implementación quirúrgica, operación garantizada.
-      </p>
+      <!-- Left: sticky heading -->
+      <div class="prob-left" data-fade>
+        <span class="tag">El problema que resolvemos</span>
+        <h2 id="problem-heading" class="prob-h2">
+          La brecha entre<br>querer IA y<br>tenerla funcionando.
+        </h2>
+      </div>
+
+      <!-- Right: numbered items -->
+      <div class="prob-right">
+        {points.map((p, i) => (
+          <div class="prob-item" data-fade data-delay={String(i * 80)}>
+            <span class="prob-num" aria-hidden="true">0{i + 1}</span>
+            <div class="prob-body">
+              <h3 class="prob-item-h">{p.heading}</h3>
+              <p class="prob-item-p">{p.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
-
-    <!-- 3-card grid -->
-    <div style="
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    " class="problem-grid">
-      {points.map((p, i) => (
-        <article
-          class="card"
-          style="padding: 1.75rem;"
-          data-fade
-          data-delay={String(i * 100)}
-        >
-          <div style="
-            width: 48px; height: 48px; border-radius: 12px;
-            background: rgba(27,58,92,0.07);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--color-bie-accent);
-            margin-bottom: 1.25rem;
-            flex-shrink: 0;
-          " set:html={p.icon}></div>
-          <h3 style="font-size:1.0625rem; font-weight:600; color:var(--color-text-primary); margin-bottom:0.625rem; letter-spacing:-0.01em;">
-            {p.heading}
-          </h3>
-          <p style="font-size:0.9375rem; color:var(--color-text-secondary); line-height:1.65;">
-            {p.body}
-          </p>
-        </article>
-      ))}
-    </div>
-
   </div>
 </section>
 
 <style>
-  @media (min-width: 768px) {
-    .problem-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .prob-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 1024px) {
+    .prob-layout {
+      grid-template-columns: 38% 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .prob-left { position: sticky; top: 100px; }
+  }
+
+  .prob-h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    margin-top: 0.75rem;
+  }
+
+  .prob-right {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prob-item {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .prob-item:first-child { border-top: 1px solid var(--color-border); }
+
+  .prob-num {
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    width: 3.5ch;
+    text-align: right;
+    margin-top: -0.25rem;
+  }
+
+  .prob-body { flex: 1; }
+
+  .prob-item-h {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 0.625rem;
+  }
+
+  .prob-item-p {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
   }
 </style>
