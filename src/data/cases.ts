@@ -37,16 +37,4 @@ export const caseStudies: CaseStudy[] = [
     href: '/casos/costa-optics',
     status: 'active',
   },
-  {
-    slug: 'bie-como-cliente',
-    client: 'BIE como su propio cliente',
-    industry: 'Meta-caso · Tecnología',
-    headline: '92 agentes IA operando una empresa real: así es como lo hacemos para ti',
-    metric: '99%',
-    metricLabel: 'operación autónoma',
-    cover: '/images/cases/bie-meta/hero.webp',
-    coverAlt: 'BIE meta-caso — 92 agentes IA operando la empresa',
-    href: '/casos/bie-como-cliente',
-    status: 'active',
-  },
 ];

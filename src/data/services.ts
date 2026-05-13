@@ -4,7 +4,7 @@ export const valueLayers: ValueLayer[] = [
   {
     number: '01',
     name: 'IDENTIDAD',
-    tagline: 'Marca, narrativa y posicionamiento',
+    tagline: 'Tu marca habla antes que tú',
     products: ['Creación de Identidad', 'Manual de Marca'],
     icon: 'fingerprint',
     slug: 'identidad',
@@ -12,7 +12,7 @@ export const valueLayers: ValueLayer[] = [
   {
     number: '02',
     name: 'PRESENCIA',
-    tagline: 'Sitio web, dominio y visibilidad digital',
+    tagline: 'Estar en línea no es opcional, estar bien tampoco',
     products: ['Sitio Web Institucional', 'Dominio + Hosting'],
     icon: 'globe',
     slug: 'presencia',
@@ -20,7 +20,7 @@ export const valueLayers: ValueLayer[] = [
   {
     number: '03',
     name: 'DATOS',
-    tagline: 'Migración, estructuración y memoria empresarial',
+    tagline: 'Todo lo que sabe tu empresa, organizado y disponible',
     products: ['Migración de Información', 'Cerebro Ampliado'],
     icon: 'database',
     slug: 'datos',
@@ -28,7 +28,7 @@ export const valueLayers: ValueLayer[] = [
   {
     number: '04',
     name: 'AUTOMATIZACIÓN',
-    tagline: 'Chatbots, apps web e integraciones a medida',
+    tagline: 'Las tareas repetitivas dejan de consumir a tu equipo',
     products: ['Chatbot IA', 'Aplicación Web Custom'],
     icon: 'zap',
     slug: 'automatizacion',
@@ -36,7 +36,7 @@ export const valueLayers: ValueLayer[] = [
   {
     number: '05',
     name: 'INTELIGENCIA',
-    tagline: 'Agentes IA, dashboards y decisiones en tiempo real',
+    tagline: 'Decisiones basadas en datos, no en intuición',
     products: ['Ecosistema de Agentes', 'Dashboard KPIs'],
     icon: 'brain',
     slug: 'inteligencia',
@@ -44,7 +44,7 @@ export const valueLayers: ValueLayer[] = [
   {
     number: '06',
     name: 'ESCALA',
-    tagline: 'White-label y formación de equipos internos',
+    tagline: 'Cuando el modelo funciona, lo multiplicamos',
     products: ['White Label', 'Training Interno'],
     icon: 'trending-up',
     slug: 'escala',
