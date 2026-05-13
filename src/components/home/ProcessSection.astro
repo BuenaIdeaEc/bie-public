@@ -2,34 +2,27 @@
 const steps = [
   {
     num: '01',
-    title: 'Diagnóstico',
-    sub: '30 minutos gratuitos',
-    body: 'Una llamada donde entendemos tu empresa, tus cuellos de botella y qué capa del modelo BIE tiene más impacto hoy. Sin jerga técnica.',
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M16 8v8l5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>`,
+    title: 'Diagnóstico gratuito',
+    sub: '30 minutos — sin costo, sin presión',
+    body: 'Una llamada donde entendemos tu empresa, tus cuellos de botella y qué capa del modelo BIE tiene más impacto hoy. Sin jerga técnica. Al final sabes exactamente qué necesitas y cuánto cuesta.',
+    result: 'Sabes qué necesitas y cuánto cuesta',
+    icon: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1.5"/><path d="M16 9v7l4.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
   },
   {
     num: '02',
-    title: 'Construimos',
-    sub: 'Tu ecosistema en 2–6 semanas',
-    body: 'Diseñamos y construimos los agentes, flujos e integraciones. Tu sistema se entrega funcionando — no una demo, no un prototipo.',
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="4" y="8" width="24" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M11 16l3 3 7-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>`,
+    title: 'Lo construimos',
+    sub: 'Tu ecosistema listo en 2 a 6 semanas',
+    body: 'Diseñamos y construimos los agentes, flujos e integraciones. Tu sistema se entrega funcionando — no una demo, no un prototipo. Instalado en tus canales reales (WhatsApp, CRM, email) y operando desde el primer día.',
+    result: 'Sistema real funcionando en tus canales',
+    icon: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="8" width="24" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 16l3 3 7-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   },
   {
     num: '03',
-    title: 'Operamos',
-    sub: '24/7 para siempre',
-    body: 'BIE opera, monitorea y mejora tu ecosistema de forma continua. Cuando algo falla o puede mejorar, es nuestro problema resolverlo.',
-    icon: `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M5 16a11 11 0 1 0 22 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M5 16a11 11 0 0 1 11-11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
-      <circle cx="16" cy="16" r="3" fill="currentColor"/>
-    </svg>`,
+    title: 'BIE lo opera por ti',
+    sub: '24/7, sin que tú hagas nada',
+    body: 'BIE monitorea, mantiene y mejora tu ecosistema de forma continua. Cuando algo falla o puede mejorar, es nuestro problema resolverlo. Tú ves los resultados; nosotros hacemos el trabajo.',
+    result: 'Tu empresa trabaja aunque estés dormido',
+    icon: `<svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 16a11 11 0 1 0 22 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5 16a11 11 0 0 1 11-11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/><circle cx="16" cy="16" r="3" fill="currentColor"/></svg>`,
   },
 ];
 ---
@@ -41,36 +34,50 @@ const steps = [
 >
   <div class="ctn">
 
-    <div style="max-width:520px; margin-bottom:3.5rem;" data-fade>
+    <div class="ps-header" data-fade>
       <span class="tag">Cómo funciona</span>
-      <h2 id="process-heading" style="font-size:clamp(1.875rem,4vw,2.75rem); font-weight:700; letter-spacing:-0.03em; color:var(--color-text-primary); margin-top:0.75rem; line-height:1.08;">
+      <h2 id="process-heading" class="ps-h2">
         De llamada a sistema<br>operativo en semanas.
       </h2>
     </div>
 
-    <div class="ps-steps">
+    <!-- Accordion steps -->
+    <div class="ps-accordion" role="list" id="ps-accordion">
       {steps.map((s, i) => (
-        <div class="ps-step" data-fade data-delay={String(i * 100)}>
-          <!-- Number + icon -->
-          <div class="ps-step-top">
-            <span class="ps-num">{s.num}</span>
-            <div class="ps-icon" aria-hidden="true" set:html={s.icon} />
+        <div class="ps-item" role="listitem" data-fade data-delay={String(i * 80)}>
+          <button
+            class="ps-trigger"
+            aria-expanded={i === 0 ? 'true' : 'false'}
+            aria-controls={`ps-body-${i}`}
+            data-step={String(i)}
+          >
+            <div class="ps-trigger-left">
+              <span class="ps-num">{s.num}</span>
+              <div class="ps-icon-wrap" aria-hidden="true" set:html={s.icon} />
+              <div class="ps-titles">
+                <h3 class="ps-title">{s.title}</h3>
+                <p class="ps-sub">{s.sub}</p>
+              </div>
+            </div>
+            <div class="ps-trigger-right">
+              <span class="ps-result">{s.result}</span>
+              <svg class="ps-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </button>
+          <div
+            id={`ps-body-${i}`}
+            class={`ps-body${i === 0 ? ' open' : ''}`}
+            role="region"
+          >
+            <div>
+              <p class="ps-body-text">{s.body}</p>
+            </div>
           </div>
-          <!-- Content -->
-          <div class="ps-step-body">
-            <h3 class="ps-title">{s.title}</h3>
-            <p class="ps-sub">{s.sub}</p>
-            <p class="ps-body">{s.body}</p>
-          </div>
-          {/* Connector line between steps */}
-          {i < steps.length - 1 && (
-            <div class="ps-connector" aria-hidden="true"></div>
-          )}
         </div>
       ))}
     </div>
 
-    <!-- Visual proof strip -->
+    <!-- Proof strip -->
     <div class="ps-proof" data-fade>
       <div class="ps-proof-item">
         <span class="ps-proof-val">2–6</span>
@@ -92,41 +99,54 @@ const steps = [
 </section>
 
 <style>
-  .ps-steps {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-    position: relative;
-    margin-bottom: 4rem;
+  .ps-header {
+    max-width: 520px;
+    margin-bottom: 3rem;
   }
 
-  @media (min-width: 768px) {
-    .ps-steps {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0 3rem;
-    }
+  .ps-h2 {
+    font-size: clamp(1.875rem, 4vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin-top: 0.75rem;
+    line-height: 1.08;
   }
 
-  .ps-step {
-    padding: 2.5rem 0;
+  /* Accordion */
+  .ps-accordion {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3.5rem;
+  }
+
+  .ps-item {
     border-bottom: 1px solid var(--color-border);
-    position: relative;
   }
-  .ps-steps .ps-step:first-child { border-top: 1px solid var(--color-border); }
-
-  @media (min-width: 768px) {
-    .ps-step {
-      border-bottom: none;
-      border-top: 1px solid var(--color-border);
-      padding: 2.5rem 0;
-    }
+  .ps-accordion .ps-item:first-child {
+    border-top: 1px solid var(--color-border);
   }
 
-  .ps-step-top {
+  .ps-trigger {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    padding: 1.5rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+  }
+
+  .ps-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex: 1;
+    min-width: 0;
   }
 
   .ps-num {
@@ -134,59 +154,85 @@ const steps = [
     font-weight: 700;
     letter-spacing: 0.1em;
     color: var(--color-text-tertiary);
+    flex-shrink: 0;
+    width: 2rem;
   }
 
-  .ps-icon {
+  .ps-icon-wrap {
     color: var(--color-bie-accent);
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
 
-  /* Connector line (desktop only) */
-  .ps-connector {
-    display: none;
-  }
-  @media (min-width: 768px) {
-    .ps-connector {
-      display: block;
-      position: absolute;
-      top: 2.8rem;
-      right: -1.5rem;
-      width: 3rem;
-      height: 1px;
-      background: var(--color-border);
-    }
-    .ps-connector::after {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: -3px;
-      width: 6px;
-      height: 6px;
-      border-top: 1px solid var(--color-border);
-      border-right: 1px solid var(--color-border);
-      transform: rotate(45deg);
-    }
-  }
+  .ps-titles { min-width: 0; }
 
   .ps-title {
-    font-size: 1.25rem;
+    font-size: 1.0625rem;
     font-weight: 700;
     color: var(--color-text-primary);
-    letter-spacing: -0.02em;
-    margin-bottom: 0.25rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.125rem;
+    transition: color 0.15s;
   }
 
   .ps-sub {
     font-size: 0.8125rem;
-    font-weight: 600;
+    font-weight: 500;
     color: var(--color-bie-accent);
-    margin-bottom: 0.75rem;
   }
 
+  .ps-trigger-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+  }
+
+  .ps-result {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text-tertiary);
+    display: none;
+    text-align: right;
+    max-width: 200px;
+  }
+  @media (min-width: 768px) {
+    .ps-result { display: block; }
+  }
+
+  .ps-chevron {
+    color: var(--color-text-tertiary);
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .ps-trigger[aria-expanded="true"] .ps-chevron {
+    transform: rotate(180deg);
+  }
+  .ps-trigger[aria-expanded="true"] .ps-title {
+    color: var(--color-bie-accent);
+  }
+
+  /* Body panel — CSS grid trick for smooth height animation */
   .ps-body {
-    font-size: 0.9375rem;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+    overflow: hidden;
+  }
+  .ps-body.open {
+    grid-template-rows: 1fr;
+  }
+  .ps-body > div {
+    overflow: hidden;
+  }
+
+  .ps-body-text {
+    font-size: 1rem;
     color: var(--color-text-secondary);
-    line-height: 1.7;
+    line-height: 1.8;
+    padding: 0.25rem 0 1.75rem 5.5rem;
+    max-width: 680px;
   }
 
   /* Proof strip */
@@ -201,22 +247,23 @@ const steps = [
   .ps-proof-item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.375rem;
     flex: 1;
-    min-width: 160px;
+    min-width: 140px;
   }
 
   .ps-proof-val {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2.75rem, 6vw, 4.5rem);
     font-weight: 700;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.05em;
     line-height: 1;
     color: var(--color-bie-blue);
   }
 
   .ps-proof-lbl {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     color: var(--color-text-secondary);
+    font-weight: 500;
   }
 
   .ps-proof-divider {
@@ -230,3 +277,34 @@ const steps = [
     .ps-proof-divider { display: block; }
   }
 </style>
+
+<script>
+  const accordion = document.getElementById('ps-accordion');
+  if (accordion) {
+    accordion.addEventListener('click', (e: Event) => {
+      const trigger = (e.target as Element).closest('.ps-trigger') as HTMLButtonElement | null;
+      if (!trigger) return;
+
+      const stepIndex = trigger.dataset.step;
+      const bodyId = `ps-body-${stepIndex}`;
+      const body = document.getElementById(bodyId);
+      if (!body) return;
+
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      // Close all
+      accordion.querySelectorAll<HTMLButtonElement>('.ps-trigger').forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+      });
+      accordion.querySelectorAll('.ps-body').forEach(b => {
+        b.classList.remove('open');
+      });
+
+      // Toggle: open if it was closed
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        body.classList.add('open');
+      }
+    });
+  }
+</script>

@@ -25,12 +25,4 @@ export const teamMembers: TeamMember[] = [
     photo: '/images/team/emilio.webp',
     linkedin: undefined,
   },
-  {
-    name: 'Carolina Arroba',
-    initials: 'CA',
-    role: 'Comunicaciones & Networking Estratégico',
-    bio: 'Gestiona relaciones estratégicas, alianzas y la creación de nuevos satélites BIE en el mercado ecuatoriano.',
-    photo: '/images/team/carolina.webp',
-    linkedin: 'https://linkedin.com/in/carolina-arroba',
-  },
 ];

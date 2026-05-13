@@ -25,8 +25,8 @@ const cols = [
   {
     heading: 'Contacto',
     links: [
-      { label: '+593 99 882 5303', href: 'https://wa.me/593998825303', external: true },
-      { label: 'hola@bie.ec', href: 'mailto:hola@bie.ec', external: true },
+      { label: '+593 99 882 5303', href: 'https://wa.me/593998825303?text=Hola%20BIE%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20sus%20servicios.', external: true },
+      { label: 'ceo@businessintelligence.solutions', href: 'mailto:ceo@businessintelligence.solutions', external: true },
       { label: 'Guayaquil, Ecuador', href: '#', external: false },
     ],
   },
@@ -52,11 +52,22 @@ const cols = [
 
       <!-- Brand col -->
       <div>
-        <a href="/" aria-label="BIE inicio" style="display:inline-block; margin-bottom:1rem;">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 33" width="100" height="33" aria-label="BIE">
-            <text x="0" y="26" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="white" letter-spacing="-1">BIE</text>
-            <text x="56" y="26" font-family="Arial,sans-serif" font-weight="400" font-size="10" fill="rgba(255,255,255,0.4)" letter-spacing="0.5">®</text>
+        <a href="/" aria-label="BIE inicio" style="display:inline-flex; align-items:center; gap:0.625rem; margin-bottom:1rem; text-decoration:none;">
+          <!-- Brand mark: same as nav -->
+          <svg width="34" height="34" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;">
+            <defs>
+              <radialGradient id="ft-glow" cx="90%" cy="5%" r="80%">
+                <stop offset="0%" stop-color="white" stop-opacity="0.85"/>
+                <stop offset="45%" stop-color="white" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="white" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="40" height="40" fill="#000000"/>
+            <rect width="40" height="40" fill="url(#ft-glow)"/>
+            <rect x="29" y="7" width="6" height="6" fill="white" opacity="0.9"/>
+            <text x="3" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="-0.5">BIE</text>
           </svg>
+          <span style="font-size:0.8125rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:rgba(255,255,255,0.8);">Business Intelligence</span>
         </a>
         <p style="font-size:0.875rem; color:rgba(255,255,255,0.55); line-height:1.7; max-width:240px;">
           Construimos ecosistemas de IA para PyMEs en Ecuador y Latinoamérica.
@@ -83,7 +94,7 @@ const cols = [
             </svg>
           </a>
           <a
-            href="https://wa.me/593998825303"
+            href="https://wa.me/593998825303?text=Hola%20BIE%2C%20quiero%20conocer%20m%C3%A1s%20sobre%20sus%20servicios."
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp BIE"
@@ -100,6 +111,25 @@ const cols = [
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
               <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.029 18.88a7.945 7.945 0 01-3.793-.965l-4.205 1.104 1.126-4.111a7.955 7.955 0 01-1.063-3.969C4.094 7.067 7.748 3.413 12.029 3.413c4.281 0 7.935 3.654 7.935 7.935-.001 4.282-3.654 7.532-7.935 7.532z"/>
+            </svg>
+          </a>
+          <a
+            href="https://www.instagram.com/businessintelligence.ec/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram BIE"
+            style="
+              width:36px; height:36px; border-radius:8px;
+              background: rgba(255,255,255,0.1);
+              display:flex; align-items:center; justify-content:center;
+              color: rgba(255,255,255,0.6);
+              transition: background 0.15s, color 0.15s;
+              min-width:44px; min-height:44px;
+            "
+            class="social-icon"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
             </svg>
           </a>
         </div>
