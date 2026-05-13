@@ -22,31 +22,46 @@ const stats = [
 
   <div class="ctn" style="position:relative; z-index:1;">
 
-    <!-- Top: copy block -->
-    <div class="ph-copy" data-fade>
-      <span class="tag" style="color:var(--color-bie-gold);">Cómo trabajamos</span>
-      <h2 id="philosophy-heading" class="ph-h2">
-        La guía humana que<br>hace la diferencia.
-      </h2>
-      <div class="ph-body">
-        <p>
-          En BIE, la mayor parte de la operación — tanto la nuestra como la de
-          nuestros clientes — la ejecuta inteligencia artificial.
-          ¿Cuánta? Suficiente para que nunca tengas que preocuparte por eso.
-        </p>
-        <p>
-          Lo que garantizamos es que detrás de cada decisión estratégica
-          hay criterio humano real. Esa combinación — que parece imposible
-          de sostener — es exactamente lo que construimos para ti.
-        </p>
+    <!-- Two-column: copy + dashboard -->
+    <div class="ph-grid">
+
+      <!-- Left: copy block -->
+      <div class="ph-copy" data-fade>
+        <span class="tag" style="color:var(--color-bie-gold);">Lo que operamos para ti</span>
+        <h2 id="philosophy-heading" class="ph-h2">
+          Tu empresa trabajando<br>mientras duermes.
+        </h2>
+        <div class="ph-body">
+          <p>
+            Este es el panel que BIE opera para sus clientes. 92 agentes activos, respondiendo leads en 28 segundos, calificando, registrando en CRM, generando reportes — sin intervención manual.
+          </p>
+          <p>
+            Detrás de cada número hay criterio humano que diseñó el sistema. Delante, la IA que lo ejecuta sin parar.
+          </p>
+        </div>
+        <a href="/sobre-bie" class="btn btn-outline-white">
+          Conocer la filosofía BIE
+        </a>
       </div>
-      <a href="/sobre-bie" class="btn btn-outline-white">
-        Conocer la filosofía BIE
-      </a>
+
+      <!-- Right: dashboard mockup -->
+      <div class="ph-visual" data-fade data-delay="120">
+        <div class="ph-mockup-wrap">
+          <img
+            src="/images/home/dashboard-mockup.svg"
+            alt="Panel de control BIE — 92 agentes IA en operación, leads en tiempo real"
+            loading="lazy"
+            width="900"
+            height="560"
+            style="width:100%; height:auto; display:block;"
+          />
+        </div>
+      </div>
+
     </div>
 
-    <!-- Bottom: large number strip — no boxes -->
-    <div class="ph-stats" data-fade data-delay="180" role="list">
+    <!-- Bottom: large number strip -->
+    <div class="ph-stats" data-fade data-delay="200" role="list">
       {stats.map((s, i) => (
         <div class="ph-stat" role="listitem">
           {i > 0 && <div class="ph-stat-divider" aria-hidden="true"></div>}
@@ -60,13 +75,26 @@ const stats = [
 </section>
 
 <style>
+  .ph-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  @media (min-width: 1024px) {
+    .ph-grid {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: center;
+    }
+  }
+
   .ph-copy {
-    max-width: 640px;
-    margin-bottom: 5rem;
+    /* no max-width here so it fills its grid column */
   }
 
   .ph-h2 {
-    font-size: clamp(1.875rem, 4vw, 3rem);
+    font-size: clamp(1.875rem, 4vw, 2.75rem);
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.08;
@@ -86,7 +114,23 @@ const stats = [
     line-height: 1.75;
   }
 
-  /* Stats strip — pure type, no boxes */
+  /* Dashboard mockup wrapper */
+  .ph-mockup-wrap {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+    position: relative;
+  }
+  .ph-mockup-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+
+  /* Stats strip */
   .ph-stats {
     display: flex;
     align-items: flex-start;
@@ -136,6 +180,6 @@ const stats = [
     .ph-stats { gap: 2rem; }
     .ph-stat { min-width: 100%; }
     .ph-stat-divider { display: none; }
-    .ph-copy { margin-bottom: 3.5rem; }
+    .ph-grid { margin-bottom: 3rem; }
   }
 </style>
