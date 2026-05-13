@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Caso de Estudio: Island Estates International | BIE"
+  description="Cómo BIE multiplicó por 3 los leads cualificados de Island Estates con un portal inmobiliario bilingüe y chatbot calificador 24/7."
+>
+  <!-- Hero -->
+  <section style="background:#000000; position:relative; overflow:hidden; min-height:60vh; display:flex; align-items:flex-end;" aria-labelledby="ie-heading">
+    <div aria-hidden="true" style="position:absolute; inset:0;">
+      <img
+        src="/images/cases/island-estates/hero.svg"
+        alt="" role="presentation"
+        style="width:100%; height:100%; object-fit:cover;"
+      />
+    </div>
+    <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+    <div class="ctn" style="position:relative; z-index:1; padding-bottom:4rem; padding-top:4rem;">
+      <div style="max-width:760px;" data-fade>
+        <span style="display:inline-block; font-size:0.6875rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(196,151,42,0.9); margin-bottom:1rem;">Real Estate · Ecuador</span>
+        <h1 id="ie-heading" style="font-size:clamp(2rem,5vw,3.75rem); font-weight:700; letter-spacing:-0.035em; line-height:1.05; color:white; margin-bottom:1rem;">
+          Island Estates International
+        </h1>
+        <p style="font-size:1.125rem; color:rgba(255,255,255,0.65); max-width:52ch; line-height:1.6;">
+          Portal inmobiliario bilingüe con chatbot calificador 24/7 que triplicó los leads cualificados.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metric bar -->
+  <div style="background:var(--color-bg-secondary); border-bottom:1px solid var(--color-border);" aria-label="Métricas del proyecto">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; gap:0; overflow:hidden;">
+      {[
+        { val: '3×', lbl: 'más leads cualificados' },
+        { val: '24/7', lbl: 'operación del chatbot' },
+        { val: '2', lbl: 'idiomas (ES / EN)' },
+        { val: '100%', lbl: 'digitalización del proceso' },
+      ].map((m, i) => (
+        <div style={`padding:2rem 2.5rem; border-right:1px solid var(--color-border); flex:1; min-width:140px;${i === 0 ? '' : ''}`}>
+          <p style="font-size:clamp(2rem,4vw,3rem); font-weight:700; letter-spacing:-0.04em; line-height:1; color:var(--color-bie-blue);">{m.val}</p>
+          <p style="font-size:0.8125rem; color:var(--color-text-secondary); margin-top:0.25rem;">{m.lbl}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <article style="padding:5rem 0;" aria-label="Caso de estudio Island Estates">
+    <div class="ctn" style="max-width:800px;">
+
+      <section class="cs-section" data-fade aria-labelledby="ie-challenge">
+        <h2 id="ie-challenge" class="cs-section-h">El desafío</h2>
+        <p class="cs-section-p">Island Estates International es una empresa inmobiliaria ecuatoriana con operaciones en Galápagos y la costa del Pacífico, atendiendo clientes locales e internacionales. El desafío era claro: los leads llegaban en inglés y español a cualquier hora, la respuesta manual tardaba horas y la mayoría de los contactos no eran calificados — confundiendo al equipo de ventas y diluyendo su tiempo.</p>
+        <p class="cs-section-p">Adicionalmente, el sitio web existente no transmitía el posicionamiento premium que merecía la cartera de propiedades, y no existía ningún sistema para calificar automáticamente el nivel de interés y capacidad económica de los prospectos.</p>
+      </section>
+
+      <section class="cs-section" data-fade data-delay="80" aria-labelledby="ie-solution">
+        <h2 id="ie-solution" class="cs-section-h">La solución BIE</h2>
+        <p class="cs-section-p">BIE diseñó y construyó un portal inmobiliario bilingüe (ES/EN) de alto rendimiento con una experiencia visual premium, y desarrolló un ecosistema de dos agentes IA: uno para calificación de leads y otro para nutrición de prospectos.</p>
+        <ul class="cs-list" role="list">
+          <li>Portal web bilingüe con catálogo de propiedades, filtros avanzados y formularios optimizados para conversión</li>
+          <li>Chatbot IA en WhatsApp y web que responde en el idioma del usuario y califica leads con 5 preguntas clave</li>
+          <li>Integración directa con el CRM del equipo de ventas para registro automático de leads cualificados</li>
+          <li>Sistema de nurturing por email y WhatsApp para leads que no están listos para comprar inmediatamente</li>
+          <li>Dashboard de métricas en tiempo real: leads por canal, tasa de calificación, tiempo promedio de respuesta</li>
+        </ul>
+      </section>
+
+      <section class="cs-section" data-fade data-delay="160" aria-labelledby="ie-results">
+        <h2 id="ie-results" class="cs-section-h">Resultados</h2>
+        <p class="cs-section-p">En los primeros 90 días después del lanzamiento:</p>
+        <ul class="cs-list" role="list">
+          <li><strong>3× más leads cualificados</strong> — el chatbot calificador reduce el ruido y entrega al equipo solo prospectos con intención real de compra</li>
+          <li><strong>Tiempo de respuesta: 8 horas → 45 segundos</strong> — el chatbot responde inmediatamente en el idioma del usuario a cualquier hora</li>
+          <li><strong>Tasa de conversión lead → visita presencial aumentó 40%</strong> — el nurturing automático mantiene el interés del prospecto durante el proceso de decisión</li>
+          <li><strong>Cero leads perdidos por falta de seguimiento</strong> — el sistema de alertas garantiza que ningún lead quede sin atención</li>
+        </ul>
+      </section>
+
+      <!-- CTA -->
+      <div style="margin-top:4rem; background:var(--color-bie-blue); border-radius:0.5rem; padding:2.5rem;" data-fade data-delay="200">
+        <p style="font-size:0.6875rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.75rem;">¿Tu empresa tiene un reto similar?</p>
+        <h3 style="font-size:clamp(1.25rem,3vw,1.875rem); font-weight:700; letter-spacing:-0.025em; color:white; margin-bottom:0.75rem;">
+          Hablemos de tu caso en 30 minutos.
+        </h3>
+        <p style="font-size:0.9375rem; color:rgba(255,255,255,0.55); margin-bottom:1.75rem; max-width:48ch;">
+          Sin costo. Te decimos cómo BIE puede resolver el mismo tipo de problema para tu empresa.
+        </p>
+        <a
+          href="https://wa.me/593998825303?text=Hola%2C+le%C3%AD+el+caso+de+Island+Estates+y+me+interesa+algo+similar+para+mi+empresa."
+          target="_blank" rel="noopener noreferrer"
+          class="btn btn-white"
+        >
+          Me interesa algo similar
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Nav between cases -->
+  <section style="padding:3rem 0; border-top:1px solid var(--color-border);">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.5rem;">
+      <a href="/casos/costa-optics" style="font-size:0.875rem; font-weight:500; color:var(--color-bie-accent); text-decoration:none;">← Costa Optics</a>
+      <a href="/casos/smartvision" style="font-size:0.875rem; font-weight:500; color:var(--color-bie-accent); text-decoration:none;">SmartVision →</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cs-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cs-section:first-child { border-top: 1px solid var(--color-border); }
+
+  .cs-section-h {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+  }
+
+  .cs-section-p {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 68ch;
+    margin-bottom: 1rem;
+  }
+
+  .cs-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .cs-list li {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .cs-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-bie-accent);
+    font-size: 0.875rem;
+  }
+  .cs-list li strong { color: var(--color-text-primary); font-weight: 600; }
+</style>

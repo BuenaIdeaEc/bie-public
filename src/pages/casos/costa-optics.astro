@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Caso de Estudio: Costa Optics | BIE"
+  description="Cómo BIE transformó la operación de Costa Optics con un agente IA de atención al cliente que maneja el 70% de las consultas sin intervención humana."
+>
+  <!-- Hero -->
+  <section style="background:#000000; position:relative; overflow:hidden; min-height:60vh; display:flex; align-items:flex-end;" aria-labelledby="co-heading">
+    <div aria-hidden="true" style="position:absolute; inset:0;">
+      <img
+        src="/images/cases/costa-optics/hero.svg"
+        alt="" role="presentation"
+        style="width:100%; height:100%; object-fit:cover;"
+      />
+    </div>
+    <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+    <div class="ctn" style="position:relative; z-index:1; padding-bottom:4rem; padding-top:4rem;">
+      <div style="max-width:760px;" data-fade>
+        <span style="display:inline-block; font-size:0.6875rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(196,151,42,0.9); margin-bottom:1rem;">Salud Visual · Ecuador</span>
+        <h1 id="co-heading" style="font-size:clamp(2rem,5vw,3.75rem); font-weight:700; letter-spacing:-0.035em; line-height:1.05; color:white; margin-bottom:1rem;">
+          Costa Optics
+        </h1>
+        <p style="font-size:1.125rem; color:rgba(255,255,255,0.65); max-width:52ch; line-height:1.6;">
+          Agente IA de atención al cliente que resuelve el 70% de consultas sin intervención humana, 24 horas al día.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metric bar -->
+  <div style="background:var(--color-bg-secondary); border-bottom:1px solid var(--color-border);" aria-label="Métricas del proyecto">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; gap:0; overflow:hidden;">
+      {[
+        { val: '70%', lbl: 'consultas resueltas sin humano' },
+        { val: '24/7', lbl: 'disponibilidad del agente' },
+        { val: '< 30s', lbl: 'tiempo promedio de respuesta' },
+        { val: '4.8★', lbl: 'satisfacción del cliente' },
+      ].map((m, i) => (
+        <div style={`padding:2rem 2.5rem; border-right:1px solid var(--color-border); flex:1; min-width:140px;`}>
+          <p style="font-size:clamp(2rem,4vw,3rem); font-weight:700; letter-spacing:-0.04em; line-height:1; color:var(--color-bie-blue);">{m.val}</p>
+          <p style="font-size:0.8125rem; color:var(--color-text-secondary); margin-top:0.25rem;">{m.lbl}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <article style="padding:5rem 0;" aria-label="Caso de estudio Costa Optics">
+    <div class="ctn" style="max-width:800px;">
+
+      <section class="cs-section" data-fade aria-labelledby="co-challenge">
+        <h2 id="co-challenge" class="cs-section-h">El desafío</h2>
+        <p class="cs-section-p">Costa Optics es una óptica con 3 sucursales en Ecuador que recibía entre 80 y 120 consultas diarias por WhatsApp, Instagram y su sitio web. Las preguntas eran repetitivas — horarios, precios, disponibilidad de armazones, cobertura de seguros — pero cada una requería la atención de una persona del equipo que también tenía que atender clientes presenciales.</p>
+        <p class="cs-section-p">El equipo estaba saturado. Los tiempos de respuesta a consultas digitales superaban las 4 horas en días pico, lo que generaba pérdida de clientes potenciales que simplemente contactaban a la competencia. La solución obvia era contratar más personal, pero eso no resolvía el problema de escalabilidad de fondo.</p>
+      </section>
+
+      <section class="cs-section" data-fade data-delay="80" aria-labelledby="co-solution">
+        <h2 id="co-solution" class="cs-section-h">La solución BIE</h2>
+        <p class="cs-section-p">BIE diseñó un agente IA especializado en el negocio de Costa Optics, entrenado con el catálogo completo de productos, los protocolos de atención y las preguntas frecuentes reales del negocio. El agente opera en WhatsApp y web, y deriva solo los casos complejos al equipo humano.</p>
+        <ul class="cs-list" role="list">
+          <li>Agente IA en WhatsApp Business con acceso al catálogo de armazones, lentes y servicios en tiempo real</li>
+          <li>Flujo de agendamiento de citas integrado directamente con el calendario de la óptica</li>
+          <li>Base de conocimiento personalizada con protocolos de seguro médico, coberturas y requisitos por aseguradora</li>
+          <li>Detección de intención de compra: cuando el agente detecta un cliente listo para comprar, notifica al equipo inmediatamente</li>
+          <li>Panel de supervisión: el equipo ve todas las conversaciones y puede tomar el control en cualquier momento</li>
+        </ul>
+      </section>
+
+      <section class="cs-section" data-fade data-delay="160" aria-labelledby="co-results">
+        <h2 id="co-results" class="cs-section-h">Resultados</h2>
+        <p class="cs-section-p">En los primeros 90 días después del lanzamiento:</p>
+        <ul class="cs-list" role="list">
+          <li><strong>70% de consultas resueltas sin intervención humana</strong> — el equipo ahora se enfoca en las conversaciones que realmente requieren criterio humano</li>
+          <li><strong>Tiempo de respuesta: 4 horas → 28 segundos</strong> — el agente responde al instante en cualquier canal, a cualquier hora</li>
+          <li><strong>Agendamiento de citas +45%</strong> — el flujo de agendamiento automático elimina la fricción del proceso manual</li>
+          <li><strong>Satisfacción del cliente: 4.8/5</strong> — los clientes valoran positivamente la respuesta inmediata aunque sea de un agente IA, siempre que resuelva su consulta</li>
+        </ul>
+      </section>
+
+      <!-- CTA -->
+      <div style="margin-top:4rem; background:var(--color-bie-blue); border-radius:0.5rem; padding:2.5rem;" data-fade data-delay="200">
+        <p style="font-size:0.6875rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.75rem;">¿Tu equipo pierde tiempo respondiendo las mismas preguntas?</p>
+        <h3 style="font-size:clamp(1.25rem,3vw,1.875rem); font-weight:700; letter-spacing:-0.025em; color:white; margin-bottom:0.75rem;">
+          Hablemos de tu caso en 30 minutos.
+        </h3>
+        <p style="font-size:0.9375rem; color:rgba(255,255,255,0.55); margin-bottom:1.75rem; max-width:48ch;">
+          Sin costo. Te decimos exactamente cómo un agente IA puede liberar a tu equipo de las consultas repetitivas.
+        </p>
+        <a
+          href="https://wa.me/593998825303?text=Hola%2C+le%C3%AD+el+caso+de+Costa+Optics+y+me+interesa+algo+similar+para+mi+empresa."
+          target="_blank" rel="noopener noreferrer"
+          class="btn btn-white"
+        >
+          Me interesa algo similar
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Nav between cases -->
+  <section style="padding:3rem 0; border-top:1px solid var(--color-border);">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.5rem;">
+      <a href="/casos/smartvision" style="font-size:0.875rem; font-weight:500; color:var(--color-bie-accent); text-decoration:none;">← SmartVision</a>
+      <a href="/casos/island-estates" style="font-size:0.875rem; font-weight:500; color:var(--color-bie-accent); text-decoration:none;">Island Estates →</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cs-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cs-section:first-child { border-top: 1px solid var(--color-border); }
+
+  .cs-section-h {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+  }
+
+  .cs-section-p {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 68ch;
+    margin-bottom: 1rem;
+  }
+
+  .cs-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .cs-list li {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .cs-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-bie-accent);
+    font-size: 0.875rem;
+  }
+  .cs-list li strong { color: var(--color-text-primary); font-weight: 600; }
+</style>

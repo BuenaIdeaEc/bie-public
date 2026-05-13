@@ -4,13 +4,26 @@ export interface NavLink {
   cta?: boolean;
 }
 
-export interface ValueLayer {
-  number: string;
+export interface ServiceProduct {
+  slug: string;
+  shortName: string;
   name: string;
   tagline: string;
-  products: string[];
-  icon: string;
+  excerpt: string;
+  why: string;
+  tech: string;
+  implement: string;
+  features: string[];
+  waText: string;
+}
+
+export interface ValueLayer {
+  number: string;
   slug: string;
+  name: string;
+  tagline: string;
+  intro: string;
+  products: ServiceProduct[];
 }
 
 export interface PricingTier {

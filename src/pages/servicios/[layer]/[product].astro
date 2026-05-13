@@ -1,0 +1,333 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { valueLayers } from '../../../data/services.ts';
+
+export function getStaticPaths() {
+  const paths: { params: { layer: string; product: string } }[] = [];
+  for (const layer of valueLayers) {
+    for (const product of layer.products) {
+      paths.push({ params: { layer: layer.slug, product: product.slug } });
+    }
+  }
+  return paths;
+}
+
+const { layer: layerSlug, product: productSlug } = Astro.params;
+const layer = valueLayers.find(l => l.slug === layerSlug)!;
+const product = layer.products.find(p => p.slug === productSlug)!;
+const layerIndex = valueLayers.findIndex(l => l.slug === layerSlug);
+const productIndex = layer.products.findIndex(p => p.slug === productSlug);
+const prevProduct = productIndex > 0 ? layer.products[productIndex - 1] : null;
+const nextProduct = productIndex < layer.products.length - 1 ? layer.products[productIndex + 1] : null;
+---
+
+<BaseLayout
+  title={`${product.name} para PyMEs en Ecuador | BIE`}
+  description={product.excerpt}
+  canonical={`https://businessintelligence.solutions/servicios/${layerSlug}/${productSlug}`}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Ruta de navegación" style="background:var(--color-bg-secondary); border-bottom:1px solid var(--color-border); padding:0.75rem 0;">
+    <div class="ctn" style="display:flex; align-items:center; gap:0.5rem; font-size:0.8125rem; color:var(--color-text-tertiary);">
+      <a href="/" style="color:var(--color-text-tertiary); text-decoration:none;">Inicio</a>
+      <span aria-hidden="true">›</span>
+      <a href="/servicios" style="color:var(--color-text-tertiary); text-decoration:none;">Servicios</a>
+      <span aria-hidden="true">›</span>
+      <a href={`/servicios#capa-${layerSlug}`} style="color:var(--color-text-tertiary); text-decoration:none;">{layer.name}</a>
+      <span aria-hidden="true">›</span>
+      <span style="color:var(--color-text-primary); font-weight:500;">{product.shortName}</span>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header style="background:var(--color-bg-primary); padding:4rem 0 3rem;" aria-labelledby="product-heading">
+    <div class="ctn" style="max-width:820px;">
+      <div data-fade>
+        <span class="tag" style="margin-bottom:1rem; display:block;">{layer.name} — Capa {layer.number}</span>
+        <h1 id="product-heading" class="prod-h1">{product.name}</h1>
+        <p class="prod-tagline">"{product.tagline}"</p>
+        <p class="prod-excerpt">{product.excerpt}</p>
+        <div class="prod-features-bar" role="list" aria-label="Características principales">
+          {product.features.map(f => (
+            <span class="prod-feature-chip" role="listitem">{f}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article body -->
+  <article style="padding:4rem 0;" aria-label={`Información sobre ${product.name}`}>
+    <div class="ctn prod-body">
+
+      <!-- Why section -->
+      <section aria-labelledby="why-heading" class="prod-section" data-fade>
+        <div class="prod-section-label">
+          <span class="prod-section-num" aria-hidden="true">01</span>
+          <h2 id="why-heading" class="prod-section-h">Por qué es crítico hoy</h2>
+        </div>
+        <p class="prod-section-text">{product.why}</p>
+      </section>
+
+      <!-- Tech section -->
+      <section aria-labelledby="tech-heading" class="prod-section" data-fade data-delay="80">
+        <div class="prod-section-label">
+          <span class="prod-section-num" aria-hidden="true">02</span>
+          <h2 id="tech-heading" class="prod-section-h">Cómo la tecnología lo transforma</h2>
+        </div>
+        <p class="prod-section-text">{product.tech}</p>
+      </section>
+
+      <!-- Implement section -->
+      <section aria-labelledby="impl-heading" class="prod-section" data-fade data-delay="160">
+        <div class="prod-section-label">
+          <span class="prod-section-num" aria-hidden="true">03</span>
+          <h2 id="impl-heading" class="prod-section-h">Cómo puede implementarlo su empresa</h2>
+        </div>
+        <p class="prod-section-text">{product.implement}</p>
+      </section>
+
+      <!-- CTA block -->
+      <div class="prod-cta-block" data-fade data-delay="240">
+        <div class="prod-cta-inner">
+          <p class="prod-cta-label">¿Listo para implementar {product.shortName}?</p>
+          <h3 class="prod-cta-h">Hablemos. Sin costo, sin presión.</h3>
+          <p class="prod-cta-sub">
+            En 30 minutos te explicamos exactamente cómo implementar {product.name.toLowerCase()} en tu empresa, qué inversión implica y qué retorno puedes esperar.
+          </p>
+          <a
+            href={`https://wa.me/593998825303?text=${product.waText}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            style="font-size:0.9375rem;"
+          >
+            Quiero implementar {product.shortName}
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Related products in the same layer -->
+  {layer.products.filter(p => p.slug !== productSlug).length > 0 && (
+    <section style="background:var(--color-bg-secondary); padding:4rem 0;" aria-labelledby="related-heading">
+      <div class="ctn">
+        <h2 id="related-heading" style="font-size:1.125rem; font-weight:600; color:var(--color-text-primary); margin-bottom:2rem; letter-spacing:-0.01em;">
+          Otros productos en {layer.name}
+        </h2>
+        <div class="prod-related-grid">
+          {layer.products.filter(p => p.slug !== productSlug).map(p => (
+            <a href={`/servicios/${layerSlug}/${p.slug}`} class="prod-related-card">
+              <h3 class="prod-related-name">{p.name}</h3>
+              <p class="prod-related-excerpt">{p.excerpt}</p>
+              <span class="prod-related-link">
+                Ver más
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- All services CTA -->
+  <section style="padding:3rem 0; border-top:1px solid var(--color-border);">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1.5rem;">
+      <p style="font-size:0.9375rem; color:var(--color-text-secondary);">
+        ← <a href="/servicios" style="color:var(--color-bie-accent); font-weight:500; text-decoration:none;">Ver catálogo completo</a>
+      </p>
+      <a href="/#contacto" class="btn btn-primary" style="font-size:0.875rem;">
+        Solicitar diagnóstico gratuito
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prod-h1 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.06;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+  }
+
+  .prod-tagline {
+    font-size: 1.125rem;
+    font-style: italic;
+    color: var(--color-bie-accent);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+  }
+
+  .prod-excerpt {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+
+  .prod-features-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .prod-feature-chip {
+    display: inline-block;
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+
+  /* Article body */
+  .prod-body {
+    max-width: 820px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .prod-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .prod-section:first-child { border-top: 1px solid var(--color-border); }
+
+  .prod-section-label {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prod-section-num {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+  }
+
+  .prod-section-h {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.015em;
+  }
+
+  .prod-section-text {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 68ch;
+    padding-left: calc(0.6875rem * 1.5 + 1.25rem);
+  }
+
+  /* CTA block */
+  .prod-cta-block {
+    margin-top: 3.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+  }
+
+  .prod-cta-inner {
+    background: var(--color-bie-blue);
+    padding: 2.5rem 2rem;
+  }
+
+  .prod-cta-label {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.5rem;
+  }
+
+  .prod-cta-h {
+    font-size: clamp(1.375rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: white;
+    margin-bottom: 0.75rem;
+  }
+
+  .prod-cta-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    max-width: 52ch;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Related products */
+  .prod-related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .prod-related-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .prod-related-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .prod-related-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    background: var(--color-bg-primary);
+  }
+  .prod-related-card:hover {
+    border-color: var(--color-bie-accent);
+    box-shadow: 0 4px 16px rgba(46,117,182,0.08);
+  }
+
+  .prod-related-name {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.375rem;
+    letter-spacing: -0.01em;
+  }
+
+  .prod-related-excerpt {
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.55;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .prod-related-link {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-bie-accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  @media (max-width: 640px) {
+    .prod-section-text { padding-left: 0; }
+  }
+</style>

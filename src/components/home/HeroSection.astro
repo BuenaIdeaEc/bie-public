@@ -256,8 +256,8 @@
   if (canvas && !prefersReduced) {
     const ctx = canvas.getContext('2d')!;
     const mobile = window.innerWidth < 640;
-    const COUNT = mobile ? 55 : 130;
-    const MAX_D = mobile ? 110 : 150;
+    const COUNT = mobile ? 90 : 220;
+    const MAX_D = mobile ? 130 : 180;
 
     interface Pt {
       x: number; y: number; vx: number; vy: number;
@@ -277,12 +277,12 @@
       pts = Array.from({ length: COUNT }, () => ({
         x: Math.random() * W,
         y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        s: Math.random() * 2 + 1,
-        gold: Math.random() < 0.1,
+        vx: (Math.random() - 0.5) * 1.1,
+        vy: (Math.random() - 0.5) * 1.1,
+        s: Math.random() * 2.5 + 1,
+        gold: Math.random() < 0.14,
         rot: Math.random() * Math.PI * 2,
-        rotV: (Math.random() - 0.5) * 0.015,
+        rotV: (Math.random() - 0.5) * 0.025,
       }));
     }
 
@@ -299,8 +299,8 @@
             ctx.beginPath();
             ctx.moveTo(pts[i].x, pts[i].y);
             ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(255,255,255,${(1 - d / MAX_D) * 0.16})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(255,255,255,${(1 - d / MAX_D) * 0.22})`;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }
@@ -313,12 +313,12 @@
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const d = Math.hypot(dx, dy);
-          if (d < 200) {
-            p.vx += dx * 0.00010;
-            p.vy += dy * 0.00010;
+          if (d < 260) {
+            p.vx += dx * 0.00018;
+            p.vy += dy * 0.00018;
           }
           const spd = Math.hypot(p.vx, p.vy);
-          if (spd > 1.8) { p.vx = p.vx / spd * 1.8; p.vy = p.vy / spd * 1.8; }
+          if (spd > 2.6) { p.vx = p.vx / spd * 2.6; p.vy = p.vy / spd * 2.6; }
         }
 
         p.x += p.vx; p.y += p.vy;
@@ -330,7 +330,7 @@
         ctx.save();
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
-        ctx.fillStyle = p.gold ? 'rgba(196,151,42,0.55)' : 'rgba(255,255,255,0.28)';
+        ctx.fillStyle = p.gold ? 'rgba(196,151,42,0.72)' : 'rgba(255,255,255,0.35)';
         ctx.fillRect(-p.s, -p.s, p.s * 2, p.s * 2);
         ctx.restore();
       });
@@ -338,12 +338,25 @@
       raf = requestAnimationFrame(frame);
     }
 
+    const heroEl = document.getElementById('hero')!;
     if (!mobile) {
-      document.getElementById('hero')!.addEventListener('mousemove', e => {
+      heroEl.addEventListener('mousemove', e => {
         const r = canvas!.getBoundingClientRect();
         mouse.x = e.clientX - r.left;
         mouse.y = e.clientY - r.top;
       });
+    } else {
+      heroEl.addEventListener('touchmove', e => {
+        const r = canvas!.getBoundingClientRect();
+        const t = e.touches[0];
+        mouse.x = t.clientX - r.left;
+        mouse.y = t.clientY - r.top;
+        pts.forEach(p => {
+          const dx = mouse.x - p.x, dy = mouse.y - p.y;
+          const d = Math.hypot(dx, dy);
+          if (d < 160) { p.vx -= dx * 0.0012; p.vy -= dy * 0.0012; }
+        });
+      }, { passive: true });
     }
 
     document.addEventListener('visibilitychange', () => {

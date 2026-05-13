@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Caso de Estudio: SmartVision Retail | BIE"
+  description="Cómo BIE automatizó el análisis de inventario y ventas de SmartVision con dashboards en tiempo real y agentes IA que redujeron el tiempo de reporte en 85%."
+>
+  <!-- Hero -->
+  <section style="background:#000000; position:relative; overflow:hidden; min-height:60vh; display:flex; align-items:flex-end;" aria-labelledby="sv-heading">
+    <div aria-hidden="true" style="position:absolute; inset:0;">
+      <img
+        src="/images/cases/smartvision/hero.svg"
+        alt="" role="presentation"
+        style="width:100%; height:100%; object-fit:cover;"
+      />
+    </div>
+    <div aria-hidden="true" style="position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);"></div>
+    <div class="ctn" style="position:relative; z-index:1; padding-bottom:4rem; padding-top:4rem;">
+      <div style="max-width:760px;" data-fade>
+        <span style="display:inline-block; font-size:0.6875rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(196,151,42,0.9); margin-bottom:1rem;">Retail · Ecuador</span>
+        <h1 id="sv-heading" style="font-size:clamp(2rem,5vw,3.75rem); font-weight:700; letter-spacing:-0.035em; line-height:1.05; color:white; margin-bottom:1rem;">
+          SmartVision Retail
+        </h1>
+        <p style="font-size:1.125rem; color:rgba(255,255,255,0.65); max-width:52ch; line-height:1.6;">
+          Inteligencia de datos en tiempo real que eliminó el 85% del tiempo dedicado a reportes manuales.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metric bar -->
+  <div style="background:var(--color-bg-secondary); border-bottom:1px solid var(--color-border);" aria-label="Métricas del proyecto">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; gap:0; overflow:hidden;">
+      {[
+        { val: '85%', lbl: 'reducción en tiempo de reportes' },
+        { val: '< 2h', lbl: 'de datos a decisión' },
+        { val: '12', lbl: 'SKUs críticos monitoreados 24/7' },
+        { val: '3×', lbl: 'velocidad de respuesta al mercado' },
+      ].map((m, i) => (
+        <div style={`padding:2rem 2.5rem; border-right:1px solid var(--color-border); flex:1; min-width:140px;`}>
+          <p style="font-size:clamp(2rem,4vw,3rem); font-weight:700; letter-spacing:-0.04em; line-height:1; color:var(--color-bie-blue);">{m.val}</p>
+          <p style="font-size:0.8125rem; color:var(--color-text-secondary); margin-top:0.25rem;">{m.lbl}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <article style="padding:5rem 0;" aria-label="Caso de estudio SmartVision">
+    <div class="ctn" style="max-width:800px;">
+
+      <section class="cs-section" data-fade aria-labelledby="sv-challenge">
+        <h2 id="sv-challenge" class="cs-section-h">El desafío</h2>
+        <p class="cs-section-p">SmartVision Retail opera 4 tiendas en Ecuador con más de 800 referencias de producto. El equipo de dirección tomaba decisiones de compra y stock basándose en reportes que tardaban entre 3 y 5 días en consolidarse manualmente desde múltiples hojas de cálculo. Para cuando el informe estaba listo, los datos ya eran historia.</p>
+        <p class="cs-section-p">El resultado era predecible: quiebres de stock en productos de alta rotación, sobrestock en referencias lentas y una dirección que navegaba a ciegas en el día a día. El costo de oportunidad era visible, pero nadie tenía tiempo de solucionarlo porque todos estaban ocupados produciendo los reportes.</p>
+      </section>
+
+      <section class="cs-section" data-fade data-delay="80" aria-labelledby="sv-solution">
+        <h2 id="sv-solution" class="cs-section-h">La solución BIE</h2>
+        <p class="cs-section-p">BIE implementó una capa de inteligencia de datos conectada directamente al ERP existente, eliminando el trabajo manual de consolidación y añadiendo un agente IA que detecta anomalías y genera alertas accionables antes de que los problemas se materialicen.</p>
+        <ul class="cs-list" role="list">
+          <li>Pipeline de datos automatizado que consolida ventas, stock e inventario en tránsito cada 2 horas</li>
+          <li>Dashboard ejecutivo en tiempo real accesible desde cualquier dispositivo — sin instalar nada</li>
+          <li>Agente IA de detección de anomalías: quiebres inminentes, tendencias de demanda y alertas de sobrestock</li>
+          <li>Resumen diario automático por WhatsApp a la dirección con los 3 indicadores más críticos del día</li>
+          <li>Módulo de planificación de compras con sugerencias de pedido basadas en histórico y estacionalidad</li>
+        </ul>
+      </section>
+
+      <section class="cs-section" data-fade data-delay="160" aria-labelledby="sv-results">
+        <h2 id="sv-results" class="cs-section-h">Resultados</h2>
+        <p class="cs-section-p">En los primeros 60 días después de la implementación:</p>
+        <ul class="cs-list" role="list">
+          <li><strong>85% menos tiempo en reportes</strong> — el equipo que antes pasaba 3 días consolidando datos ahora dedica ese tiempo a actuar sobre ellos</li>
+          <li><strong>Tiempo de datos a decisión: 5 días → 2 horas</strong> — la dirección reacciona a cambios de demanda el mismo día que ocurren</li>
+          <li><strong>Quiebres de stock reducidos en 60%</strong> — las alertas preventivas permiten reaccionar antes de que el inventario llegue a cero</li>
+          <li><strong>ROI visible en semana 3</strong> — la primera semana con alertas activas evitó un quiebre en el SKU de mayor margen durante temporada alta</li>
+        </ul>
+      </section>
+
+      <!-- CTA -->
+      <div style="margin-top:4rem; background:var(--color-bie-blue); border-radius:0.5rem; padding:2.5rem;" data-fade data-delay="200">
+        <p style="font-size:0.6875rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:0.75rem;">¿Tu empresa tiene datos pero no inteligencia?</p>
+        <h3 style="font-size:clamp(1.25rem,3vw,1.875rem); font-weight:700; letter-spacing:-0.025em; color:white; margin-bottom:0.75rem;">
+          Hablemos de tu caso en 30 minutos.
+        </h3>
+        <p style="font-size:0.9375rem; color:rgba(255,255,255,0.55); margin-bottom:1.75rem; max-width:48ch;">
+          Sin costo. Te decimos exactamente cómo implementar inteligencia de datos en tu operación.
+        </p>
+        <a
+          href="https://wa.me/593998825303?text=Hola%2C+le%C3%AD+el+caso+de+SmartVision+y+me+interesa+algo+similar+para+mi+empresa."
+          target="_blank" rel="noopener noreferrer"
+          class="btn btn-white"
+        >
+          Me interesa algo similar
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Nav between cases -->
+  <section style="padding:3rem 0; border-top:1px solid var(--color-border);">
+    <div class="ctn" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:1.5rem;">
+      <a href="/casos/island-estates" style="font-size:0.875rem; font-weight:500; color:var(--color-bie-accent); text-decoration:none;">← Island Estates</a>
+      <a href="/casos/costa-optics" style="font-size:0.875rem; font-weight:500; color:var(--color-bie-accent); text-decoration:none;">Costa Optics →</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cs-section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .cs-section:first-child { border-top: 1px solid var(--color-border); }
+
+  .cs-section-h {
+    font-size: 1.1875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.015em;
+    margin-bottom: 1.25rem;
+  }
+
+  .cs-section-p {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 68ch;
+    margin-bottom: 1rem;
+  }
+
+  .cs-list {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .cs-list li {
+    font-size: 0.9375rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    padding-left: 1.25rem;
+    position: relative;
+  }
+  .cs-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-bie-accent);
+    font-size: 0.875rem;
+  }
+  .cs-list li strong { color: var(--color-text-primary); font-weight: 600; }
+</style>

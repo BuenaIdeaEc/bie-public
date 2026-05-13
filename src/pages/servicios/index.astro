@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { valueLayers } from '../../data/services.ts';
+---
+
+<BaseLayout
+  title="Servicios — Catálogo completo de 36 productos | BIE Ecuador"
+  description="Identidad, presencia digital, datos, automatización, inteligencia artificial y escala. 36 productos en 6 capas para transformar tu empresa."
+>
+  <!-- Page hero -->
+  <section style="background:var(--color-bg-primary); padding-top:5rem; padding-bottom:3rem;" aria-labelledby="servicios-heading">
+    <div class="ctn">
+      <div style="max-width:720px;" data-fade>
+        <span class="tag">Catálogo completo</span>
+        <h1 id="servicios-heading" style="font-size:clamp(2rem,5vw,3.5rem); font-weight:700; letter-spacing:-0.035em; line-height:1.06; color:var(--color-text-primary); margin:0.75rem 0 1.25rem;">
+          36 productos.<br>Una sola empresa que los opera.
+        </h1>
+        <p style="font-size:1.125rem; color:var(--color-text-secondary); line-height:1.7; max-width:56ch;">
+          No necesitas contratar 6 proveedores distintos. BIE cubre desde la identidad de tu marca hasta la inteligencia artificial que opera tu empresa, en el orden que tiene sentido para ti.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Layers -->
+  {valueLayers.map((layer, li) => (
+    <section
+      id={`capa-${layer.slug}`}
+      style={`background:${li % 2 === 0 ? 'var(--color-bg-primary)' : 'var(--color-bg-secondary)'}; padding-top:5rem; padding-bottom:5rem;`}
+      aria-labelledby={`heading-${layer.slug}`}
+    >
+      <div class="ctn">
+        <!-- Layer header -->
+        <div class="sv-layer-header" data-fade>
+          <div class="sv-layer-num">{layer.number}</div>
+          <div>
+            <span class="tag">{layer.name}</span>
+            <h2 id={`heading-${layer.slug}`} class="sv-layer-h2">{layer.tagline}</h2>
+            <p class="sv-layer-intro">{layer.intro}</p>
+          </div>
+        </div>
+
+        <!-- Product rows -->
+        <div class="sv-products" role="list">
+          {layer.products.map((p, pi) => (
+            <a
+              href={`/servicios/${layer.slug}/${p.slug}`}
+              class="sv-product"
+              role="listitem"
+              data-fade
+              data-delay={String(pi * 60)}
+            >
+              <div class="sv-product-main">
+                <h3 class="sv-product-name">{p.name}</h3>
+                <p class="sv-product-excerpt">{p.excerpt}</p>
+                <ul class="sv-product-features" role="list">
+                  {p.features.slice(0, 3).map(f => <li>{f}</li>)}
+                </ul>
+              </div>
+              <span class="sv-product-arrow" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Bottom CTA -->
+  <section style="background:var(--color-bie-blue); padding:5rem 0;" aria-labelledby="sv-cta-heading">
+    <div class="ctn" style="text-align:center; max-width:600px; margin:0 auto;">
+      <h2 id="sv-cta-heading" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:700; letter-spacing:-0.03em; color:white; margin-bottom:1.25rem;" data-fade>
+        ¿No sabes por dónde empezar?
+      </h2>
+      <p style="font-size:1.0625rem; color:rgba(255,255,255,0.6); line-height:1.7; margin-bottom:2rem;" data-fade data-delay="80">
+        En 30 minutos te decimos exactamente qué capa necesitas, qué implica y qué retorno puedes esperar. Sin costo.
+      </p>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; justify-content:center;" data-fade data-delay="140">
+        <a href="/#contacto" class="btn btn-white" style="font-size:0.9375rem;">
+          Solicitar diagnóstico gratuito
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a
+          href="https://wa.me/593998825303?text=Hola%2C+quiero+saber+qu%C3%A9+servicios+de+BIE+necesita+mi+empresa."
+          target="_blank" rel="noopener noreferrer"
+          class="btn btn-outline-white"
+        >WhatsApp directo</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .sv-layer-header {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
+
+  .sv-layer-num {
+    font-size: clamp(4rem,8vw,7rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.85;
+    color: rgba(0,0,0,0.05);
+    flex-shrink: 0;
+    min-width: 2ch;
+    margin-top: -0.5rem;
+  }
+
+  .sv-layer-h2 {
+    font-size: clamp(1.5rem,3vw,2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .sv-layer-intro {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    max-width: 60ch;
+  }
+
+  /* Product rows */
+  .sv-products { display: flex; flex-direction: column; }
+
+  .sv-product {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s;
+  }
+  .sv-products .sv-product:first-child { border-top: 1px solid var(--color-border); }
+
+  .sv-product-main { flex: 1; min-width: 0; }
+
+  .sv-product-name {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.375rem;
+    transition: color 0.15s;
+  }
+  .sv-product:hover .sv-product-name { color: var(--color-bie-accent); }
+
+  .sv-product-excerpt {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .sv-product-features {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1rem;
+  }
+  .sv-product-features li {
+    font-size: 0.8125rem;
+    color: var(--color-text-tertiary);
+    padding-left: 0.875rem;
+    position: relative;
+  }
+  .sv-product-features li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--color-bie-accent);
+    font-weight: 700;
+  }
+
+  .sv-product-arrow {
+    flex-shrink: 0;
+    color: var(--color-bie-accent);
+    opacity: 0;
+    transition: opacity 0.15s, transform 0.15s;
+    margin-top: 0.25rem;
+  }
+  .sv-product:hover .sv-product-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  @media (min-width: 768px) {
+    .sv-layer-header { gap: 3rem; }
+    .sv-product { align-items: center; }
+  }
+</style>
