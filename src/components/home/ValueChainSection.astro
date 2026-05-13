@@ -203,9 +203,10 @@ const layerIcons: Record<string, string> = {
       align-items: center;
       padding: 1.5rem 0;
     }
-    .vc-num { grid-row: 1; }
-    .vc-name { grid-row: 1; padding-top: 0; }
-    .vc-main { grid-row: 1; }
+    .vc-num { grid-row: 1; grid-column: 1; }
+    .vc-name-wrap { grid-row: 1; grid-column: 2; align-items: center; }
+    .vc-name { padding-top: 0; }
+    .vc-main { grid-row: 1; grid-column: 3; }
     .vc-link { grid-row: 1; grid-column: 4; margin-top: 0; opacity: 0; }
     .vc-row:hover .vc-link { opacity: 1; display: inline-flex; }
   }
