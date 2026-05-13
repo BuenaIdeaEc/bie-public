@@ -206,8 +206,8 @@
   }
 
   /* Dark hero — nav elements go white until scrolled */
-  body.hero-dark #site-nav:not(.scrolled) .logo-img {
-    filter: brightness(0) invert(1);
+  body.hero-dark #site-nav:not(.scrolled) .nav-wordmark {
+    color: rgba(255,255,255,0.7) !important;
   }
   body.hero-dark #site-nav:not(.scrolled) .nav-link {
     color: rgba(255,255,255,0.65) !important;

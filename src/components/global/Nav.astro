@@ -29,16 +29,32 @@ const links = [
     <a
       href="/"
       aria-label="BIE — Inicio"
-      style="flex-shrink:0; display:flex; align-items:center;"
+      class="nav-logo-link"
+      style="flex-shrink:0; display:flex; align-items:center; gap:0.625rem; text-decoration:none;"
     >
-      <img
-        src="/icons/logo.svg"
-        alt="BIE Business Intelligence Enhancer"
-        width="108" height="36"
-        style="height:36px; width:auto; transition: filter 0.3s;"
-        loading="eager"
-        class="logo-img"
-      />
+      <!-- Brand mark: black square, always visible on both dark & light -->
+      <svg
+        width="34" height="34" viewBox="0 0 40 40"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        style="flex-shrink:0; border-radius:3px;"
+      >
+        <defs>
+          <radialGradient id="nav-glow" cx="90%" cy="5%" r="80%">
+            <stop offset="0%" stop-color="white" stop-opacity="0.85"/>
+            <stop offset="45%" stop-color="white" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect width="40" height="40" fill="#000000"/>
+        <rect width="40" height="40" fill="url(#nav-glow)"/>
+        <rect x="29" y="7" width="6" height="6" fill="white" opacity="0.9"/>
+        <text x="3" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="-0.5">BIE</text>
+      </svg>
+      <!-- Wordmark: adapts via CSS to dark/light nav -->
+      <span class="nav-wordmark" style="font-size:0.8125rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; transition:color 0.3s; color:var(--color-text-primary);">
+        Business Intelligence
+      </span>
     </a>
 
     <!-- Desktop nav links -->
