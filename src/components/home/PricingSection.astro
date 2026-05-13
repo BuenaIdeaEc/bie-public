@@ -1,42 +1,30 @@
 ---
 const tiers = [
   {
+    number: '01',
     name: 'Arranque',
-    description: 'Para negocios que dan su primer paso en automatización real.',
-    includes: [
-      '3–5 agentes IA configurados',
-      'WhatsApp Business integrado',
-      'Automatización de ventas básica',
-      'Dashboard de seguimiento',
-    ],
-    wa: 'Hola%2C+me+interesa+el+ecosistema+Arranque+de+BIE+para+mi+empresa.+%C2%BFPueden+darme+m%C3%A1s+informaci%C3%B3n%3F',
-    featured: false,
+    tagline: 'Automatización de tu primer proceso.',
+    description: 'Para negocios que dan su primer paso en operación autónoma sin aumentar el equipo.',
+    features: ['3–5 agentes IA configurados', 'WhatsApp Business integrado', 'Automatización de ventas básica', 'Dashboard de seguimiento'],
+    wa: 'Hola%2C+me+interesa+el+ecosistema+Arranque+de+BIE.+%C2%BFPueden+darme+m%C3%A1s+informaci%C3%B3n%3F',
     badge: null,
   },
   {
+    number: '02',
     name: 'Profesional',
-    description: 'Para PyMEs con procesos complejos que exigen resultados medibles.',
-    includes: [
-      '8–15 agentes IA especializados',
-      'Integraciones múltiples (CRM, ERP, WA)',
-      'Ops + ventas + marketing + finanzas',
-      'Reportes semanales y soporte 24/7',
-    ],
+    tagline: 'Tu operación completa, sin fricción.',
+    description: 'Para PyMEs con procesos complejos que necesitan resultados medibles desde el primer mes.',
+    features: ['8–15 agentes IA especializados', 'Integraciones múltiples: CRM, ERP, WhatsApp', 'Ventas + marketing + operaciones + finanzas', 'Reportes semanales · Soporte 24/7'],
     wa: 'Hola%2C+me+interesa+el+ecosistema+Profesional+de+BIE.+%C2%BFPueden+enviarme+una+propuesta%3F',
-    featured: true,
     badge: 'Más elegido',
   },
   {
+    number: '03',
     name: 'Empresa',
-    description: 'Para organizaciones en transformación digital de alta demanda.',
-    includes: [
-      '20–40+ agentes con orquestador dedicado',
-      'Integraciones enterprise (SAP, Salesforce)',
-      'SLA garantizado + Gerente de cuenta',
-      'Escala sin límite + White-label opcional',
-    ],
+    tagline: 'Transformación de escala real.',
+    description: 'Para organizaciones en crecimiento acelerado que no pueden depender de procesos manuales.',
+    features: ['20–40+ agentes con orquestador dedicado', 'Integraciones enterprise: SAP, Salesforce', 'SLA garantizado + Gerente de cuenta', 'Escalabilidad sin límite · White-label opcional'],
     wa: 'Hola%2C+me+interesa+el+ecosistema+Empresa+de+BIE.+Tenemos+una+operaci%C3%B3n+grande.+%C2%BFPodemos+hablar%3F',
-    featured: false,
     badge: null,
   },
 ];
@@ -50,122 +38,83 @@ const tiers = [
 >
   <div class="ctn">
 
-    <div style="text-align:center; max-width:600px; margin:0 auto 3.5rem;" data-fade>
+    <!-- Header -->
+    <div class="pr-header" data-fade>
       <span class="tag">Ecosistemas de Agentes IA</span>
-      <h2 id="pricing-heading" class="t-h2" style="color:var(--color-text-primary); margin-bottom:1rem;">
+      <h2 id="pricing-heading" class="pr-h2">
         No vendemos software.<br>Operamos inteligencia.
       </h2>
-      <p style="font-size:1.0625rem; color:var(--color-text-secondary); line-height:1.7;">
+      <p class="pr-sub">
         Un ecosistema de agentes IA no es un chatbot. Es un equipo digital
         configurado, entrenado y operado por BIE para tu negocio específico.
       </p>
     </div>
 
-    <!-- Tier cards (no prices) -->
-    <div style="
-      display:grid; grid-template-columns:1fr;
-      gap:1.25rem; max-width:1000px; margin:0 auto 3rem;
-    " class="pricing-grid">
+    <!-- Tier rows -->
+    <div class="pr-rows" role="list">
       {tiers.map((tier, i) => (
-        <article
-          style={`
-            border-radius:1rem; padding:2rem 1.75rem;
-            display:flex; flex-direction:column; position:relative;
-            ${tier.featured
-              ? 'background:var(--color-bie-blue); box-shadow:0 12px 40px rgba(27,58,92,0.2);'
-              : 'background:var(--color-bg-primary); border:1px solid var(--color-border);'
-            }
-          `}
+        <div
+          class={`pr-row${tier.badge ? ' pr-row--featured' : ''}`}
+          role="listitem"
           data-fade
-          data-delay={String(i * 100)}
+          data-delay={String(i * 70)}
         >
-          {tier.badge && (
-            <div style={`
-              position:absolute; top:-13px; left:50%; transform:translateX(-50%);
-              padding:0.2rem 0.875rem; border-radius:999px;
-              font-size:0.6875rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-              white-space:nowrap; background:var(--color-bie-gold); color:white;
-            `}>
-              {tier.badge}
-            </div>
-          )}
+          <!-- Number -->
+          <span class="pr-num" aria-hidden="true">{tier.number}</span>
 
-          <p style={`
-            font-size:0.6875rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
-            margin-bottom:0.5rem; margin-top:${tier.badge ? '0.5rem' : '0'};
-            color:${tier.featured ? 'rgba(255,255,255,0.45)' : 'var(--color-text-tertiary)'};
-          `}>
-            {tier.name}
-          </p>
+          <!-- Name + badge -->
+          <div class="pr-name-wrap">
+            <p class="pr-name">{tier.name}</p>
+            {tier.badge && <span class="pr-badge">{tier.badge}</span>}
+          </div>
 
-          <p style={`
-            font-size:0.9375rem; line-height:1.6; margin-bottom:1.5rem;
-            color:${tier.featured ? 'rgba(255,255,255,0.7)' : 'var(--color-text-secondary)'};
-          `}>
-            {tier.description}
-          </p>
+          <!-- Main content -->
+          <div class="pr-main">
+            <h3 class="pr-tagline">{tier.tagline}</h3>
+            <p class="pr-desc">{tier.description}</p>
+            <ul class="pr-features" role="list">
+              {tier.features.map(f => (
+                <li>{f}</li>
+              ))}
+            </ul>
+          </div>
 
-          <ul style="list-style:none; padding:0; margin:0 0 2rem; display:flex; flex-direction:column; gap:0.625rem; flex:1;" role="list">
-            {tier.includes.map(f => (
-              <li style={`
-                display:flex; align-items:flex-start; gap:0.5rem; font-size:0.875rem;
-                color:${tier.featured ? 'rgba(255,255,255,0.7)' : 'var(--color-text-secondary)'};
-              `}>
-                <svg style={`flex-shrink:0; margin-top:1px; color:${tier.featured ? 'var(--color-bie-gold)' : 'var(--color-bie-accent)'};`}
-                  width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5"/>
-                </svg>
-                {f}
-              </li>
-            ))}
-          </ul>
-
+          <!-- CTA -->
           <a
             href={`https://wa.me/593998825303?text=${tier.wa}`}
             target="_blank"
             rel="noopener noreferrer"
-            class={tier.featured ? 'btn btn-white' : 'btn btn-outline'}
-            style="width:100%; text-align:center; font-size:0.9375rem;"
+            class="pr-cta"
+            aria-label={`Consultar ecosistema ${tier.name}`}
           >
-            Consultar por {tier.name}
+            Consultar
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
-        </article>
+        </div>
       ))}
     </div>
 
     <!-- Cost block -->
-    <div
-      style="
-        max-width:640px; margin:0 auto; text-align:center;
-        padding:2.5rem; border-radius:1.25rem;
-        background:var(--color-bg-primary); border:1px solid var(--color-border);
-      "
-      data-fade
-    >
-      <h3 style="font-size:1.25rem; font-weight:600; color:var(--color-text-primary); margin-bottom:0.75rem; letter-spacing:-0.015em;">
-        ¿Cuánto cuesta exactamente?
-      </h3>
-      <p style="font-size:0.9375rem; color:var(--color-text-secondary); line-height:1.7; margin-bottom:1.75rem;">
-        El costo depende de tu operación, no de un menú estándar.
-        Cuéntanos en 5 minutos qué necesitas y te enviamos
-        una propuesta real en menos de 24 horas.
-      </p>
-      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; justify-content:center;">
-        <a
-          href="https://wa.me/593998825303?text=Hola%2C+quiero+saber+el+costo+de+un+ecosistema+de+agentes+IA+para+mi+empresa.+%C2%BFPueden+enviarme+una+propuesta%3F"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn btn-primary"
-        >
-          Solicitar propuesta personalizada
-        </a>
-        <a
-          href="mailto:hola@bie.ec?subject=Propuesta%20Ecosistema%20de%20Agentes%20IA&body=Hola%20BIE%2C%0A%0AMe%20interesa%20un%20ecosistema%20de%20agentes%20IA.%20Mi%20empresa%20se%20llama%20%5Bnombre%5D%20y%20el%20proceso%20que%20m%C3%A1s%20tiempo%20me%20toma%20es%20%5Bproceso%5D.%0A%0AGracias."
-          class="btn btn-outline"
-        >
-          hola@bie.ec
-        </a>
+    <div class="pr-cost" data-fade>
+      <div class="pr-cost-inner">
+        <p class="pr-cost-q">¿Cuánto cuesta exactamente?</p>
+        <p class="pr-cost-a">
+          Depende de tu operación, no de un menú estándar. Cuéntanos en 5 minutos
+          qué necesitas y te enviamos una propuesta real en menos de 24 horas.
+        </p>
+        <div class="pr-cost-ctas">
+          <a
+            href="https://wa.me/593998825303?text=Hola%2C+quiero+saber+el+costo+de+un+ecosistema+de+agentes+IA+para+mi+empresa.+%C2%BFPueden+enviarme+una+propuesta%3F"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+          >
+            Solicitar propuesta personalizada
+          </a>
+          <a href="mailto:hola@bie.ec" class="btn btn-outline">
+            hola@bie.ec
+          </a>
+        </div>
       </div>
     </div>
 
@@ -173,7 +122,179 @@ const tiers = [
 </section>
 
 <style>
+  .pr-header {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .pr-h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    margin: 0.75rem 0 1rem;
+  }
+
+  .pr-sub {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Rows */
+  .pr-rows { display: flex; flex-direction: column; }
+
+  .pr-row {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0.25rem 1.5rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--color-border);
+    align-items: start;
+  }
+  .pr-rows .pr-row:first-child { border-top: 1px solid var(--color-border); }
+
+  .pr-row--featured { background: transparent; }
+  .pr-row--featured .pr-tagline { color: var(--color-bie-blue); }
+
+  .pr-num {
+    grid-row: 1 / 4;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+    padding-top: 0.25rem;
+  }
+
+  .pr-name-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .pr-name {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-bie-accent);
+  }
+
+  .pr-badge {
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: var(--color-bie-gold);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: white;
+  }
+
+  .pr-main { min-width: 0; }
+
+  .pr-tagline {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    margin-bottom: 0.375rem;
+  }
+
+  .pr-desc {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin-bottom: 0.875rem;
+  }
+
+  .pr-features {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.75rem;
+  }
+  .pr-features li {
+    font-size: 0.8125rem;
+    color: var(--color-text-tertiary);
+    padding-left: 0.875rem;
+    position: relative;
+  }
+  .pr-features li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--color-bie-accent);
+    font-weight: 700;
+  }
+
+  .pr-cta {
+    display: none;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-bie-accent);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: gap 0.15s;
+    grid-column: 2;
+    margin-top: 1rem;
+  }
+  .pr-row:hover .pr-cta { display: inline-flex; }
+  .pr-cta:hover { gap: 0.625rem; }
+
+  /* Cost block */
+  .pr-cost {
+    margin-top: 3.5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .pr-cost-inner {
+    max-width: 600px;
+  }
+
+  .pr-cost-q {
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  .pr-cost-a {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+
+  .pr-cost-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* Desktop: 4-column row */
   @media (min-width: 768px) {
-    .pricing-grid { grid-template-columns: repeat(3, 1fr) !important; align-items: start !important; }
+    .pr-row {
+      grid-template-columns: 3rem 8rem 1fr auto;
+      grid-template-rows: 1fr;
+      gap: 0 2rem;
+      align-items: center;
+      padding: 1.75rem 0;
+    }
+    .pr-num { grid-row: 1; }
+    .pr-name-wrap { grid-row: 1; flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+    .pr-main { grid-row: 1; }
+    .pr-cta { grid-row: 1; grid-column: 4; margin-top: 0; opacity: 0; }
+    .pr-row:hover .pr-cta { opacity: 1; display: inline-flex; }
+    .pr-desc { margin-bottom: 0.5rem; }
   }
 </style>
