@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v18).
+// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v19).
 ---
 <!doctype html>
 <html lang="es">
@@ -442,6 +442,24 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .ba-labels{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;z-index:4;pointer-events:none}
 .ba-label{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;background:rgba(5,5,5,.8);color:#fff}
 
+/* ═══ Los más pedidos ═══ */
+#top{padding:140px 0 40px;background:var(--bg)}
+.top-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:60px}
+.top-tile{position:relative;aspect-ratio:1;background:var(--surface);padding:26px;display:flex;flex-direction:column;justify-content:space-between;
+  overflow:hidden;transition:background .3s,transform .35s var(--ease),box-shadow .45s var(--ease);cursor:pointer;text-align:left;border:none;font-family:var(--font);color:var(--text)}
+.top-tile:hover{background:var(--black);color:#fff;transform:translateY(-6px);box-shadow:var(--sh-lg)}
+.top-tile .tt-num{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--text3)}
+.top-tile .tt-badge{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--accent);color:#fff;padding:5px 9px}
+.top-tile .tt-name{font-size:clamp(20px,2vw,26px);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-top:auto}
+.top-tile .tt-hook{font-size:13px;color:var(--text2);line-height:1.55;margin-top:10px;transition:color .3s}
+.top-tile:hover .tt-hook{color:rgba(255,255,255,.6)}
+.top-tile .tt-arrow{position:absolute;bottom:22px;right:22px;width:34px;height:34px;border:1px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .3s var(--ease)}
+.top-tile:hover .tt-arrow{background:var(--accent);border-color:var(--accent);color:#fff;transform:translate(3px,-3px)}
+.top-tile .tt-px{position:absolute;width:10px;height:10px;background:var(--accent);top:26px;left:26px;opacity:0;transition:opacity .3s}
+.top-tile:hover .tt-px{opacity:1}
+.top-tile:hover .tt-num{color:rgba(255,255,255,.45);padding-left:18px}
+.top-tile .tt-num{transition:padding .3s var(--ease),color .3s}
+
 /* ═══ Catalog ═══ */
 #catalog{padding:140px 0 110px;background:var(--bg);position:relative}
 .phase-rail{display:flex;flex-direction:column;margin-top:64px;border-top:1px solid var(--border)}
@@ -619,6 +637,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .bb-grid{grid-template-columns:1fr}
   .comm-grid{grid-template-columns:repeat(2,1fr)}
   .feed-grid{grid-template-columns:repeat(3,1fr)}
+  .top-grid{grid-template-columns:repeat(2,1fr)}
   .contact-grid{grid-template-columns:1fr;gap:44px}
   .nav-links .nav-link,.nav-links .nav-cta{display:none}
   #burger{display:flex}
@@ -676,6 +695,9 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .ba-stage{height:220px}
   .comm-grid{grid-template-columns:1fr;gap:10px;margin-top:40px}
   #feed{padding:76px 0}
+  #top{padding:76px 0 20px}
+  .top-grid{grid-template-columns:1fr;gap:8px;margin-top:36px}
+  .top-tile{aspect-ratio:auto;min-height:150px;padding:22px}
   .feed-grid{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:36px}
   .feed-tile.big{grid-column:span 2;grid-row:span 1;aspect-ratio:16/10}
   .comm-card{flex-direction:row;align-items:center;padding:18px 20px;gap:16px}
@@ -820,6 +842,18 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <p class="section-sub" data-i18n="work_sub"></p>
     </div>
     <div class="work-grid" id="work-grid"></div>
+  </div>
+</section>
+
+<!-- LOS MÁS PEDIDOS -->
+<section id="top">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="top_label"></p>
+      <h2 class="section-h2" data-i18n="top_h2"></h2>
+      <p class="section-sub" data-i18n="top_sub"></p>
+    </div>
+    <div class="top-grid reveal d2" id="top-grid"></div>
   </div>
 </section>
 
@@ -994,6 +1028,10 @@ const UI = {
   band_t:{es:'Cada proyecto de arriba empezó igual: <span class="serif">con una conversación.</span>',
           en:'Every project above started the same way: <span class="serif">with a conversation.</span>'},
   band_btn:{es:'Agendar mi diagnóstico gratuito',en:'Book my free diagnosis'},
+  top_label:{es:'Los más pedidos',en:'Most requested'},
+  top_h2:{es:'Lo que más nos piden<br><span class="serif">las empresas.</span>',en:'What companies<br><span class="serif">ask for most.</span>'},
+  top_sub:{es:'Seis soluciones que resuelven lo urgente primero. Toca una para ver qué es, cómo trabajamos y qué logras.',en:'Six solutions that solve the urgent things first. Tap one to see what it is, how we work and what you get.'},
+  top_soon:{es:'Página completa muy pronto',en:'Full page coming soon'},
   feed_label:{es:'Lo último en nuestras redes',en:'Latest from our channels'},
   feed_h2:{es:'Contenido que se publica,<br><span class="serif">y clases que vienen.</span>',en:'Content we publish,<br><span class="serif">and classes to come.</span>'},
   feed_sub:{es:'Aquí aparece automáticamente lo último que subimos a Instagram y TikTok. Pronto, también clases y recursos para empresas y emprendedores.',en:'The latest we post on Instagram and TikTok shows up here automatically. Soon, classes and resources for companies and founders too.'},
@@ -1348,6 +1386,23 @@ function checkStrike(){
     const el = document.getElementById('strike-word');
     if (el) el.classList.add('go');
   }
+}
+
+// ═══ Render: los más pedidos ═══
+const TOP = [
+  { ph:4, pr:0, href:'/productos/asistente-inteligente-whatsapp/', hook:B('Responde, cotiza y agenda en WhatsApp las 24 horas.','Replies, quotes and books on WhatsApp 24/7.') },
+  { ph:3, pr:2, href:null, hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
+  { ph:4, pr:2, href:null, hook:B('Pedidos, inventario y procesos en un solo lugar.','Orders, inventory and processes in one place.') },
+  { ph:2, pr:0, href:null, hook:B('La marca que te hace reconocible y diferente.','The brand that makes you recognizable and different.') },
+  { ph:5, pr:1, href:null, hook:B('Publicidad que llega a tu cliente ideal antes que a la competencia.','Ads that reach your ideal customer before the competition.') },
+  { ph:4, pr:4, href:null, hook:B('Vende y cobra directamente en el chat.','Sell and get paid right inside the chat.') },
+];
+function renderTop(){
+  document.getElementById('top-grid').innerHTML = TOP.map((x, i) => {
+    const pr = PHASES[x.ph].products[x.pr];
+    const inner = `<span class="tt-px"></span><span class="tt-num">0${i + 1}</span>${i === 0 ? `<span class="tt-badge">#1</span>` : ''}<span class="tt-name">${t(pr.name)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span>`;
+    return x.href ? `<a class="top-tile" href="${x.href}">${inner}</a>` : `<button class="top-tile" onclick="openModal(${x.ph},${x.pr})" title="${UI.top_soon[lang]}">${inner}</button>`;
+  }).join('');
 }
 
 // ═══ Render: feed de redes (placeholders hasta conectar Instagram/TikTok) ═══
@@ -1776,6 +1831,7 @@ function applyLang(){
   renderRail();
   renderWork();
   renderFeed();
+  renderTop();
   if (activePhase !== null) renderPanel(activePhase);
   clearTimeout(termTimer); termCi = 0; termDel = false; termStep();
 }
@@ -2051,6 +2107,7 @@ renderMarquee();
 renderRail();
 renderWork();
 renderFeed();
+renderTop();
 </script>
 
 </body>

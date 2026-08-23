@@ -1,0 +1,503 @@
+---
+// BIE-P06 — Plantilla estándar de página de producto.
+// Una URL por producto, SEO propio (title, description, JSON-LD Service + FAQ + Breadcrumb),
+// psicología de venta (dolor → qué es → cómo trabajamos → demo → para quién → FAQ → CTA),
+// e interconexión (se potencia con / siguiente paso en la cadena). Sin precios.
+import '../../styles/site.css';
+import { PRODUCTS } from '../../data/products';
+
+export function getStaticPaths() {
+  return PRODUCTS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+
+const { p } = Astro.props;
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/productos/${p.slug}/`;
+const WA = '593988253030';
+const wa = (m: string) => `https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+
+// Diccionario bilingüe para el toggle cliente; el HTML se renderiza en español (SEO).
+const T: Record<string, { es: string; en: string }> = {
+  nav_work: { es: 'Empresas', en: 'Companies' }, nav_catalog: { es: 'Catálogo', en: 'Catalog' },
+  nav_comm: { es: 'Comunidad', en: 'Community' }, nav_contact: { es: 'Contacto', en: 'Contact' },
+  nav_cta: { es: 'Diagnóstico gratuito', en: 'Free diagnosis' },
+  mm_cta: { es: 'Diagnóstico gratuito por WhatsApp', en: 'Free diagnosis on WhatsApp' },
+  bc_home: { es: 'Inicio', en: 'Home' }, bc_cat: { es: 'Catálogo', en: 'Catalog' },
+  phase_w: { es: 'Fase', en: 'Phase' },
+  phase: p.phase.title, name: p.name, h1: p.hero.h1, sub: p.hero.sub, trust: p.hero.trust,
+  cta_main: { es: 'Quiero mi asistente', en: 'I want my assistant' },
+  cta_how: { es: 'Ver cómo funciona', en: 'See how it works' },
+  pain_label: { es: 'Lo que te está costando no tenerlo', en: 'What not having it is costing you' },
+  pain_h2: { es: 'Cada mensaje sin respuesta<br><span class="serif">es una venta que se fue.</span>', en: 'Every unanswered message<br><span class="serif">is a sale that left.</span>' },
+  what_label: { es: 'Qué es', en: 'What it is' },
+  what_h2: { es: 'Un vendedor que nunca duerme,<br><span class="serif">entrenado con tu empresa.</span>', en: 'A salesperson that never sleeps,<br><span class="serif">trained on your company.</span>' },
+  what: p.what,
+  deliv_label: { es: 'Lo que recibes', en: 'What you receive' },
+  how_label: { es: 'Cómo trabajamos', en: 'How we work' },
+  how_h2: { es: 'Cuatro pasos,<br><span class="serif">cero fricción.</span>', en: 'Four steps,<br><span class="serif">zero friction.</span>' },
+  demo_label: { es: 'Así conversa', en: 'This is how it talks' },
+  demo_h2: { es: 'Una conversación real,<br><span class="serif">sin nadie detrás del teléfono.</span>', en: 'A real conversation,<br><span class="serif">with nobody behind the phone.</span>' },
+  demo_tag: { es: 'Simulación · 02:14 a.m.', en: 'Simulation · 02:14 a.m.' },
+  who_label: { es: 'Para quién', en: 'Who it is for' },
+  who_h2: { es: 'Si recibes más mensajes<br><span class="serif">de los que puedes contestar.</span>', en: 'If you get more messages<br><span class="serif">than you can answer.</span>' },
+  faq_label: { es: 'Preguntas frecuentes', en: 'Frequently asked' },
+  faq_h2: { es: 'Lo que todos preguntan<br><span class="serif">antes de decidir.</span>', en: 'What everyone asks<br><span class="serif">before deciding.</span>' },
+  rel_label: { es: 'Se potencia con', en: 'Works better with' },
+  rel_h2: { es: 'No es una pieza suelta.<br><span class="serif">Es parte de la cadena.</span>', en: 'Not a loose piece.<br><span class="serif">Part of the chain.</span>' },
+  next_label: { es: 'Siguiente paso en la cadena', en: 'Next step in the chain' },
+  soon: { es: 'Página muy pronto', en: 'Page coming soon' },
+  band_t: { es: 'Cuéntanos cómo vendes hoy y te decimos <span class="serif">cómo lo haría el asistente.</span>', en: 'Tell us how you sell today and we will show you <span class="serif">how the assistant would do it.</span>' },
+  band_btn: { es: 'Hablar por WhatsApp', en: 'Chat on WhatsApp' },
+  waw_name: { es: 'Equipo BIE', en: 'BIE Team' }, waw_status: { es: 'En línea · responde en minutos', en: 'Online · replies in minutes' },
+  waw_bubble: { es: 'Hola. <b>¿En cuál de estos momentos está tu empresa?</b> Elige y seguimos por WhatsApp:', en: 'Hi. <b>Which of these moments is your company in?</b> Pick one and we continue on WhatsApp:' },
+  waw_foot: { es: 'CONVERSACIÓN DIRECTA · 099 825 3030', en: 'DIRECT CONVERSATION · 099 825 3030' },
+};
+p.pains.forEach((x, i) => { T[`pain${i}_t`] = x.title; T[`pain${i}_b`] = x.body; });
+p.deliverables.forEach((x, i) => { T[`del${i}`] = x; });
+p.steps.forEach((x, i) => { T[`step${i}_t`] = x.title; T[`step${i}_b`] = x.body; });
+p.demo.forEach((x, i) => { T[`demo${i}`] = x.text; });
+p.forWhom.forEach((x, i) => { T[`who${i}`] = x; });
+p.faq.forEach((x, i) => { T[`faq${i}_q`] = x.q; T[`faq${i}_a`] = x.a; });
+p.related.forEach((x, i) => { T[`rel${i}_n`] = x.name; T[`rel${i}_w`] = x.why; });
+T.next_n = p.next.name; T.next_w = p.next.why;
+const es = (k: string) => T[k].es;
+
+const WAW_OPTS = [
+  { t: { es: 'Voy a abrir un negocio o empresa', en: 'I am opening a business' }, m: { es: 'Hola, voy a abrir un negocio o empresa y quiero saber cómo empezar bien desde el inicio.', en: 'Hi, I am opening a business and want to know how to start right from day one.' } },
+  { t: { es: 'Ya sé lo que necesito', en: 'I know what I need' }, m: { es: 'Hola, ya sé lo que mi empresa necesita. Quiero hablar de un producto en específico.', en: 'Hi, I already know what my company needs. I want to talk about a specific product.' } },
+  { t: { es: 'Me gustaría una asesoría', en: 'I would like advisory' }, m: { es: 'Hola, me gustaría una asesoría para saber qué necesita mi empresa y por dónde empezar.', en: 'Hi, I would like advisory to understand what my company needs and where to start.' } },
+  { t: { es: 'Hablar con un humano', en: 'Talk to a human' }, m: { es: 'Hola, quiero hablar directamente con una persona del equipo de BIE.', en: 'Hi, I want to talk directly with a person from the BIE team.' } },
+];
+const BUBBLES = { es: ['¿Necesitas ayuda?', '¿Ya sabes lo que deseas?', '¿Vas a abrir un negocio?', '¿Quieres que lo veamos juntos?', 'Estoy aquí, escríbeme.'], en: ['Need a hand?', 'Already know what you want?', 'Opening a business?', 'Want to look at it together?', 'I am here — write me.'] };
+
+const strip = (h: string) => h.replace(/<[^>]+>/g, '');
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: p.name.es, serviceType: p.name.es, description: p.seoDescription.es, url,
+    provider: { '@type': 'ProfessionalService', name: 'BIE — Business Intelligence Enhancer', url: SITE, telephone: '+593988253030' },
+    areaServed: { '@type': 'Country', name: 'Ecuador' }, availableLanguage: ['es', 'en'] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.faq.map((f) => ({ '@type': 'Question', name: f.q.es, acceptedAnswer: { '@type': 'Answer', text: f.a.es } })) },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Catálogo', item: SITE + '/#catalog' },
+    { '@type': 'ListItem', position: 3, name: p.name.es, item: url } ] },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{p.seoTitle.es}</title>
+<meta name="description" content={p.seoDescription.es}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content={p.seoTitle.es}>
+<meta property="og:description" content={p.seoDescription.es}>
+<meta property="og:url" content={url}>
+<meta property="og:locale" content="es_EC">
+<meta name="theme-color" content="#070709">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+/* ── Página de producto ── */
+.p-hero{background:var(--black);color:#fff;padding:150px 0 100px;position:relative;overflow:hidden}
+.p-hero::after{content:'';position:absolute;left:50%;top:40%;width:120vw;height:120vh;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(40% 40% at 70% 50%,rgba(229,57,53,.1) 0%,transparent 60%)}
+.p-hero .section-inner{z-index:2}
+.bc{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:34px;flex-wrap:wrap}
+.bc a:hover{color:#fff}
+.bc .bc-sep{width:5px;height:5px;background:var(--accent)}
+.p-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.p-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.p-kicker::before{content:'';width:9px;height:9px;background:var(--accent)}
+.p-h1{font-size:clamp(36px,5vw,68px);font-weight:800;letter-spacing:-.038em;line-height:1.04;text-wrap:balance}
+.p-sub{font-size:17px;line-height:1.72;color:rgba(255,255,255,.6);margin-top:26px;max-width:560px}
+.p-ctas{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
+.p-hero .btn-primary{background:#fff;color:var(--black);box-shadow:none}
+.p-hero .btn-primary:hover{color:#fff}
+.p-hero .btn-ghost{border-color:rgba(255,255,255,.28);color:#fff;background:transparent}
+.p-hero .btn-ghost:hover{border-color:var(--accent);background:rgba(229,57,53,.14)}
+.p-trust{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:22px}
+/* cubo del producto (estático, girando) */
+.p-cube-wrap{perspective:1200px;display:flex;justify-content:center;align-items:center;min-height:340px}
+.p-cube{--cs:220px;--half:110px;width:var(--cs);height:var(--cs);position:relative;transform-style:preserve-3d;animation:p-spin 16s linear infinite}
+@keyframes p-spin{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+.p-cube .hc{position:absolute;inset:0;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.035)}
+.p-cube .hc.f{transform:translateZ(var(--half));background:rgba(229,57,53,.82)}
+.p-cube .hc.b{transform:rotateY(180deg) translateZ(var(--half))}
+.p-cube .hc.r{transform:rotateY(90deg) translateZ(var(--half))}
+.p-cube .hc.l{transform:rotateY(-90deg) translateZ(var(--half))}
+.p-cube .hc.t{transform:rotateX(90deg) translateZ(var(--half))}
+.p-cube .hc.d{transform:rotateX(-90deg) translateZ(var(--half))}
+.p-cube .hc-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#fff;text-transform:uppercase}
+/* secciones */
+.p-sec{padding:120px 0}
+.p-sec.alt{background:var(--surface)}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:56px}
+.pain{background:var(--bg);border:1px solid rgba(0,0,0,.06);padding:32px 28px;transition:transform .35s var(--ease),box-shadow .45s var(--ease)}
+.pain:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
+.pain .px{width:10px;height:10px;background:var(--accent);margin-bottom:20px}
+.pain h3{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px;line-height:1.25}
+.pain p{font-size:14px;color:var(--text2);line-height:1.7}
+.what-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;margin-top:56px;align-items:start}
+.what-text{font-size:17px;line-height:1.8;color:var(--text2)}
+.deliv{border-top:1px solid var(--border)}
+.deliv-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);padding:18px 0 6px}
+.deliv-item{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);font-size:14.5px;line-height:1.5}
+.deliv-item .px{width:8px;height:8px;background:var(--accent);flex-shrink:0;margin-top:7px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:56px;border-top:1px solid var(--border)}
+.step{padding:30px 24px 30px 0;border-right:1px solid var(--border);padding-left:24px}
+.step:first-child{padding-left:0}
+.step:last-child{border-right:none}
+.step-n{font-size:40px;font-weight:800;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.2px rgba(10,10,12,.3);line-height:1;margin-bottom:18px}
+.step h3{font-size:16px;font-weight:700;letter-spacing:-.015em;margin-bottom:10px}
+.step p{font-size:13.5px;color:var(--text2);line-height:1.65}
+/* demo chat */
+.demo-wrap{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.chat{background:var(--black);padding:26px 22px;max-width:440px;margin:0 auto;width:100%;box-shadow:var(--sh-lg);position:relative}
+.chat-head{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:16px}
+.chat-av{width:34px;height:34px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:13px}
+.chat-name{color:#fff;font-size:13px;font-weight:700}
+.chat-st{font-family:var(--mono);font-size:9.5px;color:rgba(255,255,255,.45);margin-top:2px}
+.chat-body{display:flex;flex-direction:column;gap:10px;min-height:300px}
+.msg{max-width:82%;padding:11px 14px;font-size:13px;line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.msg.on{opacity:1;transform:none}
+.msg.client{align-self:flex-end;background:#fff;color:var(--text)}
+.msg.bot{align-self:flex-start;background:rgba(255,255,255,.08);color:#fff;border-left:2px solid var(--accent)}
+.typing{align-self:flex-start;display:none;gap:4px;padding:10px 14px;background:rgba(255,255,255,.08)}
+.typing.on{display:flex}
+.typing i{width:6px;height:6px;background:rgba(255,255,255,.6);animation:tdot 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+.chat-tag{position:absolute;top:-12px;right:16px;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:var(--accent);color:#fff;padding:5px 9px}
+.demo-side h2{margin-bottom:18px}
+.demo-points{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.demo-points div{display:flex;gap:14px;align-items:flex-start;font-size:14.5px;color:var(--text2);line-height:1.6}
+.demo-points .px{width:8px;height:8px;background:var(--accent);flex-shrink:0;margin-top:7px}
+.who-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:48px}
+.who{padding:16px 22px;border:1px solid rgba(0,0,0,.1);font-size:14px;font-weight:600;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:11px;transition:all .25s}
+.who:hover{border-color:var(--accent);background:var(--accent-pale)}
+.who .px{width:8px;height:8px;background:var(--accent)}
+.faq{margin-top:48px;border-top:1px solid var(--border)}
+.faq details{border-bottom:1px solid var(--border)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 0;font-size:17px;font-weight:700;letter-spacing:-.02em;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .fq-plus{font-family:var(--mono);font-size:18px;color:var(--accent);transition:transform .3s var(--ease)}
+.faq details[open] summary .fq-plus{transform:rotate(45deg)}
+.faq .fq-a{padding:0 0 22px;font-size:14.5px;color:var(--text2);line-height:1.75;max-width:720px}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:56px}
+.rel{background:var(--bg);border:1px solid rgba(0,0,0,.06);padding:30px 26px;display:flex;flex-direction:column;gap:12px;min-height:200px;transition:transform .35s var(--ease),box-shadow .45s var(--ease),border-color .3s;position:relative}
+.rel:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:var(--accent)}
+.rel .rel-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3)}
+.rel h3{font-size:19px;font-weight:800;letter-spacing:-.025em;line-height:1.15}
+.rel p{font-size:13.5px;color:var(--text2);line-height:1.6;flex:1}
+.rel .rel-arrow{font-size:18px;color:var(--accent);transition:transform .3s var(--ease)}
+.rel:hover .rel-arrow{transform:translateX(5px)}
+.rel.next{background:var(--black);color:#fff;border-color:transparent;grid-column:span 3;flex-direction:row;align-items:center;gap:30px;min-height:0;padding:40px 44px}
+.rel.next .rel-k{color:var(--accent)}
+.rel.next h3{font-size:clamp(22px,2.6vw,32px)}
+.rel.next p{color:rgba(255,255,255,.55);flex:1}
+.rel.next .nx-box{width:14px;height:14px;background:var(--accent);flex-shrink:0;animation:px-blink 2.2s steps(2) infinite}
+.p-band{padding:0 0 140px}
+.p-band .cta-band{display:flex}
+@media(max-width:960px){
+  .p-grid,.what-grid,.demo-wrap{grid-template-columns:1fr;gap:36px}
+  .p-cube-wrap{min-height:260px;order:-1}.p-cube{--cs:160px;--half:80px}
+  .pain-grid,.rel-grid{grid-template-columns:1fr}
+  .rel.next{grid-column:span 1;flex-direction:column;align-items:flex-start}
+  .steps{grid-template-columns:1fr 1fr}
+  .step{border-right:none;border-bottom:1px solid var(--border);padding-left:0}
+}
+@media(max-width:640px){
+  .p-hero{padding:110px 0 70px}.p-sec{padding:76px 0}
+  .steps{grid-template-columns:1fr}
+  .p-ctas{flex-direction:column}.p-ctas .btn-primary,.p-ctas .btn-ghost{width:100%;text-align:center}
+  .chat-body{min-height:260px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="cursor"><div id="cursor-ring"><span id="cursor-text"></span></div><div id="cursor-dot"></div></div>
+
+<nav id="nav" class="dark-zone">
+  <a class="nav-logo" href="/">BIE</a>
+  <div class="nav-links">
+    <a href="/#work" class="nav-link" data-i18n="nav_work">{es('nav_work')}</a>
+    <a href="/#catalog" class="nav-link" data-i18n="nav_catalog">{es('nav_catalog')}</a>
+    <a href="/#community" class="nav-link" data-i18n="nav_comm">{es('nav_comm')}</a>
+    <button id="lang-toggle">EN</button>
+    <a href="/#contact" class="nav-cta"><span data-i18n="nav_cta">{es('nav_cta')}</span></a>
+    <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu">
+  <a href="/#work" class="mm-link"><span data-i18n="nav_work">{es('nav_work')}</span><span class="mm-arrow">→</span></a>
+  <a href="/#catalog" class="mm-link"><span data-i18n="nav_catalog">{es('nav_catalog')}</span><span class="mm-arrow">→</span></a>
+  <a href="/#community" class="mm-link"><span data-i18n="nav_comm">{es('nav_comm')}</span><span class="mm-arrow">→</span></a>
+  <a href="/#contact" class="mm-link"><span data-i18n="nav_contact">{es('nav_contact')}</span><span class="mm-arrow">→</span></a>
+  <a id="mm-wa" href={wa(p.waMessage.es)} class="mm-cta" data-i18n="mm_cta">{es('mm_cta')}</a>
+</div>
+
+<canvas id="fab-px"></canvas>
+<div id="wa-bubble"><span class="wb-px"></span><span id="wa-bubble-text"></span></div>
+<button id="wa-fab" aria-label="WhatsApp">
+  <span class="wa-float"><span class="wa-cube">
+    <span class="wa-face f"><span class="wa-edge"></span></span><span class="wa-face b"><span class="wa-edge"></span></span>
+    <span class="wa-face r"><span class="wa-edge"></span></span><span class="wa-face l"><span class="wa-edge"></span></span>
+    <span class="wa-face t"></span><span class="wa-face d"></span>
+  </span></span>
+  <span class="fab-x">×</span>
+</button>
+<div id="wa-widget">
+  <div class="waw-head">
+    <div class="waw-avatar">B</div>
+    <div class="waw-head-info">
+      <div class="waw-name" data-i18n="waw_name">{es('waw_name')}</div>
+      <div class="waw-status"><span class="waw-status-dot"></span><span data-i18n="waw_status">{es('waw_status')}</span></div>
+    </div>
+  </div>
+  <div class="waw-body">
+    <div class="waw-bubble" data-i18n="waw_bubble" set:html={es('waw_bubble')}></div>
+    <div class="waw-opts" id="waw-opts"></div>
+  </div>
+  <div class="waw-foot" data-i18n="waw_foot">{es('waw_foot')}</div>
+</div>
+
+<!-- HERO DEL PRODUCTO -->
+<section class="p-hero">
+  <div class="section-inner">
+    <div class="bc">
+      <a href="/" data-i18n="bc_home">{es('bc_home')}</a><span class="bc-sep"></span>
+      <a href="/#catalog" data-i18n="bc_cat">{es('bc_cat')}</a><span class="bc-sep"></span>
+      <span><span data-i18n="phase_w">{es('phase_w')}</span> {p.phase.num} · <span data-i18n="phase">{es('phase')}</span></span>
+    </div>
+    <div class="p-grid">
+      <div>
+        <p class="p-kicker" data-i18n="name">{es('name')}</p>
+        <h1 class="p-h1" data-i18n="h1" set:html={es('h1')}></h1>
+        <p class="p-sub" data-i18n="sub">{es('sub')}</p>
+        <div class="p-ctas">
+          <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="btn-primary wa-link"><span data-i18n="cta_main">{es('cta_main')}</span></a>
+          <a href="#como" class="btn-ghost" data-i18n="cta_how">{es('cta_how')}</a>
+        </div>
+        <p class="p-trust" data-i18n="trust">{es('trust')}</p>
+      </div>
+      <div class="p-cube-wrap">
+        <div class="p-cube">
+          <div class="hc f"><span class="hc-label">24 / 7</span></div><div class="hc b"></div><div class="hc r"></div><div class="hc l"></div><div class="hc t"></div><div class="hc d"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOLOR -->
+<section class="p-sec">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="pain_label">{es('pain_label')}</p>
+      <h2 class="section-h2" data-i18n="pain_h2" set:html={es('pain_h2')}></h2>
+    </div>
+    <div class="pain-grid">
+      {p.pains.map((x, i) => (
+        <div class={`pain reveal d${i + 1}`}><div class="px"></div><h3 data-i18n={`pain${i}_t`}>{x.title.es}</h3><p data-i18n={`pain${i}_b`}>{x.body.es}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ ES + ENTREGABLES -->
+<section class="p-sec alt">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="what_label">{es('what_label')}</p>
+      <h2 class="section-h2" data-i18n="what_h2" set:html={es('what_h2')}></h2>
+    </div>
+    <div class="what-grid">
+      <p class="what-text reveal d1" data-i18n="what">{es('what')}</p>
+      <div class="deliv reveal d2">
+        <div class="deliv-label" data-i18n="deliv_label">{es('deliv_label')}</div>
+        {p.deliverables.map((x, i) => (<div class="deliv-item"><span class="px"></span><span data-i18n={`del${i}`}>{x.es}</span></div>))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO TRABAJAMOS -->
+<section class="p-sec" id="como">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="how_label">{es('how_label')}</p>
+      <h2 class="section-h2" data-i18n="how_h2" set:html={es('how_h2')}></h2>
+    </div>
+    <div class="steps reveal d1">
+      {p.steps.map((x, i) => (
+        <div class="step"><div class="step-n">0{i + 1}</div><h3 data-i18n={`step${i}_t`}>{x.title.es}</h3><p data-i18n={`step${i}_b`}>{x.body.es}</p></div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="p-sec alt">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="demo_label">{es('demo_label')}</p>
+      <h2 class="section-h2" data-i18n="demo_h2" set:html={es('demo_h2')}></h2>
+    </div>
+    <div class="demo-wrap">
+      <div class="chat reveal d1" id="chat">
+        <span class="chat-tag" data-i18n="demo_tag">{es('demo_tag')}</span>
+        <div class="chat-head"><div class="chat-av">B</div><div><div class="chat-name">Asistente · Tu empresa</div><div class="chat-st">WhatsApp Business</div></div></div>
+        <div class="chat-body" id="chat-body">
+          {p.demo.map((m, i) => (<div class={`msg ${m.from}`} data-i="{i}" data-i18n={`demo${i}`}>{m.text.es}</div>))}
+          <div class="typing" id="typing"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+      <div class="demo-side reveal d2">
+        <div class="demo-points">
+          <div><span class="px"></span><span data-i18n="del1">{p.deliverables[1].es}</span></div>
+          <div><span class="px"></span><span data-i18n="del2">{p.deliverables[2].es}</span></div>
+          <div><span class="px"></span><span data-i18n="del3">{p.deliverables[3].es}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="p-sec">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="who_label">{es('who_label')}</p>
+      <h2 class="section-h2" data-i18n="who_h2" set:html={es('who_h2')}></h2>
+    </div>
+    <div class="who-grid reveal d1">
+      {p.forWhom.map((x, i) => (<span class="who"><span class="px"></span><span data-i18n={`who${i}`}>{x.es}</span></span>))}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="p-sec alt">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="faq_label">{es('faq_label')}</p>
+      <h2 class="section-h2" data-i18n="faq_h2" set:html={es('faq_h2')}></h2>
+    </div>
+    <div class="faq reveal d1">
+      {p.faq.map((f, i) => (
+        <details><summary><span data-i18n={`faq${i}_q`}>{f.q.es}</span><span class="fq-plus">+</span></summary><div class="fq-a" data-i18n={`faq${i}_a`}>{f.a.es}</div></details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- INTERCONEXIÓN -->
+<section class="p-sec">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="rel_label">{es('rel_label')}</p>
+      <h2 class="section-h2" data-i18n="rel_h2" set:html={es('rel_h2')}></h2>
+    </div>
+    <div class="rel-grid">
+      {p.related.map((r, i) => (
+        <a class={`rel reveal d${i + 1}`} href="/#catalog" title={es('soon')}><span class="rel-k" data-i18n="rel_label">{es('rel_label')}</span><h3 data-i18n={`rel${i}_n`}>{r.name.es}</h3><p data-i18n={`rel${i}_w`}>{r.why.es}</p><span class="rel-arrow">→</span></a>
+      ))}
+      <a class="rel next reveal d4" href="/#catalog" title={es('soon')}>
+        <span class="nx-box"></span>
+        <div style="flex:1"><span class="rel-k" data-i18n="next_label">{es('next_label')}</span><h3 data-i18n="next_n">{p.next.name.es}</h3><p data-i18n="next_w">{p.next.why.es}</p></div>
+        <span class="rel-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="p-band">
+  <div class="section-inner">
+    <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="cta-band wa-link">
+      <div class="band-px"></div>
+      <div class="band-text" data-i18n="band_t" set:html={es('band_t')}></div>
+      <span class="band-btn"><span data-i18n="band_btn">{es('band_btn')}</span> →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-mark">BIE<span class="fm-px"></span></div>
+    <div class="footer-bottom">
+      <span class="footer-text">BUSINESS INTELLIGENCE ENHANCER</span>
+      <span class="footer-text">businessintelligence.solutions</span>
+      <span class="footer-text">© 2026 · ECUADOR</span>
+    </div>
+  </div>
+</footer>
+
+<script is:inline define:vars={{ T, WAW_OPTS, BUBBLES, WA_MSG: p.waMessage, WA }}>
+function RAF(cb){ let c=false; const w=t=>{ if(c)return; c=true; cb(t); }; requestAnimationFrame(w); setTimeout(()=>w(performance.now()),28); }
+let lang='es';
+const wa=m=>`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ const v=T[el.dataset.i18n]; if(v) el.innerHTML=v[lang]; });
+  document.getElementById('lang-toggle').textContent=lang==='es'?'EN':'ES';
+  document.querySelectorAll('.wa-link, #mm-wa').forEach(a=>a.href=wa(WA_MSG[lang]));
+  document.getElementById('waw-opts').innerHTML=WAW_OPTS.map(o=>`<a class="waw-opt" href="${wa(o.m[lang])}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
+}
+document.getElementById('lang-toggle').addEventListener('click',()=>{ lang=lang==='es'?'en':'es'; applyLang(); });
+applyLang();
+document.body.classList.add('past-hero');
+
+// nav
+const nav=document.getElementById('nav'), progress=document.getElementById('progress');
+const heroEl=document.querySelector('.p-hero');
+window.addEventListener('scroll',()=>{ const sc=(document.scrollingElement||document.documentElement).scrollTop; nav.classList.toggle('scrolled',sc>40);
+  progress.style.width=(sc/((document.scrollingElement||document.documentElement).scrollHeight-innerHeight)*100)+'%';
+  nav.classList.toggle('dark-zone', heroEl.getBoundingClientRect().bottom>66); },{passive:true});
+// menú móvil
+const burger=document.getElementById('burger'), mm=document.getElementById('mobile-menu');
+burger.addEventListener('click',()=>{ const o=!mm.classList.contains('open'); mm.classList.toggle('open',o); burger.classList.toggle('open',o); document.body.style.overflow=o?'hidden':''; });
+mm.addEventListener('click',e=>{ if(e.target.closest('a')){ mm.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; } });
+// scroll suave interno
+function smoothTo(sel){ const el=document.querySelector(sel); if(!el)return; const s=document.scrollingElement||document.documentElement; const a=s.scrollTop, b=el.getBoundingClientRect().top+a-70, t0=performance.now(); (function st(tm){ const p=Math.min((tm-t0)/750,1); s.scrollTop=a+(b-a)*(1-Math.pow(1-p,3)); if(p<1)RAF(st); })(t0); }
+document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]'); if(!a)return; const h=a.getAttribute('href'); if(h.length>1&&document.querySelector(h)){ e.preventDefault(); smoothTo(h); } });
+// reveal
+const obs=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// cursor
+(function(){ if(matchMedia('(pointer:coarse)').matches)return; const cur=document.getElementById('cursor'); let tx=-100,ty=-100,x=-100,y=-100;
+  document.addEventListener('mousemove',e=>{ tx=e.clientX; ty=e.clientY; const link=e.target.closest('a, button, select, summary, .who'); cur.classList.toggle('hov',!!link); cur.classList.toggle('dark',!!e.target.closest('.p-hero, .chat, .rel.next, .cta-band, .waw-head')); });
+  (function loop(){ x+=(tx-x)*.2; y+=(ty-y)*.2; cur.style.transform=`translate(${x}px,${y}px)`; RAF(loop); })(); })();
+// magnéticos
+(function(){ if(matchMedia('(pointer:coarse)').matches)return; document.addEventListener('mousemove',e=>{ document.querySelectorAll('.btn-primary, .nav-cta, #wa-fab').forEach(b=>{ const r=b.getBoundingClientRect(); const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2); const d=Math.hypot(dx,dy); b.style.translate = d<110 ? `${dx/d*(110-d)/110*7}px ${dy/d*(110-d)/110*7}px` : ''; }); }); })();
+// cubo flotante + widget + burbujas + partículas
+const waFab=document.getElementById('wa-fab'), waWidget=document.getElementById('wa-widget');
+waFab.addEventListener('click',()=>{ const o=!waWidget.classList.contains('open'); waWidget.classList.toggle('open',o); waFab.classList.toggle('open',o); });
+document.addEventListener('click',e=>{ if(!waWidget.classList.contains('open'))return; if(e.target.closest('#wa-widget')||e.target.closest('#wa-fab'))return; waWidget.classList.remove('open'); waFab.classList.remove('open'); });
+(function(){ const b=document.getElementById('wa-bubble'), txt=document.getElementById('wa-bubble-text'); let i=0;
+  function show(){ if(waWidget.classList.contains('open'))return; txt.textContent=BUBBLES[lang][i%BUBBLES[lang].length]; i++; b.classList.add('on'); setTimeout(()=>b.classList.remove('on'),4200); }
+  setTimeout(show,5000); setInterval(show,14000); b.addEventListener('click',()=>{ b.classList.remove('on'); waFab.click(); }); })();
+(function(){ const cv=document.getElementById('fab-px'), ctx=cv.getContext('2d'), DPR=Math.min(devicePixelRatio,2); cv.width=190*DPR; cv.height=190*DPR; let px=[];
+  const spawn=()=>({a:Math.random()*Math.PI*2,r:78+Math.random()*16,spd:.55+Math.random()*.75,red:Math.random()<.3,s:(2+Math.random()*2.4)*DPR});
+  for(let i=0;i<22;i++){ const p=spawn(); p.r=20+Math.random()*74; px.push(p); }
+  function tick(){ ctx.clearRect(0,0,cv.width,cv.height); const fr=waFab.getBoundingClientRect(), cr=cv.getBoundingClientRect(); const c={x:(fr.left+fr.width/2-cr.left)*DPR,y:(fr.top+fr.height/2-6-cr.top)*DPR}; const open=waFab.classList.contains('open');
+    for(const p of px){ p.r-=p.spd; p.a+=.012; if(p.r<9) Object.assign(p,spawn()); const x=c.x+Math.cos(p.a)*p.r*DPR, y=c.y+Math.sin(p.a)*p.r*DPR*.9; const near=1-Math.min(p.r/90,1); const al=open?0:(.15+near*.7); ctx.fillStyle=p.red?`rgba(229,57,53,${al})`:`rgba(10,10,12,${al*.8})`; const s=p.s*(.5+near*.8); ctx.fillRect(Math.round(x/s)*s,Math.round(y/s)*s,s,s); }
+    RAF(tick); }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) tick(); })();
+// demo chat: aparece mensaje a mensaje cuando entra en pantalla, y se repite
+(function(){ const body=document.getElementById('chat-body'); const msgs=[...body.querySelectorAll('.msg')]; const typing=document.getElementById('typing'); let started=false;
+  function run(){ msgs.forEach(m=>m.classList.remove('on')); let i=0;
+    (function next(){ if(i>=msgs.length){ setTimeout(run,4500); return; } const m=msgs[i]; const isBot=m.classList.contains('bot');
+      if(isBot){ typing.classList.add('on'); body.appendChild(typing); setTimeout(()=>{ typing.classList.remove('on'); m.classList.add('on'); i++; setTimeout(next,1100); },1200); }
+      else { m.classList.add('on'); i++; setTimeout(next,1300); } })(); }
+  new IntersectionObserver(es=>{ if(es[0].isIntersecting&&!started){ started=true; run(); } },{threshold:.3}).observe(body); })();
+</script>
+</body>
+</html>
