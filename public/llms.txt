@@ -19,6 +19,8 @@ BIE no es una agencia de marketing. Entrega sistemas completos que trabajan junt
 
 - [Asistente Inteligente 24/7 — chatbot con IA para WhatsApp y web](https://businessintelligence.solutions/productos/asistente-inteligente-whatsapp/): responde, cotiza y agenda citas las 24 horas; entrenado con la información real de la empresa; transferencia a humano con contexto; panel de conversaciones y leads.
 
+- [Página Web — diseño de sitios profesionales que venden](https://businessintelligence.solutions/productos/pagina-web/): landing, corporativo, portafolio o tienda básica; responsive, SEO on-page, Google Analytics, formulario conectado a WhatsApp, panel de administración propio.
+
 ## Empresas que operan con sistemas de BIE
 
 Luway (moda en vivo por TikTok — sistema operativo, link hub, ventas por WhatsApp), Tasting Ecuador (experiencias gastronómicas en Cuenca — marca, redes, web, asistente inteligente), Villa Tres (hostal en Guayaquil — marca y contenido), Amílcar (sitio web de servicios con agenda), Óscar Caicho (app personalizada para conferencias).

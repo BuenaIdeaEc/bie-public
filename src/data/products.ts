@@ -6,9 +6,13 @@ export type Bi = { es: string; en: string };
 
 export interface ProductPage {
   slug: string;                 // URL: /productos/<slug>/
+  code: string;                 // código interno de catálogo (A-12). NUNCA se muestra al público.
   visual: 'chat' | 'web' | 'os' | 'brand' | 'ads' | 'cube';   // gráfico 3D del hero según el producto
   phase: { num: string; title: Bi; slug: string };
   name: Bi;                     // nombre comercial (sin código)
+  heads?: {                     // titulares propios de secciones (si faltan, la plantilla usa los genéricos)
+    pain?: Bi; what?: Bi; who?: Bi; band?: Bi;
+  };
   seoTitle: Bi;                 // <title>
   seoDescription: Bi;           // meta description
   keywords: string[];           // referencia interna para SEO (no se imprime)
@@ -17,7 +21,7 @@ export interface ProductPage {
   what: Bi;                     // qué es, en lenguaje del cliente
   deliverables: Bi[];           // lo que recibes
   steps: { title: Bi; body: Bi }[];
-  demo: { from: 'client' | 'bot'; text: Bi }[];   // conversación simulada
+  demo?: { from: 'client' | 'bot'; text: Bi }[];  // conversación simulada (solo productos de chat)
   forWhom: Bi[];
   faq: { q: Bi; a: Bi }[];
   related: { slug: string; name: Bi; why: Bi }[];   // se potencia con
@@ -31,7 +35,92 @@ const B = (es: string, en: string): Bi => ({ es, en });
 
 export const PRODUCTS: ProductPage[] = [
   {
+    slug: 'pagina-web',
+    code: 'A-12',
+    visual: 'web',
+    phase: { num: '04', title: B('Presencia Digital', 'Digital Presence'), slug: 'presencia-digital' },
+    name: B('Página Web', 'Website'),
+    heads: {
+      pain: B('Si no te encuentran,<br><span class="serif">no existes para tu mercado.</span>', 'If they cannot find you,<br><span class="serif">you do not exist for your market.</span>'),
+      what: B('Una web que trabaja como vendedor,<br><span class="serif">no como folleto.</span>', 'A site that works as a salesperson,<br><span class="serif">not a brochure.</span>'),
+      who: B('Para empresas que quieren<br><span class="serif">ser encontradas y elegidas.</span>', 'For companies that want<br><span class="serif">to be found and chosen.</span>'),
+      band: B('¿La quieres para tu empresa? <span class="serif">Empezamos por WhatsApp.</span>', 'Want it for your company? <span class="serif">We start on WhatsApp.</span>'),
+    },
+    seoTitle: B(
+      'Diseño de Páginas Web Profesionales en Ecuador — Sitios que Venden | BIE',
+      'Professional Website Design in Ecuador — Sites That Sell | BIE'
+    ),
+    seoDescription: B(
+      'Diseño de páginas web profesionales en Ecuador: landing, corporativa, portafolio o tienda básica. Responsive, SEO on-page, Google Analytics y formulario conectado a WhatsApp. Publicada y con panel para que la administres.',
+      'Professional website design in Ecuador: landing, corporate, portfolio or basic store. Responsive, on-page SEO, Google Analytics and a WhatsApp-connected form. Published, with an admin panel you control.'
+    ),
+    keywords: ['diseño de páginas web ecuador', 'crear página web profesional', 'sitio web para empresas', 'página web quito guayaquil cuenca', 'diseño web responsive', 'landing page ecuador'],
+    hero: {
+      h1: B(
+        'Una página web que te encuentra clientes, <span class="serif">no solo visitas.</span>',
+        'A website that finds you customers, <span class="serif">not just visits.</span>'
+      ),
+      sub: B(
+        'Landing, sitio corporativo, portafolio o tienda básica — diseñada para que te encuentren en Google y para convertir cada visita en una conversación de WhatsApp. Publicada, medible y tuya.',
+        'Landing, corporate site, portfolio or basic store — designed so Google finds you and every visit turns into a WhatsApp conversation. Published, measurable and yours.'
+      ),
+      trust: B('Sitios en producción para empresas reales de Ecuador · Sin compromiso', 'Sites in production for real companies in Ecuador · No commitment'),
+    },
+    pains: [
+      { title: B('Tu cliente te busca en Google y no apareces', 'Your customer googles you and you are not there'), body: B('Aparece tu competencia. La decisión de compra empieza en una búsqueda, y hoy esa búsqueda no te incluye.', 'Your competitor shows up instead. Buying decisions start with a search, and today that search does not include you.') },
+      { title: B('Solo existes en redes que no controlas', 'You only exist on networks you do not control'), body: B('Un cambio de algoritmo o un bloqueo y tu negocio desaparece. La web es el único terreno digital que es tuyo.', 'One algorithm change or a ban and your business disappears. Your website is the only digital ground you own.') },
+      { title: B('Tienes web, pero no hace nada', 'You have a site, but it does nothing'), body: B('Un folleto en línea sin botón claro, sin medición y sin camino al WhatsApp no vende: solo existe.', 'An online brochure with no clear button, no measurement and no path to WhatsApp does not sell: it just exists.') },
+    ],
+    what: B(
+      'Es tu sitio web profesional, construido según lo que tu empresa necesita: una landing enfocada en una sola acción, un sitio corporativo completo, un portafolio o una tienda básica. Diseño responsive que se ve bien en cualquier teléfono, textos y estructura pensados para vender, SEO on-page para que Google te entienda, y cada botón conectado a tu WhatsApp. Se entrega publicada, con métricas configuradas y un panel con guía para que la administres sin depender de nadie.',
+      'It is your professional website, built around what your company needs: a landing focused on one action, a full corporate site, a portfolio or a basic store. Responsive design that looks right on any phone, copy and structure built to sell, on-page SEO so Google understands you, and every button connected to your WhatsApp. Delivered published, with analytics configured and an admin panel with a guide so you run it without depending on anyone.'
+    ),
+    deliverables: [
+      B('Sitio web publicado en tu dominio', 'Website published on your domain'),
+      B('Diseño responsive (teléfono, tablet y computadora)', 'Responsive design (phone, tablet and desktop)'),
+      B('SEO on-page: meta tags, sitemap y datos estructurados (schema)', 'On-page SEO: meta tags, sitemap and structured data (schema)'),
+      B('Google Analytics y Search Console configurados', 'Google Analytics and Search Console configured'),
+      B('Formulario y botones conectados a tu WhatsApp', 'Form and buttons connected to your WhatsApp'),
+      B('Panel de administración con guía de uso', 'Admin panel with a usage guide'),
+      B('Respaldo automático del sitio', 'Automatic site backup'),
+    ],
+    steps: [
+      { title: B('Definimos qué debe lograr', 'We define what it must achieve'), body: B('Qué vendes, a quién, y cuál es la acción que queremos que haga cada visitante. De ahí sale la estructura.', 'What you sell, to whom, and the one action we want every visitor to take. The structure comes from that.') },
+      { title: B('Diseñamos con tu marca', 'We design with your brand'), body: B('Tu identidad aplicada a una estructura que vende. Ves la propuesta y ajustamos contigo antes de construir.', 'Your identity applied to a structure that sells. You see the proposal and we adjust together before building.') },
+      { title: B('Construimos y conectamos', 'We build and connect'), body: B('Desarrollo responsive, SEO on-page, métricas y todos los caminos hacia tu WhatsApp.', 'Responsive build, on-page SEO, analytics and every path leading to your WhatsApp.') },
+      { title: B('Publicamos y te entregamos el control', 'We publish and hand you the keys'), body: B('Sitio en vivo en tu dominio, con panel, guía y respaldo. Es tuyo, no rehén de un proveedor.', 'Site live on your domain, with panel, guide and backup. It is yours, not hostage to a vendor.') },
+    ],
+    forWhom: [
+      B('Empresas que aún no tienen sitio web propio', 'Companies that still have no website of their own'),
+      B('Negocios cuya web actual no genera consultas', 'Businesses whose current site brings no inquiries'),
+      B('Marcas que venden por redes y necesitan su terreno propio', 'Brands selling on social media that need ground they own'),
+      B('Profesionales y servicios que viven de su credibilidad', 'Professionals and services that live on credibility'),
+    ],
+    faq: [
+      { q: B('¿No puedo hacerla yo mismo con inteligencia artificial?', 'Can I not build it myself with AI?'), a: B('Puedes empezar, y para un experimento está bien. El problema aparece después: dominio, hosting, SEO, medición, seguridad, respaldo y una estructura que convierta — ahí es donde un sitio hecho a medias se vuelve más caro que uno bien hecho. Nosotros usamos IA en el proceso, pero con criterio comercial y responsabilidad sobre el resultado: tú recibes un sitio publicado, medible y mantenible, no un borrador que administrar.', 'You can start, and for an experiment that is fine. The problem shows up later: domain, hosting, SEO, analytics, security, backups and a structure that converts — that is where a half-built site becomes more expensive than a well-built one. We use AI in the process too, but with commercial judgment and responsibility for the result: you get a published, measurable, maintainable site, not a draft to babysit.') },
+      { q: B('¿El dominio y el hosting son míos?', 'Do I own the domain and hosting?'), a: B('Sí. Todo se registra a nombre de tu empresa y te entregamos los accesos. Si un día no trabajas con nosotros, el sitio sigue siendo tuyo.', 'Yes. Everything is registered under your company and we hand you the credentials. If one day you stop working with us, the site is still yours.') },
+      { q: B('¿Landing, sitio completo o tienda: cuál necesito?', 'Landing, full site or store: which one do I need?'), a: B('Depende de tu objetivo: una landing concentra todo en una sola acción; un corporativo construye credibilidad; una tienda básica muestra catálogo y recibe pedidos. Lo definimos juntos en la primera conversación, sin costo.', 'It depends on your goal: a landing focuses everything on one action; a corporate site builds credibility; a basic store shows a catalog and takes orders. We define it together in the first conversation, at no cost.') },
+      { q: B('¿Podré actualizarla yo mismo?', 'Will I be able to update it myself?'), a: B('Sí. Se entrega con un panel de administración y una guía. Cambiar textos, fotos o productos no requiere programar.', 'Yes. It ships with an admin panel and a guide. Changing copy, photos or products requires no code.') },
+      { q: B('¿Y si después quiero vender en línea o automatizar?', 'What if later I want to sell online or automate?'), a: B('La web se construye como base de la cadena: sobre ella se conectan el asistente inteligente, las ventas por WhatsApp y la publicidad. Nada se bota ni se rehace.', 'The site is built as the base of the chain: the AI assistant, WhatsApp sales and advertising plug into it. Nothing gets thrown away or rebuilt.') },
+    ],
+    related: [
+      { slug: 'identidad-de-marca', name: B('Identidad de Marca', 'Brand Identity'), why: B('La web comunica mejor cuando la marca está definida antes.', 'The site communicates better when the brand is defined first.') },
+      { slug: 'posicionamiento-seo', name: B('Posicionamiento SEO', 'SEO Positioning'), why: B('Publicar es el inicio; posicionar es lo que trae tráfico cada mes.', 'Publishing is the start; ranking is what brings traffic every month.') },
+      { slug: 'automatizaciones', name: B('Automatizaciones', 'Automations'), why: B('Cada formulario puede disparar seguimientos sin trabajo manual.', 'Every form can trigger follow-ups with no manual work.') },
+    ],
+    next: { slug: 'asistente-inteligente-whatsapp', name: B('Asistente Inteligente 24/7', '24/7 AI Assistant'), why: B('Con la web publicada, el siguiente paso es que alguien atienda cada visita — a cualquier hora.', 'With the site live, the next step is having someone answer every visit — at any hour.') },
+    waMessage: B(
+      'Hola, vengo de la página de Página Web de BIE. Quiero una web para mi empresa.',
+      'Hi, I come from the BIE Website page. I want a website for my company.'
+    ),
+    chips: [B('Visita desde Google', 'Visit from Google'), B('Formulario recibido', 'Form received'), B('Chat de WhatsApp iniciado', 'WhatsApp chat started')],
+    usedBy: [
+      { name: 'Amílcar', note: B('Servicios profesionales · Web con agenda en línea', 'Professional services · Site with online booking') },
+    ],
+  },
+  {
     slug: 'asistente-inteligente-whatsapp',
+    code: 'A-14',
     visual: 'chat',
     phase: { num: '05', title: B('Automatización e IA', 'Automation & AI'), slug: 'automatizacion' },
     name: B('Asistente Inteligente 24/7', '24/7 AI Assistant'),

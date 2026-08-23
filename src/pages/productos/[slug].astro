@@ -12,6 +12,10 @@ export function getStaticPaths() {
 
 const { p } = Astro.props;
 const SITE = 'https://businessintelligence.solutions';
+// Interconexión: un relacionado enlaza a su página real solo si ya existe; si no, al catálogo de la home.
+const SLUGS = new Set(PRODUCTS.map((x) => x.slug));
+const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/` : '/#catalog');
+const hasDemo = !!(p.demo && p.demo.length);
 const url = `${SITE}/productos/${p.slug}/`;
 const WA = '593988253030';
 const wa = (m: string) => `https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
@@ -56,7 +60,11 @@ const T: Record<string, { es: string; en: string }> = {
 p.pains.forEach((x, i) => { T[`pain${i}_t`] = x.title; T[`pain${i}_b`] = x.body; });
 p.deliverables.forEach((x, i) => { T[`del${i}`] = x; });
 p.steps.forEach((x, i) => { T[`step${i}_t`] = x.title; T[`step${i}_b`] = x.body; });
-p.demo.forEach((x, i) => { T[`demo${i}`] = x.text; });
+(p.demo || []).forEach((x, i) => { T[`demo${i}`] = x.text; });
+if (p.heads?.pain) T.pain_h2 = p.heads.pain;
+if (p.heads?.what) T.what_h2 = p.heads.what;
+if (p.heads?.who) T.who_h2 = p.heads.who;
+if (p.heads?.band) T.band_t = p.heads.band;
 p.forWhom.forEach((x, i) => { T[`who${i}`] = x; });
 p.faq.forEach((x, i) => { T[`faq${i}_q`] = x.q; T[`faq${i}_a`] = x.a; });
 p.related.forEach((x, i) => { T[`rel${i}_n`] = x.name; T[`rel${i}_w`] = x.why; });
@@ -171,6 +179,23 @@ const ld = [
 .ph3d-chip.c1{left:-70px;top:250px;animation-delay:6.4s}
 .ph3d-chip.c2{right:-36px;bottom:70px;animation-delay:8.6s}
 @keyframes chip-pop{0%{opacity:0;transform:translateZ(70px) translateY(10px) scale(.92)}4%{opacity:1;transform:translateZ(70px) translateY(0) scale(1)}28%{opacity:1;transform:translateZ(70px)}34%,100%{opacity:0;transform:translateZ(70px) translateY(-8px) scale(.96)}}
+/* visual: ventana de navegador 3D que se construye sola (productos web) */
+.web3d{position:absolute;left:50%;top:50%;width:340px;height:420px;margin:-210px 0 0 -170px;background:#101014;border:1.5px solid rgba(255,255,255,.26);
+  box-shadow:40px 60px 90px -30px rgba(0,0,0,.85);animation:ph-float 5.5s ease-in-out infinite;display:flex;flex-direction:column}
+.web3d-bar{display:flex;align-items:center;gap:6px;padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.12);background:#0b0b0d}
+.wb-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
+.wb-url{flex:1;margin-left:8px;background:rgba(255,255,255,.08);font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.5);padding:5px 12px}
+.web3d-page{flex:1;padding:20px 18px;display:flex;flex-direction:column;gap:10px}
+.wp{opacity:0;animation:wp-build 10s infinite}
+.wp.el{background:rgba(255,255,255,.14);height:14px}
+.wp.e1{width:70%;height:22px;background:rgba(255,255,255,.28)}
+.wp.e2{width:88%}
+.wp.e3{width:56%}
+.wp.btn{width:110px;height:32px;background:var(--accent)}
+.wp.img{height:88px;background:linear-gradient(135deg,rgba(229,57,53,.25),rgba(255,255,255,.06))}
+.wp.card{height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
+.wp.e1{animation-delay:.5s}.wp.e2{animation-delay:1.1s}.wp.e3{animation-delay:1.6s}.wp.e4{animation-delay:2.2s}.wp.e5{animation-delay:3s}.wp.e6{animation-delay:3.7s}.wp.e7{animation-delay:4.2s}
+@keyframes wp-build{0%{opacity:0;transform:translateY(10px)}6%{opacity:1;transform:none}86%{opacity:1}94%,100%{opacity:0}}
 /* empresas que ya lo usan */
 .used{margin-top:56px;display:flex;flex-wrap:wrap;gap:12px}
 .used-tile{display:flex;align-items:center;gap:16px;padding:22px 26px;background:var(--bg);border:1px solid rgba(0,0,0,.06);min-width:280px;transition:transform .35s var(--ease),box-shadow .45s var(--ease)}
@@ -353,6 +378,25 @@ const ld = [
           {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
         </div>
       </div>
+      ) : p.visual === 'web' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow" style="width:300px"></div>
+          <div class="web3d">
+            <div class="web3d-bar"><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-url">tuempresa.com</span></div>
+            <div class="web3d-page">
+              <div class="wp el e1"></div>
+              <div class="wp el e2"></div>
+              <div class="wp el e3"></div>
+              <div class="wp btn e4"></div>
+              <div class="wp img e5"></div>
+              <div class="wp card e6"></div>
+              <div class="wp card e7"></div>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
       ) : (
       <div class="p-cube-wrap">
         <div class="p-cube">
@@ -411,6 +455,7 @@ const ld = [
   </div>
 </section>
 
+{hasDemo && (
 <!-- DEMO -->
 <section class="p-sec alt">
   <div class="section-inner">
@@ -437,6 +482,7 @@ const ld = [
     </div>
   </div>
 </section>
+)}
 
 {(p.usedBy && p.usedBy.length > 0) && (
 <!-- YA LO USAN -->
@@ -493,9 +539,9 @@ const ld = [
     </div>
     <div class="rel-grid">
       {p.related.map((r, i) => (
-        <a class={`rel reveal d${i + 1}`} href="/#catalog" title={es('soon')}><span class="rel-k" data-i18n="rel_label">{es('rel_label')}</span><h3 data-i18n={`rel${i}_n`}>{r.name.es}</h3><p data-i18n={`rel${i}_w`}>{r.why.es}</p><span class="rel-arrow">→</span></a>
+        <a class={`rel reveal d${i + 1}`} href={rhref(r.slug)} title={SLUGS.has(r.slug) ? undefined : es('soon')}><span class="rel-k" data-i18n="rel_label">{es('rel_label')}</span><h3 data-i18n={`rel${i}_n`}>{r.name.es}</h3><p data-i18n={`rel${i}_w`}>{r.why.es}</p><span class="rel-arrow">→</span></a>
       ))}
-      <a class="rel next reveal d4" href="/#catalog" title={es('soon')}>
+      <a class="rel next reveal d4" href={rhref(p.next.slug)} title={SLUGS.has(p.next.slug) ? undefined : es('soon')}>
         <span class="nx-box"></span>
         <div style="flex:1"><span class="rel-k" data-i18n="next_label">{es('next_label')}</span><h3 data-i18n="next_n">{p.next.name.es}</h3><p data-i18n="next_w">{p.next.why.es}</p></div>
         <span class="rel-arrow">→</span>
@@ -590,7 +636,7 @@ document.addEventListener('click',e=>{ if(!waWidget.classList.contains('open'))r
     sc3.style.transform=`rotateY(${-22+p*30}deg) rotateX(${8-p*14}deg) translateY(${-p*60}px) translateZ(${p*40}px)`; sc3.style.opacity=String(1-p*.35); }
   window.addEventListener('scroll',upd,{passive:true}); upd(); })();
 // demo chat: aparece mensaje a mensaje cuando entra en pantalla, y se repite
-(function(){ const body=document.getElementById('chat-body'); const msgs=[...body.querySelectorAll('.msg')]; const typing=document.getElementById('typing'); let started=false;
+(function(){ const body=document.getElementById('chat-body'); if(!body) return; const msgs=[...body.querySelectorAll('.msg')]; const typing=document.getElementById('typing'); let started=false;
   function run(){ msgs.forEach(m=>m.classList.remove('on')); let i=0;
     (function next(){ if(i>=msgs.length){ setTimeout(run,4500); return; } const m=msgs[i]; const isBot=m.classList.contains('bot');
       if(isBot){ typing.classList.add('on'); body.appendChild(typing); setTimeout(()=>{ typing.classList.remove('on'); m.classList.add('on'); i++; setTimeout(next,1100); },1200); }
