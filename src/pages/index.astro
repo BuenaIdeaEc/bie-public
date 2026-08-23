@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v17: hero negro + cubo).
+// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v18).
 ---
 <!doctype html>
 <html lang="es">
@@ -147,6 +147,11 @@ button{cursor:pointer}
 .wa-face.t{transform:rotateX(90deg) translateZ(23px);background:#16161a}
 .wa-face.d{transform:rotateX(-90deg) translateZ(23px);background:#050507}
 #fab-px{position:fixed;bottom:0;right:0;width:190px;height:190px;z-index:149;pointer-events:none}
+#wa-fab,#fab-px,#wa-bubble{opacity:0;pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+#wa-fab{transform:translateY(24px)}
+body.past-hero #wa-fab{opacity:1;pointer-events:auto;transform:none}
+body.past-hero #fab-px{opacity:1}
+body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 #wa-fab .fab-x{display:none;font-size:28px;line-height:1;color:var(--text);background:var(--bg);border:1px solid var(--border);
   width:46px;height:46px;align-items:center;justify-content:center;box-shadow:var(--sh-md)}
 #wa-fab.open .fab-x{display:flex}
@@ -556,6 +561,24 @@ button{cursor:pointer}
 .comm-desc{font-size:12.5px;color:var(--text2);line-height:1.6;flex:1}
 .comm-cta{font-size:12px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px}
 
+/* ═══ Feed de redes ═══ */
+#feed{padding:140px 0 120px;background:var(--bg)}
+.feed-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:56px}
+.feed-tile{aspect-ratio:1;position:relative;overflow:hidden;background:var(--surface);display:flex;align-items:flex-end;padding:14px;
+  transition:transform .35s var(--ease),box-shadow .4s var(--ease)}
+.feed-tile:hover{transform:translateY(-5px);box-shadow:var(--sh-lg)}
+.feed-tile::before{content:'';position:absolute;inset:0;background:var(--ft-bg)}
+.feed-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(7,7,9,.72));opacity:.9}
+.feed-tile.big{grid-column:span 2;grid-row:span 2}
+.feed-net{position:absolute;top:12px;left:12px;z-index:2;font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(7,7,9,.72);padding:5px 9px}
+.feed-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:40px;height:40px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),background .3s}
+.feed-tile:hover .feed-play{transform:translate(-50%,-50%) scale(1.12);background:var(--accent)}
+.feed-tile:hover .feed-play svg path{fill:#fff}
+.feed-cap{position:relative;z-index:2;color:#fff;font-size:12px;font-weight:600;letter-spacing:-.01em;line-height:1.35}
+.feed-foot{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.feed-btn{padding:13px 22px;border:1px solid rgba(0,0,0,.14);font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:9px;transition:border-color .2s,background .2s,color .2s}
+.feed-btn:hover{border-color:var(--accent);background:var(--accent);color:#fff}
+
 /* ═══ Contact ═══ */
 #contact{padding:140px 0;background:var(--surface)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:56px;align-items:start}
@@ -595,6 +618,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .ba-block{grid-column:span 2}
   .bb-grid{grid-template-columns:1fr}
   .comm-grid{grid-template-columns:repeat(2,1fr)}
+  .feed-grid{grid-template-columns:repeat(3,1fr)}
   .contact-grid{grid-template-columns:1fr;gap:44px}
   .nav-links .nav-link,.nav-links .nav-cta{display:none}
   #burger{display:flex}
@@ -651,6 +675,9 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .ba-block{padding:26px 20px}
   .ba-stage{height:220px}
   .comm-grid{grid-template-columns:1fr;gap:10px;margin-top:40px}
+  #feed{padding:76px 0}
+  .feed-grid{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:36px}
+  .feed-tile.big{grid-column:span 2;grid-row:span 1;aspect-ratio:16/10}
   .comm-card{flex-direction:row;align-items:center;padding:18px 20px;gap:16px}
   .comm-card .comm-desc{display:none}
   .comm-card>div:nth-child(2){flex:1}
@@ -683,7 +710,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 </div>
 
 <nav id="nav">
-  <span class="nav-logo"><span class="nav-logo-px"></span>BIE.</span>
+  <span class="nav-logo">BIE</span>
   <div class="nav-links">
     <a href="#work" class="nav-link" data-sec="work" data-i18n="nav_work"></a>
     <a href="#catalog" class="nav-link" data-sec="catalog" data-i18n="nav_catalog"></a>
@@ -718,7 +745,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 
 <div id="wa-widget">
   <div class="waw-head">
-    <div class="waw-avatar">B.</div>
+    <div class="waw-avatar">B</div>
     <div class="waw-head-info">
       <div class="waw-name" data-i18n="waw_name"></div>
       <div class="waw-status"><span class="waw-status-dot"></span><span data-i18n="waw_status"></span></div>
@@ -867,6 +894,22 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   </div>
 </section>
 
+<!-- FEED -->
+<section id="feed">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="feed_label"></p>
+      <h2 class="section-h2" data-i18n="feed_h2"></h2>
+      <p class="section-sub" data-i18n="feed_sub"></p>
+    </div>
+    <div class="feed-grid reveal d2" id="feed-grid"></div>
+    <div class="feed-foot reveal d3">
+      <a href="#" class="feed-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.4" fill="currentColor"/></svg><span data-i18n="feed_ig"></span></a>
+      <a href="#" class="feed-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-i18n="feed_tt"></span></a>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
@@ -951,6 +994,12 @@ const UI = {
   band_t:{es:'Cada proyecto de arriba empezó igual: <span class="serif">con una conversación.</span>',
           en:'Every project above started the same way: <span class="serif">with a conversation.</span>'},
   band_btn:{es:'Agendar mi diagnóstico gratuito',en:'Book my free diagnosis'},
+  feed_label:{es:'Lo último en nuestras redes',en:'Latest from our channels'},
+  feed_h2:{es:'Contenido que se publica,<br><span class="serif">y clases que vienen.</span>',en:'Content we publish,<br><span class="serif">and classes to come.</span>'},
+  feed_sub:{es:'Aquí aparece automáticamente lo último que subimos a Instagram y TikTok. Pronto, también clases y recursos para empresas y emprendedores.',en:'The latest we post on Instagram and TikTok shows up here automatically. Soon, classes and resources for companies and founders too.'},
+  feed_ig:{es:'Seguir en Instagram',en:'Follow on Instagram'}, feed_tt:{es:'Seguir en TikTok',en:'Follow on TikTok'},
+  feed_tiles:{es:['Así se arma un sistema operativo para una tienda','Marca en 60 segundos','Live de ventas: detrás de cámaras','3 automatizaciones que todo negocio necesita','Antes y después de una identidad','Clase: cómo empezar bien tu empresa'],
+              en:['How a store operating system is built','Brand in 60 seconds','Live sales: behind the scenes','3 automations every business needs','Before and after of an identity','Class: how to start your company right']},
   cur_drag:{es:'DRAG',en:'DRAG'}, cur_play:{es:'PLAY',en:'PLAY'},
   work_label:{es:'La prueba, primero',en:'Proof first'},
   work_h2:{es:'Empresas que ya<br>adaptamos digitalmente.',en:'Companies we already<br>digitally adapted.'},
@@ -1301,6 +1350,15 @@ function checkStrike(){
   }
 }
 
+// ═══ Render: feed de redes (placeholders hasta conectar Instagram/TikTok) ═══
+function renderFeed(){
+  const bgs=['linear-gradient(150deg,#1b1b1f,#3a1214)','linear-gradient(150deg,#e8dcd0,#c9a86a)','linear-gradient(150deg,#2d1a33,#6a2a4a)','linear-gradient(150deg,#0e3a5c,#1a6a8a)','linear-gradient(150deg,#2d4a3e,#7a9a6a)','linear-gradient(150deg,#1b1b1f,#E53935)'];
+  const nets=['TikTok','Instagram','TikTok','Instagram','Instagram','TikTok'];
+  const play='<span class="feed-play"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5-11-6.5z" fill="#070709"/></svg></span>';
+  document.getElementById('feed-grid').innerHTML = UI.feed_tiles[lang].map((cap,i)=>
+    `<a href="#" class="feed-tile${i===0?' big':''}" style="--ft-bg:${bgs[i]}"><span class="feed-net">${nets[i]}</span>${nets[i]==='TikTok'?play:''}<span class="feed-cap">${cap}</span></a>`).join('');
+}
+
 // ═══ Render: marquee (títulos de fase, display gigante) ═══
 function renderMarquee(){
   const names = PHASES.map(p => t(p.title));
@@ -1608,7 +1666,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel();
   const txt = document.getElementById('wa-bubble-text');
   let i = 0;
   function show(){
-    if (waWidget.classList.contains('open')) return;
+    if (waWidget.classList.contains('open') || !document.body.classList.contains('past-hero')) return;
     txt.textContent = UI.bubbles[lang][i % UI.bubbles[lang].length];
     i++;
     b.classList.add('on');
@@ -1717,6 +1775,7 @@ function applyLang(){
   renderMarquee();
   renderRail();
   renderWork();
+  renderFeed();
   if (activePhase !== null) renderPanel(activePhase);
   clearTimeout(termTimer); termCi = 0; termDel = false; termStep();
 }
@@ -1970,6 +2029,7 @@ window.addEventListener('scroll', () => {
   const r = bbSec.getBoundingClientRect();
   const hr = document.getElementById('hero').getBoundingClientRect();
   nav.classList.toggle('dark-zone', (r.top < 66 && r.bottom > 0) || hr.bottom > 66);
+  document.body.classList.toggle('past-hero', hr.bottom < innerHeight * .35);
   checkStrike();
   let current = null;
   for (const s of SECTIONS){
@@ -1990,6 +2050,7 @@ renderH1();
 renderMarquee();
 renderRail();
 renderWork();
+renderFeed();
 </script>
 
 </body>
