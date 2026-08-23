@@ -25,8 +25,8 @@ export const valueLayers: ValueLayer[] = [
     number: '01',
     slug: 'identidad',
     name: 'Identidad',
-    tagline: 'Tu marca habla antes que tú',
-    intro: 'La identidad es el activo más subestimado de una empresa. Antes de que alguien lea una sola palabra, ya tomó una decisión basada en cómo te ve.',
+    tagline: 'Tu marca habla antes que tú — y decide si se quedan o se van',
+    intro: 'La identidad es el activo más subestimado de una empresa. Antes de que alguien lea una sola palabra, ya tomó una decisión basada en cómo te ve. Una marca coherente puede justificar el doble de precio sin una sola explicación.',
     products: [
       {
         slug: 'logo-identidad-visual',
@@ -106,8 +106,8 @@ export const valueLayers: ValueLayer[] = [
     number: '02',
     slug: 'presencia',
     name: 'Presencia',
-    tagline: 'Estar en línea no es opcional, estar bien tampoco',
-    intro: 'En 2024, si un negocio no aparece en Google, no existe. Pero aparecer mal es casi peor que no aparecer. La presencia digital es el primer punto de contacto con el 80% de tus clientes potenciales.',
+    tagline: 'Sitio, tienda o landing que vende — no que adorna',
+    intro: 'Hoy, si un negocio no aparece en Google, no existe. Pero aparecer mal es casi peor que no aparecer. La presencia digital es el primer punto de contacto con el 80% de tus clientes potenciales.',
     products: [
       {
         slug: 'sitio-web-institucional',
@@ -187,7 +187,7 @@ export const valueLayers: ValueLayer[] = [
     number: '03',
     slug: 'datos',
     name: 'Datos',
-    tagline: 'Todo lo que sabe tu empresa, organizado y disponible',
+    tagline: 'Todo lo que sabe tu empresa — en un solo lugar, ordenado, para que puedas tomar mejores decisiones',
     intro: 'Los datos son el petróleo del siglo XXI, pero solo si están organizados. La mayoría de las PyMEs tienen información valiosa atrapada en hojas de Excel, correos y cabezas de personas clave.',
     products: [
       {
@@ -268,8 +268,8 @@ export const valueLayers: ValueLayer[] = [
     number: '04',
     slug: 'automatizacion',
     name: 'Automatización',
-    tagline: 'Las tareas repetitivas dejan de consumir a tu equipo',
-    intro: 'Cada hora que tu equipo pasa en una tarea repetitiva es una hora que no pasa en lo que realmente importa. La automatización no reemplaza personas: las libera para el trabajo de alto valor.',
+    tagline: 'Recupera horas cada semana — las tareas repetitivas se hacen solas, sin que nadie en tu empresa tenga que hacerlas',
+    intro: 'Cada hora que tu equipo pasa en una tarea repetitiva es una hora que no pasa en lo que realmente importa. Hay procesos que hoy exigen tiempo de personas capacitadas para cosas que no necesitan capacitación. Los liberamos para que trabajen en lo que de verdad mueve el negocio.',
     products: [
       {
         slug: 'automatizacion-ventas',
@@ -349,8 +349,8 @@ export const valueLayers: ValueLayer[] = [
     number: '05',
     slug: 'inteligencia',
     name: 'Inteligencia',
-    tagline: 'Decisiones basadas en datos, no en intuición',
-    intro: 'La inteligencia artificial no es el futuro. Es el presente. Las empresas que la integran ahora tienen una ventaja que sus competidores tardarán años en alcanzar.',
+    tagline: 'Tu empresa atiende, vende y da seguimiento las 24 horas — sin depender de que alguien esté disponible',
+    intro: 'Imagina que tu empresa nunca deja una consulta sin responder, nunca olvida hacer un seguimiento y siempre tiene la información correcta a mano. Eso es lo que construimos: sistemas que trabajan como si tuvieras un equipo disponible en todo momento, sin el costo de tenerlo.',
     products: [
       {
         slug: 'ecosistema-agentes-ia',

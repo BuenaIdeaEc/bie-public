@@ -1,6 +1,6 @@
 headersOrigin = "config"
+redirectsOrigin = "config"
 plugins = []
-redirects = []
 
 [functions]
 
@@ -13,6 +13,7 @@ commandOrigin = "config"
 command = "npm run build"
 
 [build.environment]
+NODE_VERSION = "20"
 
 [build.processing]
 
@@ -46,3 +47,15 @@ for = "/*.html"
 
 [headers.values]
 Cache-Control = "public, max-age=0, must-revalidate"
+
+[[redirects]]
+from = "https://www.businessintelligence.solutions/*"
+to = "https://businessintelligence.solutions/:splat"
+status = 301.0
+force = true
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

@@ -2,7 +2,7 @@
 
 /* ── BIE Design System — Tailwind 4 Theme ── */
 @theme {
-  --color-bie-blue:        #1B3A5C;
+  --color-bie-blue:        #111111;
   --color-bie-accent:      #2E75B6;
   --color-bie-gold:        #C4972A;
 
@@ -138,7 +138,7 @@
     min-height: 48px;
     font-size: 0.9375rem;
     font-weight: 600;
-    border-radius: 0.3125rem;
+    border-radius: 0;
     border: none;
     cursor: pointer;
     transition: background-color 0.15s ease, transform 0.1s ease, opacity 0.15s;
@@ -149,8 +149,8 @@
   }
   .btn:active { transform: scale(0.98); }
 
-  .btn-primary { background: var(--color-bie-blue); color: white; }
-  .btn-primary:hover { background: color-mix(in srgb, var(--color-bie-blue) 88%, white); }
+  .btn-primary { background: #111111; color: white; }
+  .btn-primary:hover { background: #2a2a2a; }
 
   .btn-white { background: white; color: var(--color-bie-blue); }
   .btn-white:hover { background: rgba(255,255,255,0.9); }
@@ -235,15 +235,15 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: #25D366;
+    background: var(--color-bie-accent);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 14px rgba(37,211,102,0.4);
+    box-shadow: 0 4px 14px rgba(46,117,182,0.4);
     z-index: 38;
     transition: transform 0.2s, background 0.2s;
   }
-  .wa-float:hover { background: #1fad55; transform: scale(1.08); }
+  .wa-float:hover { background: #1a5fa0; transform: scale(1.08); }
   @media (min-width: 768px) { .wa-float { bottom: 1.5rem; } }
 
   /* Mobile sticky CTA */

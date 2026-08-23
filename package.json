@@ -24,5 +24,8 @@
     "react-dom": "^19.2.6",
     "react-hook-form": "^7.75.0",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0"
   }
 }

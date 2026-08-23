@@ -2,6 +2,16 @@
   command   = "npm run build"
   publish   = "dist"
 
+[build.environment]
+  NODE_VERSION = "20"
+
+# Redirect www → apex (canonical domain)
+[[redirects]]
+  from   = "https://www.businessintelligence.solutions/*"
+  to     = "https://businessintelligence.solutions/:splat"
+  status = 301
+  force  = true
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -19,3 +29,29 @@
   for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
+
+# BIE-P06 — el sitio anterior se retiró; sus URLs apuntan a la nueva home
+[[redirects]]
+  from   = "/casos/*"
+  to     = "/"
+  status = 301
+
+[[redirects]]
+  from   = "/servicios/*"
+  to     = "/#catalog"
+  status = 301
+
+[[redirects]]
+  from   = "/contacto"
+  to     = "/#contact"
+  status = 301
+
+[[redirects]]
+  from   = "/sobre-bie"
+  to     = "/"
+  status = 301
+
+[[redirects]]
+  from   = "/satelites"
+  to     = "/#work"
+  status = 301

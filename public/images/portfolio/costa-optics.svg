@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B1E36"/>
+      <stop offset="100%" stop-color="#0D2A4A"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E75B6" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#2E75B6" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="orb" cx="70%" cy="50%" r="35%">
+      <stop offset="0%" stop-color="#1A4A7A" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0B1E36" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="860" fill="url(#bg)"/>
+  <rect width="1440" height="860" fill="url(#orb)"/>
+
+  <!-- Subtle grid lines -->
+  <g stroke="rgba(46,117,182,0.06)" stroke-width="1">
+    <line x1="0" y1="150" x2="1440" y2="150"/>
+    <line x1="0" y1="300" x2="1440" y2="300"/>
+    <line x1="0" y1="450" x2="1440" y2="450"/>
+    <line x1="0" y1="600" x2="1440" y2="600"/>
+    <line x1="0" y1="750" x2="1440" y2="750"/>
+    <line x1="360" y1="0" x2="360" y2="860"/>
+    <line x1="720" y1="0" x2="720" y2="860"/>
+    <line x1="1080" y1="0" x2="1080" y2="860"/>
+  </g>
+
+  <!-- Header -->
+  <rect width="1440" height="72" fill="rgba(10,26,50,0.95)"/>
+  <rect width="1440" height="1" y="72" fill="rgba(46,117,182,0.2)"/>
+
+  <!-- Logo -->
+  <text x="60" y="45" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="700" fill="white" letter-spacing="2">COSTA</text>
+  <text x="122" y="45" font-family="system-ui,-apple-system,sans-serif" font-size="18" font-weight="300" fill="rgba(255,255,255,0.65)" letter-spacing="2">OPTICS</text>
+
+  <!-- Nav -->
+  <text x="580" y="43" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="rgba(255,255,255,0.55)">Inicio</text>
+  <text x="650" y="43" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="rgba(255,255,255,0.55)">Catálogo</text>
+  <text x="740" y="43" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="rgba(255,255,255,0.55)">Servicios</text>
+  <text x="830" y="43" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="rgba(255,255,255,0.55)">Sucursales</text>
+  <text x="930" y="43" font-family="system-ui,-apple-system,sans-serif" font-size="13" fill="rgba(255,255,255,0.55)">Contacto</text>
+
+  <!-- CTA button in header -->
+  <rect x="1300" y="20" width="110" height="34" fill="#2E75B6"/>
+  <text x="1355" y="41" font-family="system-ui,-apple-system,sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Reservar cita</text>
+
+  <!-- Hero accent line -->
+  <rect x="60" y="155" width="48" height="3" fill="#2E75B6"/>
+
+  <!-- Hero text -->
+  <text x="60" y="230" font-family="system-ui,-apple-system,sans-serif" font-size="62" font-weight="700" fill="white" letter-spacing="-2">Óptica de</text>
+  <text x="60" y="305" font-family="system-ui,-apple-system,sans-serif" font-size="62" font-weight="700" fill="#2E75B6" letter-spacing="-2">Precisión</text>
+
+  <!-- Subtext -->
+  <text x="60" y="360" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="rgba(255,255,255,0.5)">Más de 20 años de experiencia en optometría y lentes</text>
+  <text x="60" y="382" font-family="system-ui,-apple-system,sans-serif" font-size="16" fill="rgba(255,255,255,0.5)">de alta calidad en Guayaquil, Ecuador.</text>
+
+  <!-- CTAs -->
+  <rect x="60" y="416" width="180" height="48" fill="#2E75B6"/>
+  <text x="150" y="444" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="white" text-anchor="middle">Ver catálogo</text>
+  <rect x="256" y="416" width="180" height="48" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+  <text x="346" y="444" font-family="system-ui,-apple-system,sans-serif" font-size="14" fill="rgba(255,255,255,0.65)" text-anchor="middle">Reservar cita</text>
+
+  <!-- Stats row -->
+  <rect x="60" y="510" width="520" height="1" fill="rgba(46,117,182,0.2)"/>
+  <text x="60" y="555" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="700" fill="white">20+</text>
+  <text x="60" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="rgba(255,255,255,0.35)">años de experiencia</text>
+  <text x="240" y="555" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="700" fill="white">3</text>
+  <text x="240" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="rgba(255,255,255,0.35)">sucursales</text>
+  <text x="380" y="555" font-family="system-ui,-apple-system,sans-serif" font-size="32" font-weight="700" fill="white">+5K</text>
+  <text x="380" y="575" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="rgba(255,255,255,0.35)">pacientes atendidos</text>
+
+  <!-- Right side: decorative eyeglass shape -->
+  <g transform="translate(850, 180)" fill="none">
+    <!-- Left lens -->
+    <circle cx="130" cy="200" r="140" stroke="rgba(46,117,182,0.3)" stroke-width="12"/>
+    <circle cx="130" cy="200" r="130" stroke="rgba(46,117,182,0.08)" stroke-width="1"/>
+    <!-- Right lens -->
+    <circle cx="450" cy="200" r="140" stroke="rgba(46,117,182,0.3)" stroke-width="12"/>
+    <circle cx="450" cy="200" r="130" stroke="rgba(46,117,182,0.08)" stroke-width="1"/>
+    <!-- Bridge -->
+    <path d="M270 200 Q290 185 310 185 Q330 185 350 200" stroke="rgba(46,117,182,0.3)" stroke-width="12"/>
+    <!-- Left temple -->
+    <path d="M-10 200 L-30 200" stroke="rgba(46,117,182,0.15)" stroke-width="10" stroke-linecap="round"/>
+    <!-- Right temple -->
+    <path d="M590 200 L610 200" stroke="rgba(46,117,182,0.15)" stroke-width="10" stroke-linecap="round"/>
+    <!-- Inner glow circles -->
+    <circle cx="130" cy="200" r="90" fill="rgba(46,117,182,0.04)"/>
+    <circle cx="450" cy="200" r="90" fill="rgba(46,117,182,0.04)"/>
+    <!-- Lens reflection dots -->
+    <circle cx="100" cy="170" r="18" fill="rgba(255,255,255,0.06)"/>
+    <circle cx="420" cy="170" r="18" fill="rgba(255,255,255,0.06)"/>
+  </g>
+
+  <!-- Bottom feature bar -->
+  <rect x="0" y="700" width="1440" height="160" fill="rgba(10,26,50,0.7)"/>
+  <rect x="0" y="700" width="1440" height="1" fill="rgba(46,117,182,0.15)"/>
+
+  <!-- Feature items -->
+  <!-- Feature 1 -->
+  <rect x="200" y="730" width="32" height="32" fill="rgba(46,117,182,0.2)"/>
+  <text x="246" y="748" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="white">Exámenes visuales</text>
+  <text x="246" y="766" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)">Optometría de precisión</text>
+
+  <!-- Feature 2 -->
+  <rect x="560" y="730" width="32" height="32" fill="rgba(46,117,182,0.2)"/>
+  <text x="606" y="748" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="white">Lentes de contacto</text>
+  <text x="606" y="766" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)">Todas las marcas premium</text>
+
+  <!-- Feature 3 -->
+  <rect x="920" y="730" width="32" height="32" fill="rgba(46,117,182,0.2)"/>
+  <text x="966" y="748" font-family="system-ui,-apple-system,sans-serif" font-size="14" font-weight="600" fill="white">Montura exclusiva</text>
+  <text x="966" y="766" font-family="system-ui,-apple-system,sans-serif" font-size="12" fill="rgba(255,255,255,0.4)">Importación directa</text>
+</svg>
