@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home bilingüe autocontenida (v21: los más pedidos = batch001 con páginas propias).
+// BIE-P06 — Home (v22: cuadrados con ?src=home-mas-pedidos).
 ---
 <!doctype html>
 <html lang="es">
@@ -1399,14 +1399,14 @@ function checkStrike(){
 
 // ═══ Render: los más pedidos (los 8 del batch, cada uno con su página) ═══
 const TOP = [
-  { href:'/productos/asistente-inteligente-whatsapp/', n:B('Asistente Inteligente 24/7','24/7 AI Assistant'), hook:B('Responde, cotiza y agenda en WhatsApp las 24 horas.','Replies, quotes and books on WhatsApp 24/7.') },
-  { href:'/productos/pagina-web/', n:B('Página Web','Website'), hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
-  { href:'/productos/identidad-de-marca/', n:B('Identidad de Marca','Brand Identity'), hook:B('La marca que te hace reconocible y elegible.','The brand that makes you recognizable and choosable.') },
-  { href:'/productos/crm-ia/', n:B('CRM con IA','AI-Powered CRM'), hook:B('Ningún cliente sin seguimiento, nunca más.','No customer left unfollowed, ever again.') },
-  { href:'/productos/automatizaciones/', n:B('Automatizaciones','Automations'), hook:B('Lo que hoy haces a mano, mañana se hace solo.','What you do by hand today runs on its own tomorrow.') },
-  { href:'/productos/whatsapp-business-commerce/', n:B('WhatsApp Business Commerce','WhatsApp Business Commerce'), hook:B('Tu WhatsApp convertido en tu mejor canal de ventas.','Your WhatsApp turned into your best sales channel.') },
-  { href:'/productos/data-analytics/', n:B('Data Analytics & Dashboards','Data Analytics & Dashboards'), hook:B('Deja de adivinar: mira tu negocio en vivo.','Stop guessing: watch your business live.') },
-  { href:'/productos/link-hub/', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
+  { href:'/productos/asistente-inteligente-whatsapp/?src=home-mas-pedidos', n:B('Asistente Inteligente 24/7','24/7 AI Assistant'), hook:B('Responde, cotiza y agenda en WhatsApp las 24 horas.','Replies, quotes and books on WhatsApp 24/7.') },
+  { href:'/productos/pagina-web/?src=home-mas-pedidos', n:B('Página Web','Website'), hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
+  { href:'/productos/identidad-de-marca/?src=home-mas-pedidos', n:B('Identidad de Marca','Brand Identity'), hook:B('La marca que te hace reconocible y elegible.','The brand that makes you recognizable and choosable.') },
+  { href:'/productos/crm-ia/?src=home-mas-pedidos', n:B('CRM con IA','AI-Powered CRM'), hook:B('Ningún cliente sin seguimiento, nunca más.','No customer left unfollowed, ever again.') },
+  { href:'/productos/automatizaciones/?src=home-mas-pedidos', n:B('Automatizaciones','Automations'), hook:B('Lo que hoy haces a mano, mañana se hace solo.','What you do by hand today runs on its own tomorrow.') },
+  { href:'/productos/whatsapp-business-commerce/?src=home-mas-pedidos', n:B('WhatsApp Business Commerce','WhatsApp Business Commerce'), hook:B('Tu WhatsApp convertido en tu mejor canal de ventas.','Your WhatsApp turned into your best sales channel.') },
+  { href:'/productos/data-analytics/?src=home-mas-pedidos', n:B('Data Analytics & Dashboards','Data Analytics & Dashboards'), hook:B('Deja de adivinar: mira tu negocio en vivo.','Stop guessing: watch your business live.') },
+  { href:'/productos/link-hub/?src=home-mas-pedidos', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
 ];
 function renderTop(){
   document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>

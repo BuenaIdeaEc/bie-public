@@ -14,7 +14,8 @@ const { p } = Astro.props;
 const SITE = 'https://businessintelligence.solutions';
 // Interconexión: un relacionado enlaza a su página real solo si ya existe; si no, al catálogo de la home.
 const SLUGS = new Set(PRODUCTS.map((x) => x.slug));
-const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/` : '/#catalog');
+// Los enlaces internos llevan ?src=<slug-de-esta-página> para saber desde dónde llegó el interés.
+const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/?src=${p.slug}` : '/#catalog');
 const hasDemo = !!(p.demo && p.demo.length);
 const url = `${SITE}/productos/${p.slug}/`;
 const WA = '593988253030';
@@ -75,6 +76,12 @@ T.used_label = { es: 'Empresas que ya lo usan', en: 'Companies already using it'
 T.used_h2 = { es: 'No es teoría.<br><span class="serif">Ya está atendiendo clientes reales.</span>', en: 'Not theory.<br><span class="serif">Already serving real customers.</span>' };
 T.used_more = { es: 'Tu empresa podría ser la siguiente', en: 'Your company could be next' };
 T.os_k1 = { es: 'Ventas', en: 'Sales' }; T.os_k2 = { es: 'Leads', en: 'Leads' }; T.os_k3 = { es: 'A tiempo', en: 'On time' };
+T.crm_c1 = { es: 'Nuevos', en: 'New' }; T.crm_c2 = { es: 'Propuesta', en: 'Proposal' }; T.crm_c3 = { es: 'Cierre', en: 'Closing' };
+T.fl_1 = { es: 'Pedido recibido → factura creada', en: 'Order received → invoice created' };
+T.fl_2 = { es: 'Datos sincronizados con la hoja', en: 'Data synced to the sheet' };
+T.fl_3 = { es: 'Reporte enviado al dueño 07:00', en: 'Report sent to the owner 07:00' };
+T.com_st = { es: 'catálogo en el chat', en: 'catalog in the chat' };
+T.com_order = { es: 'Pedido confirmado · Combo 2 + envío', en: 'Order confirmed · Combo 2 + shipping' };
 T.ph_name = { es: 'Tu empresa', en: 'Your company' }; T.ph_st = { es: 'en línea · responde al instante', en: 'online · replies instantly' };
 const es = (k: string) => T[k].es;
 
@@ -219,6 +226,48 @@ const ld = [
 .bd-type span i{height:8px;background:rgba(255,255,255,.18);display:block}
 .bd-apps{display:flex;gap:8px}
 .bd-apps i{flex:1;height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+/* visual hub: teléfono con botones de enlace y un toque */
+.hub-scr{display:flex;flex-direction:column;align-items:center;gap:9px;padding:26px 16px}
+.hub-av{width:40px;height:40px;background:var(--accent)}
+.hub-name{color:#fff;font-size:11px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px}
+.hub-btn{width:100%;height:34px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16)}
+.hub-btn.h1{animation-delay:.4s}.hub-btn.h2{animation-delay:1s}.hub-btn.h3{animation-delay:1.6s}.hub-btn.h4{animation-delay:2.2s}
+.hub-btn.tap{animation:wp-build 10s infinite,hub-tap 10s infinite}
+@keyframes hub-tap{0%,32%{background:rgba(255,255,255,.1)}36%,44%{background:var(--accent);transform:scale(1.04)}48%,100%{background:rgba(255,255,255,.1)}}
+/* visual crm: pipeline con tarjeta que avanza */
+.crm-page{flex:1;display:flex;gap:8px;padding:16px 14px;position:relative}
+.crm-col{flex:1;background:rgba(255,255,255,.05);padding:8px;display:flex;flex-direction:column;gap:7px}
+.crm-col.win{outline:1px solid rgba(229,57,53,.5)}
+.crm-h{font-style:normal;font-family:var(--mono);font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:2px}
+.crm-card{height:26px;background:rgba(255,255,255,.12)}
+.crm-move{position:absolute;top:52px;left:22px;width:26%;height:26px;background:#fff;display:flex;align-items:center;justify-content:flex-end;padding:0 6px;
+  animation:crm-go 9s cubic-bezier(.4,0,.2,1) infinite;box-shadow:0 8px 18px rgba(0,0,0,.5)}
+.crm-move b{font-size:9px;color:var(--accent);font-weight:800}
+@keyframes crm-go{0%,18%{left:22px}30%,52%{left:calc(33% + 14px)}64%,86%{left:calc(66% + 6px)}94%,100%{left:calc(66% + 6px);opacity:0}}
+/* visual flow: nodos con pulso que recorre */
+.flow-page{flex:1;display:flex;flex-direction:column;justify-content:center;gap:26px;padding:22px 18px}
+.flow-track{display:flex;align-items:center;position:relative}
+.flow-node{width:38px;height:38px;border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;background:#0b0b0d;animation:node-on 8s infinite}
+.flow-node.n1{animation-delay:.2s;color:var(--accent)}
+.flow-node.n2{animation-delay:2.2s}.flow-node.n3{animation-delay:4.2s}
+.flow-node.n4{animation-delay:6.2s;color:#25D366}
+@keyframes node-on{0%,2%{border-color:rgba(255,255,255,.35);background:#0b0b0d}6%,90%{border-color:var(--accent);background:rgba(229,57,53,.15)}96%,100%{border-color:rgba(255,255,255,.35);background:#0b0b0d}}
+.flow-line{flex:1;height:1.5px;background:rgba(255,255,255,.22)}
+.flow-dot{position:absolute;top:50%;left:0;width:9px;height:9px;background:var(--accent);transform:translateY(-50%);animation:dot-run 8s linear infinite}
+@keyframes dot-run{0%{left:4%}25%{left:32%}50%{left:60%}75%{left:88%}100%{left:88%;opacity:0}}
+.flow-logs{display:flex;flex-direction:column;gap:8px}
+.flow-log{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.55);padding:8px 10px;background:rgba(255,255,255,.05);border-left:2px solid var(--accent)}
+.flow-log.f1{animation-delay:2.4s}.flow-log.f2{animation-delay:4.4s}.flow-log.f3{animation-delay:6.4s}
+/* visual commerce: catálogo en el chat + pedido */
+.com-scr{display:flex;flex-direction:column}
+.com-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:12px 10px}
+.com-p{aspect-ratio:1;background:rgba(255,255,255,.08);position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:6px;gap:4px}
+.com-p i{display:block;height:52%;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06));position:absolute;top:6px;left:6px;right:6px}
+.com-p em{display:block;height:6px;width:60%;background:rgba(255,255,255,.3)}
+.com-p.p1{animation-delay:.4s}.com-p.p2{animation-delay:.9s}.com-p.p3{animation-delay:1.4s}.com-p.p4{animation-delay:1.9s}
+.com-p.pick{animation:wp-build 10s infinite,com-pick 10s infinite}
+@keyframes com-pick{0%,26%{outline:0 solid transparent}30%,88%{outline:2px solid var(--accent)}92%,100%{outline:0 solid transparent}}
+.com-order{margin:0 10px;background:var(--accent);color:#fff;font-size:9px;font-weight:700;padding:9px 10px;animation-delay:3.2s}
 /* empresas que ya lo usan */
 .used{margin-top:56px;display:flex;flex-wrap:wrap;gap:12px}
 .used-tile{display:flex;align-items:center;gap:16px;padding:22px 26px;background:var(--bg);border:1px solid rgba(0,0,0,.06);min-width:280px;transition:transform .35s var(--ease),box-shadow .45s var(--ease)}
@@ -415,6 +464,82 @@ const ld = [
               <div class="wp img e5"></div>
               <div class="wp card e6"></div>
               <div class="wp card e7"></div>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'hub' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow"></div>
+          <div class="ph3d">
+            <div class="ph3d-screen hub-scr">
+              <span class="hub-av"></span>
+              <b class="hub-name">@tumarca</b>
+              <span class="wp hub-btn h1"></span>
+              <span class="wp hub-btn h2 tap"></span>
+              <span class="wp hub-btn h3"></span>
+              <span class="wp hub-btn h4"></span>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'crm' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow" style="width:300px"></div>
+          <div class="web3d">
+            <div class="web3d-bar"><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-url">crm.tuempresa.com</span></div>
+            <div class="crm-page">
+              <div class="crm-col"><i class="crm-h" data-i18n="crm_c1">{es('crm_c1')}</i><span class="crm-card"></span><span class="crm-card"></span></div>
+              <div class="crm-col"><i class="crm-h" data-i18n="crm_c2">{es('crm_c2')}</i><span class="crm-card"></span></div>
+              <div class="crm-col win"><i class="crm-h" data-i18n="crm_c3">{es('crm_c3')}</i><span class="crm-card"></span></div>
+              <span class="crm-move"><b>92</b></span>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'flow' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow" style="width:300px"></div>
+          <div class="web3d flow-frame">
+            <div class="web3d-bar"><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-url">make · flujo activo</span></div>
+            <div class="flow-page">
+              <div class="flow-track">
+                <span class="flow-node n1">⚡</span><span class="flow-line l1"></span>
+                <span class="flow-node n2"></span><span class="flow-line l2"></span>
+                <span class="flow-node n3"></span><span class="flow-line l3"></span>
+                <span class="flow-node n4 ok">✓</span>
+                <span class="flow-dot"></span>
+              </div>
+              <div class="flow-logs">
+                <span class="wp flow-log f1" data-i18n="fl_1">{es('fl_1')}</span>
+                <span class="wp flow-log f2" data-i18n="fl_2">{es('fl_2')}</span>
+                <span class="wp flow-log f3" data-i18n="fl_3">{es('fl_3')}</span>
+              </div>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'commerce' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow"></div>
+          <div class="ph3d">
+            <div class="ph3d-screen com-scr">
+              <div class="ph3d-head"><span class="ph3d-av">B</span><span><b data-i18n="ph_name">{es('ph_name')}</b><i data-i18n="com_st">{es('com_st')}</i></span></div>
+              <div class="com-grid">
+                <span class="wp com-p p1"><i></i><em></em></span>
+                <span class="wp com-p p2 pick"><i></i><em></em></span>
+                <span class="wp com-p p3"><i></i><em></em></span>
+                <span class="wp com-p p4"><i></i><em></em></span>
+              </div>
+              <div class="wp com-order" data-i18n="com_order">{es('com_order')}</div>
             </div>
           </div>
           {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
@@ -630,7 +755,9 @@ function RAF(cb){ let c=false; const w=t=>{ if(c)return; c=true; cb(t); }; reque
 let lang='es';
 const wa=m=>`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
 // Trazabilidad: toda conversación que nace en esta página lleva su origen. Formato fijo para poder contar por producto.
-const origin=()=>`\n\n— Origen: web/producto/${SLUG}/${lang}`;
+// Si llegó por un cuadrado de la home o por un producto relacionado, ?src= lo registra como "vía".
+const SRC=(()=>{const m=new URLSearchParams(location.search).get('src');return m&&/^[a-z0-9-]{1,40}$/.test(m)?m:null})();
+const origin=()=>`\n\n— Origen: web/producto/${SLUG}/${lang}`+(SRC?` · vía ${SRC}`:'');
 const MSG={
   buy:{ es:n=>`Hola, quiero contratar "${n}" para mi empresa. ¿Cómo empezamos?`, en:n=>`Hi, I want to hire "${n}" for my company. How do we start?` },
   diag:{ es:n=>`Hola, quiero mi diagnóstico gratuito de 30 minutos. Me interesa "${n}".`, en:n=>`Hi, I want my free 30-minute diagnosis. I am interested in "${n}".` },

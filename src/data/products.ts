@@ -7,7 +7,7 @@ export type Bi = { es: string; en: string };
 export interface ProductPage {
   slug: string;                 // URL: /productos/<slug>/
   code: string;                 // código interno de catálogo (A-12). NUNCA se muestra al público.
-  visual: 'chat' | 'web' | 'os' | 'brand' | 'ads' | 'cube';   // gráfico 3D del hero según el producto
+  visual: 'chat' | 'web' | 'os' | 'brand' | 'ads' | 'cube' | 'hub' | 'crm' | 'flow' | 'commerce';   // gráfico 3D del hero según el producto
   phase: { num: string; title: Bi; slug: string };
   name: Bi;                     // nombre comercial (sin código)
   heads?: {                     // titulares propios de secciones (si faltan, la plantilla usa los genéricos)
@@ -206,7 +206,7 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: 'link-hub',
     code: 'A-47',
-    visual: 'web',
+    visual: 'hub',
     phase: { num: '04', title: B('Presencia Digital', 'Digital Presence'), slug: 'presencia-digital' },
     name: B('Link Hub de Marca', 'Brand Link Hub'),
     heads: {
@@ -274,7 +274,7 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: 'crm-ia',
     code: 'A-15',
-    visual: 'os',
+    visual: 'crm',
     phase: { num: '05', title: B('Automatización e IA', 'Automation & AI'), slug: 'automatizacion' },
     name: B('CRM con IA', 'AI-Powered CRM'),
     heads: {
@@ -339,7 +339,7 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: 'automatizaciones',
     code: 'A-17',
-    visual: 'os',
+    visual: 'flow',
     phase: { num: '05', title: B('Automatización e IA', 'Automation & AI'), slug: 'automatizacion' },
     name: B('Automatizaciones de Procesos', 'Process Automations'),
     heads: {
@@ -402,7 +402,7 @@ export const PRODUCTS: ProductPage[] = [
   {
     slug: 'whatsapp-business-commerce',
     code: 'A-28',
-    visual: 'chat',
+    visual: 'commerce',
     phase: { num: '05', title: B('Automatización e IA', 'Automation & AI'), slug: 'automatizacion' },
     name: B('WhatsApp Business Commerce', 'WhatsApp Business Commerce'),
     heads: {
