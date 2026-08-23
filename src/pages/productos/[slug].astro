@@ -25,8 +25,9 @@ const T: Record<string, { es: string; en: string }> = {
   bc_home: { es: 'Inicio', en: 'Home' }, bc_cat: { es: 'Catálogo', en: 'Catalog' },
   phase_w: { es: 'Fase', en: 'Phase' },
   phase: p.phase.title, name: p.name, h1: p.hero.h1, sub: p.hero.sub, trust: p.hero.trust,
-  cta_main: { es: 'Quiero mi asistente', en: 'I want my assistant' },
-  cta_how: { es: 'Ver cómo funciona', en: 'See how it works' },
+  cta_buy: { es: 'Quiero esto', en: 'I want this' },
+  cta_diag: { es: 'Diagnóstico gratuito', en: 'Free diagnosis' },
+  cta_how: { es: 'Ver cómo funciona ↓', en: 'See how it works ↓' },
   pain_label: { es: 'Lo que te está costando no tenerlo', en: 'What not having it is costing you' },
   pain_h2: { es: 'Cada mensaje sin respuesta<br><span class="serif">es una venta que se fue.</span>', en: 'Every unanswered message<br><span class="serif">is a sale that left.</span>' },
   what_label: { es: 'Qué es', en: 'What it is' },
@@ -46,8 +47,8 @@ const T: Record<string, { es: string; en: string }> = {
   rel_h2: { es: 'No es una pieza suelta.<br><span class="serif">Es parte de la cadena.</span>', en: 'Not a loose piece.<br><span class="serif">Part of the chain.</span>' },
   next_label: { es: 'Siguiente paso en la cadena', en: 'Next step in the chain' },
   soon: { es: 'Página muy pronto', en: 'Page coming soon' },
-  band_t: { es: 'Cuéntanos cómo vendes hoy y te decimos <span class="serif">cómo lo haría el asistente.</span>', en: 'Tell us how you sell today and we will show you <span class="serif">how the assistant would do it.</span>' },
-  band_btn: { es: 'Hablar por WhatsApp', en: 'Chat on WhatsApp' },
+  band_t: { es: '¿Lo quieres para tu empresa? <span class="serif">Empezamos por WhatsApp.</span>', en: 'Want it for your company? <span class="serif">We start on WhatsApp.</span>' },
+  band_btn: { es: 'Quiero esto', en: 'I want this' },
   waw_name: { es: 'Equipo BIE', en: 'BIE Team' }, waw_status: { es: 'En línea · responde en minutos', en: 'Online · replies in minutes' },
   waw_bubble: { es: 'Hola. <b>¿En cuál de estos momentos está tu empresa?</b> Elige y seguimos por WhatsApp:', en: 'Hi. <b>Which of these moments is your company in?</b> Pick one and we continue on WhatsApp:' },
   waw_foot: { es: 'CONVERSACIÓN DIRECTA · 099 825 3030', en: 'DIRECT CONVERSATION · 099 825 3030' },
@@ -329,10 +330,10 @@ const ld = [
         <h1 class="p-h1" data-i18n="h1" set:html={es('h1')}></h1>
         <p class="p-sub" data-i18n="sub">{es('sub')}</p>
         <div class="p-ctas">
-          <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="btn-primary wa-link"><span data-i18n="cta_main">{es('cta_main')}</span></a>
-          <a href="#como" class="btn-ghost" data-i18n="cta_how">{es('cta_how')}</a>
+          <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="btn-primary wa-buy"><span data-i18n="cta_buy">{es('cta_buy')}</span></a>
+          <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="btn-ghost wa-diag" data-i18n="cta_diag">{es('cta_diag')}</a>
         </div>
-        <p class="p-trust" data-i18n="trust">{es('trust')}</p>
+        <p class="p-trust"><span data-i18n="trust">{es('trust')}</span> · <a href="#como" data-i18n="cta_how" style="color:#fff;text-decoration:underline;text-underline-offset:3px">{es('cta_how')}</a></p>
       </div>
       {p.visual === 'chat' ? (
       <div class="p-visual">
@@ -506,7 +507,7 @@ const ld = [
 <!-- CTA -->
 <section class="p-band">
   <div class="section-inner">
-    <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="cta-band wa-link">
+    <a href={wa(p.waMessage.es)} target="_blank" rel="noopener" class="cta-band wa-buy">
       <div class="band-px"></div>
       <div class="band-text" data-i18n="band_t" set:html={es('band_t')}></div>
       <span class="band-btn"><span data-i18n="band_btn">{es('band_btn')}</span> →</span>
@@ -525,16 +526,23 @@ const ld = [
   </div>
 </footer>
 
-<script is:inline define:vars={{ T, WAW_OPTS, BUBBLES, WA_MSG: p.waMessage, WA }}>
+<script is:inline define:vars={{ T, WAW_OPTS, BUBBLES, WA, SLUG: p.slug, PNAME: p.name }}>
 function RAF(cb){ let c=false; const w=t=>{ if(c)return; c=true; cb(t); }; requestAnimationFrame(w); setTimeout(()=>w(performance.now()),28); }
 let lang='es';
 const wa=m=>`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+// Trazabilidad: toda conversación que nace en esta página lleva su origen. Formato fijo para poder contar por producto.
+const origin=()=>`\n\n— Origen: web/producto/${SLUG}/${lang}`;
+const MSG={
+  buy:{ es:n=>`Hola, quiero contratar "${n}" para mi empresa. ¿Cómo empezamos?`, en:n=>`Hi, I want to hire "${n}" for my company. How do we start?` },
+  diag:{ es:n=>`Hola, quiero mi diagnóstico gratuito de 30 minutos. Me interesa "${n}".`, en:n=>`Hi, I want my free 30-minute diagnosis. I am interested in "${n}".` },
+};
 function applyLang(){
   document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{ const v=T[el.dataset.i18n]; if(v) el.innerHTML=v[lang]; });
   document.getElementById('lang-toggle').textContent=lang==='es'?'EN':'ES';
-  document.querySelectorAll('.wa-link, #mm-wa').forEach(a=>a.href=wa(WA_MSG[lang]));
-  document.getElementById('waw-opts').innerHTML=WAW_OPTS.map(o=>`<a class="waw-opt" href="${wa(o.m[lang])}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
+  document.querySelectorAll('.wa-buy').forEach(a=>a.href=wa(MSG.buy[lang](PNAME[lang])+origin()));
+  document.querySelectorAll('.wa-diag, #mm-wa').forEach(a=>a.href=wa(MSG.diag[lang](PNAME[lang])+origin()));
+  document.getElementById('waw-opts').innerHTML=WAW_OPTS.map(o=>`<a class="waw-opt" href="${wa(o.m[lang]+origin())}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
 }
 document.getElementById('lang-toggle').addEventListener('click',()=>{ lang=lang==='es'?'en':'es'; applyLang(); });
 applyLang();

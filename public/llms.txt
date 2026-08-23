@@ -1,0 +1,33 @@
+# BIE — Business Intelligence Enhancer
+
+> Empresa ecuatoriana que adapta negocios a la tecnología actual: marca, sitio web, automatización con inteligencia artificial, publicidad digital, administración y educación. 45 soluciones organizadas en una cadena de valor de 8 fases. Atiende en español e inglés. Contacto directo por WhatsApp: +593 98 825 3030.
+
+BIE no es una agencia de marketing. Entrega sistemas completos que trabajan juntos: la marca, el sitio web, el asistente con IA que atiende WhatsApp, la gestión de clientes, la publicidad y el back office administrativo. Sede: Ecuador. Sitio: https://businessintelligence.solutions
+
+## Cadena de valor (8 fases)
+
+1. Inteligencia Estratégica — análisis de marca, competencia y mercado
+2. Estructuración — constitución de empresa, contabilidad, protección legal
+3. Identidad y Sonido — identidad de marca, contenidos, redes sociales, jingle e identidad sonora
+4. Presencia Digital — plataformas, dominio y hosting, sitio web que vende, posicionamiento en Google, Google Maps, fotografía con IA
+5. Automatización e IA — asistente inteligente 24/7 (chatbot para WhatsApp y web), gestión de clientes (CRM), sistema operativo de la empresa, automatización de tareas, ventas por WhatsApp, panel de control en vivo
+6. Crecimiento — Google Ads, Facebook e Instagram Ads, email, marketplaces, TikTok Ads, video marketing, reputación online
+7. Administración — sociedad, contratos, registro de marca, impuestos, facturación electrónica, reportes financieros, nómina
+8. Educación — capacitación digital, cursos online
+
+## Páginas de producto
+
+- [Asistente Inteligente 24/7 — chatbot con IA para WhatsApp y web](https://businessintelligence.solutions/productos/asistente-inteligente-whatsapp/): responde, cotiza y agenda citas las 24 horas; entrenado con la información real de la empresa; transferencia a humano con contexto; panel de conversaciones y leads.
+
+## Empresas que operan con sistemas de BIE
+
+Luway (moda en vivo por TikTok — sistema operativo, link hub, ventas por WhatsApp), Tasting Ecuador (experiencias gastronómicas en Cuenca — marca, redes, web, asistente inteligente), Villa Tres (hostal en Guayaquil — marca y contenido), Amílcar (sitio web de servicios con agenda), Óscar Caicho (app personalizada para conferencias).
+
+## Cómo contratar
+
+Diagnóstico gratuito de 30 minutos por WhatsApp (+593 98 825 3030) o contratación directa de un producto individual. No se publican precios en el sitio; se conversan por WhatsApp según cada empresa.
+
+## Optional
+
+- [Home](https://businessintelligence.solutions/)
+- [Sitemap](https://businessintelligence.solutions/sitemap-index.xml)

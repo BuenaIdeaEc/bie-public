@@ -502,7 +502,10 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .m-cta::before{content:'';position:absolute;inset:0;background:#25D366;transform:translateY(101%);transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .m-cta:hover::before{transform:none}
 .m-cta span{position:relative;z-index:1}
-.m-soon{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+.m-soon{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;margin-top:14px}
+.m-cta-ghost{background:var(--bg);color:var(--text);border:1px solid rgba(0,0,0,.18)}
+.m-cta-ghost::before{background:var(--accent)}
+.m-cta-ghost:hover{color:#fff}
 
 /* ═══ Black box ═══ */
 #blackbox{background:var(--black);color:#fff;padding:150px 0;position:relative;overflow:hidden}

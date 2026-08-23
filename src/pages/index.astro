@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v19).
+// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v20).
 ---
 <!doctype html>
 <html lang="es">
@@ -540,7 +540,10 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .m-cta::before{content:'';position:absolute;inset:0;background:#25D366;transform:translateY(101%);transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .m-cta:hover::before{transform:none}
 .m-cta span{position:relative;z-index:1}
-.m-soon{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em}
+.m-soon{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.06em;margin-top:14px}
+.m-cta-ghost{background:var(--bg);color:var(--text);border:1px solid rgba(0,0,0,.18)}
+.m-cta-ghost::before{background:var(--accent)}
+.m-cta-ghost:hover{color:#fff}
 
 /* ═══ Black box ═══ */
 #blackbox{background:var(--black);color:#fff;padding:150px 0;position:relative;overflow:hidden}
@@ -1057,7 +1060,10 @@ const UI = {
   phase_w:{es:'FASE',en:'PHASE'},
   next_label:{es:'Siguiente paso de la cadena',en:'Next step in the chain'},
   m_how:{es:'Cómo trabajamos',en:'How we work'}, m_get:{es:'Lo que logras',en:'What you get'},
-  m_cta:{es:'Me interesa — hablar por WhatsApp',en:'I am interested — chat on WhatsApp'},
+  m_cta:{es:'Quiero esto',en:'I want this'},
+  m_diag:{es:'Diagnóstico gratuito',en:'Free diagnosis'},
+  m_buy_wa:{es:n=>`Hola, quiero contratar "${n}" para mi empresa. ¿Cómo empezamos?`,en:n=>`Hi, I want to hire "${n}" for my company. How do we start?`},
+  m_diag_wa:{es:n=>`Hola, quiero mi diagnóstico gratuito de 30 minutos. Me interesa "${n}".`,en:n=>`Hi, I want my free 30-minute diagnosis. I am interested in "${n}".`},
   m_soon:{es:'MUY PRONTO: PÁGINA COMPLETA DE ESTE PRODUCTO',en:'COMING SOON: FULL PAGE FOR THIS PRODUCT'},
   m_wa:{es:n=>`Hola, vengo de la página web de BIE. Me interesa "${n}" y quiero saber más.`,
         en:n=>`Hi, I come from the BIE website. I'm interested in "${n}" and want to know more.`},
@@ -1331,6 +1337,9 @@ const SOC_ICONS = {
 };
 
 const t = o => typeof o === 'object' && o !== null && ('es' in o) ? o[lang] : o;
+// Trazabilidad: toda conversación lleva su origen (página/sección/producto/idioma) en un formato fijo.
+const origin = (where) => `\n\n— Origen: web/${where}/${lang}`;
+const slugify = str => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 const wa = msg => `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
 
 // ═══ Render: statics ═══
@@ -1348,10 +1357,10 @@ function applyStatics(){
   const prev = sel.selectedIndex;
   sel.innerHTML = NEED_OPTS[lang].map((o, i) => `<option value="${i === 0 ? '' : o}">${o}</option>`).join('');
   if (prev > 0) sel.selectedIndex = prev;
-  document.getElementById('mm-wa').href = wa(WA_GEN[lang]);
-  document.getElementById('comm-wa').href = wa(WA_COMM[lang]);
+  document.getElementById('mm-wa').href = wa(WA_GEN[lang] + origin('home/menu'));
+  document.getElementById('comm-wa').href = wa(WA_COMM[lang] + origin('home/comunidad'));
   document.getElementById('waw-opts').innerHTML = WAW_OPTS.map(o =>
-    `<a class="waw-opt" href="${wa(o.m[lang])}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
+    `<a class="waw-opt" href="${wa(o.m[lang] + origin('home/cubo'))}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
 }
 
 // ═══ Render: hero h1 ═══
@@ -1497,9 +1506,10 @@ function openModal(phaseIdx, prodIdx){
       <div class="m-result-t">${t(pr.benefit)}.</div>
     </div>
     <div class="m-actions">
-      <a href="${wa(UI.m_wa[lang](t(pr.name)))}" target="_blank" class="m-cta"><span>${UI.m_cta[lang]}</span></a>
-      <span class="m-soon">${UI.m_soon[lang]}</span>
-    </div>`;
+      <a href="${wa(UI.m_buy_wa[lang](t(pr.name)) + origin('catalogo/' + slugify(pr.name.es)))}" target="_blank" class="m-cta"><span>${UI.m_cta[lang]}</span></a>
+      <a href="${wa(UI.m_diag_wa[lang](t(pr.name)) + origin('catalogo/' + slugify(pr.name.es)))}" target="_blank" class="m-cta m-cta-ghost"><span>${UI.m_diag[lang]}</span></a>
+    </div>
+    <div class="m-soon">${UI.m_soon[lang]}</div>`;
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1920,7 +1930,7 @@ document.getElementById('contact-form').addEventListener('submit', e => {
     (d.get('need') || '').toString(),
     (d.get('message') || '').toString().trim()
   );
-  window.open(wa(msg), '_blank');
+  window.open(wa(msg + origin('home/formulario')), '_blank');
 });
 
 // ═══ Hero canvas ═══
