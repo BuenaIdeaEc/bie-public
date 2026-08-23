@@ -74,6 +74,7 @@ T.next_n = p.next.name; T.next_w = p.next.why;
 T.used_label = { es: 'Empresas que ya lo usan', en: 'Companies already using it' };
 T.used_h2 = { es: 'No es teoría.<br><span class="serif">Ya está atendiendo clientes reales.</span>', en: 'Not theory.<br><span class="serif">Already serving real customers.</span>' };
 T.used_more = { es: 'Tu empresa podría ser la siguiente', en: 'Your company could be next' };
+T.os_k1 = { es: 'Ventas', en: 'Sales' }; T.os_k2 = { es: 'Leads', en: 'Leads' }; T.os_k3 = { es: 'A tiempo', en: 'On time' };
 T.ph_name = { es: 'Tu empresa', en: 'Your company' }; T.ph_st = { es: 'en línea · responde al instante', en: 'online · replies instantly' };
 const es = (k: string) => T[k].es;
 
@@ -196,6 +197,28 @@ const ld = [
 .wp.card{height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1)}
 .wp.e1{animation-delay:.5s}.wp.e2{animation-delay:1.1s}.wp.e3{animation-delay:1.6s}.wp.e4{animation-delay:2.2s}.wp.e5{animation-delay:3s}.wp.e6{animation-delay:3.7s}.wp.e7{animation-delay:4.2s}
 @keyframes wp-build{0%{opacity:0;transform:translateY(10px)}6%{opacity:1;transform:none}86%{opacity:1}94%,100%{opacity:0}}
+/* visual: panel de control (crm / automatizaciones / analytics) */
+.os-page{gap:12px}
+.os-kpis{display:flex;gap:8px}
+.os-kpi{flex:1;background:rgba(255,255,255,.07);padding:12px 10px;display:flex;flex-direction:column;gap:4px}
+.os-kpi b{color:#fff;font-size:18px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.os-kpi i{font-style:normal;font-family:var(--mono);font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.os-bars{display:flex;align-items:flex-end;gap:6px;height:92px;background:rgba(255,255,255,.04);padding:10px}
+.os-bars i{flex:1;background:var(--accent);opacity:.85;animation:bar-live 2.6s ease-in-out infinite alternate}
+@keyframes bar-live{from{transform:scaleY(.72)}to{transform:scaleY(1)}}
+.os-row{height:16px;background:rgba(255,255,255,.1)}
+/* visual: tablero de marca */
+.brand3d{position:absolute;left:50%;top:50%;width:320px;height:400px;margin:-200px 0 0 -160px;background:#101014;border:1.5px solid rgba(255,255,255,.26);
+  box-shadow:40px 60px 90px -30px rgba(0,0,0,.85);animation:ph-float 5.5s ease-in-out infinite;padding:20px;display:flex;flex-direction:column;gap:14px}
+.bd-logo{background:#fff;color:#070709;font-weight:900;font-size:30px;letter-spacing:-.04em;line-height:1;padding:26px 20px;text-align:left}
+.bd-swatches{display:flex;gap:8px}
+.bd-swatches i{flex:1;height:34px}
+.bd-type{display:flex;gap:14px;align-items:center}
+.bd-type b{color:#fff;font-size:38px;font-weight:800;letter-spacing:-.03em}
+.bd-type span{flex:1;display:flex;flex-direction:column;gap:7px}
+.bd-type span i{height:8px;background:rgba(255,255,255,.18);display:block}
+.bd-apps{display:flex;gap:8px}
+.bd-apps i{flex:1;height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
 /* empresas que ya lo usan */
 .used{margin-top:56px;display:flex;flex-wrap:wrap;gap:12px}
 .used-tile{display:flex;align-items:center;gap:16px;padding:22px 26px;background:var(--bg);border:1px solid rgba(0,0,0,.06);min-width:280px;transition:transform .35s var(--ease),box-shadow .45s var(--ease)}
@@ -393,6 +416,36 @@ const ld = [
               <div class="wp card e6"></div>
               <div class="wp card e7"></div>
             </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'os' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow" style="width:300px"></div>
+          <div class="web3d">
+            <div class="web3d-bar"><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-url">panel.tuempresa.com</span></div>
+            <div class="web3d-page os-page">
+              <div class="wp os-kpis e1"><span class="os-kpi"><b>128</b><i data-i18n="os_k1">{es('os_k1')}</i></span><span class="os-kpi"><b>36</b><i data-i18n="os_k2">{es('os_k2')}</i></span><span class="os-kpi"><b>92%</b><i data-i18n="os_k3">{es('os_k3')}</i></span></div>
+              <div class="wp os-bars e2"><i style="height:38%"></i><i style="height:64%"></i><i style="height:50%"></i><i style="height:82%"></i><i style="height:68%"></i><i style="height:100%"></i><i style="height:74%"></i></div>
+              <div class="wp os-row e3"></div>
+              <div class="wp os-row e4" style="width:78%"></div>
+              <div class="wp os-row e5" style="width:64%"></div>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'brand' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow" style="width:300px"></div>
+          <div class="brand3d">
+            <div class="wp bd-logo e1">TU<br/>MARCA</div>
+            <div class="wp bd-swatches e2"><i style="background:#E53935"></i><i style="background:#070709"></i><i style="background:#fff;border:1px solid rgba(255,255,255,.4)"></i><i style="background:#a1a1a6"></i></div>
+            <div class="wp bd-type e3"><b>Aa</b><span><i style="width:90%"></i><i style="width:70%"></i><i style="width:52%"></i></span></div>
+            <div class="wp bd-apps e4"><i></i><i></i><i></i></div>
           </div>
           {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
         </div>

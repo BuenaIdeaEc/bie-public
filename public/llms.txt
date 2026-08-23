@@ -21,6 +21,13 @@ BIE no es una agencia de marketing. Entrega sistemas completos que trabajan junt
 
 - [Página Web — diseño de sitios profesionales que venden](https://businessintelligence.solutions/productos/pagina-web/): landing, corporativo, portafolio o tienda básica; responsive, SEO on-page, Google Analytics, formulario conectado a WhatsApp, panel de administración propio.
 
+- [Link Hub de Marca — página de enlaces profesional](https://businessintelligence.solutions/productos/link-hub/): catálogo, canales de venta, comunidad, descargables, FAQ y analítica de clics en una sola página móvil con marca propia.
+- [CRM con IA — gestión comercial](https://businessintelligence.solutions/productos/crm-ia/): pipeline de ventas, lead scoring, seguimiento automatizado, dashboards de conversión e integración con chatbot; equipo capacitado.
+- [Automatizaciones de Procesos](https://businessintelligence.solutions/productos/automatizaciones/): facturación, reportes, onboarding, correos, sincronización y alertas; cada flujo probado con datos reales, documentado y monitoreado.
+- [WhatsApp Business Commerce](https://businessintelligence.solutions/productos/whatsapp-business-commerce/): catálogo en el chat, mensajes automáticos, etiquetas por etapa, listas de difusión, plantillas y protocolo de atención; reporte mensual.
+- [Data Analytics & Dashboards](https://businessintelligence.solutions/productos/data-analytics/): KPIs en tiempo real de ventas, marketing, operaciones y finanzas; alertas automáticas y reporte mensual con hallazgos.
+- [Identidad de Marca — logotipo y manual](https://businessintelligence.solutions/productos/identidad-de-marca/): 3 conceptos de logo, paleta, tipografías, aplicaciones, manual de 20-30 páginas, guía de voz y archivos fuente.
+
 ## Empresas que operan con sistemas de BIE
 
 Luway (moda en vivo por TikTok — sistema operativo, link hub, ventas por WhatsApp), Tasting Ecuador (experiencias gastronómicas en Cuenca — marca, redes, web, asistente inteligente), Villa Tres (hostal en Guayaquil — marca y contenido), Amílcar (sitio web de servicios con agenda), Óscar Caicho (app personalizada para conferencias).

@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v20).
+// BIE-P06 — Home bilingüe autocontenida (v21: los más pedidos = batch001 con páginas propias).
 ---
 <!doctype html>
 <html lang="es">
@@ -444,7 +444,7 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 
 /* ═══ Los más pedidos ═══ */
 #top{padding:140px 0 40px;background:var(--bg)}
-.top-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:60px}
+.top-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:60px}
 .top-tile{position:relative;aspect-ratio:1;background:var(--surface);padding:26px;display:flex;flex-direction:column;justify-content:space-between;
   overflow:hidden;transition:background .3s,transform .35s var(--ease),box-shadow .45s var(--ease);cursor:pointer;text-align:left;border:none;font-family:var(--font);color:var(--text)}
 .top-tile:hover{background:var(--black);color:#fff;transform:translateY(-6px);box-shadow:var(--sh-lg)}
@@ -1033,7 +1033,7 @@ const UI = {
   band_btn:{es:'Agendar mi diagnóstico gratuito',en:'Book my free diagnosis'},
   top_label:{es:'Los más pedidos',en:'Most requested'},
   top_h2:{es:'Lo que más nos piden<br><span class="serif">las empresas.</span>',en:'What companies<br><span class="serif">ask for most.</span>'},
-  top_sub:{es:'Seis soluciones que resuelven lo urgente primero. Toca una para ver qué es, cómo trabajamos y qué logras.',en:'Six solutions that solve the urgent things first. Tap one to see what it is, how we work and what you get.'},
+  top_sub:{es:'Ocho soluciones con página propia: qué es, cómo trabajamos, qué logras y cómo se contrata — sin vueltas.',en:'Eight solutions, each with its own page: what it is, how we work, what you get and how to hire it — no runaround.'},
   top_soon:{es:'Página completa muy pronto',en:'Full page coming soon'},
   feed_label:{es:'Lo último en nuestras redes',en:'Latest from our channels'},
   feed_h2:{es:'Contenido que se publica,<br><span class="serif">y clases que vienen.</span>',en:'Content we publish,<br><span class="serif">and classes to come.</span>'},
@@ -1397,21 +1397,20 @@ function checkStrike(){
   }
 }
 
-// ═══ Render: los más pedidos ═══
+// ═══ Render: los más pedidos (los 8 del batch, cada uno con su página) ═══
 const TOP = [
-  { ph:4, pr:0, href:'/productos/asistente-inteligente-whatsapp/', hook:B('Responde, cotiza y agenda en WhatsApp las 24 horas.','Replies, quotes and books on WhatsApp 24/7.') },
-  { ph:3, pr:2, href:null, hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
-  { ph:4, pr:2, href:null, hook:B('Pedidos, inventario y procesos en un solo lugar.','Orders, inventory and processes in one place.') },
-  { ph:2, pr:0, href:null, hook:B('La marca que te hace reconocible y diferente.','The brand that makes you recognizable and different.') },
-  { ph:5, pr:1, href:null, hook:B('Publicidad que llega a tu cliente ideal antes que a la competencia.','Ads that reach your ideal customer before the competition.') },
-  { ph:4, pr:4, href:null, hook:B('Vende y cobra directamente en el chat.','Sell and get paid right inside the chat.') },
+  { href:'/productos/asistente-inteligente-whatsapp/', n:B('Asistente Inteligente 24/7','24/7 AI Assistant'), hook:B('Responde, cotiza y agenda en WhatsApp las 24 horas.','Replies, quotes and books on WhatsApp 24/7.') },
+  { href:'/productos/pagina-web/', n:B('Página Web','Website'), hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
+  { href:'/productos/identidad-de-marca/', n:B('Identidad de Marca','Brand Identity'), hook:B('La marca que te hace reconocible y elegible.','The brand that makes you recognizable and choosable.') },
+  { href:'/productos/crm-ia/', n:B('CRM con IA','AI-Powered CRM'), hook:B('Ningún cliente sin seguimiento, nunca más.','No customer left unfollowed, ever again.') },
+  { href:'/productos/automatizaciones/', n:B('Automatizaciones','Automations'), hook:B('Lo que hoy haces a mano, mañana se hace solo.','What you do by hand today runs on its own tomorrow.') },
+  { href:'/productos/whatsapp-business-commerce/', n:B('WhatsApp Business Commerce','WhatsApp Business Commerce'), hook:B('Tu WhatsApp convertido en tu mejor canal de ventas.','Your WhatsApp turned into your best sales channel.') },
+  { href:'/productos/data-analytics/', n:B('Data Analytics & Dashboards','Data Analytics & Dashboards'), hook:B('Deja de adivinar: mira tu negocio en vivo.','Stop guessing: watch your business live.') },
+  { href:'/productos/link-hub/', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
 ];
 function renderTop(){
-  document.getElementById('top-grid').innerHTML = TOP.map((x, i) => {
-    const pr = PHASES[x.ph].products[x.pr];
-    const inner = `<span class="tt-px"></span><span class="tt-num">0${i + 1}</span>${i === 0 ? `<span class="tt-badge">#1</span>` : ''}<span class="tt-name">${t(pr.name)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span>`;
-    return x.href ? `<a class="top-tile" href="${x.href}">${inner}</a>` : `<button class="top-tile" onclick="openModal(${x.ph},${x.pr})" title="${UI.top_soon[lang]}">${inner}</button>`;
-  }).join('');
+  document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>
+    `<a class="top-tile" href="${x.href}"><span class="tt-px"></span><span class="tt-num">0${i + 1}</span>${i === 0 ? `<span class="tt-badge">#1</span>` : ''}<span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
 }
 
 // ═══ Render: feed de redes (placeholders hasta conectar Instagram/TikTok) ═══
