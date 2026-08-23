@@ -17,6 +17,13 @@ const SLUGS = new Set(PRODUCTS.map((x) => x.slug));
 // Los enlaces internos llevan ?src=<slug-de-esta-página> para saber desde dónde llegó el interés.
 const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/?src=${p.slug}` : '/#catalog');
 const hasDemo = !!(p.demo && p.demo.length);
+// Cadena: orden oficial de navegación entre productos publicados (fase y código del catálogo).
+const CHAIN = ['identidad-de-marca', 'pagina-web', 'link-hub', 'asistente-inteligente-whatsapp', 'crm-ia', 'automatizaciones', 'whatsapp-business-commerce', 'data-analytics'];
+const ci = CHAIN.indexOf(p.slug);
+const byteSlug = (s: string) => PRODUCTS.find((x) => x.slug === s)!;
+const prev = ci > 0 ? byteSlug(CHAIN[ci - 1]) : null;
+const nextP = ci >= 0 && ci < CHAIN.length - 1 ? byteSlug(CHAIN[ci + 1]) : null;
+const chainHref = (s: string) => `/productos/${s}/?src=cadena-${p.slug}`;
 const url = `${SITE}/productos/${p.slug}/`;
 const WA = '593988253030';
 const wa = (m: string) => `https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
@@ -81,6 +88,11 @@ T.fl_1 = { es: 'Pedido recibido → factura creada', en: 'Order received → inv
 T.fl_2 = { es: 'Datos sincronizados con la hoja', en: 'Data synced to the sheet' };
 T.fl_3 = { es: 'Reporte enviado al dueño 07:00', en: 'Report sent to the owner 07:00' };
 T.com_st = { es: 'catálogo en el chat', en: 'catalog in the chat' };
+T.ch_prev = { es: 'Anterior en la cadena', en: 'Previous in the chain' };
+T.ch_next = { es: 'Siguiente en la cadena', en: 'Next in the chain' };
+T.ch_pos = { es: `Paso ${ci + 1} de ${CHAIN.length} en la cadena`, en: `Step ${ci + 1} of ${CHAIN.length} in the chain` };
+if (prev) T.ch_prev_n = prev.name;
+if (nextP) T.ch_next_n = nextP.name;
 T.com_order = { es: 'Pedido confirmado · Combo 2 + envío', en: 'Order confirmed · Combo 2 + shipping' };
 T.ph_name = { es: 'Tu empresa', en: 'Your company' }; T.ph_st = { es: 'en línea · responde al instante', en: 'online · replies instantly' };
 const es = (k: string) => T[k].es;
@@ -118,6 +130,11 @@ const ld = [
 <meta property="og:title" content={p.seoTitle.es}>
 <meta property="og:description" content={p.seoDescription.es}>
 <meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/${p.slug}.jpg`}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content={`${SITE}/images/og/${p.slug}.jpg`}>
 <meta property="og:locale" content="es_EC">
 <meta name="theme-color" content="#070709">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -226,6 +243,29 @@ const ld = [
 .bd-type span i{height:8px;background:rgba(255,255,255,.18);display:block}
 .bd-apps{display:flex;gap:8px}
 .bd-apps i{flex:1;height:44px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+/* navegación en cadena: flechas laterales fijas + barra anterior/siguiente */
+.chain-arrow{position:fixed;top:50%;transform:translateY(-50%);z-index:90;width:52px;height:52px;background:var(--bg);
+  border:1px solid rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--text2);
+  box-shadow:var(--sh-md);transition:background .25s,color .25s,transform .3s var(--ease);opacity:0;pointer-events:none}
+body.past-hero .chain-arrow{opacity:1;pointer-events:auto}
+.chain-arrow:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chain-arrow.left{left:18px}
+.chain-arrow.right{right:18px}
+.chain-arrow .ca-tip{position:absolute;top:-38px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--black);color:#fff;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;opacity:0;transition:opacity .2s;pointer-events:none}
+.chain-arrow:hover .ca-tip{opacity:1}
+.chain-bar{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;margin-top:0;padding:0 0 40px}
+.chain-cell{border:1px solid rgba(0,0,0,.08);background:var(--bg);padding:22px 24px;display:flex;flex-direction:column;gap:8px;
+  transition:transform .3s var(--ease),box-shadow .4s var(--ease),border-color .25s}
+.chain-cell:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--accent)}
+.chain-cell.empty{visibility:hidden}
+.chain-cell.nxt{text-align:right;align-items:flex-end}
+.chain-k{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3)}
+.chain-n{font-size:17px;font-weight:800;letter-spacing:-.02em}
+.chain-pos{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text3);padding:0 20px;border-left:1px solid var(--border);border-right:1px solid var(--border)}
+@media(max-width:960px){.chain-arrow{display:none}}
+@media(max-width:640px){.chain-bar{grid-template-columns:1fr;padding-bottom:26px}.chain-pos{border:none;padding:6px 0}.chain-cell.nxt{text-align:left;align-items:flex-start}}
 /* visual hub: teléfono con botones de enlace y un toque */
 .hub-scr{display:flex;flex-direction:column;align-items:center;gap:9px;padding:26px 16px}
 .hub-av{width:40px;height:40px;background:var(--accent)}
@@ -728,6 +768,26 @@ const ld = [
   </div>
 </section>
 
+{ci >= 0 && (
+<!-- CADENA: anterior / siguiente -->
+<section class="p-sec" style="padding-top:0;padding-bottom:0">
+  <div class="section-inner">
+    <div class="chain-bar">
+      {prev ? (
+        <a class="chain-cell" href={chainHref(prev.slug)}><span class="chain-k">← <span data-i18n="ch_prev">{es('ch_prev')}</span></span><span class="chain-n" data-i18n="ch_prev_n">{prev.name.es}</span></a>
+      ) : (<span class="chain-cell empty"></span>)}
+      <span class="chain-pos" data-i18n="ch_pos">{es('ch_pos')}</span>
+      {nextP ? (
+        <a class="chain-cell nxt" href={chainHref(nextP.slug)}><span class="chain-k"><span data-i18n="ch_next">{es('ch_next')}</span> →</span><span class="chain-n" data-i18n="ch_next_n">{nextP.name.es}</span></a>
+      ) : (<span class="chain-cell empty"></span>)}
+    </div>
+  </div>
+</section>
+)}
+
+{prev && (<a class="chain-arrow left" href={chainHref(prev.slug)} aria-label={prev.name.es}><span class="ca-tip" data-i18n="ch_prev_n">{prev.name.es}</span>←</a>)}
+{nextP && (<a class="chain-arrow right" href={chainHref(nextP.slug)} aria-label={nextP.name.es}><span class="ca-tip" data-i18n="ch_next_n">{nextP.name.es}</span>→</a>)}
+
 <!-- CTA -->
 <section class="p-band">
   <div class="section-inner">
@@ -773,6 +833,10 @@ function applyLang(){
 document.getElementById('lang-toggle').addEventListener('click',()=>{ lang=lang==='es'?'en':'es'; applyLang(); });
 applyLang();
 document.body.classList.add('past-hero');
+// cadena con teclado: ← anterior, → siguiente
+document.addEventListener('keydown',e=>{ if(e.target.closest('input,textarea,select'))return;
+  if(e.key==='ArrowRight'){ const a=document.querySelector('.chain-arrow.right'); if(a) location.href=a.href; }
+  if(e.key==='ArrowLeft'){ const a=document.querySelector('.chain-arrow.left'); if(a) location.href=a.href; } });
 
 // nav
 const nav=document.getElementById('nav'), progress=document.getElementById('progress');
