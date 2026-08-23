@@ -24,6 +24,7 @@ export interface ProductPage {
   next: { slug: string; name: Bi; why: Bi };        // siguiente paso en la cadena
   waMessage: Bi;                // mensaje pre-armado de WhatsApp
   chips?: Bi[];                 // notificaciones flotantes del visual (máx 3)
+  usedBy?: { name: string; note: Bi }[];   // empresas que ya usan este producto (veracidad)
 }
 
 const B = (es: string, en: string): Bi => ({ es, en });
@@ -105,6 +106,9 @@ export const PRODUCTS: ProductPage[] = [
     ],
     next: { slug: 'publicidad-facebook-instagram', name: B('Publicidad en Facebook e Instagram', 'Facebook & Instagram Ads'), why: B('Con el asistente atendiendo, cada dólar de publicidad ya no se pierde por falta de respuesta.', 'With the assistant answering, no ad dollar is lost to a missed reply.') },
     chips: [B('Nuevo lead · 02:14 a.m.','New lead · 02:14 a.m.'), B('Cotización enviada','Quote sent'), B('Cita agendada','Appointment booked')],
+    usedBy: [
+      { name: 'Tasting Ecuador', note: B('Experiencias gastronómicas · Cuenca', 'Culinary experiences · Cuenca') },
+    ],
     waMessage: B(
       'Hola, vengo de la página del Asistente Inteligente 24/7 de BIE. Quiero saber cómo funcionaría en mi empresa.',
       'Hi, I come from the BIE 24/7 AI Assistant page. I want to know how it would work in my company.'

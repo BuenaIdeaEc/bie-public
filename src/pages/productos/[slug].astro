@@ -61,6 +61,10 @@ p.faq.forEach((x, i) => { T[`faq${i}_q`] = x.q; T[`faq${i}_a`] = x.a; });
 p.related.forEach((x, i) => { T[`rel${i}_n`] = x.name; T[`rel${i}_w`] = x.why; });
 T.next_n = p.next.name; T.next_w = p.next.why;
 (p.chips || []).forEach((x, i) => { T[`chip${i}`] = x; });
+(p.usedBy || []).forEach((x, i) => { T[`used${i}`] = x.note; });
+T.used_label = { es: 'Empresas que ya lo usan', en: 'Companies already using it' };
+T.used_h2 = { es: 'No es teoría.<br><span class="serif">Ya está atendiendo clientes reales.</span>', en: 'Not theory.<br><span class="serif">Already serving real customers.</span>' };
+T.used_more = { es: 'Tu empresa podría ser la siguiente', en: 'Your company could be next' };
 T.ph_name = { es: 'Tu empresa', en: 'Your company' }; T.ph_st = { es: 'en línea · responde al instante', en: 'online · replies instantly' };
 const es = (k: string) => T[k].es;
 
@@ -107,8 +111,11 @@ const ld = [
 <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
 <style is:global>
 /* ── Página de producto ── */
-.p-hero{background:var(--black);color:#fff;padding:150px 0 100px;position:relative;overflow:hidden}
-.p-hero::after{content:'';position:absolute;left:50%;top:40%;width:120vw;height:120vh;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(40% 40% at 70% 50%,rgba(229,57,53,.1) 0%,transparent 60%)}
+.p-hero{background:var(--black);color:#fff;padding:150px 0 110px;position:relative;overflow:hidden;min-height:96vh;display:flex;align-items:center}
+.p-hero::after{content:'';position:absolute;left:50%;top:45%;width:100vw;height:100vh;transform:translate(-50%,-50%);pointer-events:none;background:radial-gradient(40% 40% at 70% 50%,rgba(229,57,53,.12) 0%,transparent 60%)}
+.p-hero-grid{position:absolute;inset:0;opacity:.07;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:56px 56px;
+  mask-image:radial-gradient(60% 60% at 70% 50%,#000 0%,transparent 100%);-webkit-mask-image:radial-gradient(60% 60% at 70% 50%,#000 0%,transparent 100%)}
 .p-hero .section-inner{z-index:2}
 .bc{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:34px;flex-wrap:wrap}
 .bc a:hover{color:#fff}
@@ -137,11 +144,13 @@ const ld = [
 .p-cube .hc.d{transform:rotateX(-90deg) translateZ(var(--half))}
 .p-cube .hc-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#fff;text-transform:uppercase}
 /* visual: teléfono 3D con conversación viva (productos de chat) */
-.p-visual{display:flex;justify-content:center;align-items:center;min-height:420px}
-.ph3d-scene{position:relative;perspective:1300px;width:300px;height:460px;transform-style:preserve-3d}
-.ph3d{position:absolute;left:50%;top:50%;width:236px;height:470px;margin:-235px 0 0 -118px;background:#101014;border:1.5px solid rgba(255,255,255,.22);padding:10px;
-  transform:rotateY(-20deg) rotateX(7deg);transform-style:preserve-3d;box-shadow:40px 60px 90px -30px rgba(0,0,0,.8);animation:ph-float 5.5s ease-in-out infinite}
-@keyframes ph-float{0%,100%{transform:rotateY(-20deg) rotateX(7deg) translateY(0)}50%{transform:rotateY(-17deg) rotateX(9deg) translateY(-12px)}}
+.p-visual{display:flex;justify-content:center;align-items:center;min-height:520px;perspective:1400px}
+.ph3d-scene{position:relative;width:300px;height:500px;transform-style:preserve-3d;will-change:transform;transition:transform .12s linear;transform:rotateY(-22deg) rotateX(8deg)}
+.ph3d{position:absolute;left:50%;top:50%;width:236px;height:460px;margin:-230px 0 0 -118px;background:#101014;border:1.5px solid rgba(255,255,255,.26);padding:10px;
+  transform-style:preserve-3d;box-shadow:40px 60px 90px -30px rgba(0,0,0,.85),0 0 0 1px rgba(0,0,0,.6) inset;animation:ph-float 5.5s ease-in-out infinite}
+.ph3d::after{content:'';position:absolute;left:-6px;top:90px;width:3px;height:44px;background:rgba(255,255,255,.25)}
+@keyframes ph-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.ph3d-shadow{position:absolute;left:50%;bottom:-34px;width:220px;height:24px;transform:translateX(-50%);background:rgba(0,0,0,.7);filter:blur(16px);border-radius:50%}
 .ph3d::before{content:;position:absolute;top:0;left:50%;transform:translateX(-50%);width:70px;height:5px;background:#000;border-radius:0 0 4px 4px}
 .ph3d-screen{background:#0b0b0d;height:100%;display:flex;flex-direction:column;overflow:hidden}
 .ph3d-head{display:flex;align-items:center;gap:9px;padding:16px 12px 10px;border-bottom:1px solid rgba(255,255,255,.1);background:#070709}
@@ -157,10 +166,18 @@ const ld = [
 .ph3d-chip{position:absolute;background:#fff;color:var(--text);font-size:11px;font-weight:700;letter-spacing:-.01em;padding:10px 13px;display:flex;align-items:center;gap:8px;
   box-shadow:0 20px 40px -12px rgba(0,0,0,.6);white-space:nowrap;opacity:0;animation:chip-pop 11s infinite}
 .ph3d-chip .px{width:7px;height:7px;background:var(--accent);flex-shrink:0}
-.ph3d-chip.c0{right:-40px;top:70px;animation-delay:2.6s;transform:translateZ(80px)}
-.ph3d-chip.c1{left:-60px;top:220px;animation-delay:6.4s;transform:translateZ(60px)}
-.ph3d-chip.c2{right:-30px;bottom:60px;animation-delay:8.6s;transform:translateZ(90px)}
-@keyframes chip-pop{0%{opacity:0;transform:translateY(10px) scale(.92)}4%{opacity:1;transform:translateY(0) scale(1)}28%{opacity:1}34%,100%{opacity:0;transform:translateY(-8px) scale(.96)}}
+.ph3d-chip.c0{right:-46px;top:56px;animation-delay:2.6s}
+.ph3d-chip.c1{left:-70px;top:250px;animation-delay:6.4s}
+.ph3d-chip.c2{right:-36px;bottom:70px;animation-delay:8.6s}
+@keyframes chip-pop{0%{opacity:0;transform:translateZ(70px) translateY(10px) scale(.92)}4%{opacity:1;transform:translateZ(70px) translateY(0) scale(1)}28%{opacity:1;transform:translateZ(70px)}34%,100%{opacity:0;transform:translateZ(70px) translateY(-8px) scale(.96)}}
+/* empresas que ya lo usan */
+.used{margin-top:56px;display:flex;flex-wrap:wrap;gap:12px}
+.used-tile{display:flex;align-items:center;gap:16px;padding:22px 26px;background:var(--bg);border:1px solid rgba(0,0,0,.06);min-width:280px;transition:transform .35s var(--ease),box-shadow .45s var(--ease)}
+.used-tile:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.used-mark{width:44px;height:44px;background:var(--black);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;letter-spacing:-.03em;flex-shrink:0}
+.used-name{font-size:17px;font-weight:800;letter-spacing:-.02em}
+.used-note{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--text3);margin-top:3px;text-transform:uppercase}
+.used-more{display:flex;align-items:center;padding:22px 26px;border:1px dashed rgba(0,0,0,.18);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
 /* secciones */
 .p-sec{padding:120px 0}
 .p-sec.alt{background:var(--surface)}
@@ -234,7 +251,8 @@ const ld = [
 @media(max-width:960px){
   .p-grid,.what-grid,.demo-wrap{grid-template-columns:1fr;gap:36px}
   .p-cube-wrap{min-height:260px;order:-1}.p-cube{--cs:160px;--half:80px}
-  .p-visual{min-height:360px;order:-1}.ph3d-scene{transform:scale(.78);height:380px}
+  .p-visual{min-height:400px;order:-1}.ph3d-scene{transform:scale(.74)!important;height:400px}
+  .used-tile{min-width:0;width:100%}
   .pain-grid,.rel-grid{grid-template-columns:1fr}
   .rel.next{grid-column:span 1;flex-direction:column;align-items:flex-start}
   .steps{grid-template-columns:1fr 1fr}
@@ -298,6 +316,7 @@ const ld = [
 
 <!-- HERO DEL PRODUCTO -->
 <section class="p-hero">
+  <div class="p-hero-grid"></div>
   <div class="section-inner">
     <div class="bc">
       <a href="/" data-i18n="bc_home">{es('bc_home')}</a><span class="bc-sep"></span>
@@ -317,7 +336,8 @@ const ld = [
       </div>
       {p.visual === 'chat' ? (
       <div class="p-visual">
-        <div class="ph3d-scene">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow"></div>
           <div class="ph3d">
             <div class="ph3d-screen">
               <div class="ph3d-head"><span class="ph3d-av">B</span><span><b data-i18n="ph_name">{es('ph_name')}</b><i data-i18n="ph_st">{es('ph_st')}</i></span></div>
@@ -417,8 +437,26 @@ const ld = [
   </div>
 </section>
 
-<!-- PARA QUIÉN -->
+{(p.usedBy && p.usedBy.length > 0) && (
+<!-- YA LO USAN -->
 <section class="p-sec">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="used_label">{es('used_label')}</p>
+      <h2 class="section-h2" data-i18n="used_h2" set:html={es('used_h2')}></h2>
+    </div>
+    <div class="used reveal d1">
+      {p.usedBy.map((u, i) => (
+        <a class="used-tile" href="/#work"><span class="used-mark">{u.name.slice(0, 1)}</span><span><span class="used-name">{u.name}</span><span class="used-note" data-i18n={`used${i}`}>{u.note.es}</span></span></a>
+      ))}
+      <span class="used-more" data-i18n="used_more">{es('used_more')}</span>
+    </div>
+  </div>
+</section>
+)}
+
+<!-- PARA QUIÉN -->
+<section class="p-sec alt">
   <div class="section-inner">
     <div class="reveal">
       <p class="section-label" data-i18n="who_label">{es('who_label')}</p>
@@ -431,7 +469,7 @@ const ld = [
 </section>
 
 <!-- FAQ -->
-<section class="p-sec alt">
+<section class="p-sec">
   <div class="section-inner">
     <div class="reveal">
       <p class="section-label" data-i18n="faq_label">{es('faq_label')}</p>
@@ -446,7 +484,7 @@ const ld = [
 </section>
 
 <!-- INTERCONEXIÓN -->
-<section class="p-sec">
+<section class="p-sec alt">
   <div class="section-inner">
     <div class="reveal">
       <p class="section-label" data-i18n="rel_label">{es('rel_label')}</p>
@@ -538,6 +576,11 @@ document.addEventListener('click',e=>{ if(!waWidget.classList.contains('open'))r
     for(const p of px){ p.r-=p.spd; p.a+=.012; if(p.r<9) Object.assign(p,spawn()); const x=c.x+Math.cos(p.a)*p.r*DPR, y=c.y+Math.sin(p.a)*p.r*DPR*.9; const near=1-Math.min(p.r/90,1); const al=open?0:(.15+near*.7); ctx.fillStyle=p.red?`rgba(229,57,53,${al})`:`rgba(10,10,12,${al*.8})`; const s=p.s*(.5+near*.8); ctx.fillRect(Math.round(x/s)*s,Math.round(y/s)*s,s,s); }
     RAF(tick); }
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) tick(); })();
+// teléfono 3D: se endereza, se eleva y gira suave al hacer scroll
+(function(){ const sc3=document.getElementById('ph3d-scene'); if(!sc3||matchMedia('(pointer:coarse)').matches)return; const hero=document.querySelector('.p-hero');
+  function upd(){ const s=(document.scrollingElement||document.documentElement).scrollTop; const p=Math.min(Math.max(s/(hero.offsetHeight*.8),0),1);
+    sc3.style.transform=`rotateY(${-22+p*30}deg) rotateX(${8-p*14}deg) translateY(${-p*60}px) translateZ(${p*40}px)`; sc3.style.opacity=String(1-p*.35); }
+  window.addEventListener('scroll',upd,{passive:true}); upd(); })();
 // demo chat: aparece mensaje a mensaje cuando entra en pantalla, y se repite
 (function(){ const body=document.getElementById('chat-body'); const msgs=[...body.querySelectorAll('.msg')]; const typing=document.getElementById('typing'); let started=false;
   function run(){ msgs.forEach(m=>m.classList.remove('on')); let i=0;
