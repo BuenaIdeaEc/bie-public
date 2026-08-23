@@ -60,6 +60,8 @@ p.forWhom.forEach((x, i) => { T[`who${i}`] = x; });
 p.faq.forEach((x, i) => { T[`faq${i}_q`] = x.q; T[`faq${i}_a`] = x.a; });
 p.related.forEach((x, i) => { T[`rel${i}_n`] = x.name; T[`rel${i}_w`] = x.why; });
 T.next_n = p.next.name; T.next_w = p.next.why;
+(p.chips || []).forEach((x, i) => { T[`chip${i}`] = x; });
+T.ph_name = { es: 'Tu empresa', en: 'Your company' }; T.ph_st = { es: 'en línea · responde al instante', en: 'online · replies instantly' };
 const es = (k: string) => T[k].es;
 
 const WAW_OPTS = [
@@ -134,6 +136,31 @@ const ld = [
 .p-cube .hc.t{transform:rotateX(90deg) translateZ(var(--half))}
 .p-cube .hc.d{transform:rotateX(-90deg) translateZ(var(--half))}
 .p-cube .hc-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:#fff;text-transform:uppercase}
+/* visual: teléfono 3D con conversación viva (productos de chat) */
+.p-visual{display:flex;justify-content:center;align-items:center;min-height:420px}
+.ph3d-scene{position:relative;perspective:1300px;width:300px;height:460px;transform-style:preserve-3d}
+.ph3d{position:absolute;left:50%;top:50%;width:236px;height:470px;margin:-235px 0 0 -118px;background:#101014;border:1.5px solid rgba(255,255,255,.22);padding:10px;
+  transform:rotateY(-20deg) rotateX(7deg);transform-style:preserve-3d;box-shadow:40px 60px 90px -30px rgba(0,0,0,.8);animation:ph-float 5.5s ease-in-out infinite}
+@keyframes ph-float{0%,100%{transform:rotateY(-20deg) rotateX(7deg) translateY(0)}50%{transform:rotateY(-17deg) rotateX(9deg) translateY(-12px)}}
+.ph3d::before{content:;position:absolute;top:0;left:50%;transform:translateX(-50%);width:70px;height:5px;background:#000;border-radius:0 0 4px 4px}
+.ph3d-screen{background:#0b0b0d;height:100%;display:flex;flex-direction:column;overflow:hidden}
+.ph3d-head{display:flex;align-items:center;gap:9px;padding:16px 12px 10px;border-bottom:1px solid rgba(255,255,255,.1);background:#070709}
+.ph3d-av{width:28px;height:28px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:11px;flex-shrink:0}
+.ph3d-head b{display:block;color:#fff;font-size:11px;font-weight:700}
+.ph3d-head i{display:block;font-style:normal;font-family:var(--mono);font-size:8px;color:#25D366;margin-top:2px}
+.ph3d-body{padding:12px 10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pb{max-width:86%;padding:8px 10px;font-size:10.5px;line-height:1.45;opacity:0;transform:translateY(8px);animation:pb-loop 11s infinite}
+.pb.client{align-self:flex-end;background:#fff;color:var(--text)}
+.pb.bot{align-self:flex-start;background:rgba(255,255,255,.09);color:#fff;border-left:2px solid var(--accent)}
+.pb:nth-child(1){animation-delay:.4s}.pb:nth-child(2){animation-delay:2.1s}.pb:nth-child(3){animation-delay:4s}.pb:nth-child(4){animation-delay:5.9s}
+@keyframes pb-loop{0%{opacity:0;transform:translateY(8px)}5%{opacity:1;transform:none}80%{opacity:1;transform:none}88%,100%{opacity:0;transform:translateY(-4px)}}
+.ph3d-chip{position:absolute;background:#fff;color:var(--text);font-size:11px;font-weight:700;letter-spacing:-.01em;padding:10px 13px;display:flex;align-items:center;gap:8px;
+  box-shadow:0 20px 40px -12px rgba(0,0,0,.6);white-space:nowrap;opacity:0;animation:chip-pop 11s infinite}
+.ph3d-chip .px{width:7px;height:7px;background:var(--accent);flex-shrink:0}
+.ph3d-chip.c0{right:-40px;top:70px;animation-delay:2.6s;transform:translateZ(80px)}
+.ph3d-chip.c1{left:-60px;top:220px;animation-delay:6.4s;transform:translateZ(60px)}
+.ph3d-chip.c2{right:-30px;bottom:60px;animation-delay:8.6s;transform:translateZ(90px)}
+@keyframes chip-pop{0%{opacity:0;transform:translateY(10px) scale(.92)}4%{opacity:1;transform:translateY(0) scale(1)}28%{opacity:1}34%,100%{opacity:0;transform:translateY(-8px) scale(.96)}}
 /* secciones */
 .p-sec{padding:120px 0}
 .p-sec.alt{background:var(--surface)}
@@ -207,6 +234,7 @@ const ld = [
 @media(max-width:960px){
   .p-grid,.what-grid,.demo-wrap{grid-template-columns:1fr;gap:36px}
   .p-cube-wrap{min-height:260px;order:-1}.p-cube{--cs:160px;--half:80px}
+  .p-visual{min-height:360px;order:-1}.ph3d-scene{transform:scale(.78);height:380px}
   .pain-grid,.rel-grid{grid-template-columns:1fr}
   .rel.next{grid-column:span 1;flex-direction:column;align-items:flex-start}
   .steps{grid-template-columns:1fr 1fr}
@@ -287,11 +315,30 @@ const ld = [
         </div>
         <p class="p-trust" data-i18n="trust">{es('trust')}</p>
       </div>
-      <div class="p-cube-wrap">
-        <div class="p-cube">
-          <div class="hc f"><span class="hc-label">24 / 7</span></div><div class="hc b"></div><div class="hc r"></div><div class="hc l"></div><div class="hc t"></div><div class="hc d"></div>
+      {p.visual === 'chat' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene">
+          <div class="ph3d">
+            <div class="ph3d-screen">
+              <div class="ph3d-head"><span class="ph3d-av">B</span><span><b data-i18n="ph_name">{es('ph_name')}</b><i data-i18n="ph_st">{es('ph_st')}</i></span></div>
+              <div class="ph3d-body">
+                <div class="pb client" data-i18n="demo0">{p.demo[0].text.es}</div>
+                <div class="pb bot" data-i18n="demo1">{p.demo[1].text.es}</div>
+                <div class="pb client" data-i18n="demo2">{p.demo[2].text.es}</div>
+                <div class="pb bot" data-i18n="demo3">{p.demo[3].text.es}</div>
+              </div>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
         </div>
       </div>
+      ) : (
+      <div class="p-cube-wrap">
+        <div class="p-cube">
+          <div class="hc f"></div><div class="hc b"></div><div class="hc r"></div><div class="hc l"></div><div class="hc t"></div><div class="hc d"></div>
+        </div>
+      </div>
+      )}
     </div>
   </div>
 </section>

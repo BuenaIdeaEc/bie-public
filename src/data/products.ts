@@ -6,6 +6,7 @@ export type Bi = { es: string; en: string };
 
 export interface ProductPage {
   slug: string;                 // URL: /productos/<slug>/
+  visual: 'chat' | 'web' | 'os' | 'brand' | 'ads' | 'cube';   // gráfico 3D del hero según el producto
   phase: { num: string; title: Bi; slug: string };
   name: Bi;                     // nombre comercial (sin código)
   seoTitle: Bi;                 // <title>
@@ -22,6 +23,7 @@ export interface ProductPage {
   related: { slug: string; name: Bi; why: Bi }[];   // se potencia con
   next: { slug: string; name: Bi; why: Bi };        // siguiente paso en la cadena
   waMessage: Bi;                // mensaje pre-armado de WhatsApp
+  chips?: Bi[];                 // notificaciones flotantes del visual (máx 3)
 }
 
 const B = (es: string, en: string): Bi => ({ es, en });
@@ -29,6 +31,7 @@ const B = (es: string, en: string): Bi => ({ es, en });
 export const PRODUCTS: ProductPage[] = [
   {
     slug: 'asistente-inteligente-whatsapp',
+    visual: 'chat',
     phase: { num: '05', title: B('Automatización e IA', 'Automation & AI'), slug: 'automatizacion' },
     name: B('Asistente Inteligente 24/7', '24/7 AI Assistant'),
     seoTitle: B(
@@ -101,6 +104,7 @@ export const PRODUCTS: ProductPage[] = [
       { slug: 'sitio-web-que-vende', name: B('Sitio Web que Vende', 'Website That Sells'), why: B('El mismo asistente atendiendo a quien llega desde Google.', 'The same assistant serving whoever arrives from Google.') },
     ],
     next: { slug: 'publicidad-facebook-instagram', name: B('Publicidad en Facebook e Instagram', 'Facebook & Instagram Ads'), why: B('Con el asistente atendiendo, cada dólar de publicidad ya no se pierde por falta de respuesta.', 'With the assistant answering, no ad dollar is lost to a missed reply.') },
+    chips: [B('Nuevo lead · 02:14 a.m.','New lead · 02:14 a.m.'), B('Cotización enviada','Quote sent'), B('Cita agendada','Appointment booked')],
     waMessage: B(
       'Hola, vengo de la página del Asistente Inteligente 24/7 de BIE. Quiero saber cómo funcionaría en mi empresa.',
       'Hi, I come from the BIE 24/7 AI Assistant page. I want to know how it would work in my company.'
