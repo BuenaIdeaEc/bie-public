@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v16).
+// BIE-P06 — Home bilingüe autocontenida. Generada desde el prototipo aprobado por EGO (v17: hero negro + cubo).
 ---
 <!doctype html>
 <html lang="es">
@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<meta name="theme-color" content="#E53935">
+<meta name="theme-color" content="#070709">
 <title>BIE — Business Intelligence Enhancer | Adaptación digital de empresas en Ecuador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="BIE adapta tu empresa a la tecnología de hoy: marca, sitio web, automatización con IA, publicidad digital y administración. 45 soluciones en cadena. Diagnóstico gratuito de 30 minutos por WhatsApp. Ecuador.">
@@ -132,8 +132,14 @@ button{cursor:pointer}
 @keyframes wa-spin{from{transform:rotateX(-18deg) rotateY(0deg)}to{transform:rotateX(-18deg) rotateY(360deg)}}
 .wa-face{position:absolute;inset:0;background:#0a0a0c;border:1.5px solid rgba(255,255,255,.22);
   display:flex;align-items:center;justify-content:center;backface-visibility:hidden}
-.wa-face svg path{stroke:#25D366}
-.wa-face svg path[fill="#fff"]{fill:#25D366}
+.wa-edge{width:7px;height:7px;background:var(--accent);position:absolute;top:6px;left:6px;opacity:.9}
+#wa-bubble{position:fixed;bottom:48px;right:104px;z-index:151;background:#fff;color:var(--text);border:1px solid rgba(0,0,0,.08);
+  box-shadow:var(--sh-lg);padding:12px 16px;font-size:13px;font-weight:600;letter-spacing:-.01em;max-width:230px;
+  opacity:0;transform:translateX(14px) scale(.96);transform-origin:right center;pointer-events:none;
+  transition:opacity .35s var(--ease),transform .35s var(--ease)}
+#wa-bubble.on{opacity:1;transform:none;pointer-events:auto;cursor:pointer}
+#wa-bubble::after{content:'';position:absolute;right:-6px;top:50%;width:10px;height:10px;background:#fff;border-right:1px solid rgba(0,0,0,.08);border-top:1px solid rgba(0,0,0,.08);transform:translateY(-50%) rotate(45deg)}
+#wa-bubble .wb-px{display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:9px;vertical-align:middle}
 .wa-face.f{transform:translateZ(23px)}
 .wa-face.b{transform:rotateY(180deg) translateZ(23px)}
 .wa-face.r{transform:rotateY(90deg) translateZ(23px)}
@@ -228,9 +234,21 @@ button{cursor:pointer}
 .reel-hint{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.3)}
 
 /* ═══ Hero ═══ */
-#hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:130px 44px 90px;overflow:hidden;perspective:1200px}
+#hero{min-height:100vh;position:relative;display:flex;flex-direction:column;justify-content:center;padding:130px 44px 90px;overflow:hidden;perspective:1200px;background:var(--black);color:#fff}
+#hero::after{content:'';position:absolute;left:50%;top:50%;width:120vw;height:120vh;transform:translate(-50%,-50%);pointer-events:none;z-index:1;background:radial-gradient(45% 45% at 64% 50%,rgba(229,57,53,.08) 0%,transparent 60%)}
 #hero-canvas{position:absolute;inset:0;z-index:0}
-.hero-inner{position:relative;z-index:2;max-width:1150px;margin:0 auto;width:100%;transform-style:preserve-3d;transition:transform .25s ease-out;will-change:transform,opacity}
+.hero-inner{position:relative;z-index:2;max-width:1150px;margin:0 auto;width:100%;transform-style:preserve-3d;transition:transform .25s ease-out;will-change:transform,opacity;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;column-gap:40px}
+.hero-text{min-width:0}
+.hero-cube-wrap{perspective:1400px;display:flex;justify-content:center;align-items:center;min-height:380px;will-change:transform}
+.hero-cube{--cs:250px;--half:125px;--ex:0px;width:var(--cs);height:var(--cs);position:relative;transform-style:preserve-3d;will-change:transform}
+.hc{position:absolute;inset:0;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.035);box-shadow:inset 0 0 40px rgba(255,255,255,.03)}
+.hc.f{transform:translateZ(calc(var(--half) + var(--ex)));background:rgba(229,57,53,.82);border-color:rgba(255,255,255,.7)}
+.hc.b{transform:rotateY(180deg) translateZ(calc(var(--half) + var(--ex)))}
+.hc.r{transform:rotateY(90deg) translateZ(calc(var(--half) + var(--ex)))}
+.hc.l{transform:rotateY(-90deg) translateZ(calc(var(--half) + var(--ex)))}
+.hc.t{transform:rotateX(90deg) translateZ(calc(var(--half) + var(--ex)))}
+.hc.d{transform:rotateX(-90deg) translateZ(calc(var(--half) + var(--ex)))}
+.hc-px{position:absolute;width:8px;height:8px;background:#fff;top:-4px;left:-4px}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
   display:flex;align-items:center;gap:12px;margin-bottom:30px}
 .eyebrow::before{content:'';width:12px;height:12px;background:var(--accent)}
@@ -248,12 +266,12 @@ button{cursor:pointer}
 #hero h1 .strike::after{content:'';position:absolute;left:-2%;right:-2%;top:54%;height:6px;background:var(--accent);
   transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.16,1,.3,1)}
 #hero h1 .strike.go::after{transform:scaleX(1)}
-#hero h1 .strike.go{color:var(--text)}
-.hero-thesis{font-size:clamp(16px,1.7vw,20px);font-weight:500;letter-spacing:-.01em;line-height:1.6;max-width:560px;margin-top:30px;color:var(--text2);
+#hero h1 .strike.go{color:rgba(255,255,255,.3)}
+.hero-thesis{font-size:clamp(16px,1.7vw,20px);font-weight:500;letter-spacing:-.01em;line-height:1.6;max-width:560px;margin-top:30px;color:rgba(255,255,255,.62);
   opacity:0;transform:translateY(20px);transition:opacity .9s .5s cubic-bezier(.16,1,.3,1),transform .9s .5s cubic-bezier(.16,1,.3,1)}
 #hero.loaded .hero-thesis{opacity:1;transform:none}
-.hero-thesis .accent{color:var(--text);font-weight:600}
-.hero-sub{font-size:16px;color:var(--text2);max-width:520px;line-height:1.72;margin-top:18px;
+.hero-thesis .accent{color:#fff;font-weight:600}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.48);max-width:520px;line-height:1.72;margin-top:18px;
   opacity:0;transform:translateY(20px);transition:opacity .9s .62s cubic-bezier(.16,1,.3,1),transform .9s .62s cubic-bezier(.16,1,.3,1)}
 #hero.loaded .hero-sub{opacity:1;transform:none}
 .hero-btns{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap;opacity:0;transition:opacity .9s .75s}
@@ -269,7 +287,12 @@ button{cursor:pointer}
 .btn-ghost:hover{border-color:var(--accent);background:var(--accent-pale);transform:translateY(-2px);box-shadow:var(--sh-md)}
 .hero-stats{display:flex;margin-top:72px;opacity:0;transition:opacity 1s .9s}
 #hero.loaded .hero-stats{opacity:1}
-.stat{padding-right:56px;margin-right:56px;border-right:1px solid var(--border)}
+.stat{padding-right:56px;margin-right:56px;border-right:1px solid rgba(255,255,255,.14)}
+#hero .stat-l{color:rgba(255,255,255,.4)}
+#hero .btn-primary{background:#fff;color:var(--black);box-shadow:none}
+#hero .btn-primary:hover{color:#fff}
+#hero .btn-ghost{border-color:rgba(255,255,255,.28);color:#fff;background:transparent}
+#hero .btn-ghost:hover{border-color:var(--accent);background:rgba(229,57,53,.14)}
 .stat:last-child{border:none}
 .stat-n{font-size:36px;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
 .stat-l{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-top:7px}
@@ -577,10 +600,15 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   #burger{display:flex}
   .hero-stats{flex-wrap:wrap;gap:24px}
   .stat{padding-right:28px;margin-right:28px}
+  .hero-inner{grid-template-columns:1fr .7fr}
+  .hero-cube{--cs:180px;--half:90px}
 }
 @media(max-width:640px){
   #nav{padding-left:20px;padding-right:12px;height:58px}
-  #hero{padding:96px 22px 110px;min-height:100svh}
+  #hero{padding:96px 22px 90px;min-height:100svh}
+  .hero-inner{grid-template-columns:1fr;row-gap:10px}
+  .hero-cube-wrap{min-height:210px;order:-1;margin-top:-10px}
+  .hero-cube{--cs:130px;--half:65px}
   .section-inner{padding-left:22px;padding-right:22px}
   .section-inner>.reveal:first-child{display:block}
   .section-sub{margin-top:16px}
@@ -637,6 +665,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .m-cta{width:100%;text-align:center}
   #wa-fab{bottom:18px;right:18px;width:56px;height:56px}
   #wa-widget{bottom:86px;right:18px}
+  #wa-bubble{right:86px;bottom:36px;max-width:190px;font-size:12px}
 }
 </style>
 
@@ -674,12 +703,13 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 </div>
 
 <canvas id="fab-px"></canvas>
+<div id="wa-bubble"><span class="wb-px"></span><span id="wa-bubble-text"></span></div>
 <button id="wa-fab" aria-label="WhatsApp">
   <span class="wa-float"><span class="wa-cube">
-    <span class="wa-face f"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.4-1.4-1.8-1.2-1.2.6a4.6 4.6 0 0 1-2.4-2.4l.6-1.2-1.2-1.8-1.4 1.4z" fill="#fff"/></svg></span>
-    <span class="wa-face b"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.4-1.4-1.8-1.2-1.2.6a4.6 4.6 0 0 1-2.4-2.4l.6-1.2-1.2-1.8-1.4 1.4z" fill="#fff"/></svg></span>
-    <span class="wa-face r"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.4-1.4-1.8-1.2-1.2.6a4.6 4.6 0 0 1-2.4-2.4l.6-1.2-1.2-1.8-1.4 1.4z" fill="#fff"/></svg></span>
-    <span class="wa-face l"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.4-1.4-1.8-1.2-1.2.6a4.6 4.6 0 0 1-2.4-2.4l.6-1.2-1.2-1.8-1.4 1.4z" fill="#fff"/></svg></span>
+    <span class="wa-face f"><span class="wa-edge"></span></span>
+    <span class="wa-face b"><span class="wa-edge"></span></span>
+    <span class="wa-face r"><span class="wa-edge"></span></span>
+    <span class="wa-face l"><span class="wa-edge"></span></span>
     <span class="wa-face t"></span>
     <span class="wa-face d"></span>
   </span></span>
@@ -705,6 +735,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
   <div class="hero-inner" id="hero-inner">
+   <div class="hero-text">
     <p class="eyebrow">Business Intelligence Enhancer</p>
     <h1>
       <span class="h1-line"><span id="h1-l1"></span></span>
@@ -721,6 +752,12 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <div class="stat"><div class="stat-n" data-count="8">0</div><div class="stat-l" data-i18n="stat2"></div></div>
       <div class="stat"><div class="stat-n" data-count="5">0</div><div class="stat-l" data-i18n="stat3"></div></div>
     </div>
+   </div>
+   <div class="hero-cube-wrap" id="hero-cube-wrap">
+    <div class="hero-cube" id="hero-cube">
+      <div class="hc f"><span class="hc-px"></span></div><div class="hc b"></div><div class="hc r"></div><div class="hc l"></div><div class="hc t"></div><div class="hc d"></div>
+    </div>
+   </div>
   </div>
 </section>
 
@@ -981,6 +1018,7 @@ const UI = {
   waw_bubble:{es:'Hola. <b>¿En cuál de estos momentos está tu empresa?</b> Elige y seguimos por WhatsApp:',
               en:'Hi. <b>Which of these moments is your company in?</b> Pick one and we continue on WhatsApp:'},
   waw_foot:{es:'CONVERSACIÓN DIRECTA · 099 825 3030',en:'DIRECT CONVERSATION · 099 825 3030'},
+  bubbles:{es:['¿Necesitas ayuda?','¿Ya sabes lo que deseas?','¿Vas a abrir un negocio?','¿Quieres que lo veamos juntos?','Estoy aquí, escríbeme.'],en:['Need a hand?','Already know what you want?','Opening a business?','Want to look at it together?','I am here — write me.']},
 };
 
 const H1 = {
@@ -1174,7 +1212,7 @@ const COMPANIES = [
              [B('TikTok Live','TikTok Live'), MOCK.luwayLive, 'linear-gradient(160deg,#efe4f2,#dcc8e4)'] ] },
   { size:'wc-big', name:'Tasting Ecuador',
     kind:B('Marca completa + Redes + Web','Full brand + Social + Web'),
-    desc:B('Experiencias gastronómicas. BIE creó la marca desde cero: logotipo, identidad, redes sociales y presencia digital completa.','Culinary experiences. BIE created the brand from scratch: logo, identity, social media and full digital presence.'),
+    desc:B('Experiencias gastronómicas en Cuenca. BIE creó la marca desde cero: logotipo, identidad, redes sociales y presencia digital completa.','Culinary experiences in Cuenca. BIE created the brand from scratch: logo, identity, social media and full digital presence.'),
     socials:['instagram','web'],
     slides:[ [B('Instagram','Instagram'), MOCK.tastingIG, 'linear-gradient(160deg,#eef4ee,#dce8dc)'],
              [B('Identidad','Identity'), MOCK.tastingBrand, 'linear-gradient(160deg,#f2ede6,#e6dcc8)'],
@@ -1509,7 +1547,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel();
     tx = e.clientX; ty = e.clientY;
     const overDrag = e.target.closest('.hscroll');
     const overPlay = e.target.closest('#video-wrap');
-    const overDark = e.target.closest('#blackbox, #reel, .waw-head');
+    const overDark = e.target.closest('#hero, #blackbox, #reel, .waw-head');
     const overLink = e.target.closest('a, button, select, .chip, .phase-btn, .g-dot, .ba-stage');
     cur.classList.toggle('label', !!(overDrag || overPlay));
     txt.textContent = overPlay ? UI.cur_play[lang] : overDrag ? UI.cur_drag[lang] : '';
@@ -1562,6 +1600,23 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel();
     RAF(tick);
   }
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
+})();
+
+// ═══ Burbujas periódicas del cubo ═══
+(function(){
+  const b = document.getElementById('wa-bubble');
+  const txt = document.getElementById('wa-bubble-text');
+  let i = 0;
+  function show(){
+    if (waWidget.classList.contains('open')) return;
+    txt.textContent = UI.bubbles[lang][i % UI.bubbles[lang].length];
+    i++;
+    b.classList.add('on');
+    setTimeout(() => b.classList.remove('on'), 4200);
+  }
+  setTimeout(show, 5000);
+  setInterval(show, 14000);
+  b.addEventListener('click', () => { b.classList.remove('on'); waFab.click(); });
 })();
 
 // ═══ Botones magnéticos ═══
@@ -1767,7 +1822,7 @@ document.getElementById('contact-form').addEventListener('submit', e => {
     init();
   }
   function init(){
-    const count = Math.min(70, Math.floor(cv.offsetWidth / 22));
+    const count = Math.min(120, Math.floor(cv.offsetWidth / 13));
     px = Array.from({length: count}, () => ({
       x: Math.random() * W, y: Math.random() * H,
       vx: (Math.random() - .5) * .22 * DPR, vy: (Math.random() - .5) * .22 * DPR,
@@ -1776,8 +1831,11 @@ document.getElementById('contact-form').addEventListener('submit', e => {
       phase: Math.random() * 6.28, spd: .008 + Math.random() * .018,
     }));
   }
+  let cubeC = null;
   function tick(){
     ctx.clearRect(0, 0, W, H);
+    const cube = document.getElementById('hero-cube');
+    if (cube){ const cr = cube.getBoundingClientRect(), vr = cv.getBoundingClientRect(); cubeC = { x: (cr.left + cr.width / 2 - vr.left) * DPR, y: (cr.top + cr.height / 2 - vr.top) * DPR }; }
     for (const p of px){
       p.x += p.vx; p.y += p.vy; p.phase += p.spd;
       if (p.x < -20) p.x = W + 20; if (p.x > W + 20) p.x = -20;
@@ -1785,8 +1843,9 @@ document.getElementById('contact-form').addEventListener('submit', e => {
       const dx = mouse.x * DPR - p.x, dy = mouse.y * DPR - p.y;
       const d = Math.hypot(dx, dy);
       if (d < 180 * DPR && d > 1){ p.x -= dx / d * 1.1; p.y -= dy / d * 1.1; }
-      const a = (Math.sin(p.phase) * .5 + .5) * (p.red ? .5 : .16) + .04;
-      ctx.fillStyle = p.red ? `rgba(229,57,53,${a})` : `rgba(5,5,5,${a})`;
+      if (cubeC){ const cx = cubeC.x - p.x, cy = cubeC.y - p.y; const cd = Math.hypot(cx, cy) || 1; p.x += cx / cd * .38 * DPR; p.y += cy / cd * .38 * DPR; if (cd < 30 * DPR){ p.x = Math.random() * W; p.y = Math.random() * H; } }
+      const a = (Math.sin(p.phase) * .5 + .5) * (p.red ? .7 : .42) + .06;
+      ctx.fillStyle = p.red ? `rgba(229,57,53,${a})` : `rgba(255,255,255,${a})`;
       const s = p.s;
       ctx.fillRect(Math.round(p.x / s) * s, Math.round(p.y / s) * s, s, s);
     }
@@ -1801,6 +1860,30 @@ document.getElementById('contact-form').addEventListener('submit', e => {
   hero.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
   resize();
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
+})();
+
+// ═══ Cubo del hero: explotado al inicio, se arma al hacer scroll, luego cae ═══
+(function(){
+  const cube = document.getElementById('hero-cube');
+  const wrap = document.getElementById('hero-cube-wrap');
+  const hero = document.getElementById('hero');
+  if (!cube) return;
+  const t0 = performance.now();
+  const ease = x => 1 - Math.pow(1 - x, 3);
+  (function loop(tm){
+    const sc = (document.scrollingElement || document.documentElement).scrollTop;
+    const p = Math.min(sc / Math.max(hero.offsetHeight - 80, 1), 1);
+    const build = ease(Math.min(p / .42, 1));
+    const ex = (1 - build) * 150 + Math.sin((tm - t0) / 900) * (1 - build) * 10;
+    const fallP = Math.max(0, (p - .55) / .45);
+    const fall = Math.pow(fallP, 2) * 720;
+    const rotY = (tm - t0) * .018 + sc * .25;
+    cube.style.setProperty('--ex', ex.toFixed(1) + 'px');
+    cube.style.transform = `rotateX(${-22 + fallP * 40}deg) rotateY(${rotY}deg) rotateZ(${fallP * 35}deg)`;
+    wrap.style.transform = `translateY(${fall}px)`;
+    wrap.style.opacity = String(1 - fallP * .6);
+    RAF(loop);
+  })(t0);
 })();
 
 // ═══ Hero parallax + fade ═══
@@ -1885,7 +1968,8 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', sc > 40);
   progress.style.width = (sc / (scroller.scrollHeight - innerHeight) * 100) + '%';
   const r = bbSec.getBoundingClientRect();
-  nav.classList.toggle('dark-zone', r.top < 66 && r.bottom > 0);
+  const hr = document.getElementById('hero').getBoundingClientRect();
+  nav.classList.toggle('dark-zone', (r.top < 66 && r.bottom > 0) || hr.bottom > 66);
   checkStrike();
   let current = null;
   for (const s of SECTIONS){
@@ -1900,6 +1984,7 @@ const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersectin
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // ═══ Init ═══
+document.getElementById('nav').classList.add('dark-zone');
 applyStatics();
 renderH1();
 renderMarquee();
