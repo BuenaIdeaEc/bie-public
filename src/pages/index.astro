@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v30: home simple — más vendidos + puente al catálogo completo; galería swipe móvil; fix grilla).
+// BIE-P06 — Home (v31: claridad primero — hero concreto, 3 pasos sin tecnicismos, quiz de dolores).
 ---
 <!doctype html>
 <html lang="es">
@@ -489,6 +489,33 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .cat-btn-main:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 .cat-btn-ghost{display:inline-block;border:1px solid rgba(255,253,249,.28);color:var(--text2);font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:22px 26px;transition:border-color .4s,color .4s}
 .cat-btn-ghost:hover{border-color:var(--bone);color:var(--bone)}
+#simple{padding:120px 0 110px;border-top:1px solid var(--border)}
+.sim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:60px}
+.sim-step{border:1px solid var(--border);padding:34px 28px 38px;transition:border-color .4s var(--ease),background .4s var(--ease)}
+.sim-step:hover{border-color:var(--accent);background:var(--accent-pale)}
+.sim-n{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.16em;display:inline-flex;align-items:center;gap:8px}
+.sim-n::before{content:'';width:8px;height:8px;background:var(--accent)}
+.sim-step h3{font-size:clamp(20px,2vw,26px);font-weight:400;margin-top:18px;letter-spacing:-.015em;line-height:1.2}
+.sim-step p{font-size:14.5px;line-height:1.65;color:var(--text2);margin-top:12px}
+.sim-cta{grid-column:1 / -1;justify-self:start;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:18px 30px;margin-top:10px;transition:background .4s var(--ease),border-color .4s,color .4s}
+.sim-cta:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.quiz{margin-top:50px;position:relative;z-index:2}
+.qz-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.qz-opt{text-align:left;background:transparent;border:1px solid rgba(255,253,249,.28);color:var(--bone);font-size:15.5px;font-weight:400;padding:20px 22px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:border-color .35s var(--ease),background .35s var(--ease)}
+.qz-opt:hover{border-color:var(--accent);background:rgba(229,57,53,.1)}
+.qz-opt.on{border-color:var(--accent);background:rgba(229,57,53,.16)}
+.qz-opt .qa{color:var(--accent);flex-shrink:0}
+.qz-answer{display:none;margin-top:14px;border:1px solid var(--accent);background:rgba(229,57,53,.08);padding:28px 26px}
+.qz-answer.on{display:block;animation:qz-in .5s var(--ease)}
+@keyframes qz-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qz-rec{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.qz-name{font-size:clamp(22px,2.6vw,32px);color:var(--bone);margin-top:10px;font-weight:400;letter-spacing:-.015em}
+.qz-why{font-size:15px;color:var(--text2);margin-top:10px;line-height:1.65;max-width:560px}
+.qz-ctas{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.qz-see{border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:14px 22px;transition:background .35s var(--ease),border-color .35s,color .35s}
+.qz-see:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.qz-wa{border:1px solid rgba(255,253,249,.3);color:var(--text2);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:14px 22px;transition:border-color .35s,color .35s}
+.qz-wa:hover{border-color:var(--bone);color:var(--bone)}
 .belt-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:36px;position:relative;z-index:2;border-top:1px solid rgba(255,253,249,.14);padding-top:28px}
 .belt-cta-txt{font-size:15px;color:var(--text2);margin:0;max-width:520px}
 .belt-cta-btn{display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;transition:background .4s var(--ease),border-color .4s,color .4s}
@@ -735,6 +762,10 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .chips-grid{gap:8px}
   .chip{padding:13px 16px;font-size:13px;flex:1 1 auto;justify-content:space-between;min-height:48px}
   .cat-bridge{flex-direction:column;align-items:stretch}
+  .sim-grid{grid-template-columns:1fr;gap:12px;margin-top:44px}
+  .sim-cta{justify-self:stretch;text-align:center}
+  .qz-opts{grid-template-columns:1fr}
+  .qz-opt{font-size:14.5px;padding:17px 18px}
   .cat-btn-main,.cat-btn-ghost{text-align:center}
   .belt-cta{flex-direction:column;align-items:flex-start}
   .work-grid{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-top:40px;padding-bottom:16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -910,6 +941,23 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   </div>
 </section>
 
+<!-- ASÍ DE SIMPLE -->
+<section id="simple">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="sim_label"></p>
+      <h2 class="section-h2" data-i18n="sim_h2"></h2>
+      <p class="section-sub" data-i18n="sim_sub"></p>
+    </div>
+    <div class="sim-grid reveal d2">
+      <div class="sim-step"><span class="sim-n">01</span><h3 data-i18n="sim1_t"></h3><p data-i18n="sim1_b"></p></div>
+      <div class="sim-step"><span class="sim-n">02</span><h3 data-i18n="sim2_t"></h3><p data-i18n="sim2_b"></p></div>
+      <div class="sim-step"><span class="sim-n">03</span><h3 data-i18n="sim3_t"></h3><p data-i18n="sim3_b"></p></div>
+      <a class="sim-cta" id="sim-wa" href="#" target="_blank" rel="noopener"><span data-i18n="sim_btn"></span> →</a>
+    </div>
+  </div>
+</section>
+
 <!-- LOS MÁS PEDIDOS -->
 <section id="top">
   <canvas id="top-canvas"></canvas>
@@ -937,6 +985,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <p class="section-sub" data-i18n="cat_sub"></p>
     </div>
     <div class="reveal d2">
+      <div class="quiz" id="quiz"></div>
       <div class="cat-bridge">
         <a class="cat-btn-main" href="/catalogo/?src=home-necesitas" data-i18n="btn_catalog"></a>
         <a class="cat-btn-ghost" id="cat-diag" href="#" target="_blank" rel="noopener" data-i18n="cta_diag2"></a>
@@ -1069,8 +1118,8 @@ const UI = {
   mm_cta:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
   thesis:{es:'Nosotros te entregamos <span class="accent serif">lo que necesitas para crecer.</span>',
           en:'We deliver <span class="accent serif">what you actually need to grow.</span>'},
-  hero_sub:{es:'Sistemas, marca y tecnología trabajando juntos.',
-            en:'Systems, brand and technology working together.'},
+  hero_sub:{es:'Tu marca, tu página web, un asistente que responde tu WhatsApp y la administración de tu negocio — construidos por nosotros, funcionando para ti.',
+            en:'Your brand, your website, an assistant that answers your WhatsApp and your back office — built by us, working for you.'},
   btn_work:{es:'Ver empresas reales',en:'See real companies'},
   btn_cat:{es:'¿Qué necesitas tú?',en:'What do you need?'},
   stat1:{es:'Implementaciones',en:'Implementations'}, stat2:{es:'Fases',en:'Phases'}, stat3:{es:'Empresas operando',en:'Companies running'},
@@ -1084,7 +1133,7 @@ const UI = {
   band_btn:{es:'Agendar mi diagnóstico gratuito',en:'Book my free diagnosis'},
   top_label:{es:'Catálogo',en:'Catalog'},
   top_h2:{es:'Lo que más<br><span class="serif">se vende.</span>',en:'What sells<br><span class="serif">the most.</span>'},
-  top_sub:{es:'Ocho soluciones con página propia: qué es, cómo trabajamos, qué logras y cómo se contrata — sin vueltas.',en:'Eight solutions, each with its own page: what it is, how we work, what you get and how to hire it — no runaround.'},
+  top_sub:{es:'Cada uno tiene su propia página que te explica, sin tecnicismos, qué es, cómo trabajamos y qué logras. Toca el que te llame la atención.',en:'Each one has its own page explaining, without jargon, what it is, how we work and what you get. Tap the one that catches your eye.'},
   top_soon:{es:'Página completa muy pronto',en:'Full page coming soon'},
   feed_label:{es:'Lo último en nuestras redes',en:'Latest from our channels'},
   feed_h2:{es:'Contenido que se publica,<br><span class="serif">y clases que vienen.</span>',en:'Content we publish,<br><span class="serif">and classes to come.</span>'},
@@ -1095,8 +1144,8 @@ const UI = {
   cur_drag:{es:'DRAG',en:'DRAG'}, cur_play:{es:'PLAY',en:'PLAY'},
   work_label:{es:'La prueba, primero',en:'Proof first'},
   work_h2:{es:'Empresas que ya<br>adaptamos digitalmente.',en:'Companies we already<br>digitally adapted.'},
-  work_sub:{es:'Negocios reales de Ecuador operando sobre sistemas construidos por BIE. Cada galería muestra lo que se construyó.',
-            en:'Real businesses in Ecuador running on systems built by BIE. Each gallery shows what was built.'},
+  work_sub:{es:'Negocios reales de Ecuador que ya trabajan con nosotros. Mira lo que construimos para cada uno.',
+            en:'Real businesses in Ecuador already working with us. See what we built for each one.'},
   ba_title:{es:'Así se ve el cambio.',en:'This is what change looks like.'},
   ba_note:{es:'Arrastra para comparar · capturas reales próximamente',en:'Drag to compare · real screenshots coming soon'},
   ba_b1:{es:'Invisible.',en:'Invisible.'}, ba_b2:{es:'Sin marca · sin sistema · sin datos',en:'No brand · no system · no data'},
@@ -1105,8 +1154,18 @@ const UI = {
   ba_lb:{es:'Antes de BIE',en:'Before BIE'}, ba_la:{es:'Con BIE',en:'With BIE'},
   cat_label:{es:'Tu turno',en:'Your turn'},
   cat_h2:{es:'Ahora — ¿qué necesitas <span class="serif">tú?</span>',en:'Now — what do <span class="serif">you</span> need?'},
-  cat_sub:{es:'Del análisis inicial a la administración completa: ocho fases que construyen tu empresa digital en orden, con cada producto conectado al siguiente. Explóralas en el catálogo.',
-           en:'From the first analysis to full back-office: eight phases that build your digital business in order, each product connected to the next. Explore them in the catalog.'},
+  cat_sub:{es:'Elige lo que te está pasando hoy y te decimos qué lo resuelve. O explora el catálogo completo con calma.',
+           en:'Pick what is happening to you today and we tell you what solves it. Or browse the full catalog at your pace.'},
+  sim_label:{es:'Así trabajamos',en:'How it works'},
+  sim_h2:{es:'Así de simple.<br><span class="serif">Cero tecnicismos.</span>',en:'This simple.<br><span class="serif">Zero tech-speak.</span>'},
+  sim_sub:{es:'No necesitas entender de tecnología. Ese es nuestro trabajo.',en:'You do not need to understand technology. That is our job.'},
+  sim1_t:{es:'Nos escribes por WhatsApp',en:'You write us on WhatsApp'},
+  sim1_b:{es:'Nos cuentas tu negocio con tus palabras: qué vendes y qué te está costando trabajo.',en:'You tell us about your business in your own words: what you sell and what is giving you trouble.'},
+  sim2_t:{es:'Te decimos qué necesitas',en:'We tell you what you need'},
+  sim2_b:{es:'En una conversación de 30 minutos, gratis, te explicamos qué te conviene y por qué. Sin compromiso.',en:'In a free 30-minute conversation we explain what suits you and why. No strings attached.'},
+  sim3_t:{es:'Lo construimos por ti',en:'We build it for you'},
+  sim3_b:{es:'Te lo entregamos funcionando y te enseñamos a usarlo. Tú diriges tu negocio; el sistema trabaja.',en:'We deliver it working and teach you how to use it. You run your business; the system does the work.'},
+  sim_btn:{es:'Empezar por WhatsApp',en:'Start on WhatsApp'},
   top_note:{es:'Estos son los más buscados y los más vendidos — no son los únicos. El catálogo crece y se adapta con cada empresa: hoy son 47 productos y siguen sumando.',
             en:'These are the most searched and best sellers — not the only ones. The catalog grows and adapts with every company: 47 products today and counting.'},
   cta_diag2:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
@@ -1489,11 +1548,45 @@ function renderMarquee(){
 
 // ═══ El catálogo completo vive en /catalogo; aquí solo se localiza el CTA de diagnóstico ═══
 let activePhase = null;
+const QUIZ = [
+  { k:'no-me-encuentran', q:{es:'No me encuentran en internet.',en:'People cannot find me online.'}, slug:'pagina-web',
+    name:{es:'Página Web',en:'Website'},
+    why:{es:'Una página profesional que aparece en Google y vende por ti — con tu dominio, lista para crecer.',en:'A professional website that shows up on Google and sells for you — your own domain, ready to grow.'} },
+  { k:'no-alcanzo-responder', q:{es:'Me escriben y no alcanzo a responder.',en:'I get messages and cannot keep up.'}, slug:'asistente-inteligente-whatsapp',
+    name:{es:'Asistente Inteligente 24/7',en:'24/7 AI Assistant'},
+    why:{es:'Un asistente con inteligencia artificial responde tu WhatsApp al instante, a cualquier hora, entrenado con tu negocio.',en:'An AI assistant answers your WhatsApp instantly, any hour, trained on your business.'} },
+  { k:'marca-improvisada', q:{es:'Mi marca se ve improvisada.',en:'My brand looks improvised.'}, slug:'identidad-de-marca',
+    name:{es:'Identidad de Marca',en:'Brand Identity'},
+    why:{es:'Logo, colores, tipografía y manual: una marca coherente que te hace ver del tamaño que quieres ser.',en:'Logo, colors, typography and manual: a coherent brand that makes you look the size you want to be.'} },
+  { k:'apagando-incendios', q:{es:'Vivo apagando incendios en mi negocio.',en:'I spend my days putting out fires.'}, slug:'sistema-operativo',
+    name:{es:'Sistema Operativo con IA',en:'AI Operating System'},
+    why:{es:'Ventas, clientes, tareas y números en un solo sistema que trabaja solo. Tú diriges; él administra.',en:'Sales, customers, tasks and numbers in one system that runs on its own. You lead; it manages.'} },
+];
+let quizSel = null;
+function quizAnswer(o){
+  return `<span class="qz-rec">${lang === 'es' ? 'Esto lo resuelve' : 'This solves it'}</span>
+  <div class="qz-name">${t(o.name)}</div>
+  <p class="qz-why">${t(o.why)}</p>
+  <div class="qz-ctas">
+    <a class="qz-see" href="/productos/${o.slug}/?src=quiz-${o.k}">${lang === 'es' ? 'Ver cómo funciona' : 'See how it works'} →</a>
+    <a class="qz-wa" href="${wa((lang === 'es' ? `Hola, me pasa esto: «${o.q.es}» Me interesa ${o.name.es}.` : `Hi, this is happening to me: "${o.q.en}" I am interested in ${o.name.en}.`) + origin('home/quiz/' + o.k))}" target="_blank" rel="noopener">${lang === 'es' ? 'Cotizar por WhatsApp' : 'Quote on WhatsApp'}</a>
+  </div>`;
+}
+function renderQuiz(){
+  const q = document.getElementById('quiz');
+  if (!q) return;
+  q.innerHTML = `<div class="qz-opts">${QUIZ.map((o, i) => `<button class="qz-opt${quizSel === i ? ' on' : ''}" data-i="${i}">${t(o.q)}<span class="qa">→</span></button>`).join('')}</div>
+  <div class="qz-answer${quizSel !== null ? ' on' : ''}">${quizSel !== null ? quizAnswer(QUIZ[quizSel]) : ''}</div>`;
+  q.querySelectorAll('.qz-opt').forEach(b => b.addEventListener('click', () => { quizSel = quizSel === +b.dataset.i ? null : +b.dataset.i; renderQuiz(); }));
+}
 function renderRail(){
   const d = document.getElementById('cat-diag');
   if (d) d.href = wa((lang === 'es' ? 'Hola, quiero un diagnóstico gratuito para mi empresa.' : 'Hi, I would like a free diagnosis for my company.') + origin('home/catalogo'));
+  const sw = document.getElementById('sim-wa');
+  if (sw) sw.href = wa((lang === 'es' ? 'Hola, quiero empezar. Les cuento mi negocio para saber qué necesito.' : 'Hi, I want to get started. Let me tell you about my business to know what I need.') + origin('home/asi-de-simple'));
+  renderQuiz();
 }
-function togglePhase(){}function togglePhase(){}function togglePhase(){}
+function togglePhase(){}
 function renderPanel(){}
 
 // ═══ Product modal ═══
