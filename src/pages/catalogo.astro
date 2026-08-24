@@ -1,0 +1,411 @@
+---
+// BIE-P06 — Catálogo completo: las 8 fases de la cadena de valor con sus 47 productos.
+// Fases como listas desplegables; cada producto clicable: si tiene página propia se abre,
+// si aún no la tiene, cotización directa por WhatsApp con trazabilidad. Sin precios ni códigos.
+import '../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/catalogo/`;
+const WA = '593988253030';
+const wa = (m: string) => `https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+
+type Bi = { es: string; en: string };
+type Prod = { n: Bi; d: Bi; slug?: string };
+type Phase = { num: string; title: Bi; tag: Bi; products: Prod[] };
+
+const PHASES: Phase[] = [
+  { num: '01', title: { es: 'Inteligencia Estratégica', en: 'Strategic Intelligence' }, tag: { es: 'Conocer el terreno antes de construir.', en: 'Know the terrain before building.' }, products: [
+    { slug: 'analisis-de-marca', n: { es: 'Análisis de Marca', en: 'Brand Analysis' }, d: { es: 'Cómo percibe el mercado tu marca hoy: posicionamiento, coherencia y presencia digital.', en: 'How the market perceives your brand today: positioning, coherence and digital presence.' } },
+    { slug: 'analisis-de-competencia', n: { es: 'Análisis de Competencia', en: 'Competitor Analysis' }, d: { es: 'Qué hace tu competencia, dónde es fuerte y qué espacio está dejando libre.', en: 'What your competitors do, where they are strong and what space they leave open.' } },
+    { slug: 'analisis-de-mercado', n: { es: 'Análisis de Mercado', en: 'Market Analysis' }, d: { es: 'El tamaño real de tu oportunidad: demanda, segmentos y canales de entrada.', en: 'The real size of your opportunity: demand, segments and entry channels.' } },
+    { n: { es: 'Análisis de Conversaciones de Venta con IA', en: 'AI Sales Conversation Analysis' }, d: { es: 'Tus conversaciones reales analizadas con IA: patrones de venta, fugas y oportunidades de atención.', en: 'Your real conversations analyzed with AI: sales patterns, leaks and service opportunities.' } },
+  ] },
+  { num: '02', title: { es: 'Estructuración Empresarial', en: 'Business Structuring' }, tag: { es: 'Poner en orden la base operativa, contable y legal.', en: 'Putting the operational, accounting and legal base in order.' }, products: [
+    { n: { es: 'Estructuración de Empresa', en: 'Company Structuring' }, d: { es: 'Modelo de negocio, flujos, roles y procesos: la estructura que soporta el crecimiento.', en: 'Business model, workflows, roles and processes: the structure that supports growth.' } },
+    { n: { es: 'Análisis Contable', en: 'Accounting Analysis' }, d: { es: 'Diagnóstico financiero: costos, márgenes, flujo de caja y punto de equilibrio.', en: 'Financial diagnosis: costs, margins, cash flow and break-even point.' } },
+    { n: { es: 'Análisis Legal', en: 'Legal Analysis' }, d: { es: 'Revisión de estructura societaria, contratos, cumplimiento y propiedad intelectual.', en: 'Review of corporate structure, contracts, compliance and intellectual property.' } },
+  ] },
+  { num: '03', title: { es: 'Identidad y Comunicación', en: 'Identity & Communication' }, tag: { es: 'Construir la cara visible del negocio — visual y sonora.', en: 'Building the visible face of the business — visual and sound.' }, products: [
+    { slug: 'identidad-de-marca', n: { es: 'Identidad de Marca', en: 'Brand Identity' }, d: { es: 'Logo, paleta, tipografía y manual: un sistema visual coherente, no solo un logo.', en: 'Logo, palette, typography and manual: a coherent visual system, not just a logo.' } },
+    { slug: 'estrategia-de-contenidos', n: { es: 'Estrategia de Contenidos', en: 'Content Strategy' }, d: { es: 'Pilares, calendario editorial y formatos por plataforma, con objetivo comercial.', en: 'Pillars, editorial calendar and formats per platform, with a commercial goal.' } },
+    { slug: 'gestion-redes-sociales', n: { es: 'Gestión de Redes Sociales', en: 'Social Media Management' }, d: { es: 'Contenido, publicación y comunidad operados por nosotros, alineados a tu estrategia.', en: 'Content, publishing and community run by us, aligned with your strategy.' } },
+    { n: { es: 'Jingle Corporativo', en: 'Corporate Jingle' }, d: { es: 'Una pieza musical original y memorable que firma tu marca.', en: 'An original, memorable musical piece that signs your brand.' } },
+    { n: { es: 'Música Ambiental / Branding Sonoro', en: 'Ambient Music / Sound Branding' }, d: { es: 'El ambiente sonoro de tu local: música personalizada para tu espacio.', en: 'The sound atmosphere of your venue: music tailored to your space.' } },
+    { n: { es: 'Soundtrack para Contenido', en: 'Content Soundtrack' }, d: { es: 'Música original para tus videos, reels y presentaciones.', en: 'Original music for your videos, reels and presentations.' } },
+    { n: { es: 'Identidad Sonora Completa', en: 'Full Sound Identity' }, d: { es: 'Jingle, ambiente y audio logo unificados: el manual de marca, en sonido.', en: 'Jingle, ambience and audio logo unified: your brand manual, in sound.' } },
+  ] },
+  { num: '04', title: { es: 'Presencia Digital', en: 'Digital Presence' }, tag: { es: 'Establecer la base digital — donde los clientes te encuentran.', en: 'Establishing the digital base — where customers find you.' }, products: [
+    { n: { es: 'Investigación de Plataformas', en: 'Platform Research' }, d: { es: 'Qué canales digitales necesita tu negocio y en qué orden.', en: 'Which digital channels your business needs and in what order.' } },
+    { n: { es: 'Dominio Web y Hosting', en: 'Domain & Hosting' }, d: { es: 'Dominio, correos corporativos y hosting profesional con SSL.', en: 'Domain, corporate email and professional hosting with SSL.' } },
+    { slug: 'pagina-web', n: { es: 'Página Web', en: 'Website' }, d: { es: 'Sitio profesional: landing, corporativo, portafolio o e-commerce.', en: 'Professional site: landing, corporate, portfolio or e-commerce.' } },
+    { slug: 'link-hub', n: { es: 'Link Hub de Marca', en: 'Brand Link Hub' }, d: { es: 'Un punto único de entrada desde tus redes: catálogo, contacto y comunidad.', en: 'A single entry point from your social profiles: catalog, contact and community.' } },
+    { slug: 'posicionamiento-seo', n: { es: 'Posicionamiento SEO', en: 'SEO Positioning' }, d: { es: 'Aparecer donde tu cliente busca: auditoría, contenido y ranking.', en: 'Showing up where your customer searches: audit, content and ranking.' } },
+    { slug: 'perfil-google-maps', n: { es: 'Perfil de Google Maps', en: 'Google Maps Profile' }, d: { es: 'Tu perfil de Google optimizado para dominar las búsquedas locales.', en: 'Your Google profile optimized to dominate local search.' } },
+    { n: { es: 'Fotografía de Producto con IA', en: 'AI Product Photography' }, d: { es: 'Fotos profesionales de tus productos con IA generativa: fondos, ambientes, lifestyle.', en: 'Professional product photos with generative AI: backgrounds, settings, lifestyle.' } },
+  ] },
+  { num: '05', title: { es: 'Automatización e IA', en: 'Automation & AI' }, tag: { es: 'Eliminar tareas manuales y poner la IA a trabajar.', en: 'Removing manual work and putting AI to work.' }, products: [
+    { slug: 'asistente-inteligente-whatsapp', n: { es: 'Asistente Inteligente 24/7', en: '24/7 AI Assistant' }, d: { es: 'Un asistente que atiende WhatsApp, web e Instagram a toda hora, entrenado con tu empresa.', en: 'An assistant that answers WhatsApp, web and Instagram around the clock, trained on your company.' } },
+    { slug: 'crm-ia', n: { es: 'CRM con IA', en: 'AI-Powered CRM' }, d: { es: 'Pipelines, seguimiento automático y predicción: ningún cliente se enfría.', en: 'Pipelines, automatic follow-up and prediction: no lead goes cold.' } },
+    { slug: 'sistema-operativo', n: { es: 'Sistema Operativo con IA', en: 'AI Operating System' }, d: { es: 'El sistema completo que administra tu negocio: agentes de IA, datos y operación en un solo lugar.', en: 'The complete system that runs your business: AI agents, data and operations in one place.' } },
+    { slug: 'automatizaciones', n: { es: 'Automatizaciones de Procesos', en: 'Process Automations' }, d: { es: 'Facturas, reportes, alertas y sincronizaciones que se hacen solas.', en: 'Invoices, reports, alerts and syncs that happen on their own.' } },
+    { slug: 'whatsapp-business-commerce', n: { es: 'WhatsApp Business Commerce', en: 'WhatsApp Business Commerce' }, d: { es: 'WhatsApp como canal de ventas: catálogo, pedidos y mensajes automáticos.', en: 'WhatsApp as a sales channel: catalog, orders and automated messages.' } },
+    { slug: 'data-analytics', n: { es: 'Data Analytics & Dashboards', en: 'Data Analytics & Dashboards' }, d: { es: 'Tus números en tiempo real: ventas, marketing y operación en un tablero.', en: 'Your numbers in real time: sales, marketing and operations on one board.' } },
+  ] },
+  { num: '06', title: { es: 'Crecimiento y Publicidad', en: 'Growth & Advertising' }, tag: { es: 'Más canales, más formatos, más control de la narrativa.', en: 'More channels, more formats, more control of the narrative.' }, products: [
+    { n: { es: 'Google Ads', en: 'Google Ads' }, d: { es: 'Campañas en búsqueda, display y YouTube con reporte de retorno.', en: 'Search, display and YouTube campaigns with return reporting.' } },
+    { n: { es: 'Meta Ads (Facebook / Instagram)', en: 'Meta Ads (Facebook / Instagram)' }, d: { es: 'Campañas de alcance, conversión y retargeting con creativos propios.', en: 'Reach, conversion and retargeting campaigns with original creatives.' } },
+    { n: { es: 'TikTok Ads', en: 'TikTok Ads' }, d: { es: 'Campañas nativas para el algoritmo donde hoy está la atención.', en: 'Native campaigns for the algorithm where attention lives today.' } },
+    { n: { es: 'Email Marketing Automatizado', en: 'Automated Email Marketing' }, d: { es: 'Secuencias de correo que dan la bienvenida, nutren y recuperan clientes.', en: 'Email sequences that welcome, nurture and win back customers.' } },
+    { n: { es: 'Marketplace y E-commerce', en: 'Marketplace & E-commerce' }, d: { es: 'Tu catálogo vendiendo en marketplaces o en tienda propia.', en: 'Your catalog selling on marketplaces or your own store.' } },
+    { n: { es: 'Video Marketing (Reels / Shorts / TikToks)', en: 'Video Marketing (Reels / Shorts / TikToks)' }, d: { es: 'Producción de video corto: guion, edición y optimización por plataforma.', en: 'Short-form video production: script, editing and per-platform optimization.' } },
+    { n: { es: 'Reputación Online', en: 'Online Reputation' }, d: { es: 'Monitoreo y respuesta profesional de reseñas: tu reputación, gestionada.', en: 'Professional review monitoring and response: your reputation, managed.' } },
+  ] },
+  { num: '07', title: { es: 'Administración Empresarial', en: 'Business Administration' }, tag: { es: 'No solo marketing: gestionamos tu negocio. Legal, contable y RRHH.', en: 'Not just marketing: we run your back office. Legal, accounting and HR.' }, products: [
+    { n: { es: 'Constitución de Empresa (SAS)', en: 'Company Incorporation (SAS)' }, d: { es: 'Tu empresa legalmente constituida en Ecuador, de principio a fin.', en: 'Your company legally incorporated in Ecuador, end to end.' } },
+    { n: { es: 'Elaboración de Contratos', en: 'Contract Drafting' }, d: { es: 'Contratos laborales, comerciales y de servicios redactados para protegerte.', en: 'Labor, commercial and service contracts written to protect you.' } },
+    { n: { es: 'Registro de Marca (SENADI)', en: 'Trademark Registration (SENADI)' }, d: { es: 'Tu marca registrada y protegida ante SENADI.', en: 'Your trademark registered and protected before SENADI.' } },
+    { n: { es: 'Compliance / Protección de Datos', en: 'Compliance / Data Protection' }, d: { es: 'Cumplimiento LOPDP: privacidad, consentimiento y protocolos de datos.', en: 'LOPDP compliance: privacy, consent and data protocols.' } },
+    { n: { es: 'Declaración de Impuestos (SRI)', en: 'Tax Filing (SRI)' }, d: { es: 'Tus declaraciones al día: IVA, renta y retenciones sin sustos.', en: 'Your filings up to date: VAT, income tax and withholdings without scares.' } },
+    { n: { es: 'Facturación Electrónica', en: 'Electronic Invoicing' }, d: { es: 'Sistema de facturación electrónica del SRI operativo y con tu equipo capacitado.', en: 'SRI electronic invoicing up and running, with your team trained.' } },
+    { n: { es: 'Reportes Financieros', en: 'Financial Reports' }, d: { es: 'Balance, resultados y flujo de caja explicados para decidir.', en: 'Balance sheet, P&L and cash flow explained so you can decide.' } },
+    { n: { es: 'Asesoría Tributaria Continua', en: 'Ongoing Tax Advisory' }, d: { es: 'Optimización fiscal y acompañamiento permanente ante el SRI.', en: 'Tax optimization and permanent support before the SRI.' } },
+    { n: { es: 'Ingreso de Personal (IESS)', en: 'Employee Onboarding (IESS)' }, d: { es: 'Contratos y avisos de entrada al IESS, completos y a tiempo.', en: 'Contracts and IESS entry notices, complete and on time.' } },
+    { n: { es: 'Gestión de Nómina', en: 'Payroll Management' }, d: { es: 'Roles de pago, décimos, fondos y vacaciones sin errores.', en: 'Pay slips, bonuses, reserve funds and vacations without errors.' } },
+    { n: { es: 'Liquidación de Personal', en: 'Employee Offboarding' }, d: { es: 'Desvinculaciones correctas: liquidación, finiquito y trámites.', en: 'Clean offboarding: settlement, severance and filings.' } },
+  ] },
+  { num: '08', title: { es: 'Educación y Capacitación', en: 'Education & Training' }, tag: { es: 'El conocimiento transferido multiplica el valor.', en: 'Transferred knowledge multiplies value.' }, products: [
+    { n: { es: 'Capacitación Digital para Equipos', en: 'Digital Training for Teams' }, d: { es: 'Talleres prácticos: IA, redes y herramientas para tu equipo.', en: 'Hands-on workshops: AI, social media and tools for your team.' } },
+    { n: { es: 'Creación de Cursos Online', en: 'Online Course Creation' }, d: { es: 'Tu conocimiento convertido en un curso online listo para vender.', en: 'Your knowledge turned into an online course ready to sell.' } },
+  ] },
+];
+
+const TOTAL = PHASES.reduce((a, f) => a + f.products.length, 0);
+const slugify = (str: string) => str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const seoTitle = { es: `Catálogo completo de BIE — ${TOTAL} productos para adaptar tu empresa digitalmente`, en: `BIE full catalog — ${TOTAL} products to digitally adapt your company` };
+const seoDesc = {
+  es: `Las 8 fases de la cadena de valor de BIE con sus ${TOTAL} productos: análisis, estructura, marca, presencia digital, IA, publicidad, administración y educación. Empresas en Ecuador. Cotización directa por WhatsApp.`,
+  en: `The 8 phases of BIE's value chain with all ${TOTAL} products: analysis, structure, brand, digital presence, AI, advertising, back office and education. Companies in Ecuador. Direct quote via WhatsApp.`,
+};
+
+const T: Record<string, Bi> = {
+  nav_work: { es: 'Empresas', en: 'Companies' }, nav_catalog: { es: 'Catálogo', en: 'Catalog' },
+  nav_comm: { es: 'Comunidad', en: 'Community' }, nav_contact: { es: 'Contacto', en: 'Contact' },
+  nav_cta: { es: 'Diagnóstico gratuito', en: 'Free diagnosis' },
+  mm_cta: { es: 'Diagnóstico gratuito por WhatsApp', en: 'Free diagnosis on WhatsApp' },
+  bc_home: { es: 'Inicio', en: 'Home' }, bc_cat: { es: 'Catálogo completo', en: 'Full catalog' },
+  hero_k: { es: 'Catálogo completo · Cadena de valor', en: 'Full catalog · Value chain' },
+  hero_h1: { es: 'Todo lo que construimos,<br><span class="serif">en el orden correcto.</span>', en: 'Everything we build,<br><span class="serif">in the right order.</span>' },
+  hero_sub: { es: `${TOTAL} productos organizados en 8 fases: cada uno resuelve un problema real y se conecta con el siguiente. Sin precios en la página — los valores se conversan directo por WhatsApp, según tu caso.`, en: `${TOTAL} products organized in 8 phases: each solves a real problem and connects to the next. No prices on the page — we discuss numbers directly on WhatsApp, case by case.` },
+  hero_hint: { es: 'Abre una fase y toca el producto que te interesa: si ya tiene página propia, se abre completa; si no, te atendemos directo por WhatsApp.', en: 'Open a phase and tap the product you care about: if it has its own page it opens in full; if not, we take it straight to WhatsApp.' },
+  phase_w: { es: 'Fase', en: 'Phase' },
+  prods_w: { es: 'productos', en: 'products' },
+  open_w: { es: 'Ver página', en: 'See page' },
+  quote_w: { es: 'Cotizar por WhatsApp', en: 'Quote on WhatsApp' },
+  band_t: { es: '¿No sabes por dónde empezar? <span class="serif">El diagnóstico es gratis.</span>', en: 'Not sure where to start? <span class="serif">The diagnosis is free.</span>' },
+  band_btn: { es: 'Diagnóstico gratuito', en: 'Free diagnosis' },
+  waw_name: { es: 'Equipo BIE', en: 'BIE Team' }, waw_status: { es: 'En línea · responde en minutos', en: 'Online · replies in minutes' },
+  waw_bubble: { es: 'Hola. <b>¿En cuál de estos momentos está tu empresa?</b> Elige y seguimos por WhatsApp:', en: 'Hi. <b>Which of these moments is your company in?</b> Pick one and we continue on WhatsApp:' },
+  waw_foot: { es: 'CONVERSACIÓN DIRECTA · 099 825 3030', en: 'DIRECT CONVERSATION · 099 825 3030' },
+};
+PHASES.forEach((f, i) => {
+  T[`f${i}_t`] = f.title; T[`f${i}_g`] = f.tag;
+  f.products.forEach((pr, j) => { T[`f${i}p${j}_n`] = pr.n; T[`f${i}p${j}_d`] = pr.d; });
+});
+const es = (k: string) => T[k].es;
+
+const WAW_OPTS = [
+  { t: { es: 'Voy a abrir un negocio o empresa', en: 'I am opening a business' }, m: { es: 'Hola, voy a abrir un negocio o empresa y quiero saber cómo empezar bien desde el inicio.', en: 'Hi, I am opening a business and want to know how to start right from day one.' } },
+  { t: { es: 'Ya sé lo que necesito', en: 'I know what I need' }, m: { es: 'Hola, ya sé lo que mi empresa necesita. Quiero hablar de un producto en específico.', en: 'Hi, I already know what my company needs. I want to talk about a specific product.' } },
+  { t: { es: 'Me gustaría una asesoría', en: 'I would like advisory' }, m: { es: 'Hola, me gustaría una asesoría para saber qué necesita mi empresa y por dónde empezar.', en: 'Hi, I would like advisory to understand what my company needs and where to start.' } },
+  { t: { es: 'Hablar con un humano', en: 'Talk to a human' }, m: { es: 'Hola, quiero hablar directamente con una persona del equipo de BIE.', en: 'Hi, I want to talk directly with a person from the BIE team.' } },
+];
+const BUBBLES = { es: ['¿Necesitas ayuda?', '¿Ya sabes lo que deseas?', '¿Vas a abrir un negocio?', '¿Quieres que lo veamos juntos?', 'Estoy aquí, escríbeme.'], en: ['Need a hand?', 'Already know what you want?', 'Opening a business?', 'Want to look at it together?', 'I am here — write me.'] };
+
+// Cotización server-side en español (el cliente la re-escribe con idioma y ?src=)
+const quoteHref = (pr: Prod) => wa(`Hola, quiero cotizar «${pr.n.es}» para mi empresa. ¿Cómo trabajan este producto?\n\n— Origen: web/catalogo/${slugify(pr.n.es)}/es`);
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'ItemList', name: seoTitle.es, description: seoDesc.es, url, numberOfItems: TOTAL,
+    itemListElement: PHASES.flatMap((f) => f.products).map((pr, i) => ({ '@type': 'ListItem', position: i + 1, name: pr.n.es, ...(pr.slug ? { url: `${SITE}/productos/${pr.slug}/` } : {}) })) },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Catálogo completo', item: url } ] },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{seoTitle.es}</title>
+<meta name="description" content={seoDesc.es}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content={seoTitle.es}>
+<meta property="og:description" content={seoDesc.es}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:locale" content="es_EC">
+<meta name="theme-color" content="#070709">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+/* ── Catálogo completo ── */
+body{background:var(--black)}
+.cat-hero{background:var(--black);color:#fff;padding:150px 0 70px;position:relative;overflow:hidden}
+.cat-hero::before{content:'';position:absolute;top:-16%;left:50%;transform:translateX(-50%);width:1100px;height:720px;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(229,57,53,.14) 0%,transparent 70%);pointer-events:none;z-index:1}
+#cat-rain{position:absolute;inset:0;z-index:0;opacity:.6;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 18%,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 18%,#000 82%,transparent 100%)}
+.cat-hero .section-inner{position:relative;z-index:2}
+.cat-hero .bc{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:34px;flex-wrap:wrap}
+.cat-hero .bc a:hover{color:#fff}
+.cat-hero .bc .bc-sep{width:5px;height:5px;background:var(--accent)}
+.cat-k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.cat-k::before{content:'';width:9px;height:9px;background:var(--accent)}
+.cat-h1{font-size:clamp(38px,6vw,88px);font-weight:400;letter-spacing:-.02em;line-height:1.03;text-wrap:balance;color:var(--bone)}
+.cat-sub{font-size:16.5px;line-height:1.72;color:rgba(255,255,255,.6);margin-top:24px;max-width:640px}
+.cat-hint{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:26px;max-width:640px;line-height:1.8}
+/* fases desplegables */
+.cat-list{position:relative;z-index:2;padding:10px 0 90px;background:var(--black)}
+.cat-phase{border-top:1px solid rgba(255,253,249,.14)}
+.cat-phase:last-of-type{border-bottom:1px solid rgba(255,253,249,.14)}
+.cat-phase summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:110px 1fr auto;gap:26px;align-items:center;padding:30px 0;transition:background .35s var(--ease)}
+.cat-phase summary::-webkit-details-marker{display:none}
+.cat-phase summary:hover{background:rgba(255,253,249,.025)}
+.cps-num{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px}
+.cps-num::before{content:'';width:8px;height:8px;background:var(--accent)}
+.cps-title{font-size:clamp(21px,2.6vw,32px);font-weight:400;letter-spacing:-.015em;color:var(--bone);line-height:1.12}
+.cps-tag{font-size:13.5px;line-height:1.55;color:var(--text3);margin-top:6px}
+.cps-meta{display:flex;align-items:center;gap:16px}
+.cps-count{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.cps-chev{width:34px;height:34px;border:1px solid rgba(255,253,249,.3);display:flex;align-items:center;justify-content:center;color:var(--bone);font-size:15px;transition:transform .4s var(--ease),border-color .35s,background .35s;flex-shrink:0}
+.cat-phase[open] .cps-chev{transform:rotate(45deg);border-color:var(--accent);background:rgba(229,57,53,.16)}
+.cat-rows{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 0 34px}
+.cat-row{display:flex;align-items:flex-start;gap:14px;border:1px solid rgba(255,253,249,.16);padding:18px 20px;transition:border-color .35s var(--ease),background .35s var(--ease)}
+.cat-row:hover{border-color:var(--accent);background:rgba(229,57,53,.1)}
+.cat-row .cr-body{flex:1;min-width:0}
+.cat-row .cr-n{font-size:16.5px;font-weight:400;letter-spacing:-.01em;color:var(--bone);line-height:1.25}
+.cat-row .cr-d{font-size:13px;line-height:1.55;color:var(--text3);margin-top:6px}
+.cat-row .cr-go{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:10px;display:inline-block}
+.cat-row .cr-arrow{color:var(--accent);font-size:16px;flex-shrink:0;transition:transform .35s var(--ease)}
+.cat-row:hover .cr-arrow{transform:translateX(4px)}
+/* banda final */
+.cat-band{background:var(--black);padding:0 0 110px}
+@media(max-width:900px){
+  .cat-rows{grid-template-columns:1fr}
+  .cat-phase summary{grid-template-columns:1fr auto;gap:14px}
+  .cps-num{grid-column:1 / -1}
+}
+@media(max-width:640px){
+  .cat-hero{padding:120px 0 50px}
+  .cat-phase summary{padding:24px 0}
+  .cps-count{display:none}
+  .cat-row{padding:16px}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="cursor"><div id="cursor-ring"><span id="cursor-text"></span></div><div id="cursor-dot"></div></div>
+
+<nav id="nav" class="dark-zone">
+  <a class="nav-logo" href="/">BIE</a>
+  <div class="nav-links">
+    <a href="/#work" class="nav-link" data-i18n="nav_work">{es('nav_work')}</a>
+    <a href="/catalogo/" class="nav-link active" data-i18n="nav_catalog">{es('nav_catalog')}</a>
+    <a href="/#community" class="nav-link" data-i18n="nav_comm">{es('nav_comm')}</a>
+    <button id="lang-toggle">EN</button>
+    <a href="/#contact" class="nav-cta"><span data-i18n="nav_cta">{es('nav_cta')}</span></a>
+    <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-menu">
+  <a href="/#work" class="mm-link"><span data-i18n="nav_work">{es('nav_work')}</span><span class="mm-arrow">→</span></a>
+  <a href="/catalogo/" class="mm-link"><span data-i18n="nav_catalog">{es('nav_catalog')}</span><span class="mm-arrow">→</span></a>
+  <a href="/#community" class="mm-link"><span data-i18n="nav_comm">{es('nav_comm')}</span><span class="mm-arrow">→</span></a>
+  <a href="/#contact" class="mm-link"><span data-i18n="nav_contact">{es('nav_contact')}</span><span class="mm-arrow">→</span></a>
+  <a id="mm-wa" href="#" class="mm-cta" data-i18n="mm_cta">{es('mm_cta')}</a>
+</div>
+
+<canvas id="fab-px"></canvas>
+<div id="wa-bubble"><span class="wb-px"></span><span id="wa-bubble-text"></span></div>
+<button id="wa-fab" aria-label="WhatsApp">
+  <span class="wa-float"><span class="wa-cube">
+    <span class="wa-face f"><span class="wa-edge"></span></span><span class="wa-face b"><span class="wa-edge"></span></span>
+    <span class="wa-face r"><span class="wa-edge"></span></span><span class="wa-face l"><span class="wa-edge"></span></span>
+    <span class="wa-face t"></span><span class="wa-face d"></span>
+  </span></span>
+  <span class="fab-x">×</span>
+</button>
+<div id="wa-widget">
+  <div class="waw-head">
+    <div class="waw-avatar">B</div>
+    <div class="waw-head-info">
+      <div class="waw-name" data-i18n="waw_name">{es('waw_name')}</div>
+      <div class="waw-status"><span class="waw-status-dot"></span><span data-i18n="waw_status">{es('waw_status')}</span></div>
+    </div>
+  </div>
+  <div class="waw-body">
+    <div class="waw-bubble" data-i18n="waw_bubble" set:html={es('waw_bubble')}></div>
+    <div class="waw-opts" id="waw-opts"></div>
+  </div>
+  <div class="waw-foot" data-i18n="waw_foot">{es('waw_foot')}</div>
+</div>
+
+<!-- HERO -->
+<section class="cat-hero">
+  <canvas id="cat-rain"></canvas>
+  <div class="section-inner">
+    <div class="bc">
+      <a href="/" data-i18n="bc_home">{es('bc_home')}</a><span class="bc-sep"></span><span data-i18n="bc_cat">{es('bc_cat')}</span>
+    </div>
+    <p class="cat-k" data-i18n="hero_k">{es('hero_k')}</p>
+    <h1 class="cat-h1" data-i18n="hero_h1" set:html={es('hero_h1')}></h1>
+    <p class="cat-sub" data-i18n="hero_sub">{es('hero_sub')}</p>
+    <p class="cat-hint" data-i18n="hero_hint">{es('hero_hint')}</p>
+  </div>
+</section>
+
+<!-- FASES DESPLEGABLES -->
+<section class="cat-list">
+  <div class="section-inner">
+    {PHASES.map((f, i) => (
+      <details class="cat-phase" open={i === 0}>
+        <summary>
+          <span class="cps-num"><span data-i18n="phase_w">{es('phase_w')}</span>&nbsp;{f.num}</span>
+          <span>
+            <span class="cps-title" data-i18n={`f${i}_t`}>{f.title.es}</span>
+            <p class="cps-tag" data-i18n={`f${i}_g`}>{f.tag.es}</p>
+          </span>
+          <span class="cps-meta">
+            <span class="cps-count">{f.products.length} <span data-i18n="prods_w">{es('prods_w')}</span></span>
+            <span class="cps-chev">+</span>
+          </span>
+        </summary>
+        <div class="cat-rows">
+          {f.products.map((pr, j) => pr.slug ? (
+            <a class="cat-row" href={`/productos/${pr.slug}/?src=catalogo`}>
+              <span class="cr-body">
+                <span class="cr-n" data-i18n={`f${i}p${j}_n`}>{pr.n.es}</span>
+                <p class="cr-d" data-i18n={`f${i}p${j}_d`}>{pr.d.es}</p>
+                <span class="cr-go" data-i18n="open_w">{es('open_w')}</span>
+              </span>
+              <span class="cr-arrow">→</span>
+            </a>
+          ) : (
+            <a class="cat-row wa-quote" href={quoteHref(pr)} target="_blank" rel="noopener" data-qname={`f${i}p${j}_n`}>
+              <span class="cr-body">
+                <span class="cr-n" data-i18n={`f${i}p${j}_n`}>{pr.n.es}</span>
+                <p class="cr-d" data-i18n={`f${i}p${j}_d`}>{pr.d.es}</p>
+                <span class="cr-go" data-i18n="quote_w">{es('quote_w')}</span>
+              </span>
+              <span class="cr-arrow">→</span>
+            </a>
+          ))}
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cat-band">
+  <div class="section-inner">
+    <a href="#" target="_blank" rel="noopener" class="cta-band wa-diag">
+      <div class="band-px"></div>
+      <div class="band-text" data-i18n="band_t" set:html={es('band_t')}></div>
+      <span class="band-btn"><span data-i18n="band_btn">{es('band_btn')}</span> →</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-mark">BIE<span class="fm-px"></span></div>
+    <div class="footer-bottom">
+      <span class="footer-text">BUSINESS INTELLIGENCE ENHANCER</span>
+      <span class="footer-text">businessintelligence.solutions</span>
+      <span class="footer-text">© 2026 · ECUADOR</span>
+    </div>
+  </div>
+</footer>
+
+<script is:inline define:vars={{ T, WAW_OPTS, BUBBLES, WA }}>
+function RAF(cb){ let c=false; const w=t=>{ if(c)return; c=true; cb(t); }; requestAnimationFrame(w); setTimeout(()=>w(performance.now()),28); }
+let lang='es';
+const wa=m=>`https://wa.me/${WA}?text=${encodeURIComponent(m)}`;
+// Trazabilidad: el catálogo registra desde qué producto nace cada conversación.
+const SRC=(()=>{const m=new URLSearchParams(location.search).get('src');return m&&/^[a-z0-9-]{1,40}$/.test(m)?m:null})();
+const slugify=str=>str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+const origin=where=>`\n\n— Origen: web/catalogo/${where}/${lang}`+(SRC?` · vía ${SRC}`:'');
+function applyLang(){
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ const v=T[el.dataset.i18n]; if(v) el.innerHTML=v[lang]; });
+  document.getElementById('lang-toggle').textContent=lang==='es'?'EN':'ES';
+  document.querySelectorAll('.wa-quote').forEach(a=>{ const n=T[a.dataset.qname][lang];
+    a.href=wa((lang==='es'?`Hola, quiero cotizar «${n}» para mi empresa. ¿Cómo trabajan este producto?`:`Hi, I want a quote for "${n}" for my company. How do you work this product?`)+origin(slugify(T[a.dataset.qname].es))); });
+  const diag=(lang==='es'?'Hola, quiero mi diagnóstico gratuito de 30 minutos para mi empresa.':'Hi, I want my free 30-minute diagnosis for my company.')+origin('diagnostico');
+  document.querySelectorAll('.wa-diag, #mm-wa, .nav-cta').forEach(a=>a.href=wa(diag));
+  document.getElementById('waw-opts').innerHTML=WAW_OPTS.map(o=>`<a class="waw-opt" href="${wa(o.m[lang]+origin('cubo'))}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
+}
+document.getElementById('lang-toggle').addEventListener('click',()=>{ lang=lang==='es'?'en':'es'; applyLang(); });
+applyLang();
+document.body.classList.add('past-hero');
+// nav + progreso
+const nav=document.getElementById('nav'), progress=document.getElementById('progress');
+window.addEventListener('scroll',()=>{ const s=document.scrollingElement||document.documentElement; const sc=s.scrollTop;
+  nav.classList.toggle('scrolled',sc>40); nav.classList.add('dark-zone');
+  progress.style.width=(sc/(s.scrollHeight-innerHeight)*100)+'%'; },{passive:true});
+// menú móvil
+const burger=document.getElementById('burger'), mm=document.getElementById('mobile-menu');
+burger.addEventListener('click',()=>{ const o=!mm.classList.contains('open'); mm.classList.toggle('open',o); burger.classList.toggle('open',o); document.body.style.overflow=o?'hidden':''; });
+mm.addEventListener('click',e=>{ if(e.target.closest('a')){ mm.classList.remove('open'); burger.classList.remove('open'); document.body.style.overflow=''; } });
+// cursor
+(function(){ if(matchMedia('(pointer:coarse)').matches)return; const cur=document.getElementById('cursor'); let tx=-100,ty=-100,x=-100,y=-100;
+  document.addEventListener('mousemove',e=>{ tx=e.clientX; ty=e.clientY; const link=e.target.closest('a, button, select, summary'); cur.classList.toggle('hov',!!link); cur.classList.toggle('dark',!!e.target.closest('.cat-hero, .cat-list, .cta-band, .waw-head')); });
+  (function loop(){ x+=(tx-x)*.2; y+=(ty-y)*.2; cur.style.transform=`translate(${x}px,${y}px)`; RAF(loop); })(); })();
+// magnéticos
+(function(){ if(matchMedia('(pointer:coarse)').matches)return; document.addEventListener('mousemove',e=>{ document.querySelectorAll('.nav-cta, #wa-fab').forEach(b=>{ const r=b.getBoundingClientRect(); const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2); const d=Math.hypot(dx,dy); b.style.translate = d<110 ? `${dx/d*(110-d)/110*7}px ${dy/d*(110-d)/110*7}px` : ''; }); }); })();
+// cubo flotante + widget + burbujas + partículas
+const waFab=document.getElementById('wa-fab'), waWidget=document.getElementById('wa-widget');
+waFab.addEventListener('click',()=>{ const o=!waWidget.classList.contains('open'); waWidget.classList.toggle('open',o); waFab.classList.toggle('open',o); });
+document.addEventListener('click',e=>{ if(!waWidget.classList.contains('open'))return; if(e.target.closest('#wa-widget')||e.target.closest('#wa-fab'))return; waWidget.classList.remove('open'); waFab.classList.remove('open'); });
+(function(){ const b=document.getElementById('wa-bubble'), txt=document.getElementById('wa-bubble-text'); let i=0;
+  function show(){ if(waWidget.classList.contains('open'))return; txt.textContent=BUBBLES[lang][i%BUBBLES[lang].length]; i++; b.classList.add('on'); setTimeout(()=>b.classList.remove('on'),4200); }
+  setTimeout(show,5000); setInterval(show,14000); b.addEventListener('click',()=>{ b.classList.remove('on'); waFab.click(); }); })();
+(function(){ const cv=document.getElementById('fab-px'), ctx=cv.getContext('2d'), DPR=Math.min(devicePixelRatio,2); cv.width=190*DPR; cv.height=190*DPR; let px=[];
+  const spawn=()=>({a:Math.random()*Math.PI*2,r:78+Math.random()*16,spd:.55+Math.random()*.75,red:Math.random()<.3,s:(2+Math.random()*2.4)*DPR});
+  for(let i=0;i<22;i++){ const p=spawn(); p.r=20+Math.random()*74; px.push(p); }
+  function tick(){ ctx.clearRect(0,0,cv.width,cv.height); const fr=waFab.getBoundingClientRect(), cr=cv.getBoundingClientRect(); const c={x:(fr.left+fr.width/2-cr.left)*DPR,y:(fr.top+fr.height/2-6-cr.top)*DPR}; const open=waFab.classList.contains('open');
+    for(const p of px){ p.r-=p.spd; p.a+=.012; if(p.r<9) Object.assign(p,spawn()); const x=c.x+Math.cos(p.a)*p.r*DPR, y=c.y+Math.sin(p.a)*p.r*DPR*.9; const near=1-Math.min(p.r/90,1); const al=open?0:(.15+near*.7); ctx.fillStyle=p.red?`rgba(229,57,53,${al})`:`rgba(10,10,12,${al*.8})`; const s=p.s*(.5+near*.8); ctx.fillRect(Math.round(x/s)*s,Math.round(y/s)*s,s,s); }
+    RAF(tick); }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) tick(); })();
+// lluvia de píxeles del hero (misma estética del catálogo en la home)
+(function(){
+  const cv=document.getElementById('cat-rain'); if(!cv)return;
+  const ctx=cv.getContext('2d'); const DPR=Math.min(devicePixelRatio,2);
+  let W,H,cols=[],sz;
+  function resize(){ W=cv.width=cv.offsetWidth*DPR; H=cv.height=cv.offsetHeight*DPR; cv.style.width=cv.offsetWidth+'px'; sz=11*DPR;
+    cols=Array.from({length:Math.ceil(W/sz)},()=>({y:Math.random()*H,spd:(.35+Math.random()*1.1)*DPR,on:Math.random()<.55})); }
+  function tick(){ ctx.fillStyle='rgba(11,11,13,.16)'; ctx.fillRect(0,0,W,H);
+    cols.forEach((c,i)=>{ if(!c.on){ if(Math.random()<.002)c.on=true; return; } c.y+=c.spd;
+      if(c.y>H+60){ c.y=-40; c.on=Math.random()<.8; }
+      const red=Math.random()<.14; ctx.fillStyle=red?'rgba(229,57,53,.8)':'rgba(255,253,249,.22)';
+      ctx.fillRect(i*sz,Math.round(c.y/sz)*sz,sz-DPR,sz-DPR); });
+    RAF(tick); }
+  window.addEventListener('resize',resize); resize();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) tick(); })();
+</script>
+</body>
+</html>

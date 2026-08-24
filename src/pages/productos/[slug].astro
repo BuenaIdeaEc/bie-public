@@ -12,10 +12,10 @@ export function getStaticPaths() {
 
 const { p } = Astro.props;
 const SITE = 'https://businessintelligence.solutions';
-// Interconexión: un relacionado enlaza a su página real solo si ya existe; si no, al catálogo de la home.
+// Interconexión: un relacionado enlaza a su página real solo si ya existe; si no, al catálogo completo.
 const SLUGS = new Set(PRODUCTS.map((x) => x.slug));
 // Los enlaces internos llevan ?src=<slug-de-esta-página> para saber desde dónde llegó el interés.
-const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/?src=${p.slug}` : '/#catalog');
+const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/?src=${p.slug}` : `/catalogo/?src=${p.slug}`);
 const hasDemo = !!(p.demo && p.demo.length);
 // Cadena: orden oficial de navegación entre productos publicados (fase y código del catálogo).
 const CHAIN = ['analisis-de-marca', 'analisis-de-competencia', 'analisis-de-mercado', 'identidad-de-marca', 'estrategia-de-contenidos', 'gestion-redes-sociales', 'pagina-web', 'posicionamiento-seo', 'perfil-google-maps', 'link-hub', 'asistente-inteligente-whatsapp', 'crm-ia', 'sistema-operativo', 'automatizaciones', 'whatsapp-business-commerce', 'data-analytics'];
@@ -113,7 +113,7 @@ const ld = [
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.faq.map((f) => ({ '@type': 'Question', name: f.q.es, acceptedAnswer: { '@type': 'Answer', text: f.a.es } })) },
   { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
-    { '@type': 'ListItem', position: 2, name: 'Catálogo', item: SITE + '/#catalog' },
+    { '@type': 'ListItem', position: 2, name: 'Catálogo', item: SITE + '/catalogo/' },
     { '@type': 'ListItem', position: 3, name: p.name.es, item: url } ] },
 ];
 ---
@@ -489,7 +489,7 @@ body.past-hero .chain-arrow{opacity:1;pointer-events:auto}
   <a class="nav-logo" href="/">BIE</a>
   <div class="nav-links">
     <a href="/#work" class="nav-link" data-i18n="nav_work">{es('nav_work')}</a>
-    <a href="/#catalog" class="nav-link" data-i18n="nav_catalog">{es('nav_catalog')}</a>
+    <a href="/catalogo/" class="nav-link" data-i18n="nav_catalog">{es('nav_catalog')}</a>
     <a href="/#community" class="nav-link" data-i18n="nav_comm">{es('nav_comm')}</a>
     <button id="lang-toggle">EN</button>
     <a href="/#contact" class="nav-cta"><span data-i18n="nav_cta">{es('nav_cta')}</span></a>
@@ -498,7 +498,7 @@ body.past-hero .chain-arrow{opacity:1;pointer-events:auto}
 </nav>
 <div id="mobile-menu">
   <a href="/#work" class="mm-link"><span data-i18n="nav_work">{es('nav_work')}</span><span class="mm-arrow">→</span></a>
-  <a href="/#catalog" class="mm-link"><span data-i18n="nav_catalog">{es('nav_catalog')}</span><span class="mm-arrow">→</span></a>
+  <a href="/catalogo/" class="mm-link"><span data-i18n="nav_catalog">{es('nav_catalog')}</span><span class="mm-arrow">→</span></a>
   <a href="/#community" class="mm-link"><span data-i18n="nav_comm">{es('nav_comm')}</span><span class="mm-arrow">→</span></a>
   <a href="/#contact" class="mm-link"><span data-i18n="nav_contact">{es('nav_contact')}</span><span class="mm-arrow">→</span></a>
   <a id="mm-wa" href={wa(p.waMessage.es)} class="mm-cta" data-i18n="mm_cta">{es('mm_cta')}</a>
@@ -535,7 +535,7 @@ body.past-hero .chain-arrow{opacity:1;pointer-events:auto}
   <div class="section-inner">
     <div class="bc">
       <a href="/" data-i18n="bc_home">{es('bc_home')}</a><span class="bc-sep"></span>
-      <a href="/#catalog" data-i18n="bc_cat">{es('bc_cat')}</a><span class="bc-sep"></span>
+      <a href="/catalogo/" data-i18n="bc_cat">{es('bc_cat')}</a><span class="bc-sep"></span>
       <span><span data-i18n="phase_w">{es('phase_w')}</span> {p.phase.num} · <span data-i18n="phase">{es('phase')}</span></span>
     </div>
     <div class="p-grid">

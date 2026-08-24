@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v28.1: fix cubo flotante — hr sin definir tras retirar blackbox).
+// BIE-P06 — Home (v30: home simple — más vendidos + puente al catálogo completo; galería swipe móvil; fix grilla).
 ---
 <!doctype html>
 <html lang="es">
@@ -222,7 +222,7 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .ba-solo{margin-top:26px}
 
 /* Banda de conversión (reemplaza al antes/después) */
-.cta-band{grid-column:span 6;background:var(--black);color:#fff;padding:52px 56px;display:flex;align-items:center;gap:36px;
+.cta-band{grid-column:1 / -1;background:var(--black);color:#fff;padding:52px 56px;display:flex;align-items:center;gap:36px;
   position:relative;overflow:hidden;transition:background .3s}
 .cta-band:hover{background:#101014}
 .band-px{width:14px;height:14px;background:var(--accent);flex-shrink:0;animation:px-blink 2.2s steps(2) infinite}
@@ -435,7 +435,7 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .conf-chip{flex:1;background:#f2f2f2;font-size:6px;padding:4px;text-align:center;color:#666}
 
 /* Before/After */
-.ba-block{grid-column:span 6;border:1px solid rgba(255,253,249,.1);background:var(--bg);padding:40px 42px;border-radius:var(--r-lg)}
+.ba-block{grid-column:1 / -1;border:1px solid rgba(255,253,249,.1);background:var(--bg);padding:40px 42px;border-radius:var(--r-lg)}
 .ba-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:26px}
 .ba-title{font-size:22px;font-weight:700;letter-spacing:-.02em}
 .ba-note{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
@@ -479,29 +479,20 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 
 /* ═══ Catalog ═══ */
 #catalog{padding:140px 0 110px;background:var(--black);position:relative;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-#catalog-canvas{position:absolute;inset:0;z-index:0;opacity:.5;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 84%,transparent 100%)}
+#catalog::before{content:'';position:absolute;top:-12%;left:50%;transform:translateX(-50%);width:1100px;height:720px;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(229,57,53,.14) 0%,transparent 70%);pointer-events:none;z-index:1}
+#catalog-canvas{position:absolute;inset:0;z-index:0;opacity:.65;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 84%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 84%,transparent 100%)}
 #catalog .section-inner{position:relative;z-index:2}
 /* cinta de la cadena */
-.chain-belt{margin-top:64px;overflow:hidden;position:relative;cursor:grab;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%)}
-.chain-belt:active{cursor:grabbing}
-.belt-track{display:flex;align-items:stretch;gap:0;width:max-content;will-change:transform}
-.belt-item{display:flex;align-items:center}
-.belt-card{min-width:280px;max-width:340px;padding:30px 30px;border:1px solid var(--border);background:rgba(16,16,18,.72);backdrop-filter:blur(4px);display:flex;flex-direction:column;gap:10px;transition:border-color .5s var(--ease),background .5s var(--ease)}
-a.belt-card:hover{border-color:var(--accent);background:rgba(229,57,53,.08)}
-.belt-card .bk{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3)}
-.belt-card .bn{font-size:clamp(20px,2vw,26px);font-weight:400;letter-spacing:-.015em;line-height:1.12;color:var(--bone)}
-.belt-card .bt{font-size:13px;color:var(--text2);line-height:1.5}
-.belt-card.phase{background:transparent;border:none;min-width:230px;max-width:280px;justify-content:center}
-.belt-card.phase .pnum{font-size:56px;font-weight:400;letter-spacing:-.03em;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,253,249,.4)}
-.belt-card.phase .bn{color:var(--accent);font-size:19px}
-.belt-card.soon{opacity:.55}
-.belt-link{width:56px;height:1px;background:var(--border);position:relative;flex-shrink:0}
-.belt-link::after{content:'';position:absolute;right:0;top:-3px;border:3.5px solid transparent;border-left:6px solid var(--accent)}
-.belt-controls{display:flex;align-items:center;justify-content:space-between;margin-top:26px;position:relative;z-index:2}
-.belt-hint{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
-.belt-fast{background:transparent;border:1px solid var(--bone);color:var(--bone);font-size:18px;padding:10px 22px;letter-spacing:.2em;transition:background .4s var(--ease),border-color .4s}
-.belt-fast:hover,.belt-fast.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.cat-bridge{margin-top:50px;position:relative;z-index:2;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.cat-btn-main{display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding:22px 38px;transition:background .4s var(--ease),border-color .4s,color .4s}
+.cat-btn-main:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.cat-btn-ghost{display:inline-block;border:1px solid rgba(255,253,249,.28);color:var(--text2);font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:22px 26px;transition:border-color .4s,color .4s}
+.cat-btn-ghost:hover{border-color:var(--bone);color:var(--bone)}
+.belt-cta{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:36px;position:relative;z-index:2;border-top:1px solid rgba(255,253,249,.14);padding-top:28px}
+.belt-cta-txt{font-size:15px;color:var(--text2);margin:0;max-width:520px}
+.belt-cta-btn{display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;transition:background .4s var(--ease),border-color .4s,color .4s}
+.belt-cta-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 .phase-rail{display:flex;flex-direction:column;margin-top:64px;border-top:1px solid var(--border)}
 .reveal .phase-btn{opacity:0;transform:translateY(20px)}
 .reveal.in .phase-btn{opacity:1;transform:none}
@@ -688,7 +679,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 @media(max-width:960px){
   .work-grid{grid-template-columns:1fr 1fr}
   .wc-big,.wc-small{grid-column:span 1}
-  .ba-block{grid-column:span 2}
+
   .bb-grid{grid-template-columns:1fr}
   .comm-grid{grid-template-columns:repeat(2,1fr)}
   .feed-grid{grid-template-columns:repeat(3,1fr)}
@@ -743,13 +734,19 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .panel-title{font-size:20px}
   .chips-grid{gap:8px}
   .chip{padding:13px 16px;font-size:13px;flex:1 1 auto;justify-content:space-between;min-height:48px}
-  .work-grid{grid-template-columns:1fr !important;gap:14px;margin-top:40px}
+  .cat-bridge{flex-direction:column;align-items:stretch}
+  .cat-btn-main,.cat-btn-ghost{text-align:center}
+  .belt-cta{flex-direction:column;align-items:flex-start}
+  .work-grid{display:flex !important;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-top:40px;padding-bottom:16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .work-grid::-webkit-scrollbar{display:none}
+  .work-grid>*{flex:0 0 86%;min-width:0;scroll-snap-align:center}
   .g-slide>*{max-width:88%;}
   .g-slide .browser{width:88%}
   .dash-row{flex-wrap:nowrap}
   .dash-kpi{min-width:0}
   .g-slide{padding:0 8px}
-  .wc-big,.wc-small,.ba-block{grid-column:span 1}
+  .wc-big,.wc-small{grid-column:span 1}
+  .cta-band{scroll-snap-align:center}
   .gallery,.wc-small .gallery{height:230px}
   .wc-info{padding:18px 18px 20px}
   .wc-top{flex-direction:column;gap:10px}
@@ -803,7 +800,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   <span class="nav-logo">BIE</span>
   <div class="nav-links">
     <a href="#work" class="nav-link" data-sec="work" data-i18n="nav_work"></a>
-    <a href="#catalog" class="nav-link" data-sec="catalog" data-i18n="nav_catalog"></a>
+    <a href="/catalogo/" class="nav-link" data-sec="catalog" data-i18n="nav_catalog"></a>
     <a href="#community" class="nav-link" data-sec="community" data-i18n="nav_comm"></a>
     <button id="lang-toggle">EN</button>
     <a href="#contact" class="nav-cta"><span data-i18n="nav_cta"></span></a>
@@ -923,6 +920,10 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <p class="section-sub" data-i18n="top_sub"></p>
     </div>
     <div class="top-grid reveal d2" id="top-grid"></div>
+    <div class="belt-cta reveal d3">
+      <p class="belt-cta-txt" data-i18n="top_note"></p>
+      <a class="belt-cta-btn" href="/catalogo/?src=home-mas-vendidos" data-i18n="btn_catalog"></a>
+    </div>
   </div>
 </section>
 
@@ -936,10 +937,9 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <p class="section-sub" data-i18n="cat_sub"></p>
     </div>
     <div class="reveal d2">
-      <div class="chain-belt" id="chain-belt"><div class="belt-track" id="belt-track"></div></div>
-      <div class="belt-controls">
-        <span class="belt-hint" data-i18n="belt_hint"></span>
-        <button class="belt-fast" id="belt-fast" aria-label="Acelerar">»»</button>
+      <div class="cat-bridge">
+        <a class="cat-btn-main" href="/catalogo/?src=home-necesitas" data-i18n="btn_catalog"></a>
+        <a class="cat-btn-ghost" id="cat-diag" href="#" target="_blank" rel="noopener" data-i18n="cta_diag2"></a>
       </div>
     </div>
   </div>
@@ -1105,10 +1105,15 @@ const UI = {
   ba_lb:{es:'Antes de BIE',en:'Before BIE'}, ba_la:{es:'Con BIE',en:'With BIE'},
   cat_label:{es:'Tu turno',en:'Your turn'},
   cat_h2:{es:'Ahora — ¿qué necesitas <span class="serif">tú?</span>',en:'Now — what do <span class="serif">you</span> need?'},
-  cat_sub:{es:'La cadena completa, fase por fase. Toca cualquier producto para entrar a su página; mantén presionado para acelerar el recorrido.',
-           en:'The complete chain, phase by phase. Tap any product to open its page; press and hold to speed up the ride.'},
+  cat_sub:{es:'Del análisis inicial a la administración completa: ocho fases que construyen tu empresa digital en orden, con cada producto conectado al siguiente. Explóralas en el catálogo.',
+           en:'From the first analysis to full back-office: eight phases that build your digital business in order, each product connected to the next. Explore them in the catalog.'},
+  top_note:{es:'Estos son los más buscados y los más vendidos — no son los únicos. El catálogo crece y se adapta con cada empresa: hoy son 47 productos y siguen sumando.',
+            en:'These are the most searched and best sellers — not the only ones. The catalog grows and adapts with every company: 47 products today and counting.'},
+  cta_diag2:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
   belt_hint:{es:'La cadena avanza sola · arrastra o mantén presionado » para acelerar',en:'The chain moves on its own · drag or press and hold » to speed up'},
   soon_w:{es:'páginas muy pronto',en:'pages coming soon'},
+  belt_click:{es:'Haz clic en el producto que deseas cotizar: si ya tiene página, se abre completa; si no, te atendemos directo por WhatsApp.',en:'Click the product you want a quote for: if it has a page it opens in full; if not, we take it straight to WhatsApp.'},
+  btn_catalog:{es:'Ver catálogo completo',en:'See the full catalog'},
   panel_hint:{es:'Toca una fase para abrir sus soluciones',en:'Tap a phase to open its solutions'},
   phase_w:{es:'FASE',en:'PHASE'},
   next_label:{es:'Siguiente paso de la cadena',en:'Next step in the chain'},
@@ -1482,59 +1487,13 @@ function renderMarquee(){
   document.getElementById('mq-track').innerHTML = half + half;
 }
 
-// ═══ Cinta de la cadena: fases con su descripción + productos con página, en orden ═══
-const CHAIN_PAGES = {
-  0: [ ['analisis-de-marca','Análisis de Marca','Brand Analysis'], ['analisis-de-competencia','Análisis de Competencia','Competitor Analysis'], ['analisis-de-mercado','Análisis de Mercado','Market Analysis'] ],
-  2: [ ['identidad-de-marca','Identidad de Marca','Brand Identity'], ['estrategia-de-contenidos','Estrategia de Contenidos','Content Strategy'], ['gestion-redes-sociales','Gestión de Redes Sociales','Social Media Management'] ],
-  3: [ ['pagina-web','Página Web','Website'], ['posicionamiento-seo','Posicionamiento SEO','SEO Positioning'], ['perfil-google-maps','Perfil de Google Maps','Google Maps Profile'], ['link-hub','Link Hub de Marca','Brand Link Hub'] ],
-  4: [ ['asistente-inteligente-whatsapp','Asistente Inteligente 24/7','24/7 AI Assistant'], ['crm-ia','CRM con IA','AI-Powered CRM'], ['sistema-operativo','Sistema Operativo con IA','AI Operating System'], ['automatizaciones','Automatizaciones','Automations'], ['whatsapp-business-commerce','WhatsApp Business Commerce','WhatsApp Business Commerce'], ['data-analytics','Data Analytics & Dashboards','Data Analytics & Dashboards'] ],
-};
+// ═══ El catálogo completo vive en /catalogo; aquí solo se localiza el CTA de diagnóstico ═══
 let activePhase = null;
-function beltHTML(){
-  let h = '';
-  PHASES.forEach((ph, i) => {
-    h += `<div class="belt-item"><div class="belt-card phase"><span class="pnum">${ph.num}</span><span class="bn">${t(ph.title)}</span><span class="bt">${t(ph.tag)}</span></div></div><div class="belt-item"><span class="belt-link"></span></div>`;
-    const pages = CHAIN_PAGES[i];
-    if (pages){
-      pages.forEach(pg => {
-        h += `<div class="belt-item"><a class="belt-card" href="/productos/${pg[0]}/?src=cadena-home"><span class="bk">${UI.phase_w[lang]} ${ph.num}</span><span class="bn">${lang==='es'?pg[1]:pg[2]}</span></a></div><div class="belt-item"><span class="belt-link"></span></div>`;
-      });
-    } else {
-      h += `<div class="belt-item"><div class="belt-card soon"><span class="bk">${UI.phase_w[lang]} ${ph.num}</span><span class="bn">${ph.products.length} ${lang==='es'?'productos':'products'}</span><span class="bt">${UI.soon_w[lang]}</span></div></div><div class="belt-item"><span class="belt-link"></span></div>`;
-    }
-  });
-  return h;
-}
 function renderRail(){
-  const track = document.getElementById('belt-track');
-  if (!track) return;
-  const h = beltHTML();
-  track.innerHTML = h + h;
+  const d = document.getElementById('cat-diag');
+  if (d) d.href = wa((lang === 'es' ? 'Hola, quiero un diagnóstico gratuito para mi empresa.' : 'Hi, I would like a free diagnosis for my company.') + origin('home/catalogo'));
 }
-(function(){
-  const belt = document.getElementById('chain-belt');
-  const track = document.getElementById('belt-track');
-  const fastBtn = document.getElementById('belt-fast');
-  if (!belt || !track || !fastBtn) return;
-  let x = 0, speed = .55, target = .55, dragging = false, sx = 0, sxx = 0, fast = false;
-  const setFast = v => { fast = v; fastBtn.classList.toggle('on', v); };
-  fastBtn.addEventListener('pointerdown', () => setFast(true));
-  ['pointerup','pointerleave','pointercancel'].forEach(e => fastBtn.addEventListener(e, () => setFast(false)));
-  belt.addEventListener('pointerdown', e => { dragging = true; sx = e.clientX; sxx = x; belt.setPointerCapture(e.pointerId); });
-  belt.addEventListener('pointermove', e => { if (dragging) x = sxx - (e.clientX - sx); });
-  ['pointerup','pointercancel'].forEach(ev => belt.addEventListener(ev, () => dragging = false));
-  belt.addEventListener('click', e => { if (Math.abs(x - sxx) > 8) e.preventDefault(); }, true);
-  (function loop(){
-    const half = track.scrollWidth / 2;
-    target = fast ? 6 : (belt.matches(':hover') && !dragging ? .18 : .55);
-    speed += (target - speed) * .06;
-    if (!dragging) x += speed;
-    if (half > 0){ if (x >= half) x -= half; if (x < 0) x += half; }
-    track.style.transform = `translateX(${-x}px)`;
-    RAF(loop);
-  })();
-})();
-function togglePhase(){}
+function togglePhase(){}function togglePhase(){}function togglePhase(){}
 function renderPanel(){}
 
 // ═══ Product modal ═══
@@ -2109,7 +2068,7 @@ document.getElementById('contact-form').addEventListener('submit', e => {
     H = cv.height = cv.offsetHeight * DPR;
     cv.style.width = cv.offsetWidth + 'px';
     sz = 11 * DPR;
-    cols = Array.from({length: Math.ceil(W / sz)}, () => ({ y: Math.random() * H, spd: (.35 + Math.random() * 1.1) * DPR, on: Math.random() < .28 }));
+    cols = Array.from({length: Math.ceil(W / sz)}, () => ({ y: Math.random() * H, spd: (.35 + Math.random() * 1.1) * DPR, on: Math.random() < .55 }));
   }
   function tick(){
     ctx.fillStyle = 'rgba(11,11,13,.16)';
@@ -2117,9 +2076,9 @@ document.getElementById('contact-form').addEventListener('submit', e => {
     cols.forEach((c, i) => {
       if (!c.on){ if (Math.random() < .002) c.on = true; return; }
       c.y += c.spd;
-      if (c.y > H + 60){ c.y = -40; c.on = Math.random() < .5; }
-      const red = Math.random() < .1;
-      ctx.fillStyle = red ? 'rgba(229,57,53,.7)' : 'rgba(255,253,249,.12)';
+      if (c.y > H + 60){ c.y = -40; c.on = Math.random() < .8; }
+      const red = Math.random() < .14;
+      ctx.fillStyle = red ? 'rgba(229,57,53,.8)' : 'rgba(255,253,249,.22)';
       ctx.fillRect(i * sz, Math.round(c.y / sz) * sz, sz - DPR, sz - DPR);
     });
     RAF(tick);
