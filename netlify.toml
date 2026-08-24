@@ -12,6 +12,13 @@
   status = 301
   force  = true
 
+# Redirect del subdominio Netlify → dominio propio (evita contenido duplicado en Google)
+[[redirects]]
+  from   = "https://bie-website.netlify.app/*"
+  to     = "https://businessintelligence.solutions/:splat"
+  status = 301
+  force  = true
+
 [[headers]]
   for = "/*"
   [headers.values]
