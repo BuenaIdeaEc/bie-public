@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v28: cadena en cinta, catálogo=lo que más se vende, sin blackbox).
+// BIE-P06 — Home (v28.1: fix cubo flotante — hr sin definir tras retirar blackbox).
 ---
 <!doctype html>
 <html lang="es">
@@ -2218,6 +2218,7 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', sc > 40);
   progress.style.width = (sc / (scroller.scrollHeight - innerHeight) * 100) + '%';
   nav.classList.add('dark-zone');
+  const hr = document.getElementById('hero').getBoundingClientRect();
   document.body.classList.toggle('past-hero', hr.bottom < innerHeight * .35);
   checkStrike();
   let current = null;
