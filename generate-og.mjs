@@ -23,11 +23,13 @@ for (const seg of src.split("\n  {\n    slug: '").slice(1)) {
   if (ph && nm) products.push({ slug, phaseNum: ph[1], phase: ph[2], name: nm[1] });
 }
 
+const FONTS = 'file:///' + path.join(__dirname, 'public/fonts').replace(/\\/g, '/');
 const card = ({ kicker, title, sub }) => `<!DOCTYPE html><html><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;800;900&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>@font-face{font-family:'TeX Gyre Heros';src:url('${FONTS}/texgyreheros-regular.otf');font-weight:400}@font-face{font-family:'TeX Gyre Heros';src:url('${FONTS}/texgyreheros-bold.otf');font-weight:700}@font-face{font-family:'Office Code Pro';src:url('${FONTS}/OfficeCodePro-Medium.woff');font-weight:500}</style>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{width:1200px;height:630px;overflow:hidden;background:#070709;font-family:'Poppins',sans-serif;position:relative;color:#fff}
+body{width:1200px;height:630px;overflow:hidden;background:#070709;font-family:'TeX Gyre Heros',Helvetica,sans-serif;position:relative;color:#fff}
 .grid{position:absolute;inset:0;opacity:.08;background-image:linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);background-size:60px 60px;
   -webkit-mask-image:radial-gradient(70% 70% at 78% 40%,#000,transparent)}
 .glow{position:absolute;right:-140px;top:50%;transform:translateY(-50%);width:640px;height:640px;background:radial-gradient(50% 50% at 50% 50%,rgba(229,57,53,.22),transparent 70%)}
@@ -38,14 +40,14 @@ body{width:1200px;height:630px;overflow:hidden;background:#070709;font-family:'P
 .fb{border:1.5px solid rgba(255,255,255,.6)}
 .px{position:absolute;width:16px;height:16px;background:#fff;left:14px;top:14px}
 .content{position:relative;z-index:5;padding:84px 90px;height:100%;display:flex;flex-direction:column;justify-content:center;max-width:820px}
-.kicker{font-family:'JetBrains Mono',monospace;font-size:19px;letter-spacing:.16em;text-transform:uppercase;color:#E53935;display:flex;align-items:center;gap:14px;margin-bottom:30px}
+.kicker{font-family:'Office Code Pro',monospace;font-size:19px;letter-spacing:.16em;text-transform:uppercase;color:#E53935;display:flex;align-items:center;gap:14px;margin-bottom:30px}
 .kicker::before{content:'';width:14px;height:14px;background:#E53935;display:inline-block}
-h1{font-size:76px;font-weight:800;letter-spacing:-.035em;line-height:1.02}
+h1{font-size:76px;font-weight:700;letter-spacing:-.035em;line-height:1.02}
 h1 em{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:1.05em}
 p{margin-top:26px;font-size:25px;color:rgba(255,255,255,.55);line-height:1.5;max-width:640px}
-.brand{position:absolute;left:90px;bottom:52px;font-weight:900;font-size:26px;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+.brand{position:absolute;left:90px;bottom:52px;font-weight:700;font-size:26px;letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
 .brand i{width:12px;height:12px;background:#E53935;display:inline-block}
-.url{position:absolute;right:90px;bottom:56px;font-family:'JetBrains Mono',monospace;font-size:16px;color:rgba(255,255,255,.4);letter-spacing:.04em}
+.url{position:absolute;right:90px;bottom:56px;font-family:'Office Code Pro',monospace;font-size:16px;color:rgba(255,255,255,.4);letter-spacing:.04em}
 .bar{position:absolute;left:0;right:0;bottom:0;height:6px;background:#E53935}
 </style></head><body>
 <div class="grid"></div><div class="glow"></div>
