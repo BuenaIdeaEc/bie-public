@@ -18,7 +18,7 @@ const SLUGS = new Set(PRODUCTS.map((x) => x.slug));
 const rhref = (slug: string) => (SLUGS.has(slug) ? `/productos/${slug}/?src=${p.slug}` : '/#catalog');
 const hasDemo = !!(p.demo && p.demo.length);
 // Cadena: orden oficial de navegación entre productos publicados (fase y código del catálogo).
-const CHAIN = ['identidad-de-marca', 'pagina-web', 'link-hub', 'asistente-inteligente-whatsapp', 'crm-ia', 'automatizaciones', 'whatsapp-business-commerce', 'data-analytics'];
+const CHAIN = ['analisis-de-marca', 'analisis-de-competencia', 'analisis-de-mercado', 'identidad-de-marca', 'estrategia-de-contenidos', 'gestion-redes-sociales', 'pagina-web', 'posicionamiento-seo', 'perfil-google-maps', 'link-hub', 'asistente-inteligente-whatsapp', 'crm-ia', 'sistema-operativo', 'automatizaciones', 'whatsapp-business-commerce', 'data-analytics'];
 const ci = CHAIN.indexOf(p.slug);
 const byteSlug = (s: string) => PRODUCTS.find((x) => x.slug === s)!;
 const prev = ci > 0 ? byteSlug(CHAIN[ci - 1]) : null;
@@ -308,6 +308,83 @@ body.past-hero .chain-arrow{opacity:1;pointer-events:auto}
 .com-p.pick{animation:wp-build 10s infinite,com-pick 10s infinite}
 @keyframes com-pick{0%,26%{outline:0 solid transparent}30%,88%{outline:2px solid var(--accent)}92%,100%{outline:0 solid transparent}}
 .com-order{margin:0 10px;background:var(--accent);color:#fff;font-size:9px;font-weight:700;padding:9px 10px;animation-delay:3.2s}
+/* visuales batch002 — cada producto con su propia escena */
+.vz{flex:1;position:relative;padding:22px 20px;display:block}
+/* scan: tablero de marca escaneado */
+.vz-scan .sc-logo{position:absolute;top:22px;left:20px;width:64px;height:64px;background:#fff;color:#070709;font-weight:700;font-size:30px;display:flex;align-items:center;justify-content:center}
+.vz-scan .sc-row{position:absolute;left:104px;height:13px;background:rgba(255,255,255,.16);display:block}
+.vz-scan .sc-row:nth-of-type(2){top:26px}.vz-scan .sc-row:nth-of-type(3){top:50px}.vz-scan .sc-row:nth-of-type(4){top:74px}
+.vz-scan .sc-score{position:absolute;width:52px;height:52px;border:1.5px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:19px;opacity:0;animation:wp-build 9s infinite}
+.vz-scan .s1{left:20px;bottom:88px;animation-delay:2.4s}
+.vz-scan .s2{left:88px;bottom:88px;animation-delay:3.2s}
+.vz-scan .sc-beam{position:absolute;left:0;right:0;height:3px;background:var(--accent);box-shadow:0 0 22px rgba(229,57,53,.9);animation:beam 4.5s ease-in-out infinite}
+@keyframes beam{0%{top:8%}50%{top:92%}100%{top:8%}}
+/* radar: mapa perceptual */
+.vz-radar .rd-x{position:absolute;left:8%;right:8%;top:50%;height:1px;background:rgba(255,255,255,.25)}
+.vz-radar .rd-y{position:absolute;top:6%;bottom:6%;left:50%;width:1px;background:rgba(255,255,255,.25)}
+.vz-radar .rd-dot{position:absolute;width:13px;height:13px;background:rgba(255,255,255,.4);opacity:0;animation:wp-build 9s infinite}
+.vz-radar .d1{left:24%;top:30%;animation-delay:.6s}.vz-radar .d2{left:64%;top:24%;animation-delay:1.2s}
+.vz-radar .d3{left:30%;top:66%;animation-delay:1.8s}.vz-radar .d4{left:56%;top:58%;animation-delay:2.4s}
+.vz-radar .you{width:17px;height:17px;background:var(--accent);left:74%;top:70%;opacity:0;animation:you-pop 9s infinite;box-shadow:0 0 24px rgba(229,57,53,.8)}
+@keyframes you-pop{0%,34%{opacity:0;transform:scale(.5)}40%{opacity:1;transform:scale(1.25)}44%,88%{opacity:1;transform:scale(1)}96%,100%{opacity:0}}
+.vz-radar .rd-gap{position:absolute;left:66%;top:62%;width:88px;height:74px;border:1.5px dashed rgba(229,57,53,.6);opacity:0;animation:wp-build 9s infinite;animation-delay:3s}
+/* market: TAM/SAM/SOM creciendo */
+.vz-market{display:flex;align-items:flex-end;gap:18px;padding:26px 24px 44px}
+.vz-market .mk-bar{flex:1;height:100%;position:relative;display:block}
+.vz-market .mk-bar i{position:absolute;left:0;right:0;bottom:0;display:block;transform-origin:bottom;animation:mk-grow 8s var(--ease) infinite}
+.vz-market .b1 i{height:96%;background:rgba(255,255,255,.14)}
+.vz-market .b2 i{height:62%;background:rgba(255,255,255,.3);animation-delay:.5s}
+.vz-market .b3 i{height:34%;background:var(--accent);animation-delay:1s;box-shadow:0 0 26px rgba(229,57,53,.45)}
+@keyframes mk-grow{0%{transform:scaleY(0)}14%{transform:scaleY(1)}86%{transform:scaleY(1)}96%,100%{transform:scaleY(0)}}
+.vz-market .mk-lab{position:absolute;bottom:16px;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:rgba(255,255,255,.5)}
+.vz-market .l1{left:12%}.vz-market .l2{left:46%}.vz-market .l3{left:78%;color:var(--accent)}
+/* calendar: mes encendiéndose */
+.vz-cal{display:grid;grid-template-columns:repeat(5,1fr);grid-auto-rows:1fr;gap:8px;height:100%;padding:22px 20px}
+.cl-cell{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);position:relative;opacity:0;animation:cal-on 10s infinite}
+.cl-cell::after{content:'';position:absolute;left:6px;bottom:6px;width:10px;height:10px}
+.cl-cell.q0::after{background:var(--accent)}.cl-cell.q2::after{background:rgba(255,255,255,.5)}.cl-cell.q3::after{background:rgba(255,255,255,.25)}
+.cl-cell.c0{animation-delay:.2s}.cl-cell.c1{animation-delay:.55s}.cl-cell.c2{animation-delay:.9s}.cl-cell.c3{animation-delay:1.25s}
+.cl-cell.c4{animation-delay:1.6s}.cl-cell.c5{animation-delay:1.95s}.cl-cell.c6{animation-delay:2.3s}
+@keyframes cal-on{0%{opacity:0;transform:scale(.9)}6%{opacity:1;transform:scale(1)}88%{opacity:1}96%,100%{opacity:0}}
+/* serp: tu resultado sube al #1 */
+.vz-serp{display:flex;flex-direction:column;gap:14px;padding:24px 22px}
+.sp-search{height:34px;border:1.5px solid rgba(255,255,255,.3);border-radius:17px;display:block}
+.sp-res{height:44px;background:rgba(255,255,255,.08);display:block}
+.sp-res.you{background:rgba(229,57,53,.16);border-left:3px solid var(--accent);position:relative;animation:serp-rise 8s var(--ease) infinite}
+.sp-res.you i{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:26px;height:14px;background:var(--accent)}
+@keyframes serp-rise{0%,18%{transform:translateY(0)}38%,88%{transform:translateY(-116px)}96%,100%{transform:translateY(0)}}
+/* map: pin y estrellas */
+.vz-map{background:rgba(255,255,255,.03)}
+.mp-road{position:absolute;background:rgba(255,255,255,.14)}
+.mp-road.h1{left:0;right:0;top:34%;height:9px}.mp-road.h2{left:0;right:0;top:68%;height:6px}
+.mp-road.v1{top:0;bottom:0;left:28%;width:7px}.mp-road.v2{top:0;bottom:0;left:66%;width:9px}
+.mp-pin{position:absolute;left:58%;top:40%;width:22px;height:22px;background:var(--accent);animation:pin-drop 8s var(--ease) infinite;box-shadow:0 14px 26px rgba(0,0,0,.6)}
+.mp-pin::after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);border:8px solid transparent;border-top:11px solid var(--accent)}
+@keyframes pin-drop{0%,8%{transform:translateY(-140px);opacity:0}16%{transform:translateY(0);opacity:1}20%{transform:translateY(-10px)}24%,88%{transform:translateY(0);opacity:1}96%,100%{opacity:0}}
+.mp-ring{position:absolute;left:58%;top:40%;width:22px;height:22px;border:2px solid var(--accent);animation:mp-pulse 8s infinite;animation-delay:1.6s;opacity:0}
+@keyframes mp-pulse{0%,20%{opacity:0;transform:scale(1)}24%{opacity:.8}40%,100%{opacity:0;transform:scale(3.4)}}
+.mp-stars{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);color:var(--accent);font-size:17px;letter-spacing:5px;opacity:0;animation:wp-build 8s infinite;animation-delay:2.2s}
+/* modules: sistema encendiéndose */
+.vz-mod{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:9px;height:100%;padding:22px 20px;position:relative}
+.md-cell{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);animation:mod-on 9s infinite;opacity:.25}
+.md-cell.m0{animation-delay:.3s}.md-cell.m1{animation-delay:.9s}.md-cell.m2{animation-delay:1.5s}.md-cell.m3{animation-delay:2.1s}
+.md-cell.m5{animation-delay:2.7s}.md-cell.m6{animation-delay:3.3s}.md-cell.m7{animation-delay:3.9s}.md-cell.m8{animation-delay:4.5s}
+.md-cell.m4{opacity:0}
+@keyframes mod-on{0%{opacity:.25;border-color:rgba(255,255,255,.12)}8%,86%{opacity:1;border-color:rgba(229,57,53,.6);background:rgba(229,57,53,.1)}94%,100%{opacity:.25}}
+.md-core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:26%;height:26%;background:var(--accent);animation:px-blink 2.2s steps(2) infinite;box-shadow:0 0 34px rgba(229,57,53,.7)}
+/* social: post con corazones */
+.soc-scr{position:relative;display:flex;flex-direction:column;padding:14px 12px;gap:10px}
+.soc-head{display:flex;align-items:center;gap:8px}
+.soc-av{width:26px;height:26px;border-radius:50%;background:var(--accent)}
+.soc-user{width:70px;height:9px;background:rgba(255,255,255,.3)}
+.soc-img{flex:1;background:linear-gradient(135deg,rgba(229,57,53,.3),rgba(255,255,255,.08));min-height:170px}
+.soc-row{display:flex;align-items:center;gap:8px}
+.soc-heart{color:var(--accent);font-size:17px;animation:heart-beat 2.2s infinite}
+@keyframes heart-beat{0%,100%{transform:scale(1)}12%{transform:scale(1.35)}24%{transform:scale(1)}}
+.soc-count{width:52px;height:8px;background:rgba(255,255,255,.3)}
+.soc-fly{position:absolute;right:18px;color:var(--accent);font-size:15px;opacity:0;animation:fly-up 5.5s infinite}
+.soc-fly.f1{bottom:60px;animation-delay:.4s}.soc-fly.f2{bottom:60px;right:34px;animation-delay:1.6s;font-size:12px}.soc-fly.f3{bottom:60px;right:26px;animation-delay:3s}
+@keyframes fly-up{0%{opacity:0;transform:translateY(0) scale(.7)}12%{opacity:1}55%{opacity:1}100%{opacity:0;transform:translateY(-130px) scale(1.25) rotate(14deg)}}
 /* empresas que ya lo usan */
 .used{margin-top:56px;display:flex;flex-wrap:wrap;gap:12px}
 .used-tile{display:flex;align-items:center;gap:16px;padding:22px 26px;background:var(--bg);border:1px solid rgba(0,0,0,.06);min-width:280px;transition:transform .35s var(--ease),box-shadow .45s var(--ease)}
@@ -580,6 +657,38 @@ body.past-hero .chain-arrow{opacity:1;pointer-events:auto}
                 <span class="wp com-p p4"><i></i><em></em></span>
               </div>
               <div class="wp com-order" data-i18n="com_order">{es('com_order')}</div>
+            </div>
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : ['scan','radar','market','calendar','serp','map','modules'].includes(p.visual) ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow" style="width:300px"></div>
+          <div class="web3d">
+            <div class="web3d-bar"><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-dot"></span><span class="wb-url">{p.visual === 'serp' ? 'google.com' : p.visual === 'map' ? 'maps.google.com' : 'bie · ' + p.slug}</span></div>
+            {p.visual === 'scan' && (<div class="vz vz-scan"><span class="sc-logo">M</span><span class="sc-row" style="width:82%"></span><span class="sc-row" style="width:64%"></span><span class="sc-row" style="width:74%"></span><span class="sc-score s1">A</span><span class="sc-score s2">B+</span><span class="sc-beam"></span></div>)}
+            {p.visual === 'radar' && (<div class="vz vz-radar"><span class="rd-x"></span><span class="rd-y"></span><span class="rd-dot d1"></span><span class="rd-dot d2"></span><span class="rd-dot d3"></span><span class="rd-dot d4"></span><span class="rd-dot you"></span><span class="rd-gap"></span></div>)}
+            {p.visual === 'market' && (<div class="vz vz-market"><span class="mk-bar b1"><i></i></span><span class="mk-bar b2"><i></i></span><span class="mk-bar b3"><i></i></span><span class="mk-lab l1">TAM</span><span class="mk-lab l2">SAM</span><span class="mk-lab l3">SOM</span></div>)}
+            {p.visual === 'calendar' && (<div class="vz vz-cal">{Array.from({length:20}).map((_,i)=>(<span class={`cl-cell c${i%7} q${i%5}`}></span>))}</div>)}
+            {p.visual === 'serp' && (<div class="vz vz-serp"><span class="sp-search"></span><span class="sp-res r1"></span><span class="sp-res r2"></span><span class="sp-res you"><i></i></span></div>)}
+            {p.visual === 'map' && (<div class="vz vz-map"><span class="mp-road h1"></span><span class="mp-road h2"></span><span class="mp-road v1"></span><span class="mp-road v2"></span><span class="mp-pin"></span><span class="mp-stars">★★★★★</span><span class="mp-ring"></span></div>)}
+            {p.visual === 'modules' && (<div class="vz vz-mod">{Array.from({length:9}).map((_,i)=>(<span class={`md-cell m${i}`}></span>))}<span class="md-core"></span></div>)}
+          </div>
+          {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}
+        </div>
+      </div>
+      ) : p.visual === 'social' ? (
+      <div class="p-visual">
+        <div class="ph3d-scene" id="ph3d-scene">
+          <div class="ph3d-shadow"></div>
+          <div class="ph3d">
+            <div class="ph3d-screen soc-scr">
+              <div class="soc-head"><span class="soc-av"></span><span class="soc-user"></span></div>
+              <div class="soc-img"></div>
+              <div class="soc-row"><span class="soc-heart">♥</span><span class="soc-count"></span></div>
+              <span class="soc-fly f1">♥</span><span class="soc-fly f2">♥</span><span class="soc-fly f3">♥</span>
             </div>
           </div>
           {(p.chips || []).map((c, i) => (<div class={`ph3d-chip c${i}`}><span class="px"></span><span data-i18n={`chip${i}`}>{c.es}</span></div>))}

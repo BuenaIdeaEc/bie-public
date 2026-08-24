@@ -28,6 +28,15 @@ BIE no es una agencia de marketing. Entrega sistemas completos que trabajan junt
 - [Data Analytics & Dashboards](https://businessintelligence.solutions/productos/data-analytics/): KPIs en tiempo real de ventas, marketing, operaciones y finanzas; alertas automáticas y reporte mensual con hallazgos.
 - [Identidad de Marca — logotipo y manual](https://businessintelligence.solutions/productos/identidad-de-marca/): 3 conceptos de logo, paleta, tipografías, aplicaciones, manual de 20-30 páginas, guía de voz y archivos fuente.
 
+- [Análisis de Marca](https://businessintelligence.solutions/productos/analisis-de-marca/): diagnóstico integral de posicionamiento, percepción y coherencia; scorecard, FODA y recomendaciones priorizadas.
+- [Análisis de Competencia](https://businessintelligence.solutions/productos/analisis-de-competencia/): benchmark de 5-10 competidores, matriz de diferenciación, mapa perceptual y oportunidades de mercado.
+- [Análisis de Mercado](https://businessintelligence.solutions/productos/analisis-de-mercado/): TAM/SAM/SOM con proyecciones a 3 años, buyer personas, tendencias y canales por segmento; resumen para inversores.
+- [Estrategia de Contenidos](https://businessintelligence.solutions/productos/estrategia-de-contenidos/): pilares, calendario editorial de 3 meses, formatos por plataforma, hashtags y templates.
+- [Gestión de Redes Sociales](https://businessintelligence.solutions/productos/gestion-redes-sociales/): 12-20 publicaciones mensuales, stories/reels, community management con respuesta en menos de 2 horas, reporte mensual.
+- [Posicionamiento SEO](https://businessintelligence.solutions/productos/posicionamiento-seo/): auditoría técnica, keywords, on-page, 2-4 artículos al mes, link building y reporte de rankings.
+- [Perfil de Google Maps / SEO Local](https://businessintelligence.solutions/productos/perfil-google-maps/): perfil verificado y optimizado, fotos, protocolo de reseñas, publicaciones semanales; objetivo Local Pack.
+- [Sistema Operativo con IA — producto estrella](https://businessintelligence.solutions/productos/sistema-operativo/): ecosistema de 5-40 agentes de IA con orquestador central, dashboards, protocolos de escalación y soporte con SLA.
+
 ## Empresas que operan con sistemas de BIE
 
 Luway (moda en vivo por TikTok — sistema operativo, link hub, ventas por WhatsApp), Tasting Ecuador (experiencias gastronómicas en Cuenca — marca, redes, web, asistente inteligente), Villa Tres (hostal en Guayaquil — marca y contenido), Amílcar (sitio web de servicios con agenda), Óscar Caicho (app personalizada para conferencias).
