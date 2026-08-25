@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v35: hero_sub vuelve al original; ejemplo Tasting Ecuador baja a Asi de simple).
+// BIE-P06 — Home (v36: instrumentacion de analitica hacia BIE OS + telefono en el formulario).
 ---
 <!doctype html>
 <html lang="es">
@@ -1041,8 +1041,9 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <form class="form reveal d2" id="contact-form">
         <div class="form-row">
           <div class="field"><label data-i18n="f_name"></label><input name="name" type="text" id="in-name" required></div>
-          <div class="field"><label data-i18n="f_comp"></label><input name="company" type="text" id="in-comp"></div>
+          <div class="field"><label data-i18n="f_phone"></label><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999"></div>
         </div>
+        <div class="field"><label data-i18n="f_comp"></label><input name="company" type="text" id="in-comp"></div>
         <div class="field"><label data-i18n="f_need"></label><select name="need" id="in-need"></select></div>
         <div class="field"><label data-i18n="f_msg"></label><textarea name="message" id="in-msg"></textarea></div>
         <button type="submit" class="form-submit"><span data-i18n="f_send"></span></button>
@@ -1194,7 +1195,7 @@ const UI = {
   cp1:{es:'Sin compromiso ni presión comercial',en:'No commitment, no sales pressure'},
   cp2:{es:'Respuesta en menos de 24 horas',en:'Reply within 24 hours'},
   cp3:{es:'Te decimos con honestidad por dónde empezar',en:'We tell you honestly where to start'},
-  f_name:{es:'Nombre',en:'Name'}, f_comp:{es:'Empresa',en:'Company'},
+  f_name:{es:'Nombre',en:'Name'}, f_phone:{es:'WhatsApp / Teléfono',en:'WhatsApp / Phone'}, f_comp:{es:'Empresa',en:'Company'},
   f_need:{es:'¿Qué necesita tu empresa?',en:'What does your company need?'},
   f_msg:{es:'Cuéntanos de tu empresa',en:'Tell us about your company'},
   f_send:{es:'Enviar por WhatsApp',en:'Send via WhatsApp'},
@@ -1523,7 +1524,11 @@ function renderQuiz(){
   if (!q) return;
   q.innerHTML = `<div class="qz-opts">${QUIZ.map((o, i) => `<button class="qz-opt${quizSel === i ? ' on' : ''}" data-i="${i}">${t(o.q)}<span class="qa">→</span></button>`).join('')}</div>
   <div class="qz-answer${quizSel !== null ? ' on' : ''}">${quizSel !== null ? quizAnswer(QUIZ[quizSel]) : ''}</div>`;
-  q.querySelectorAll('.qz-opt').forEach(b => b.addEventListener('click', () => { quizSel = quizSel === +b.dataset.i ? null : +b.dataset.i; renderQuiz(); }));
+  q.querySelectorAll('.qz-opt').forEach(b => b.addEventListener('click', () => {
+    quizSel = quizSel === +b.dataset.i ? null : +b.dataset.i;
+    if (quizSel !== null && window.bieTrack) bieTrack('quiz_step', { meta: { pain: QUIZ[quizSel].k } });
+    renderQuiz();
+  }));
 }
 function renderRail(){
   const d = document.getElementById('cat-diag');
@@ -1970,15 +1975,17 @@ document.addEventListener('click', e => {
 })();
 
 // ═══ Contact form → WhatsApp ═══
+document.getElementById('contact-form').addEventListener('focusin', () => { if (window.bieTrack) bieTrack('form_start'); }, { once: true });
 document.getElementById('contact-form').addEventListener('submit', e => {
   e.preventDefault();
   const d = new FormData(e.target);
-  const msg = FORM_WA[lang](
-    (d.get('name') || '').toString().trim(),
-    (d.get('company') || '').toString().trim(),
-    (d.get('need') || '').toString(),
-    (d.get('message') || '').toString().trim()
-  );
+  const name = (d.get('name') || '').toString().trim();
+  const phone = (d.get('phone') || '').toString().trim();
+  const company = (d.get('company') || '').toString().trim();
+  const need = (d.get('need') || '').toString();
+  const message = (d.get('message') || '').toString().trim();
+  const msg = FORM_WA[lang](name, company, need, message);
+  if (window.bieTrack) bieTrack('form_submit', { meta: { lead: { name, phone, company, service_interest: need, message } } });
   window.open(wa(msg + origin('home/formulario')), '_blank');
 });
 
@@ -2247,6 +2254,8 @@ renderWork();
 renderFeed();
 renderTop();
 </script>
+
+<script src="/track.js" defer></script>
 
 </body>
 </html>

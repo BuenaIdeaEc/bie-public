@@ -996,5 +996,6 @@ document.addEventListener('click',e=>{ if(!waWidget.classList.contains('open'))r
       else { m.classList.add('on'); i++; setTimeout(next,1300); } })(); }
   new IntersectionObserver(es=>{ if(es[0].isIntersecting&&!started){ started=true; run(); } },{threshold:.3}).observe(body); })();
 </script>
+<script src="/track.js" data-product-slug={p.slug} defer></script>
 </body>
 </html>
