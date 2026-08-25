@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v34: hero "dedica tu tiempo a lo que sabes hacer", ejemplo Tasting Ecuador, quiz sin romanticismo).
+// BIE-P06 — Home (v35: hero_sub vuelve al original; ejemplo Tasting Ecuador baja a Asi de simple).
 ---
 <!doctype html>
 <html lang="es">
@@ -492,6 +492,7 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .sim-step h3{font-size:clamp(20px,2vw,26px);font-weight:400;margin-top:18px;letter-spacing:-.015em;line-height:1.2}
 .sim-step p{font-size:14.5px;line-height:1.65;color:var(--text2);margin-top:12px}
 .sim-cta{grid-column:1 / -1;justify-self:start;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:18px 30px;margin-top:10px;transition:background .4s var(--ease),border-color .4s,color .4s}
+.sim-example{font-size:14.5px;color:var(--text3);margin-top:30px;max-width:620px;line-height:1.65}
 .sim-cta:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 .quiz{margin-top:50px;position:relative;z-index:2}
 .qz-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -914,6 +915,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <div class="sim-step"><span class="sim-n">03</span><h3 data-i18n="sim3_t"></h3><p data-i18n="sim3_b"></p></div>
       <a class="sim-cta" id="sim-wa" href="#" target="_blank" rel="noopener"><span data-i18n="sim_btn"></span> →</a>
     </div>
+    <p class="sim-example reveal d3" data-i18n="sim_example"></p>
   </div>
 </section>
 
@@ -1091,8 +1093,8 @@ const UI = {
   thesis:{es:'Dedica tu tiempo a lo que sabes hacer. <span class="accent serif">Nosotros construimos todo el resto.</span>',
           en:'Spend your time on what you do best. <span class="accent serif">We build everything else.</span>'},
   hero_kicker:{es:'Ya es demasiado, lo sabemos.',en:'It is already too much, we know.'},
-  hero_sub:{es:'Tasting Ecuador vende experiencias gastronómicas, no páginas web. Nosotros construimos y operamos su marca, sus redes y su presencia digital — para que ella siga cocinando. Lo mismo hacemos por ti.',
-            en:'Tasting Ecuador sells culinary experiences, not websites. We build and run their brand, social media and digital presence — so she keeps cooking. We do the same for you.'},
+  hero_sub:{es:'Tu marca, tu página web, un asistente que responde tu WhatsApp y la administración de tu negocio — construidos por nosotros, funcionando para ti.',
+            en:'Your brand, your website, an assistant that answers your WhatsApp and your back office — built by us, working for you.'},
   btn_work:{es:'Ver empresas reales',en:'See real companies'},
   btn_cat:{es:'¿Qué necesitas tú?',en:'What do you need?'},
   btn_diag_hero:{es:'Cuéntanos a qué te dedicas',en:'Tell us what you do'},
@@ -1133,6 +1135,8 @@ const UI = {
   sim_label:{es:'Así trabajamos',en:'How it works'},
   sim_h2:{es:'Así de simple.<br><span class="serif">Cero tecnicismos.</span>',en:'This simple.<br><span class="serif">Zero tech-speak.</span>'},
   sim_sub:{es:'No necesitas entender de tecnología. Ese es nuestro trabajo.',en:'You do not need to understand technology. That is our job.'},
+  sim_example:{es:'Así trabajamos con Tasting Ecuador: ella vende experiencias gastronómicas, nosotros construimos y operamos su marca, sus redes y su presencia digital — para que siga cocinando.',
+               en:'This is how we work with Tasting Ecuador: she sells culinary experiences, we build and run her brand, social media and digital presence — so she keeps cooking.'},
   sim1_t:{es:'Nos escribes por WhatsApp',en:'You write us on WhatsApp'},
   sim1_b:{es:'Nos cuentas tu negocio con tus palabras: qué vendes y qué te está costando trabajo.',en:'You tell us about your business in your own words: what you sell and what is giving you trouble.'},
   sim2_t:{es:'Te decimos qué necesitas',en:'We tell you what you need'},
