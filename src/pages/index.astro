@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v33: lo más vendido sube — es lo que trae caja; orden hero→simple→top→work→quiz).
+// BIE-P06 — Home (v34: hero "dedica tu tiempo a lo que sabes hacer", ejemplo Tasting Ecuador, quiz sin romanticismo).
 ---
 <!doctype html>
 <html lang="es">
@@ -279,20 +279,11 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .h1-line>span{display:block;transform:translateY(112%);transition:transform .95s cubic-bezier(.16,1,.3,1)}
 #hero.loaded .h1-line>span{transform:none}
 .h1-line:nth-child(2)>span{transition-delay:.12s}
-.rot-word{display:inline-block;background:var(--accent);color:#fff;padding:0 .14em;margin-left:.04em;
-  transition:transform .32s cubic-bezier(.16,1,.3,1),opacity .32s;transform-origin:center 60%}
-.rot-word.out{opacity:0;transform:translateY(-.5em) rotateX(70deg)}
-.rot-word.pre{transition:none;opacity:0;transform:translateY(.5em) rotateX(-70deg)}
-.hero-dead{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);display:flex;gap:4px;flex-wrap:wrap;opacity:0;transition:opacity .9s ease .05s}
+.hero-dead{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);opacity:0;transition:opacity .9s ease .05s}
 #hero.loaded .hero-dead{opacity:1}
 #hero h1{font-size:clamp(36px,5.4vw,80px);font-weight:400;line-height:1.05;letter-spacing:-.02em;max-width:900px;margin-top:20px;opacity:0;transform:translateY(24px);transition:opacity .95s var(--ease) .12s,transform .95s var(--ease) .12s}
 #hero.loaded h1{opacity:1;transform:none}
 #hero h1 .accent{color:var(--accent)}
-#hero .strike{position:relative;white-space:nowrap;transition:color .6s .25s ease}
-#hero .strike::after{content:'';position:absolute;left:-2%;right:-2%;top:52%;height:3px;background:var(--accent);
-  transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.16,1,.3,1)}
-#hero .strike.go::after{transform:scaleX(1)}
-#hero .strike.go{color:rgba(255,255,255,.35)}
 .hero-thesis{font-size:clamp(17px,1.8vw,22px);font-weight:400;letter-spacing:-.01em;line-height:1.6;max-width:560px;margin-top:30px;color:rgba(255,255,255,.62);
   opacity:0;transform:translateY(20px);transition:opacity .9s .5s cubic-bezier(.16,1,.3,1),transform .9s .5s cubic-bezier(.16,1,.3,1)}
 #hero.loaded .hero-thesis{opacity:1;transform:none}
@@ -886,7 +877,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   <div class="hero-inner" id="hero-inner">
    <div class="hero-text">
     <p class="eyebrow">Business Intelligence Enhancer</p>
-    <p class="hero-dead"><span id="h1-l1"></span>&nbsp;<span id="h1-l2"></span></p>
+    <p class="hero-dead" id="hero-kicker" data-i18n="hero_kicker"></p>
     <h1 class="hero-main" data-i18n="thesis"></h1>
     <p class="hero-sub" data-i18n="hero_sub"></p>
     <div class="hero-btns">
@@ -1097,13 +1088,14 @@ const UI = {
   nav_comm:{es:'Comunidad',en:'Community'}, nav_contact:{es:'Contacto',en:'Contact'},
   nav_cta:{es:'Diagnóstico gratuito',en:'Free diagnosis'},
   mm_cta:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
-  thesis:{es:'Nosotros te entregamos <span class="accent serif">lo que necesitas para crecer.</span>',
-          en:'We deliver <span class="accent serif">what you actually need to grow.</span>'},
-  hero_sub:{es:'Tu marca, tu página web, un asistente que responde tu WhatsApp y la administración de tu negocio — construidos por nosotros, funcionando para ti.',
-            en:'Your brand, your website, an assistant that answers your WhatsApp and your back office — built by us, working for you.'},
+  thesis:{es:'Dedica tu tiempo a lo que sabes hacer. <span class="accent serif">Nosotros construimos todo el resto.</span>',
+          en:'Spend your time on what you do best. <span class="accent serif">We build everything else.</span>'},
+  hero_kicker:{es:'Ya es demasiado, lo sabemos.',en:'It is already too much, we know.'},
+  hero_sub:{es:'Tasting Ecuador vende experiencias gastronómicas, no páginas web. Nosotros construimos y operamos su marca, sus redes y su presencia digital — para que ella siga cocinando. Lo mismo hacemos por ti.',
+            en:'Tasting Ecuador sells culinary experiences, not websites. We build and run their brand, social media and digital presence — so she keeps cooking. We do the same for you.'},
   btn_work:{es:'Ver empresas reales',en:'See real companies'},
   btn_cat:{es:'¿Qué necesitas tú?',en:'What do you need?'},
-  btn_diag_hero:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
+  btn_diag_hero:{es:'Cuéntanos a qué te dedicas',en:'Tell us what you do'},
   stat1:{es:'Implementaciones',en:'Implementations'}, stat2:{es:'Productos en catálogo',en:'Products in catalog'}, stat3:{es:'Empresas operando',en:'Companies running'},
   vid_label:{es:'Mira esto primero',en:'Watch this first'},
   vid_h2:{es:'90 segundos para entenderlo todo.',en:'90 seconds to understand it all.'},
@@ -1136,8 +1128,8 @@ const UI = {
   ba_lb:{es:'Antes de BIE',en:'Before BIE'}, ba_la:{es:'Con BIE',en:'With BIE'},
   cat_label:{es:'Tu turno',en:'Your turn'},
   cat_h2:{es:'Ahora — ¿qué necesitas <span class="serif">tú?</span>',en:'Now — what do <span class="serif">you</span> need?'},
-  cat_sub:{es:'Elige lo que te está pasando hoy y te decimos qué lo resuelve. O explora el catálogo completo con calma.',
-           en:'Pick what is happening to you today and we tell you what solves it. Or browse the full catalog at your pace.'},
+  cat_sub:{es:'De cuarenta y siete cosas que tu negocio podría necesitar, tú no tienes que saber cuál. Dinos qué te pasa hoy y te decimos qué lo resuelve.',
+           en:'Out of forty-seven things your business might need, you do not have to know which one. Tell us what is happening today and we will tell you what solves it.'},
   sim_label:{es:'Así trabajamos',en:'How it works'},
   sim_h2:{es:'Así de simple.<br><span class="serif">Cero tecnicismos.</span>',en:'This simple.<br><span class="serif">Zero tech-speak.</span>'},
   sim_sub:{es:'No necesitas entender de tecnología. Ese es nuestro trabajo.',en:'You do not need to understand technology. That is our job.'},
@@ -1213,11 +1205,7 @@ const UI = {
   bubbles:{es:['¿Necesitas ayuda?','¿Ya sabes lo que deseas?','¿Vas a abrir un negocio?','¿Quieres que lo veamos juntos?','Estoy aquí, escríbeme.'],en:['Need a hand?','Already know what you want?','Opening a business?','Want to look at it together?','I am here — write me.']},
 };
 
-const H1 = {
-  es:{ l1:'Las agencias de ', l2pre:'están ', strike:'muertas.', rotFirst:false },
-  en:{ l1:' agencies', l2pre:'are ', strike:'dead.', rotFirst:true },
-};
-const ROT = { es:['marketing','publicidad','páginas web','tecnología'], en:['marketing','advertising','website','technology'] };
+const HERO_KICKER = { es:'Ya es demasiado, lo sabemos.', en:'It is already too much, we know.' };
 
 const NEED_OPTS = {
   es:['Selecciona una opción','Entender mi mercado y competencia','Construir mi marca e identidad','Sitio web o tienda en línea','Automatizar la atención y las ventas','Crecer con publicidad digital','Ordenar lo legal y administrativo','No sé por dónde empezar'],
@@ -1463,37 +1451,9 @@ function applyStatics(){
 }
 
 // ═══ Render: hero h1 ═══
-let rotIdx = 0;
 function renderH1(){
-  const h = H1[lang];
-  const rot = `<span id="rot-word" class="rot-word">${ROT[lang][rotIdx]}</span>`;
-  document.getElementById('h1-l1').innerHTML = h.rotFirst ? rot + h.l1 : h.l1 + rot;
-  document.getElementById('h1-l2').innerHTML = h.l2pre + `<span class="strike${strikeDone ? ' go' : ''}" id="strike-word">${h.strike}</span>`;
-}
-setInterval(() => {
-  const el = document.getElementById('rot-word');
-  if (!el) return;
-  el.classList.add('out');
-  setTimeout(() => {
-    rotIdx = (rotIdx + 1) % ROT[lang].length;
-    el.textContent = ROT[lang][rotIdx];
-    el.classList.remove('out');
-    el.classList.add('pre');
-    void el.offsetWidth;
-    el.classList.remove('pre');
-  }, 330);
-}, 2600);
-
-// ═══ Strike on scroll ═══
-let strikeDone = false;
-function checkStrike(){
-  if (strikeDone) return;
-  const sc = (document.scrollingElement || document.documentElement).scrollTop;
-  if (sc > 60){
-    strikeDone = true;
-    const el = document.getElementById('strike-word');
-    if (el) el.classList.add('go');
-  }
+  const el = document.getElementById('hero-kicker');
+  if (el) el.textContent = HERO_KICKER[lang];
 }
 
 // ═══ Render: los más pedidos (los 8 del batch, cada uno con su página) ═══
@@ -1933,7 +1893,6 @@ function applyLang(){
 }
 document.getElementById('lang-toggle').addEventListener('click', () => {
   lang = lang === 'es' ? 'en' : 'es';
-  rotIdx = 0;
   applyLang();
 });
 
@@ -2256,7 +2215,6 @@ window.addEventListener('scroll', () => {
   nav.classList.add('dark-zone');
   const hr = document.getElementById('hero').getBoundingClientRect();
   document.body.classList.toggle('past-hero', hr.bottom < innerHeight * .35);
-  checkStrike();
   let current = null;
   for (const s of SECTIONS){
     const sr = s.getBoundingClientRect();
