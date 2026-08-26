@@ -4,8 +4,10 @@
 // credenciales: sin ellas solo registra en el log y responde 200 igual, nunca rompe la UX.
 //
 // Variables de entorno (Netlify → Site settings → Environment variables):
-//   SUPABASE_URL               — https://vvunxwtviuduqibadsov.supabase.co (proyecto bie-erp)
-//   SUPABASE_SERVICE_ROLE_KEY  — Dashboard de Supabase → Settings → API → service_role.
+//   SUPABASE_URL               — https://husiywjndpravokplvqm.supabase.co (proyecto bie-erp;
+//                                 reconstruido el 2026-08-20 con este ID nuevo tras eliminarse
+//                                 el anterior vvunxwtviuduqibadsov por pausa de 90 días — no usar ese)
+//   SUPABASE_SERVICE_ROLE_KEY  — supabase.com/dashboard/project/husiywjndpravokplvqm/settings/api
 //
 // Contrato de event_type (migrations 0022/0023/0025 de bie-erp): product_view, cta_click,
 // contact_click, form_start, form_submit, quiz_step, quiz_complete, page_view.
