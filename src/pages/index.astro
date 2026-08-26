@@ -1,5 +1,5 @@
 ---
-// BIE-P06 — Home (v36: instrumentacion de analitica hacia BIE OS + telefono en el formulario).
+// BIE-P06 — Home (v37b: copy honesto en feed_sub, sin prometer sincronizacion automatica que no existe).
 ---
 <!doctype html>
 <html lang="es">
@@ -633,6 +633,9 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .comm-icon{width:44px;height:44px;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;color:var(--accent)}
 .comm-name{font-size:16px;font-weight:700}
 .comm-handle{font-family:var(--mono);font-size:11px;color:var(--text3)}
+.comm-card.soon{cursor:default}
+.comm-card.soon:hover{transform:none}
+.comm-cta.soon{color:var(--text3);font-weight:400}
 .comm-desc{font-size:12.5px;color:var(--text2);line-height:1.6;flex:1}
 .comm-cta{font-size:12px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px}
 
@@ -652,6 +655,7 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .feed-cap{position:relative;z-index:2;color:#fff;font-size:12px;font-weight:700;letter-spacing:-.01em;line-height:1.35}
 .feed-foot{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
 .feed-btn{padding:13px 22px;border:1px solid rgba(255,253,249,.16);font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:9px;transition:border-color .2s,background .2s,color .2s}
+.feed-btn.soon{cursor:default;opacity:.55}
 .feed-btn:hover{border-color:var(--accent);background:var(--accent);color:#fff}
 
 /* ═══ Iconos animados ═══ */
@@ -977,23 +981,23 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <p class="section-sub" data-i18n="comm_sub"></p>
     </div>
     <div class="comm-grid">
-      <a href="#" class="comm-card reveal d1">
+      <a class="comm-card soon reveal d1">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></div>
         <div><div class="comm-name">Instagram</div><div class="comm-handle" data-i18n="comm_handle"></div></div>
         <p class="comm-desc" data-i18n="ig_desc"></p>
-        <span class="comm-cta"><span data-i18n="follow"></span> →</span>
+        <span class="comm-cta soon"><span data-i18n="follow"></span></span>
       </a>
-      <a href="#" class="comm-card reveal d2">
+      <a class="comm-card soon reveal d2">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
         <div><div class="comm-name">TikTok</div><div class="comm-handle" data-i18n="comm_handle"></div></div>
         <p class="comm-desc" data-i18n="tt_desc"></p>
-        <span class="comm-cta"><span data-i18n="follow"></span> →</span>
+        <span class="comm-cta soon"><span data-i18n="follow"></span></span>
       </a>
-      <a href="#" class="comm-card reveal d3">
+      <a class="comm-card soon reveal d3">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 10v7M7 7v.1M11 17v-4a2.5 2.5 0 0 1 5 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
         <div><div class="comm-name">LinkedIn</div><div class="comm-handle" data-i18n="comm_handle"></div></div>
         <p class="comm-desc" data-i18n="li_desc"></p>
-        <span class="comm-cta"><span data-i18n="connect"></span> →</span>
+        <span class="comm-cta soon"><span data-i18n="connect"></span></span>
       </a>
       <a id="comm-wa" href="#" class="comm-card reveal d4">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.4-1.4-1.8-1.2-1.2.6a4.6 4.6 0 0 1-2.4-2.4l.6-1.2-1.2-1.8-1.4 1.4z" fill="currentColor"/></svg></div>
@@ -1015,8 +1019,8 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
     </div>
     <div class="feed-grid reveal d2" id="feed-grid"></div>
     <div class="feed-foot reveal d3">
-      <a href="#" class="feed-btn"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.4" fill="currentColor"/></svg><span data-i18n="feed_ig"></span></a>
-      <a href="#" class="feed-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-i18n="feed_tt"></span></a>
+      <a class="feed-btn soon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.4" fill="currentColor"/></svg><span data-i18n="feed_ig"></span></a>
+      <a class="feed-btn soon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-i18n="feed_tt"></span></a>
     </div>
   </div>
 </section>
@@ -1114,7 +1118,7 @@ const UI = {
   top_soon:{es:'Página completa muy pronto',en:'Full page coming soon'},
   feed_label:{es:'Lo último en nuestras redes',en:'Latest from our channels'},
   feed_h2:{es:'Contenido que se publica,<br><span class="serif">y clases que vienen.</span>',en:'Content we publish,<br><span class="serif">and classes to come.</span>'},
-  feed_sub:{es:'Aquí aparece automáticamente lo último que subimos a Instagram y TikTok. Pronto, también clases y recursos para empresas y emprendedores.',en:'The latest we post on Instagram and TikTok shows up here automatically. Soon, classes and resources for companies and founders too.'},
+  feed_sub:{es:'Lo más reciente que publicamos en Instagram y TikTok. Pronto, también clases y recursos para empresas y emprendedores.',en:'The latest we post on Instagram and TikTok. Soon, classes and resources for companies and founders too.'},
   feed_ig:{es:'Seguir en Instagram',en:'Follow on Instagram'}, feed_tt:{es:'Seguir en TikTok',en:'Follow on TikTok'},
   feed_tiles:{es:['Así se arma un sistema operativo para una tienda','Marca en 60 segundos','Live de ventas: detrás de cámaras','3 automatizaciones que todo negocio necesita','Antes y después de una identidad','Clase: cómo empezar bien tu empresa'],
               en:['How a store operating system is built','Brand in 60 seconds','Live sales: behind the scenes','3 automations every business needs','Before and after of an identity','Class: how to start your company right']},
@@ -1180,13 +1184,13 @@ const UI = {
   comm_h2:{es:'Mantente actualizado.',en:'Stay up to date.'},
   comm_sub:{es:'Noticias de marca y tecnología que afectan a tu negocio, directo en las redes donde ya estás.',
             en:'Brand and technology news that affects your business, on the networks you already use.'},
-  comm_handle:{es:'[USUARIO POR DEFINIR]',en:'[HANDLE TBD]'},
+  comm_handle:{es:'Cuenta en preparación',en:'Account in progress'},
   ig_desc:{es:'Casos reales, sistemas en acción y el detrás de escena de cada implementación.',en:'Real cases, systems in action and the behind-the-scenes of each build.'},
   tt_desc:{es:'Tecnología explicada en un minuto: qué adoptar en tu empresa y qué ignorar.',en:'Technology explained in one minute: what to adopt and what to ignore.'},
   li_desc:{es:'Análisis de negocio y adaptabilidad digital para directores y dueños de empresa.',en:'Business analysis and digital adaptability for directors and owners.'},
   wa_ch:{es:'Canal WhatsApp',en:'WhatsApp Channel'},
   wa_desc:{es:'Alertas directas: cambios de tecnología y oportunidades que afectan a tu negocio.',en:'Direct alerts: technology shifts and opportunities that affect your business.'},
-  follow:{es:'Seguir',en:'Follow'}, connect:{es:'Conectar',en:'Connect'}, join:{es:'Unirme',en:'Join'},
+  follow:{es:'Próximamente',en:'Coming soon'}, connect:{es:'Próximamente',en:'Coming soon'}, join:{es:'Unirme',en:'Join'},
   ct_label:{es:'Empieza aquí',en:'Start here'},
   ct_h2:{es:'30 minutos que redefinen<br>por dónde <span class="serif">empezar.</span>',en:'30 minutes that redefine<br>where to <span class="serif">start.</span>'},
   ct_h3:{es:'Diagnóstico gratuito',en:'Free diagnosis'},
@@ -1360,7 +1364,7 @@ const MOCK = {
     <div class="lh-btn">Catálogo semanal</div><div class="lh-btn">Próximo live TikTok</div><div class="lh-btn">Pedidos WhatsApp</div><div class="lh-btn">Cambios</div></div></div>`,
   luwayLive: `<div class="phone" style="position:relative"><div class="phone-screen" style="position:relative"><div class="live-ui">
     <div class="live-badge">LIVE</div><div class="live-msg">Ese vestido en talla M porfa</div><div class="live-msg">Precio del rojo?</div><div class="live-msg" style="background:rgba(229,57,53,.85)">Vendido a Maria G.</div></div></div></div>`,
-  tastingIG: `<div class="browser" style="width:60%"><div class="browser-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span><span class="b-url">instagram.com/[USER]</span></div>
+  tastingIG: `<div class="browser" style="width:60%"><div class="browser-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span><span class="b-url">instagram.com</span></div>
     <div class="ig-grid"><div class="ig-cell"></div><div class="ig-cell"></div><div class="ig-cell"></div><div class="ig-cell"></div><div class="ig-cell"></div><div class="ig-cell"></div></div></div>`,
   tastingBrand: `<div class="brand-board"><div class="bb-logo">TASTING ECUADOR</div><div class="bb-swatch" style="background:#7a4a2a"></div><div class="bb-swatch" style="background:#4a6a3a"></div><div class="bb-type">Logo · Identidad · Papelería · Plantillas</div></div>`,
   tastingWeb: `<div class="browser" style="width:76%"><div class="browser-bar"><span class="b-dot"></span><span class="b-dot"></span><span class="b-dot"></span><span class="b-url">[WEB]</span></div>

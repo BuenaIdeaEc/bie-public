@@ -590,6 +590,9 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .comm-icon{width:44px;height:44px;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;color:var(--accent)}
 .comm-name{font-size:16px;font-weight:700}
 .comm-handle{font-family:var(--mono);font-size:11px;color:var(--text3)}
+.comm-card.soon{cursor:default}
+.comm-card.soon:hover{transform:none}
+.comm-cta.soon{color:var(--text3);font-weight:400}
 .comm-desc{font-size:12.5px;color:var(--text2);line-height:1.6;flex:1}
 .comm-cta{font-size:12px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px}
 
@@ -609,6 +612,7 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .feed-cap{position:relative;z-index:2;color:#fff;font-size:12px;font-weight:700;letter-spacing:-.01em;line-height:1.35}
 .feed-foot{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
 .feed-btn{padding:13px 22px;border:1px solid rgba(255,253,249,.16);font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:9px;transition:border-color .2s,background .2s,color .2s}
+.feed-btn.soon{cursor:default;opacity:.55}
 .feed-btn:hover{border-color:var(--accent);background:var(--accent);color:#fff}
 
 /* ═══ Iconos animados ═══ */
