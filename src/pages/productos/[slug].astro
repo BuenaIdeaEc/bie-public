@@ -108,7 +108,10 @@ const BUBBLES = { es: ['¿Necesitas ayuda?', '¿Ya sabes lo que deseas?', '¿Vas
 const strip = (h: string) => h.replace(/<[^>]+>/g, '');
 const ld = [
   { '@context': 'https://schema.org', '@type': 'Service', name: p.name.es, serviceType: p.name.es, description: p.seoDescription.es, url,
-    provider: { '@type': 'ProfessionalService', name: 'BIE — Business Intelligence Enhancer', url: SITE, telephone: '+593988253030' },
+    image: `${SITE}/images/og/${p.slug}.jpg`,
+    provider: { '@type': 'ProfessionalService', name: 'BIE — Business Intelligence Enhancer', alternateName: 'BIE', url: SITE, telephone: '+593988253030',
+      image: `${SITE}/icons/logo.svg`, priceRange: '$$',
+      address: { '@type': 'PostalAddress', addressCountry: 'EC', addressLocality: 'Guayaquil' } },
     areaServed: { '@type': 'Country', name: 'Ecuador' }, availableLanguage: ['es', 'en'] },
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: p.faq.map((f) => ({ '@type': 'Question', name: f.q.es, acceptedAnswer: { '@type': 'Answer', text: f.a.es } })) },
   { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [

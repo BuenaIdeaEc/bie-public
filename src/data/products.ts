@@ -47,12 +47,12 @@ export const PRODUCTS: ProductPage[] = [
       band: B('¿La quieres para tu empresa? <span class="serif">Empezamos por WhatsApp.</span>', 'Want it for your company? <span class="serif">We start on WhatsApp.</span>'),
     },
     seoTitle: B(
-      'Diseño de Páginas Web Profesionales en Ecuador — Sitios que Venden | BIE',
-      'Professional Website Design in Ecuador — Sites That Sell | BIE'
+      'Diseño de Páginas Web en Ecuador — Sitios que Venden | BIE',
+      'Website Design in Ecuador — Sites That Sell | BIE'
     ),
     seoDescription: B(
-      'Diseño de páginas web profesionales en Ecuador: landing, corporativa, portafolio o tienda básica. Responsive, SEO on-page, Google Analytics y formulario conectado a WhatsApp. Publicada y con panel para que la administres.',
-      'Professional website design in Ecuador: landing, corporate, portfolio or basic store. Responsive, on-page SEO, Google Analytics and a WhatsApp-connected form. Published, with an admin panel you control.'
+      'Diseño de páginas web en Ecuador: landing, corporativa o tienda. Responsive, SEO on-page y formulario conectado a WhatsApp. Con panel para administrarla.',
+      'Website design in Ecuador: landing, corporate site or store. Responsive, on-page SEO and a WhatsApp-connected form. Delivered with an admin panel.'
     ),
     keywords: ['diseño de páginas web ecuador', 'crear página web profesional', 'sitio web para empresas', 'página web quito guayaquil cuenca', 'diseño web responsive', 'landing page ecuador'],
     hero: {
@@ -125,12 +125,12 @@ export const PRODUCTS: ProductPage[] = [
     phase: { num: '05', title: B('Automatización e IA', 'Automation & AI'), slug: 'automatizacion' },
     name: B('Asistente Inteligente 24/7', '24/7 AI Assistant'),
     seoTitle: B(
-      'Chatbot para WhatsApp con IA en Ecuador — Asistente Inteligente 24/7 | BIE',
-      'AI WhatsApp Chatbot in Ecuador — 24/7 AI Assistant | BIE'
+      'Chatbot de WhatsApp con IA en Ecuador | BIE',
+      'AI WhatsApp Chatbot in Ecuador | BIE'
     ),
     seoDescription: B(
-      'Asistente con inteligencia artificial para WhatsApp y tu sitio web: responde, cotiza y agenda citas las 24 horas. Implementado por BIE para empresas en Ecuador. Diagnóstico gratuito.',
-      'AI-powered assistant for WhatsApp and your website: replies, quotes and books appointments 24/7. Built by BIE for companies in Ecuador. Free diagnosis.'
+      'Asistente con IA para WhatsApp y tu web: responde, cotiza y agenda citas 24/7. Implementado por BIE para empresas en Ecuador. Diagnóstico gratuito.',
+      'AI assistant for WhatsApp and your website: replies, quotes and books appointments 24/7. Built by BIE for Ecuadorian companies. Free diagnosis.'
     ),
     keywords: ['chatbot whatsapp ecuador', 'chatbot con inteligencia artificial', 'asistente virtual whatsapp', 'automatizar whatsapp negocio', 'bot para whatsapp business', 'chatbot para empresas quito guayaquil cuenca'],
     hero: {
@@ -214,8 +214,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu punto único de entrada,<br><span class="serif">con tu marca, no la de otros.</span>', 'Your single point of entry,<br><span class="serif">with your brand, not someone else\'s.</span>'),
       who: B('Para quien vende<br><span class="serif">desde sus redes sociales.</span>', 'For those who sell<br><span class="serif">from their social media.</span>'),
     },
-    seoTitle: B('Link Hub de Marca — Página de Enlaces Profesional para tu Bio | BIE Ecuador', 'Brand Link Hub — Professional Link-in-Bio Page | BIE Ecuador'),
-    seoDescription: B('Página de enlaces profesional con tu marca: catálogo, canales de venta, comunidad, descargables, FAQ y analítica de clics en una sola página optimizada para móvil. La alternativa con marca propia al linktree genérico.', 'Professional link-in-bio page with your brand: catalog, sales channels, community, downloads, FAQ and click analytics on one mobile-first page. The branded alternative to a generic linktree.'),
+    seoTitle: B('Link Hub de Marca — Página de Enlaces en Bio | BIE', 'Brand Link Hub — Link-in-Bio Page | BIE'),
+    seoDescription: B('Página de enlaces con tu marca: catálogo, canales de venta, FAQ y analítica de clics en una sola página, optimizada para móvil.', 'Link-in-bio page with your brand: catalog, sales channels, FAQ and click analytics on one mobile-first page.'),
     keywords: ['link en bio profesional', 'alternativa a linktree con marca propia', 'pagina de enlaces para instagram', 'link hub para negocios ecuador', 'linktree personalizado empresa'],
     hero: {
       h1: B('Todos tus enlaces, <span class="serif">una sola puerta de entrada.</span>', 'All your links, <span class="serif">one single front door.</span>'),
@@ -282,8 +282,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Cada cliente registrado,<br><span class="serif">cada seguimiento hecho.</span>', 'Every customer registered,<br><span class="serif">every follow-up done.</span>'),
       who: B('Para equipos que venden<br><span class="serif">más de lo que pueden recordar.</span>', 'For teams selling<br><span class="serif">more than they can remember.</span>'),
     },
-    seoTitle: B('CRM con Inteligencia Artificial para Empresas en Ecuador | BIE', 'AI-Powered CRM for Companies in Ecuador | BIE'),
-    seoDescription: B('CRM inteligente configurado para tu empresa: pipeline de ventas, lead scoring, secuencias de seguimiento automatizadas, dashboards de conversión e integración con tu chatbot. Implementado y con tu equipo capacitado.', 'Smart CRM configured for your company: sales pipeline, lead scoring, automated follow-up sequences, conversion dashboards and chatbot integration. Implemented, with your team trained.'),
+    seoTitle: B('CRM con Inteligencia Artificial en Ecuador | BIE', 'AI-Powered CRM for Companies in Ecuador | BIE'),
+    seoDescription: B('CRM inteligente para tu empresa: pipeline de ventas, lead scoring y seguimiento automatizado, integrado con tu chatbot. Equipo capacitado incluido.', 'Smart CRM for your company: sales pipeline, lead scoring and automated follow-up, integrated with your chatbot. Team training included.'),
     keywords: ['crm para empresas ecuador', 'crm con inteligencia artificial', 'seguimiento de clientes automatizado', 'pipeline de ventas', 'crm whatsapp'],
     hero: {
       h1: B('Ningún cliente sin seguimiento, <span class="serif">nunca más.</span>', 'No customer left unfollowed, <span class="serif">ever again.</span>'),
@@ -347,8 +347,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Un flujo a la vez,<br><span class="serif">lo repetitivo desaparece.</span>', 'One flow at a time,<br><span class="serif">the repetitive work disappears.</span>'),
       who: B('Para operaciones donde todo<br><span class="serif">pasa por las manos de alguien.</span>', 'For operations where everything<br><span class="serif">passes through someone\'s hands.</span>'),
     },
-    seoTitle: B('Automatización de Procesos para Empresas en Ecuador — Make y Zapier | BIE', 'Business Process Automation in Ecuador — Make and Zapier | BIE'),
-    seoDescription: B('Automatizamos procesos específicos de tu empresa: facturación, reportes, onboarding de clientes, correos, sincronización de datos y alertas. Cada flujo se entrega probado con datos reales, documentado y con monitoreo de errores.', 'We automate specific processes in your company: invoicing, reports, client onboarding, emails, data sync and alerts. Each flow ships tested with real data, documented and with error monitoring.'),
+    seoTitle: B('Automatización de Procesos en Ecuador | BIE', 'Business Process Automation in Ecuador | BIE'),
+    seoDescription: B('Automatizamos procesos de tu empresa: facturación, reportes, correos y alertas. Flujos probados, documentados y con monitoreo de errores.', 'We automate your company processes: invoicing, reports, emails and alerts. Tested flows, documented, with error monitoring.'),
     keywords: ['automatizacion de procesos empresa', 'make zapier ecuador', 'automatizar facturacion reportes', 'automatizaciones para negocios', 'conectar aplicaciones automatizar'],
     hero: {
       h1: B('Lo que hoy haces a mano, <span class="serif">mañana se hace solo.</span>', 'What you do by hand today <span class="serif">runs on its own tomorrow.</span>'),
@@ -410,8 +410,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('WhatsApp ordenado<br><span class="serif">como canal de ventas.</span>', 'WhatsApp organized<br><span class="serif">as a sales channel.</span>'),
       who: B('Para negocios que ya venden<br><span class="serif">conversando.</span>', 'For businesses that already sell<br><span class="serif">by chatting.</span>'),
     },
-    seoTitle: B('WhatsApp Business para Ventas en Ecuador — Catálogo y Automatización | BIE', 'WhatsApp Business for Sales in Ecuador — Catalog and Automation | BIE'),
-    seoDescription: B('Convertimos tu WhatsApp Business en un canal de ventas ordenado: catálogo con fotos y precios, mensajes automáticos, etiquetas, listas de difusión, plantillas por etapa de venta y protocolo de atención. Con reporte mensual.', 'We turn your WhatsApp Business into an organized sales channel: catalog with photos and prices, automatic messages, labels, broadcast lists, stage-based templates and a service protocol. Monthly report included.'),
+    seoTitle: B('WhatsApp Business para Ventas en Ecuador | BIE', 'WhatsApp Business for Sales in Ecuador | BIE'),
+    seoDescription: B('Convertimos tu WhatsApp en un canal de ventas: catálogo, mensajes automáticos, etiquetas y plantillas por etapa. Reporte mensual.', 'We turn your WhatsApp into a sales channel: catalog, automatic messages, labels and stage-based templates. Monthly report.'),
     keywords: ['whatsapp business para ventas', 'catalogo whatsapp business', 'vender por whatsapp ecuador', 'mensajes automaticos whatsapp negocio', 'listas de difusion whatsapp'],
     hero: {
       h1: B('Convierte tu WhatsApp en <span class="serif">tu mejor canal de ventas.</span>', 'Turn your WhatsApp into <span class="serif">your best sales channel.</span>'),
@@ -487,8 +487,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tus números, en vivo,<br><span class="serif">en un solo tablero.</span>', 'Your numbers, live,<br><span class="serif">on one board.</span>'),
       who: B('Para dueños que deciden<br><span class="serif">y no quieren adivinar.</span>', 'For owners who decide<br><span class="serif">and refuse to guess.</span>'),
     },
-    seoTitle: B('Dashboards y Análisis de Datos para Empresas en Ecuador | BIE', 'Business Dashboards and Data Analytics in Ecuador | BIE'),
-    seoDescription: B('Dashboard ejecutivo con tus KPIs en tiempo real: ventas, marketing, operaciones y finanzas conectados en un solo tablero, con alertas automáticas, capacitación de tu equipo y reporte mensual con hallazgos.', 'Executive dashboard with your KPIs in real time: sales, marketing, operations and finance connected on one board, with automatic alerts, team training and a monthly insights report.'),
+    seoTitle: B('Analytics Empresarial en Ecuador — Dashboards KPI | BIE', 'Business Analytics & KPI Dashboards in Ecuador | BIE'),
+    seoDescription: B('Dashboard ejecutivo con tus KPIs en tiempo real: ventas, marketing y finanzas en un tablero, con alertas y capacitación. Diagnóstico gratis por WhatsApp.', 'Executive dashboard with real-time KPIs: sales, marketing and finance in one board, with alerts and team training. Free WhatsApp diagnosis.'),
     keywords: ['dashboard empresarial ecuador', 'kpis en tiempo real', 'business intelligence pymes', 'tablero de control ventas', 'analisis de datos empresa'],
     hero: {
       h1: B('Deja de adivinar: <span class="serif">mira tu negocio en vivo.</span>', 'Stop guessing: <span class="serif">watch your business live.</span>'),
@@ -551,8 +551,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Un sistema de marca completo,<br><span class="serif">no solo un logo.</span>', 'A complete brand system,<br><span class="serif">not just a logo.</span>'),
       who: B('Para empresas que compiten<br><span class="serif">por valor, no por precio.</span>', 'For companies competing<br><span class="serif">on value, not price.</span>'),
     },
-    seoTitle: B('Diseño de Identidad de Marca y Logotipos en Ecuador — Manual de Marca | BIE', 'Brand Identity and Logo Design in Ecuador — Brand Manual | BIE'),
-    seoDescription: B('Identidad visual y verbal completa para tu empresa: logotipo profesional con variantes, paleta de colores, sistema tipográfico, aplicaciones, manual de marca de 20-30 páginas, guía de voz y tono, y archivos fuente. Diseñada en Ecuador.', 'Complete visual and verbal identity for your company: professional logo with variants, color palette, typography system, applications, a 20-30 page brand manual, voice and tone guide, and source files. Designed in Ecuador.'),
+    seoTitle: B('Identidad de Marca y Logotipo en Ecuador | BIE', 'Brand Identity and Logo Design in Ecuador | BIE'),
+    seoDescription: B('Identidad visual completa: logo con variantes, paleta, tipografía, manual de marca y guía de voz y tono. Diseñada en Ecuador para tu empresa.', 'Complete visual identity: logo with variants, palette, typography, brand manual and voice-and-tone guide. Designed in Ecuador for your company.'),
     keywords: ['diseño de logotipo profesional ecuador', 'identidad de marca empresa', 'manual de marca', 'branding para pymes', 'crear marca para negocio'],
     hero: {
       h1: B('La marca que te hace <span class="serif">reconocible y elegible.</span>', 'The brand that makes you <span class="serif">recognizable and choosable.</span>'),
@@ -621,8 +621,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Una radiografía honesta<br><span class="serif">de cómo te ve el mercado.</span>', 'An honest x-ray<br><span class="serif">of how the market sees you.</span>'),
       who: B('Para quien decide invertir<br><span class="serif">con diagnóstico, no con fe.</span>', 'For those who invest<br><span class="serif">on diagnosis, not faith.</span>'),
     },
-    seoTitle: B('Análisis de Marca para Empresas en Ecuador — Diagnóstico Profesional | BIE', 'Brand Analysis for Companies in Ecuador — Professional Diagnosis | BIE'),
-    seoDescription: B('Evaluación integral de tu marca: posicionamiento, percepción, coherencia visual y verbal, y presencia digital. Reporte diagnóstico, scorecard, matriz FODA y recomendaciones priorizadas con presentación ejecutiva.', 'Comprehensive brand evaluation: positioning, perception, visual and verbal coherence, and digital presence. Diagnostic report, scorecard, SWOT matrix and prioritized recommendations with an executive presentation.'),
+    seoTitle: B('Análisis de Marca para Empresas en Ecuador | BIE', 'Brand Analysis for Companies in Ecuador | BIE'),
+    seoDescription: B('Evaluación de tu marca: posicionamiento, percepción, coherencia visual y presencia digital. Reporte, scorecard, FODA y recomendaciones priorizadas.', 'Brand evaluation: positioning, perception, visual coherence and digital presence. Report, scorecard, SWOT and prioritized recommendations.'),
     keywords: ['analisis de marca ecuador', 'diagnostico de marca empresa', 'auditoria de marca', 'posicionamiento de marca', 'como perciben mi marca'],
     hero: {
       h1: B('Antes de invertir un dólar más, <span class="serif">mira tu marca de frente.</span>', 'Before investing one more dollar, <span class="serif">face your brand honestly.</span>'),
@@ -685,8 +685,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('El mapa completo<br><span class="serif">de contra quién juegas.</span>', 'The complete map<br><span class="serif">of who you are playing against.</span>'),
       who: B('Para quien compite<br><span class="serif">con información, no a ciegas.</span>', 'For those competing<br><span class="serif">with information, not blind.</span>'),
     },
-    seoTitle: B('Análisis de Competencia para Empresas en Ecuador — Benchmark Competitivo | BIE', 'Competitor Analysis for Companies in Ecuador — Competitive Benchmark | BIE'),
-    seoDescription: B('Mapeo completo de tus competidores: precios, posicionamiento, fortalezas, debilidades y presencia digital. Benchmark, matriz de diferenciación, mapa perceptual y oportunidades de mercado con recomendaciones.', 'Complete mapping of your competitors: pricing, positioning, strengths, weaknesses and digital presence. Benchmark, differentiation matrix, perceptual map and market opportunities with recommendations.'),
+    seoTitle: B('Análisis de Competencia en Ecuador | BIE', 'Competitor Analysis in Ecuador | BIE'),
+    seoDescription: B('Mapeo de tus competidores: precios, posicionamiento y presencia digital. Benchmark, matriz de diferenciación y oportunidades de mercado.', 'Mapping of your competitors: pricing, positioning and digital presence. Benchmark, differentiation matrix and market opportunities.'),
     keywords: ['analisis de competencia ecuador', 'benchmark competitivo', 'estudio de competidores', 'mapa de posicionamiento', 'diferenciacion de mercado'],
     hero: {
       h1: B('Encuentra el hueco que tu competencia <span class="serif">no puede llenar.</span>', 'Find the gap your competitors <span class="serif">cannot fill.</span>'),
@@ -749,8 +749,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu mercado, dimensionado<br><span class="serif">y con la puerta de entrada marcada.</span>', 'Your market, sized<br><span class="serif">with the entry door marked.</span>'),
       who: B('Para decisiones que necesitan<br><span class="serif">números, no corazonadas.</span>', 'For decisions that need<br><span class="serif">numbers, not hunches.</span>'),
     },
-    seoTitle: B('Análisis e Investigación de Mercado en Ecuador — TAM SAM SOM | BIE', 'Market Analysis and Research in Ecuador — TAM SAM SOM | BIE'),
-    seoDescription: B('Investigación de mercado para tu empresa: tamaño TAM/SAM/SOM con proyecciones a 3 años, buyer personas, tendencias, comportamiento del consumidor y canales por segmento. Con resumen ejecutivo para inversores.', 'Market research for your company: TAM/SAM/SOM sizing with 3-year projections, buyer personas, trends, consumer behavior and channels per segment. Includes an investor-ready executive summary.'),
+    seoTitle: B('Análisis de Mercado en Ecuador — TAM SAM SOM | BIE', 'Market Analysis in Ecuador — TAM SAM SOM | BIE'),
+    seoDescription: B('Investigación de mercado: tamaño TAM/SAM/SOM a 3 años, buyer personas, tendencias y canales por segmento. Resumen ejecutivo para inversores.', 'Market research: TAM/SAM/SOM sizing over 3 years, buyer personas, trends and channels per segment. Investor-ready executive summary.'),
     keywords: ['estudio de mercado ecuador', 'investigacion de mercado empresa', 'tam sam som', 'buyer persona', 'tendencias de mercado analisis'],
     hero: {
       h1: B('Ponle número a tu oportunidad <span class="serif">antes de apostarle tu tiempo.</span>', 'Put a number on your opportunity <span class="serif">before betting your time on it.</span>'),
@@ -813,8 +813,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Un sistema de contenido,<br><span class="serif">no ocurrencias diarias.</span>', 'A content system,<br><span class="serif">not daily improvisation.</span>'),
       who: B('Para marcas cansadas de<br><span class="serif">inventar qué publicar hoy.</span>', 'For brands tired of<br><span class="serif">inventing what to post today.</span>'),
     },
-    seoTitle: B('Estrategia de Contenidos para Redes Sociales en Ecuador — Calendario Editorial | BIE', 'Content Strategy for Social Media in Ecuador — Editorial Calendar | BIE'),
-    seoDescription: B('Estrategia de contenidos documentada: pilares, calendario editorial de 3 meses, guía de formatos por plataforma, banco de hashtags segmentado, templates visuales y guía de métricas. Deja de improvisar qué publicar.', 'Documented content strategy: pillars, 3-month editorial calendar, per-platform format guide, segmented hashtag bank, visual templates and metrics guide. Stop improvising what to post.'),
+    seoTitle: B('Estrategia de Contenidos para Redes en Ecuador | BIE', 'Content Strategy for Social Media in Ecuador | BIE'),
+    seoDescription: B('Estrategia documentada: pilares, calendario editorial de 3 meses, formatos por plataforma y guía de métricas. Deja de improvisar qué publicar.', 'Documented strategy: pillars, 3-month editorial calendar, per-platform formats and a metrics guide. Stop improvising what to post.'),
     keywords: ['estrategia de contenidos redes sociales', 'calendario editorial empresa', 'que publicar en instagram negocio', 'pilares de contenido', 'plan de contenidos ecuador'],
     hero: {
       h1: B('Tres meses de contenido resueltos, <span class="serif">antes de publicar el primero.</span>', 'Three months of content solved, <span class="serif">before posting the first one.</span>'),
@@ -880,8 +880,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu marca activa cada semana,<br><span class="serif">sin que tú publiques nada.</span>', 'Your brand active every week,<br><span class="serif">without you posting a thing.</span>'),
       who: B('Para dueños que no pueden<br><span class="serif">ser también community managers.</span>', 'For owners who cannot<br><span class="serif">also be community managers.</span>'),
     },
-    seoTitle: B('Gestión de Redes Sociales para Empresas en Ecuador — Community Management | BIE', 'Social Media Management for Companies in Ecuador — Community Management | BIE'),
-    seoDescription: B('Gestión mensual de tus redes sociales: 12-20 publicaciones, stories y reels, community management con respuesta en menos de 2 horas, reporte de métricas y ajustes. Tu marca activa y coherente, cada semana.', 'Monthly social media management: 12-20 posts, stories and reels, community management with replies under 2 hours, metrics report and adjustments. Your brand active and coherent, every week.'),
+    seoTitle: B('Gestión de Redes Sociales en Ecuador | BIE', 'Social Media Management in Ecuador | BIE'),
+    seoDescription: B('Gestión mensual de tus redes: 12-20 publicaciones, stories y reels, respuesta en menos de 2 horas y reporte de métricas. Marca activa cada semana.', 'Monthly social media management: 12-20 posts, stories and reels, replies under 2 hours and a metrics report. Your brand active every week.'),
     keywords: ['gestion de redes sociales ecuador', 'community manager empresa', 'manejo de redes sociales negocios', 'agencia redes sociales guayaquil quito cuenca', 'publicaciones para instagram empresa'],
     hero: {
       h1: B('Tu marca publicando, respondiendo y creciendo — <span class="serif">todas las semanas.</span>', 'Your brand posting, replying and growing — <span class="serif">every single week.</span>'),
@@ -946,8 +946,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Subir en Google,<br><span class="serif">mes tras mes, con método.</span>', 'Climbing Google,<br><span class="serif">month after month, with method.</span>'),
       who: B('Para negocios que quieren tráfico<br><span class="serif">que no depende de pagar pauta.</span>', 'For businesses wanting traffic<br><span class="serif">that does not depend on paying for ads.</span>'),
     },
-    seoTitle: B('Posicionamiento SEO en Ecuador — Sube en Google con Método | BIE', 'SEO Positioning in Ecuador — Climb Google with Method | BIE'),
-    seoDescription: B('Servicio mensual de SEO: auditoría técnica, investigación de keywords, optimización on-page, 2-4 artículos SEO al mes, link building y reporte de rankings, tráfico y conversiones. Para aparecer cuando tu cliente busca.', 'Monthly SEO service: technical audit, keyword research, on-page optimization, 2-4 SEO articles per month, link building and a report on rankings, traffic and conversions. To show up when your customer searches.'),
+    seoTitle: B('Posicionamiento SEO en Ecuador | BIE', 'SEO Positioning Services in Ecuador | BIE'),
+    seoDescription: B('Servicio mensual de SEO: auditoría técnica, keywords, on-page, artículos y link building, con reporte de rankings y conversiones cada mes.', 'Monthly SEO service: technical audit, keyword research, on-page work, articles and link building, with a monthly rankings and conversions report.'),
     keywords: ['posicionamiento seo ecuador', 'seo para empresas', 'aparecer en google negocio', 'agencia seo quito guayaquil cuenca', 'posicionamiento web google'],
     hero: {
       h1: B('Que te encuentren buscando lo que vendes — <span class="serif">sin pagar por cada clic.</span>', 'Get found by people searching what you sell — <span class="serif">without paying per click.</span>'),
@@ -1010,8 +1010,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu negocio dominando<br><span class="serif">el mapa de tu zona.</span>', 'Your business owning<br><span class="serif">the map of your area.</span>'),
       who: B('Para negocios que viven<br><span class="serif">de clientes de su zona.</span>', 'For businesses living<br><span class="serif">off customers in their area.</span>'),
     },
-    seoTitle: B('Google Business Profile y SEO Local en Ecuador — Aparece en el Mapa | BIE', 'Google Business Profile and Local SEO in Ecuador — Show Up on the Map | BIE'),
-    seoDescription: B('Optimización de tu perfil de Google Business: verificación, fotos profesionales, descripción con SEO local, protocolo de reseñas y publicaciones semanales. Objetivo: aparecer en el Local Pack cuando buscan cerca de ti.', 'Google Business Profile optimization: verification, professional photos, local-SEO description, review protocol and weekly posts. Goal: appearing in the Local Pack when people search near you.'),
+    seoTitle: B('Google Business Profile y SEO Local Ecuador | BIE', 'Google Business Profile & Local SEO in Ecuador | BIE'),
+    seoDescription: B('Optimizamos tu perfil de Google: verificación, fotos, descripción con SEO local y reseñas. Objetivo: aparecer en el mapa cuando buscan cerca de ti.', 'We optimize your Google profile: verification, photos, local-SEO description and reviews. Goal: showing up on the map when people search nearby.'),
     keywords: ['google business profile ecuador', 'seo local negocio', 'aparecer en google maps', 'local pack google', 'reseñas google negocio'],
     hero: {
       h1: B('Cuando busquen cerca, <span class="serif">que el mapa te elija a ti.</span>', 'When they search nearby, <span class="serif">let the map choose you.</span>'),
@@ -1075,8 +1075,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Un ecosistema de agentes IA<br><span class="serif">operando tu negocio completo.</span>', 'An ecosystem of AI agents<br><span class="serif">running your entire business.</span>'),
       who: B('Para empresas listas para operar<br><span class="serif">como sistema, no como persona.</span>', 'For companies ready to run<br><span class="serif">as a system, not a person.</span>'),
     },
-    seoTitle: B('Sistema Operativo Empresarial con IA en Ecuador — Agentes de IA para tu Negocio | BIE', 'AI Business Operating System in Ecuador — AI Agents for Your Company | BIE'),
-    seoDescription: B('El producto estrella de BIE: un ecosistema de 5 a 40 agentes de inteligencia artificial operando tu negocio — ventas, atención, operación y reportes — con orquestador central, dashboards ejecutivos, protocolos de escalación y soporte con SLA.', 'BIE\'s flagship product: an ecosystem of 5 to 40 AI agents running your business — sales, service, operations and reporting — with a central orchestrator, executive dashboards, escalation protocols and SLA-backed support.'),
+    seoTitle: B('Sistema Operativo Empresarial con IA en Ecuador | BIE', 'AI Business Operating System in Ecuador | BIE'),
+    seoDescription: B('Ecosistema de agentes de IA operando tu negocio: ventas, atención y reportes, con orquestador central y dashboards ejecutivos.', 'An ecosystem of AI agents running your business: sales, service and reporting, with a central orchestrator and executive dashboards.'),
     keywords: ['agentes de ia para empresas', 'sistema operativo empresarial ia', 'automatizacion total negocio', 'inteligencia artificial empresa ecuador', 'ecosistema de agentes ia'],
     hero: {
       h1: B('El negocio que funciona <span class="serif">aunque tú no estés.</span>', 'The business that runs <span class="serif">even when you are not there.</span>'),
@@ -1145,8 +1145,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tus conversaciones reales,<br><span class="serif">leídas con lupa por IA.</span>', 'Your real conversations,<br><span class="serif">read under an AI magnifying glass.</span>'),
       who: B('Para quien vende conversando<br><span class="serif">y quiere dejar de perder ventas.</span>', 'For those who sell by chatting<br><span class="serif">and want to stop losing sales.</span>'),
     },
-    seoTitle: B('Análisis de Conversaciones de Venta con IA en Ecuador — Deja de Perder Ventas | BIE', 'AI Sales Conversation Analysis in Ecuador — Stop Losing Sales | BIE'),
-    seoDescription: B('Analizamos con IA tus conversaciones reales de WhatsApp, redes y chat para detectar patrones de venta, puntos de fuga y oportunidades. Informe, protocolo de atención, banco de respuestas y perfil de voz de tu marca.', 'We use AI to analyze your real WhatsApp, social and chat conversations to detect sales patterns, leak points and opportunities. Report, service protocol, answer bank and your brand voice profile.'),
+    seoTitle: B('Análisis de Conversaciones de Venta con IA | BIE', 'AI Sales Conversation Analysis in Ecuador | BIE'),
+    seoDescription: B('Analizamos con IA tus conversaciones de WhatsApp y chat: patrones de venta, fugas y oportunidades. Informe, protocolo y banco de respuestas.', 'We use AI to analyze your WhatsApp and chat conversations: sales patterns, leaks and opportunities. Report, protocol and answer bank.'),
     keywords: ['analisis de conversaciones whatsapp', 'por que no cierro ventas', 'mejorar atencion al cliente whatsapp', 'analisis de ventas con ia ecuador', 'protocolo de atencion al cliente'],
     hero: {
       h1: B('Tus conversaciones dicen dónde se te van las ventas. <span class="serif">Nosotros las leemos.</span>', 'Your conversations show where sales slip away. <span class="serif">We read them.</span>'),
@@ -1217,8 +1217,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('La estructura que sostiene<br><span class="serif">el crecimiento que buscas.</span>', 'The structure that holds<br><span class="serif">the growth you want.</span>'),
       who: B('Para negocios que crecieron<br><span class="serif">más rápido que su orden.</span>', 'For businesses that grew<br><span class="serif">faster than their order.</span>'),
     },
-    seoTitle: B('Estructuración de Empresas en Ecuador — Procesos, Roles y Modelo de Negocio | BIE', 'Company Structuring in Ecuador — Processes, Roles and Business Model | BIE'),
-    seoDescription: B('Estructuramos tu empresa: modelo de negocio, flujos de trabajo, organigrama, roles, procesos y gobernanza. Business Model Canvas, blueprint operativo, manual de procesos y hoja de ruta de 6 meses.', 'We structure your company: business model, workflows, org chart, roles, processes and governance. Business Model Canvas, operating blueprint, process manual and a 6-month roadmap.'),
+    seoTitle: B('Estructuración de Empresas en Ecuador | BIE', 'Company Structuring in Ecuador | BIE'),
+    seoDescription: B('Estructuramos tu empresa: modelo de negocio, organigrama, roles y procesos. Business Model Canvas, blueprint y hoja de ruta de 6 meses.', 'We structure your company: business model, org chart, roles and processes. Business Model Canvas, blueprint and a 6-month roadmap.'),
     keywords: ['estructurar mi empresa ecuador', 'organigrama y procesos empresa', 'business model canvas ecuador', 'ordenar mi negocio', 'manual de procesos pyme'],
     hero: {
       h1: B('Una empresa sin estructura no escala: <span class="serif">solo crece el caos.</span>', 'A company without structure does not scale: <span class="serif">only the chaos grows.</span>'),
@@ -1280,8 +1280,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tus números explicados<br><span class="serif">para decidir, no para archivar.</span>', 'Your numbers explained<br><span class="serif">to decide, not to file away.</span>'),
       who: B('Para quien factura<br><span class="serif">pero no ve la utilidad.</span>', 'For those who invoice<br><span class="serif">but never see the profit.</span>'),
     },
-    seoTitle: B('Análisis Contable y Financiero para Empresas en Ecuador — Diagnóstico Claro | BIE', 'Accounting & Financial Analysis for Companies in Ecuador — A Clear Diagnosis | BIE'),
-    seoDescription: B('Diagnóstico financiero de tu empresa: costos, márgenes, flujo de caja, punto de equilibrio y KPIs. Reporte claro, proyección a 12 meses y recomendaciones de optimización que entiendes sin ser contador.', 'Financial diagnosis of your company: costs, margins, cash flow, break-even and KPIs. A clear report, 12-month projection and optimization recommendations you understand without being an accountant.'),
+    seoTitle: B('Análisis Contable y Financiero en Ecuador | BIE', 'Accounting & Financial Analysis in Ecuador | BIE'),
+    seoDescription: B('Diagnóstico financiero: costos, márgenes, flujo de caja y KPIs. Reporte claro, proyección a 12 meses y recomendaciones de optimización.', 'Financial diagnosis: costs, margins, cash flow and KPIs. A clear report, 12-month projection and optimization recommendations.'),
     keywords: ['analisis financiero empresa ecuador', 'punto de equilibrio negocio', 'flujo de caja pyme', 'margenes de mi negocio', 'diagnostico contable'],
     hero: {
       h1: B('Deja de manejar tu empresa <span class="serif">con el saldo del banco.</span>', 'Stop running your company <span class="serif">off the bank balance.</span>'),
@@ -1343,8 +1343,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Una revisión completa<br><span class="serif">antes de que sea urgencia.</span>', 'A complete review<br><span class="serif">before it becomes an emergency.</span>'),
       who: B('Para quien construyó rápido<br><span class="serif">y firmó sobre la marcha.</span>', 'For those who built fast<br><span class="serif">and signed on the go.</span>'),
     },
-    seoTitle: B('Análisis Legal para Empresas en Ecuador — Riesgos, Contratos y Cumplimiento | BIE', 'Legal Analysis for Companies in Ecuador — Risks, Contracts and Compliance | BIE'),
-    seoDescription: B('Revisión legal integral de tu empresa: estructura societaria, contratos, cumplimiento, propiedad intelectual y privacidad. Riesgos priorizados, plantillas de contratos y plan de acción, con profesionales aliados.', 'Comprehensive legal review of your company: corporate structure, contracts, compliance, intellectual property and privacy. Prioritized risks, contract templates and an action plan, with allied professionals.'),
+    seoTitle: B('Análisis Legal para Empresas en Ecuador | BIE', 'Legal Analysis for Companies in Ecuador | BIE'),
+    seoDescription: B('Revisión legal integral: estructura societaria, contratos, cumplimiento y propiedad intelectual. Riesgos priorizados y plan de acción.', 'Comprehensive legal review: corporate structure, contracts, compliance and IP. Prioritized risks and an action plan.'),
     keywords: ['revision legal empresa ecuador', 'riesgos legales negocio', 'contratos para mi empresa', 'proteccion de marca', 'cumplimiento legal pyme'],
     hero: {
       h1: B('Lo que no firmaste bien hoy <span class="serif">se cobra caro mañana.</span>', 'What you signed loosely today <span class="serif">costs dearly tomorrow.</span>'),
@@ -1405,8 +1405,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Una melodía que trabaja<br><span class="serif">como tu logo, pero en el oído.</span>', 'A melody that works<br><span class="serif">like your logo, but in the ear.</span>'),
       who: B('Para marcas que quieren<br><span class="serif">quedarse pegadas en la cabeza.</span>', 'For brands that want<br><span class="serif">to stick in people\'s heads.</span>'),
     },
-    seoTitle: B('Jingle Corporativo para tu Empresa en Ecuador — Tu Marca en Música | BIE', 'Corporate Jingle for Your Company in Ecuador — Your Brand in Music | BIE'),
-    seoDescription: B('Composición y producción de jingle original para tu marca: propuestas melódicas, versión completa y cortes para publicidad y redes, con licencia de uso empresarial. Producción musical profesional con IA.', 'Original jingle composition and production for your brand: melodic proposals, full version and cuts for ads and social media, with a business use license. Professional AI-assisted music production.'),
+    seoTitle: B('Jingle Corporativo para tu Empresa en Ecuador | BIE', 'Corporate Jingle for Your Company in Ecuador | BIE'),
+    seoDescription: B('Composición y producción de jingle original: propuestas melódicas, versión completa y cortes para redes, con licencia de uso empresarial.', 'Original jingle composition and production: melodic proposals, full version and social-media cuts, with a business use license.'),
     keywords: ['jingle para mi empresa ecuador', 'jingle publicitario', 'musica para marca', 'cancion corporativa', 'audio branding ecuador'],
     hero: {
       h1: B('La gente olvida anuncios. <span class="serif">Las melodías, no.</span>', 'People forget ads. <span class="serif">Melodies, they do not.</span>'),
@@ -1467,8 +1467,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('El ambiente sonoro<br><span class="serif">que completa la experiencia.</span>', 'The sound atmosphere<br><span class="serif">that completes the experience.</span>'),
       who: B('Para espacios donde el cliente<br><span class="serif">se queda, siente y vuelve.</span>', 'For spaces where customers<br><span class="serif">stay, feel and return.</span>'),
     },
-    seoTitle: B('Música Ambiental para Locales Comerciales en Ecuador — Branding Sonoro | BIE', 'Ambient Music for Commercial Venues in Ecuador — Sound Branding | BIE'),
-    seoDescription: B('Música personalizada para tu espacio comercial: restaurantes, clínicas, tiendas y oficinas. Curaduría o piezas originales, formatos para tu sistema de audio, guía de implementación y licencia comercial.', 'Custom music for your commercial space: restaurants, clinics, stores and offices. Curation or original pieces, formats for your audio system, implementation guide and commercial license.'),
+    seoTitle: B('Música Ambiental para Locales en Ecuador | BIE', 'Ambient Music for Commercial Venues in Ecuador | BIE'),
+    seoDescription: B('Música personalizada para tu local: restaurantes, clínicas y tiendas. Curaduría u original, guía de implementación y licencia comercial.', 'Custom music for your venue: restaurants, clinics and stores. Curation or original pieces, an implementation guide and commercial license.'),
     keywords: ['musica para local comercial ecuador', 'musica ambiental restaurante', 'musica para tienda', 'branding sonoro', 'musica con licencia comercial'],
     hero: {
       h1: B('Lo que suena en tu local <span class="serif">también es tu marca.</span>', 'What plays in your venue <span class="serif">is your brand too.</span>'),
@@ -1528,8 +1528,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Música original<br><span class="serif">a la medida de cada pieza.</span>', 'Original music<br><span class="serif">tailored to every piece.</span>'),
       who: B('Para quien publica en serio<br><span class="serif">y quiere sonar distinto.</span>', 'For serious publishers<br><span class="serif">who want to sound different.</span>'),
     },
-    seoTitle: B('Música Original para Videos, Reels y Contenido en Ecuador | BIE', 'Original Music for Videos, Reels and Content in Ecuador | BIE'),
-    seoDescription: B('Música original para tus videos, reels, presentaciones, podcasts y cursos: piezas a duración exacta, versiones con y sin voz, múltiples formatos y stems para ediciones futuras.', 'Original music for your videos, reels, presentations, podcasts and courses: pieces at exact length, versions with and without vocals, multiple formats and stems for future edits.'),
+    seoTitle: B('Música Original para Videos y Contenido en Ecuador | BIE', 'Original Music for Videos and Content in Ecuador | BIE'),
+    seoDescription: B('Música original para tus videos, reels, podcasts y cursos: piezas a duración exacta, con y sin voz, en múltiples formatos.', 'Original music for your videos, reels, podcasts and courses: exact-length pieces, with or without vocals, in multiple formats.'),
     keywords: ['musica original para videos', 'musica para reels', 'soundtrack para contenido', 'musica sin copyright para empresa', 'musica para podcast ecuador'],
     hero: {
       h1: B('Deja de buscar “música sin copyright”. <span class="serif">Ten la tuya.</span>', 'Stop hunting for “royalty-free music”. <span class="serif">Own yours.</span>'),
@@ -1588,8 +1588,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('El manual de marca<br><span class="serif">de tu sonido.</span>', 'The brand manual<br><span class="serif">of your sound.</span>'),
       who: B('Para marcas que quieren ser<br><span class="serif">reconocibles con los ojos cerrados.</span>', 'For brands that want to be<br><span class="serif">recognizable with eyes closed.</span>'),
     },
-    seoTitle: B('Identidad Sonora Completa para Marcas en Ecuador — Audio Branding Integral | BIE', 'Complete Sound Identity for Brands in Ecuador — Full Audio Branding | BIE'),
-    seoDescription: B('El sistema sonoro completo de tu marca: jingle, música ambiental, efectos de sonido, audio logo y manual de identidad sonora con guía de implementación en todos tus canales.', 'Your brand\'s complete sound system: jingle, ambient music, brand sound effects, audio logo and a sound identity manual with a cross-channel implementation guide.'),
+    seoTitle: B('Identidad Sonora Completa para Marcas en Ecuador | BIE', 'Complete Sound Identity for Brands in Ecuador | BIE'),
+    seoDescription: B('El sistema sonoro de tu marca: jingle, ambiente, audio logo y manual de identidad sonora con guía de implementación.', 'Your brand sound system: jingle, ambient music, audio logo and a sound identity manual with an implementation guide.'),
     keywords: ['identidad sonora marca', 'audio branding ecuador', 'audio logo empresa', 'branding sonoro integral', 'manual de identidad sonora'],
     hero: {
       h1: B('Que te reconozcan <span class="serif">con los ojos cerrados.</span>', 'Be recognized <span class="serif">with eyes closed.</span>'),
@@ -1650,8 +1650,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('El mapa de qué canales<br><span class="serif">necesita tu negocio, y en qué orden.</span>', 'The map of which channels<br><span class="serif">your business needs, in what order.</span>'),
       who: B('Para quien no quiere pagar<br><span class="serif">por aprender a golpes.</span>', 'For those who refuse to pay<br><span class="serif">the trial-and-error tax.</span>'),
     },
-    seoTitle: B('Investigación de Plataformas Digitales para tu Negocio en Ecuador | BIE', 'Digital Platform Research for Your Business in Ecuador | BIE'),
-    seoDescription: B('Análisis de las plataformas que tu negocio necesita: web, marketplaces, directorios y herramientas. Comparativa de costos, stack recomendado, hoja de ruta de implementación y presupuesto de infraestructura digital.', 'Analysis of the platforms your business needs: web, marketplaces, directories and tools. Cost comparison, recommended stack, implementation roadmap and digital infrastructure budget.'),
+    seoTitle: B('Investigación de Plataformas Digitales en Ecuador | BIE', 'Digital Platform Research in Ecuador | BIE'),
+    seoDescription: B('Analizamos qué plataformas necesita tu negocio: web, marketplaces y herramientas. Comparativa de costos y hoja de ruta de implementación.', 'We analyze which platforms your business needs: web, marketplaces and tools. Cost comparison and an implementation roadmap.'),
     keywords: ['que plataformas necesita mi negocio', 'donde vender online ecuador', 'herramientas digitales pyme', 'stack tecnologico negocio', 'marketplace o tienda propia'],
     hero: {
       h1: B('Antes de pagar herramientas, <span class="serif">decide cuáles valen para ti.</span>', 'Before paying for tools, <span class="serif">decide which are worth it for you.</span>'),
@@ -1711,8 +1711,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu dirección propia en internet,<br><span class="serif">montada y funcionando.</span>', 'Your own address on the internet,<br><span class="serif">set up and running.</span>'),
       who: B('Para empresas que quieren<br><span class="serif">verse del tamaño que son.</span>', 'For companies that want<br><span class="serif">to look the size they are.</span>'),
     },
-    seoTitle: B('Dominio Web, Hosting y Correos Corporativos en Ecuador | BIE', 'Web Domain, Hosting and Corporate Email in Ecuador | BIE'),
-    seoDescription: B('Registramos tu dominio, configuramos hosting profesional con SSL y creamos tus correos corporativos. Todo documentado y con credenciales tuyas: tu infraestructura te pertenece.', 'We register your domain, configure professional hosting with SSL and create your corporate email. Everything documented, credentials in your hands: your infrastructure belongs to you.'),
+    seoTitle: B('Dominio Web y Hosting en Ecuador | BIE', 'Web Domain and Hosting in Ecuador | BIE'),
+    seoDescription: B('Registramos tu dominio, configuramos hosting con SSL y creamos tus correos corporativos. Todo documentado, con tus propias credenciales.', 'We register your domain, configure SSL hosting and set up your corporate email. Fully documented, with your own credentials.'),
     keywords: ['dominio web ecuador', 'correo corporativo empresa', 'hosting profesional ecuador', 'registrar dominio para mi negocio', 'email con mi dominio'],
     hero: {
       h1: B('Un correo @tuempresa.com <span class="serif">vende antes de decir hola.</span>', 'An @yourcompany.com email <span class="serif">sells before you say hello.</span>'),
@@ -1773,8 +1773,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Fotos de estudio<br><span class="serif">sin pagar el estudio.</span>', 'Studio photos<br><span class="serif">without paying for the studio.</span>'),
       who: B('Para catálogos que necesitan<br><span class="serif">verse premium ya.</span>', 'For catalogs that need<br><span class="serif">to look premium now.</span>'),
     },
-    seoTitle: B('Fotografía de Producto con IA en Ecuador — Fotos Profesionales sin Estudio | BIE', 'AI Product Photography in Ecuador — Professional Photos Without a Studio | BIE'),
-    seoDescription: B('Fotografía profesional de tus productos con IA generativa: fondo blanco para e-commerce, escenas lifestyle, mockups y versiones por plataforma, con guía de estilo visual. Por lotes de 10-20 productos.', 'Professional product photography with generative AI: white background for e-commerce, lifestyle scenes, mockups and per-platform versions, with a visual style guide. In batches of 10-20 products.'),
+    seoTitle: B('Fotografía de Producto con IA en Ecuador | BIE', 'AI Product Photography in Ecuador | BIE'),
+    seoDescription: B('Fotografía de tus productos con IA generativa: fondo blanco, escenas lifestyle y mockups por plataforma. Lotes de 10-20 productos.', 'Product photography with generative AI: white background, lifestyle scenes and per-platform mockups. Batches of 10-20 products.'),
     keywords: ['fotografia de producto ecuador', 'fotos para catalogo online', 'fotografia con ia productos', 'fotos fondo blanco ecommerce', 'fotos lifestyle producto'],
     hero: {
       h1: B('Fotos que venden tu producto <span class="serif">antes de que lo toquen.</span>', 'Photos that sell your product <span class="serif">before anyone touches it.</span>'),
@@ -1834,8 +1834,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Publicidad que aparece<br><span class="serif">en el momento exacto de la búsqueda.</span>', 'Advertising that shows up<br><span class="serif">at the exact moment of the search.</span>'),
       who: B('Para negocios cuyo cliente<br><span class="serif">ya está buscando la solución.</span>', 'For businesses whose customer<br><span class="serif">is already searching for the solution.</span>'),
     },
-    seoTitle: B('Gestión de Google Ads en Ecuador — Campañas que Reportan Retorno | BIE', 'Google Ads Management in Ecuador — Campaigns That Report Return | BIE'),
-    seoDescription: B('Gestión profesional de Google Ads: Search, Display, YouTube y Shopping. Palabras clave, textos probados, seguimiento de conversiones y reporte mensual con costo por clic y retorno. Tu cuenta, tus datos.', 'Professional Google Ads management: Search, Display, YouTube and Shopping. Keywords, tested copy, conversion tracking and a monthly report with cost per click and return. Your account, your data.'),
+    seoTitle: B('Gestión de Google Ads en Ecuador | BIE', 'Google Ads Management in Ecuador | BIE'),
+    seoDescription: B('Gestión de Google Ads: Search, Display, YouTube y Shopping. Textos probados, seguimiento de conversiones y reporte mensual.', 'Google Ads management: Search, Display, YouTube and Shopping. Tested copy, conversion tracking and a monthly report.'),
     keywords: ['google ads ecuador', 'campañas google para mi negocio', 'publicidad en google', 'agencia google ads quito guayaquil', 'anuncios de busqueda'],
     hero: {
       h1: B('Aparece justo cuando te buscan <span class="serif">— y mide cada dólar.</span>', 'Show up right when they search <span class="serif">— and measure every dollar.</span>'),
@@ -1897,8 +1897,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Campañas en Facebook e Instagram<br><span class="serif">que persiguen la venta, no el like.</span>', 'Facebook and Instagram campaigns<br><span class="serif">chasing the sale, not the like.</span>'),
       who: B('Para marcas cuyo cliente<br><span class="serif">vive en el feed.</span>', 'For brands whose customer<br><span class="serif">lives in the feed.</span>'),
     },
-    seoTitle: B('Gestión de Meta Ads en Ecuador — Publicidad en Facebook e Instagram | BIE', 'Meta Ads Management in Ecuador — Facebook & Instagram Advertising | BIE'),
-    seoDescription: B('Campañas profesionales en Facebook e Instagram: alcance, conversión y retargeting. Creativos propios, audiencias segmentadas, píxel configurado, pruebas A/B y reporte mensual de resultados.', 'Professional Facebook and Instagram campaigns: awareness, conversion and retargeting. Original creatives, segmented audiences, pixel setup, A/B testing and monthly results reporting.'),
+    seoTitle: B('Gestión de Meta Ads en Ecuador | BIE', 'Meta Ads Management in Ecuador | BIE'),
+    seoDescription: B('Campañas en Facebook e Instagram: alcance, conversión y retargeting. Creativos propios, audiencias segmentadas y reporte mensual.', 'Facebook and Instagram campaigns: awareness, conversion and retargeting. Original creatives, segmented audiences and a monthly report.'),
     keywords: ['meta ads ecuador', 'publicidad facebook instagram', 'campañas de conversion meta', 'retargeting facebook', 'agencia meta ads'],
     hero: {
       h1: B('Deja de pagar por likes. <span class="serif">Empieza a pagar por clientes.</span>', 'Stop paying for likes. <span class="serif">Start paying for customers.</span>'),
@@ -1959,8 +1959,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Correos que trabajan solos:<br><span class="serif">dan la bienvenida, nutren y recuperan.</span>', 'Emails that work alone:<br><span class="serif">welcoming, nurturing, winning back.</span>'),
       who: B('Para quien ya tiene clientes<br><span class="serif">y no les escribe nunca.</span>', 'For those who have customers<br><span class="serif">and never write to them.</span>'),
     },
-    seoTitle: B('Email Marketing Automatizado para Empresas en Ecuador — Secuencias que Venden | BIE', 'Automated Email Marketing for Companies in Ecuador — Sequences That Sell | BIE'),
-    seoDescription: B('Secuencias de correo automatizadas: bienvenida, nutrición, retención, reactivación y win-back. Plataforma configurada, plantillas con tu marca, segmentación y reportes de apertura y conversión.', 'Automated email sequences: welcome, nurturing, retention, reactivation and win-back. Platform configured, branded templates, segmentation and open/conversion reporting.'),
+    seoTitle: B('Email Marketing Automatizado en Ecuador | BIE', 'Automated Email Marketing in Ecuador | BIE'),
+    seoDescription: B('Secuencias de correo automatizadas: bienvenida, nutrición y retención. Plataforma configurada, plantillas con tu marca y reportes.', 'Automated email sequences: welcome, nurturing and retention. Platform configured, branded templates and reporting.'),
     keywords: ['email marketing ecuador', 'secuencias de correo automatizadas', 'recuperar clientes inactivos', 'newsletter empresa', 'automatizacion de emails'],
     hero: {
       h1: B('El canal más rentable es el que ya tienes: <span class="serif">tu lista.</span>', 'The most profitable channel is the one you already own: <span class="serif">your list.</span>'),
@@ -2021,8 +2021,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu catálogo publicado<br><span class="serif">donde ya existe la demanda.</span>', 'Your catalog published<br><span class="serif">where demand already exists.</span>'),
       who: B('Para productos listos<br><span class="serif">para vender más allá del local.</span>', 'For products ready<br><span class="serif">to sell beyond the store.</span>'),
     },
-    seoTitle: B('Venta en Marketplaces y E-commerce en Ecuador — Tu Catálogo Publicado | BIE', 'Marketplace and E-commerce Sales in Ecuador — Your Catalog Published | BIE'),
-    seoDescription: B('Publicamos tu catálogo en marketplaces o montamos tu tienda propia: listados optimizados, fotografía, estrategia de precios, gestión de inventario y reportes de venta.', 'We publish your catalog on marketplaces or build your own store: optimized listings, photography, pricing strategy, inventory management and sales reporting.'),
+    seoTitle: B('Venta en Marketplaces y E-commerce en Ecuador | BIE', 'Marketplace and E-commerce Sales in Ecuador | BIE'),
+    seoDescription: B('Publicamos tu catálogo en marketplaces o montamos tu tienda: listados optimizados, precios, inventario y reportes de venta.', 'We publish your catalog on marketplaces or build your store: optimized listings, pricing, inventory and sales reporting.'),
     keywords: ['vender en mercado libre ecuador', 'tienda online para mi negocio', 'marketplace ecuador', 'ecommerce pyme', 'publicar productos online'],
     hero: {
       h1: B('Tus productos, vendiendo <span class="serif">donde la gente ya compra.</span>', 'Your products, selling <span class="serif">where people already buy.</span>'),
@@ -2083,8 +2083,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Anuncios que no parecen anuncios<br><span class="serif">en la plataforma de la atención.</span>', 'Ads that do not look like ads<br><span class="serif">on the attention platform.</span>'),
       who: B('Para marcas que quieren llegar<br><span class="serif">donde está el tiempo de la gente.</span>', 'For brands reaching<br><span class="serif">where people\'s time actually goes.</span>'),
     },
-    seoTitle: B('TikTok Ads en Ecuador — Campañas con Creativos Nativos | BIE', 'TikTok Ads in Ecuador — Campaigns with Native Creatives | BIE'),
-    seoDescription: B('Campañas en TikTok Ads con creativos nativos en video vertical, Spark Ads, segmentación de audiencias, píxel configurado y reporte mensual. El algoritmo es otro: la estrategia también.', 'TikTok Ads campaigns with native vertical video creatives, Spark Ads, audience targeting, pixel setup and monthly reporting. The algorithm is different: so is the strategy.'),
+    seoTitle: B('TikTok Ads en Ecuador — Campañas con Creativos Nativos | BIE', 'TikTok Ads in Ecuador — Native Creative Campaigns | BIE'),
+    seoDescription: B('Campañas en TikTok con creativos nativos en video vertical, Spark Ads y segmentación de audiencias. Reporte mensual incluido.', 'TikTok campaigns with native vertical video creatives, Spark Ads and audience targeting. Monthly report included.'),
     keywords: ['tiktok ads ecuador', 'publicidad en tiktok', 'campañas tiktok empresa', 'spark ads', 'video vertical publicidad'],
     hero: {
       h1: B('En TikTok no gana el que más paga: <span class="serif">gana el que mejor entra.</span>', 'On TikTok the top payer does not win: <span class="serif">the best entrance does.</span>'),
@@ -2145,8 +2145,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Video corto en serie:<br><span class="serif">guion, edición y volumen constante.</span>', 'Short video at volume:<br><span class="serif">script, editing, constant output.</span>'),
       who: B('Para marcas que quieren estar<br><span class="serif">todas las semanas en el feed.</span>', 'For brands that want to be<br><span class="serif">in the feed every single week.</span>'),
     },
-    seoTitle: B('Producción de Video Corto para Marcas en Ecuador — Reels, Shorts y TikToks | BIE', 'Short-Form Video Production for Brands in Ecuador — Reels, Shorts & TikToks | BIE'),
-    seoDescription: B('Producción mensual de video corto: 8-16 videos con guiones, edición profesional con IA, subtítulos y optimización por plataforma, siguiendo tendencias y ganchos semanales. Con reporte de rendimiento.', 'Monthly short-form video production: 8-16 videos with scripts, professional AI-assisted editing, subtitles and per-platform optimization, following weekly trends and hooks. With performance reporting.'),
+    seoTitle: B('Producción de Video Corto para Marcas en Ecuador | BIE', 'Short-Form Video Production for Brands in Ecuador | BIE'),
+    seoDescription: B('Producción mensual de video corto: guiones, edición con IA, subtítulos y optimización por plataforma. Con reporte de rendimiento.', 'Monthly short-form video production: scripts, AI-assisted editing, subtitles and per-platform optimization. With performance reporting.'),
     keywords: ['produccion de reels ecuador', 'videos para tiktok empresa', 'video marketing pyme', 'edicion de videos cortos', 'contenido de video para redes'],
     hero: {
       h1: B('El video corto es el idioma. <span class="serif">Nosotros lo hablamos por ti.</span>', 'Short video is the language. <span class="serif">We speak it for you.</span>'),
@@ -2207,8 +2207,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu reputación, monitoreada<br><span class="serif">y gestionada como activo.</span>', 'Your reputation, monitored<br><span class="serif">and managed as an asset.</span>'),
       who: B('Para negocios que viven<br><span class="serif">de lo que dicen sus clientes.</span>', 'For businesses that live<br><span class="serif">off what their customers say.</span>'),
     },
-    seoTitle: B('Gestión de Reputación Online en Ecuador — Reseñas que Venden por Ti | BIE', 'Online Reputation Management in Ecuador — Reviews That Sell for You | BIE'),
-    seoDescription: B('Monitoreo diario de reseñas en Google, Facebook y TripAdvisor, respuestas profesionales en menos de 24 horas, estrategia para conseguir más reseñas positivas y reporte mensual de rating y sentimiento.', 'Daily review monitoring across Google, Facebook and TripAdvisor, professional replies within 24 hours, a strategy to earn more positive reviews and a monthly rating and sentiment report.'),
+    seoTitle: B('Gestión de Reputación Online en Ecuador | BIE', 'Online Reputation Management in Ecuador | BIE'),
+    seoDescription: B('Monitoreo diario de reseñas en Google y Facebook, respuestas en menos de 24 horas y estrategia para conseguir más reseñas positivas.', 'Daily review monitoring on Google and Facebook, replies within 24 hours and a strategy to earn more positive reviews.'),
     keywords: ['gestion de reseñas google', 'reputacion online empresa ecuador', 'responder reseñas negativas', 'conseguir mas reseñas', 'review management'],
     hero: {
       h1: B('Tus reseñas venden o espantan. <span class="serif">Nunca son neutras.</span>', 'Your reviews either sell or scare. <span class="serif">They are never neutral.</span>'),
@@ -2269,8 +2269,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu empresa legal,<br><span class="serif">de principio a fin.</span>', 'Your legal company,<br><span class="serif">end to end.</span>'),
       who: B('Para quien ya vende<br><span class="serif">y toca formalizar.</span>', 'For those already selling<br><span class="serif">whose time to formalize has come.</span>'),
     },
-    seoTitle: B('Constitución de Empresa SAS en Ecuador — Trámite Completo y Guiado | BIE', 'SAS Company Incorporation in Ecuador — Complete, Guided Process | BIE'),
-    seoDescription: B('Constituimos tu empresa en Ecuador de principio a fin: asesoría del tipo societario, estatutos, Superintendencia de Compañías, RUC, patente municipal y guía de obligaciones. Con profesionales legales aliados.', 'We incorporate your company in Ecuador end to end: legal-structure advisory, bylaws, Superintendency registration, RUC, municipal license and an obligations guide. With allied legal professionals.'),
+    seoTitle: B('Constitución de Empresa SAS en Ecuador | BIE', 'SAS Company Incorporation in Ecuador | BIE'),
+    seoDescription: B('Constituimos tu empresa en Ecuador: estatutos, Superintendencia de Compañías, RUC y patente municipal. Con profesionales aliados.', 'We incorporate your company in Ecuador: bylaws, Superintendency registration, RUC and municipal license. With allied legal professionals.'),
     keywords: ['constituir empresa ecuador', 'crear sas ecuador', 'constitucion de compañia', 'sacar ruc empresa', 'formalizar mi negocio'],
     hero: {
       h1: B('De negocio informal <span class="serif">a empresa con todas las de la ley.</span>', 'From informal business <span class="serif">to a company with full legal standing.</span>'),
@@ -2331,8 +2331,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Contratos que te protegen,<br><span class="serif">revisados por abogados.</span>', 'Contracts that protect you,<br><span class="serif">reviewed by lawyers.</span>'),
       who: B('Para cada acuerdo<br><span class="serif">que no puedes darte el lujo de perder.</span>', 'For every deal<br><span class="serif">you cannot afford to lose.</span>'),
     },
-    seoTitle: B('Elaboración de Contratos Empresariales en Ecuador — Revisados por Abogados | BIE', 'Business Contract Drafting in Ecuador — Lawyer-Reviewed | BIE'),
-    seoDescription: B('Contratos laborales, comerciales, de servicios, NDA, arrendamiento, sociedad y más — redactados y revisados por profesionales legales, con anexos, guía de firma y versión editable.', 'Labor, commercial, service, NDA, lease, partnership contracts and more — drafted and reviewed by legal professionals, with annexes, signing guide and an editable version.'),
+    seoTitle: B('Elaboración de Contratos Empresariales en Ecuador | BIE', 'Business Contract Drafting in Ecuador | BIE'),
+    seoDescription: B('Contratos laborales, comerciales, NDA y de arrendamiento — redactados y revisados por abogados, con anexos y guía de firma.', 'Labor, commercial, NDA and lease contracts — drafted and reviewed by lawyers, with annexes and a signing guide.'),
     keywords: ['elaboracion de contratos ecuador', 'contrato de servicios profesionales', 'contrato laboral ecuador', 'nda acuerdo de confidencialidad', 'contrato comercial'],
     hero: {
       h1: B('Lo que no está por escrito <span class="serif">no existe cuando importa.</span>', 'What is not in writing <span class="serif">does not exist when it matters.</span>'),
@@ -2391,8 +2391,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu marca registrada,<br><span class="serif">del trámite al certificado.</span>', 'Your trademark registered,<br><span class="serif">from filing to certificate.</span>'),
       who: B('Para marcas con reputación<br><span class="serif">que todavía no es suya legalmente.</span>', 'For brands with a reputation<br><span class="serif">that is not legally theirs yet.</span>'),
     },
-    seoTitle: B('Registro de Marca en Ecuador (SENADI) — Del Trámite al Certificado | BIE', 'Trademark Registration in Ecuador (SENADI) — From Filing to Certificate | BIE'),
-    seoDescription: B('Registramos tu marca ante el SENADI: búsqueda de disponibilidad, clases correctas, solicitud, seguimiento de publicación y oposiciones hasta el certificado. Con profesionales legales aliados.', 'We register your trademark before SENADI: availability search, correct classes, application, publication and opposition follow-up, all the way to the certificate. With allied legal professionals.'),
+    seoTitle: B('Registro de Marca en Ecuador (SENADI) | BIE', 'Trademark Registration in Ecuador (SENADI) | BIE'),
+    seoDescription: B('Registramos tu marca ante el SENADI: búsqueda de disponibilidad, clases correctas y seguimiento hasta el certificado. Profesionales aliados.', 'We register your trademark before SENADI: availability search, correct classes and follow-up to the certificate. Allied legal professionals.'),
     keywords: ['registro de marca ecuador', 'senadi registrar marca', 'proteger nombre comercial', 'registro de logo ecuador', 'propiedad intelectual marca'],
     hero: {
       h1: B('Sin registro, tu marca <span class="serif">es de quien la registre primero.</span>', 'Unregistered, your brand <span class="serif">belongs to whoever files first.</span>'),
@@ -2452,8 +2452,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu negocio en regla<br><span class="serif">con la ley de datos ecuatoriana.</span>', 'Your business compliant<br><span class="serif">with Ecuador\'s data law.</span>'),
       who: B('Para todo negocio que tenga<br><span class="serif">una lista de clientes. O sea, todos.</span>', 'For every business holding<br><span class="serif">a customer list. That is, all of them.</span>'),
     },
-    seoTitle: B('Protección de Datos LOPDP en Ecuador — Cumplimiento para tu Empresa | BIE', 'LOPDP Data Protection in Ecuador — Compliance for Your Company | BIE'),
-    seoDescription: B('Cumplimiento de la LOPDP: diagnóstico, política de privacidad, aviso de cookies, formularios de consentimiento, protocolo de datos personales, capacitación del equipo y auditorías trimestrales.', 'LOPDP compliance: diagnosis, privacy policy, cookie notice, consent forms, personal data protocol, team training and quarterly audits.'),
+    seoTitle: B('Protección de Datos LOPDP en Ecuador | BIE', 'LOPDP Data Protection in Ecuador | BIE'),
+    seoDescription: B('Cumplimiento de la LOPDP: diagnóstico, política de privacidad, consentimientos, protocolo de datos y auditorías trimestrales.', 'LOPDP compliance: diagnosis, privacy policy, consent forms, data protocol and quarterly audits.'),
     keywords: ['lopdp ecuador', 'proteccion de datos personales empresa', 'politica de privacidad ecuador', 'ley de datos ecuador cumplimiento', 'aviso de cookies'],
     hero: {
       h1: B('La ley de datos no pregunta si estás listo: <span class="serif">multa.</span>', 'The data law does not ask if you are ready: <span class="serif">it fines.</span>'),
@@ -2514,8 +2514,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tus declaraciones al día,<br><span class="serif">sin que pienses en ellas.</span>', 'Your filings up to date<br><span class="serif">without you thinking about them.</span>'),
       who: B('Para quien prefiere vender<br><span class="serif">a pelear con formularios.</span>', 'For those who would rather sell<br><span class="serif">than fight forms.</span>'),
     },
-    seoTitle: B('Declaración de Impuestos SRI en Ecuador — IVA, Renta y Retenciones al Día | BIE', 'SRI Tax Filing in Ecuador — VAT, Income Tax and Withholdings on Time | BIE'),
-    seoDescription: B('Llevamos tus declaraciones ante el SRI: IVA mensual, impuesto a la renta anual, retenciones y anexos. Cálculo, presentación, comprobantes y alertas de fechas — sin multas por olvido.', 'We handle your SRI filings: monthly VAT, annual income tax, withholdings and annexes. Calculation, filing, receipts and deadline alerts — no fines for forgetting.'),
+    seoTitle: B('Declaración de Impuestos SRI en Ecuador | BIE', 'SRI Tax Filing in Ecuador | BIE'),
+    seoDescription: B('Llevamos tus declaraciones ante el SRI: IVA mensual, renta anual, retenciones y anexos, con alertas de fechas. Sin multas por olvido.', 'We handle your SRI filings: monthly VAT, annual income tax, withholdings and deadline alerts. No fines for forgetting.'),
     keywords: ['declaracion de impuestos sri', 'declarar iva ecuador', 'impuesto a la renta empresa', 'contador para mi negocio', 'declaraciones atrasadas sri'],
     hero: {
       h1: B('El SRI no perdona olvidos. <span class="serif">Nosotros no olvidamos.</span>', 'The SRI does not forgive lapses. <span class="serif">We do not lapse.</span>'),
@@ -2576,8 +2576,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu facturación electrónica<br><span class="serif">montada, con tu marca y tu equipo listo.</span>', 'Your e-invoicing<br><span class="serif">set up, branded, your team ready.</span>'),
       who: B('Para negocios obligados a facturar<br><span class="serif">— o hartos de hacerlo a mano.</span>', 'For businesses required to invoice<br><span class="serif">— or tired of doing it by hand.</span>'),
     },
-    seoTitle: B('Facturación Electrónica SRI en Ecuador — Sistema Montado y Equipo Capacitado | BIE', 'SRI Electronic Invoicing in Ecuador — System Set Up, Team Trained | BIE'),
-    seoDescription: B('Implementamos tu facturación electrónica: plataforma configurada, firma electrónica, secuenciales autorizados por el SRI, plantillas con tu marca, capacitación y soporte mensual.', 'We implement your electronic invoicing: platform configured, digital signature, SRI-authorized sequentials, branded templates, training and monthly support.'),
+    seoTitle: B('Facturación Electrónica SRI en Ecuador | BIE', 'SRI Electronic Invoicing in Ecuador | BIE'),
+    seoDescription: B('Implementamos tu facturación electrónica: plataforma, firma digital y secuenciales autorizados por el SRI, con capacitación y soporte.', 'We implement your electronic invoicing: platform, digital signature and SRI-authorized sequentials, with training and support.'),
     keywords: ['facturacion electronica ecuador', 'sistema de facturacion sri', 'firma electronica factura', 'facturero electronico', 'como facturar electronicamente'],
     hero: {
       h1: B('Factura en segundos, <span class="serif">en regla con el SRI.</span>', 'Invoice in seconds, <span class="serif">fully SRI-compliant.</span>'),
@@ -2638,8 +2638,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Balance, resultados y caja<br><span class="serif">explicados para decidir.</span>', 'Balance, P&L and cash<br><span class="serif">explained for decisions.</span>'),
       who: B('Para dueños que quieren ver<br><span class="serif">su negocio en números claros.</span>', 'For owners who want to see<br><span class="serif">their business in clear numbers.</span>'),
     },
-    seoTitle: B('Reportes Financieros para Empresas en Ecuador — Balance, P&L y Flujo de Caja | BIE', 'Financial Reports for Companies in Ecuador — Balance Sheet, P&L and Cash Flow | BIE'),
-    seoDescription: B('Reportes financieros periódicos: balance general, estado de resultados, flujo de caja, ratios y análisis comparativo — con recomendaciones concretas y explicados sin jerga contable.', 'Periodic financial reports: balance sheet, income statement, cash flow, ratios and comparative analysis — with concrete recommendations, explained without accounting jargon.'),
+    seoTitle: B('Reportes Financieros para Empresas en Ecuador | BIE', 'Financial Reports for Companies in Ecuador | BIE'),
+    seoDescription: B('Reportes periódicos: balance general, estado de resultados y flujo de caja, con recomendaciones explicadas sin jerga contable.', 'Periodic reports: balance sheet, income statement and cash flow, with recommendations explained without accounting jargon.'),
     keywords: ['reportes financieros empresa', 'balance general ecuador', 'estado de resultados pyme', 'flujo de caja reporte', 'informes financieros negocio'],
     hero: {
       h1: B('Tus números tienen algo que decirte <span class="serif">todos los meses.</span>', 'Your numbers have something to tell you <span class="serif">every single month.</span>'),
@@ -2700,8 +2700,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Un tributarista de planta<br><span class="serif">sin el costo de la planta.</span>', 'An in-house tax advisor<br><span class="serif">without the in-house cost.</span>'),
       who: B('Para empresas que quieren pagar<br><span class="serif">lo justo — ni más ni menos.</span>', 'For companies that want to pay<br><span class="serif">exactly what is fair — no more, no less.</span>'),
     },
-    seoTitle: B('Asesoría Tributaria Continua en Ecuador — Optimización Fiscal Legal | BIE', 'Ongoing Tax Advisory in Ecuador — Legal Tax Optimization | BIE'),
-    seoDescription: B('Asesoría tributaria mensual: optimización fiscal legal, planificación, alertas de fechas y cambios normativos, consultas ilimitadas y acompañamiento en fiscalizaciones del SRI.', 'Monthly tax advisory: legal tax optimization, planning, deadline and regulatory-change alerts, unlimited consultations and support through SRI examinations.'),
+    seoTitle: B('Asesoría Tributaria Continua en Ecuador | BIE', 'Ongoing Tax Advisory in Ecuador | BIE'),
+    seoDescription: B('Asesoría tributaria mensual: optimización fiscal legal, alertas normativas, consultas ilimitadas y acompañamiento en fiscalizaciones del SRI.', 'Monthly tax advisory: legal tax optimization, regulatory alerts, unlimited consultations and support through SRI examinations.'),
     keywords: ['asesoria tributaria ecuador', 'optimizacion fiscal empresa', 'consultor de impuestos', 'fiscalizacion sri ayuda', 'planificacion tributaria'],
     hero: {
       h1: B('Entre pagar de más y evadir <span class="serif">existe pagar inteligente.</span>', 'Between overpaying and evading <span class="serif">lies paying smart.</span>'),
@@ -2762,8 +2762,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Cada contratación,<br><span class="serif">completa y a tiempo.</span>', 'Every hire,<br><span class="serif">complete and on time.</span>'),
       who: B('Para empresas que contratan<br><span class="serif">y quieren dormir tranquilas.</span>', 'For companies that hire<br><span class="serif">and want to sleep at night.</span>'),
     },
-    seoTitle: B('Ingreso de Personal e IESS en Ecuador — Contratación Legal Completa | BIE', 'Employee Onboarding & IESS in Ecuador — Complete Legal Hiring | BIE'),
-    seoDescription: B('Ingreso laboral completo: contrato correcto, registro en el Ministerio de Trabajo, aviso de entrada al IESS, expediente del empleado y guía de tus obligaciones como empleador.', 'Complete labor onboarding: the right contract, Ministry of Labor registration, IESS entry notice, employee file and a guide to your employer obligations.'),
+    seoTitle: B('Ingreso de Personal e IESS en Ecuador | BIE', 'Employee Onboarding and IESS in Ecuador | BIE'),
+    seoDescription: B('Ingreso laboral completo: contrato correcto, registro en el Ministerio de Trabajo, aviso al IESS y guía de tus obligaciones.', 'Complete labor onboarding: the right contract, Ministry of Labor registration, IESS notice and an employer obligations guide.'),
     keywords: ['ingreso de personal iess', 'aviso de entrada iess', 'contrato de trabajo ecuador', 'contratar empleado legalmente', 'ministerio de trabajo registro'],
     hero: {
       h1: B('Contrata bien desde el día uno <span class="serif">o págalo en la liquidación.</span>', 'Hire right from day one <span class="serif">or pay for it at severance.</span>'),
@@ -2823,8 +2823,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('La nómina completa,<br><span class="serif">exacta y a tiempo, cada mes.</span>', 'Full payroll,<br><span class="serif">exact and on time, monthly.</span>'),
       who: B('Para equipos donde pagar bien<br><span class="serif">no puede depender de la memoria.</span>', 'For teams where paying right<br><span class="serif">cannot depend on memory.</span>'),
     },
-    seoTitle: B('Gestión de Nómina en Ecuador — Roles de Pago, IESS y Beneficios al Día | BIE', 'Payroll Management in Ecuador — Pay Slips, IESS and Benefits on Time | BIE'),
-    seoDescription: B('Nómina mensual completa: roles de pago por empleado, planilla del IESS, décimos, fondos de reserva, horas extras y vacaciones — con comprobantes y reporte resumen para el dueño.', 'Complete monthly payroll: per-employee pay slips, IESS schedule, statutory bonuses, reserve funds, overtime and vacations — with receipts and an owner\'s summary report.'),
+    seoTitle: B('Gestión de Nómina en Ecuador | BIE', 'Payroll Management in Ecuador | BIE'),
+    seoDescription: B('Nómina mensual completa: roles de pago, planilla del IESS, décimos y fondos de reserva, con comprobantes y reporte para el dueño.', 'Complete monthly payroll: pay slips, IESS schedule, statutory bonuses and reserve funds, with receipts and an owner\'s report.'),
     keywords: ['gestion de nomina ecuador', 'roles de pago empresa', 'planilla iess mensual', 'calculo de decimos', 'nomina para pymes'],
     hero: {
       h1: B('Pagar a tu equipo bien y a tiempo <span class="serif">no debería ser tu trabajo de fin de mes.</span>', 'Paying your team right and on time <span class="serif">should not be your month-end job.</span>'),
@@ -2884,8 +2884,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('La desvinculación completa,<br><span class="serif">correcta y documentada.</span>', 'The complete offboarding,<br><span class="serif">correct and documented.</span>'),
       who: B('Para cerrar relaciones laborales<br><span class="serif">sin dejar cabos sueltos.</span>', 'For ending employment<br><span class="serif">with no loose ends.</span>'),
     },
-    seoTitle: B('Liquidación de Personal en Ecuador — Acta de Finiquito y Trámites Completos | BIE', 'Employee Offboarding in Ecuador — Settlement Act and Complete Filings | BIE'),
-    seoDescription: B('Desvinculación laboral completa: cálculo exacto de liquidación, acta de finiquito, trámite ante el Ministerio de Trabajo y aviso de salida del IESS, con toda la documentación de cierre.', 'Complete employment termination: exact severance calculation, settlement act, Ministry of Labor filing and IESS exit notice, with full closing documentation.'),
+    seoTitle: B('Liquidación de Personal en Ecuador | BIE', 'Employee Offboarding in Ecuador | BIE'),
+    seoDescription: B('Desvinculación laboral completa: cálculo de liquidación, acta de finiquito y trámite ante el Ministerio de Trabajo e IESS.', 'Complete employment termination: severance calculation, settlement act and Ministry of Labor and IESS filings.'),
     keywords: ['liquidacion de empleado ecuador', 'acta de finiquito', 'calculo de liquidacion laboral', 'aviso de salida iess', 'desvinculacion laboral'],
     hero: {
       h1: B('Termina la relación laboral <span class="serif">sin que empiece el problema legal.</span>', 'End the employment <span class="serif">without starting the legal problem.</span>'),
@@ -2945,8 +2945,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Talleres prácticos<br><span class="serif">sobre tu operación real.</span>', 'Hands-on workshops<br><span class="serif">on your real operation.</span>'),
       who: B('Para equipos que deben dominar<br><span class="serif">las herramientas de esta década.</span>', 'For teams that must master<br><span class="serif">this decade\'s tools.</span>'),
     },
-    seoTitle: B('Capacitación Digital para Equipos en Ecuador — IA, Redes y Herramientas | BIE', 'Digital Training for Teams in Ecuador — AI, Social Media and Tools | BIE'),
-    seoDescription: B('Talleres prácticos para tu equipo: fundamentos de IA, redes sociales, herramientas de productividad y comunicación digital. Material personalizado, ejercicios sobre tu operación real y certificado.', 'Hands-on workshops for your team: AI fundamentals, social media, productivity tools and digital communication. Custom material, exercises on your real operation and a certificate.'),
+    seoTitle: B('Capacitación Digital para Equipos en Ecuador | BIE', 'Digital Training for Teams in Ecuador | BIE'),
+    seoDescription: B('Talleres prácticos para tu equipo: IA, redes sociales y herramientas de productividad, con ejercicios sobre tu operación real.', 'Hands-on workshops for your team: AI, social media and productivity tools, with exercises on your real operation.'),
     keywords: ['capacitacion digital empresas ecuador', 'taller de ia para equipos', 'capacitacion redes sociales', 'formacion herramientas digitales', 'taller inteligencia artificial empresa'],
     hero: {
       h1: B('La herramienta no produce nada <span class="serif">si tu equipo no la domina.</span>', 'The tool produces nothing <span class="serif">if your team does not master it.</span>'),
@@ -3007,8 +3007,8 @@ export const PRODUCTS: ProductPage[] = [
       what: B('Tu conocimiento convertido<br><span class="serif">en un producto que se vende solo.</span>', 'Your knowledge turned into<br><span class="serif">a product that sells on its own.</span>'),
       who: B('Para expertos listos<br><span class="serif">para dejar de vender horas.</span>', 'For experts ready<br><span class="serif">to stop selling hours.</span>'),
     },
-    seoTitle: B('Creación de Cursos Online en Ecuador — De tu Conocimiento a un Producto | BIE', 'Online Course Creation in Ecuador — From Your Knowledge to a Product | BIE'),
-    seoDescription: B('Creamos tu curso online completo: diseño instruccional, guiones, edición de videos, material complementario, montaje en plataforma, landing de venta y estrategia de lanzamiento con automatizaciones.', 'We build your complete online course: instructional design, scripts, video editing, complementary material, platform setup, sales landing page and a launch strategy with automations.'),
+    seoTitle: B('Creación de Cursos Online en Ecuador | BIE', 'Online Course Creation in Ecuador | BIE'),
+    seoDescription: B('Creamos tu curso online: diseño instruccional, guiones, edición de video, montaje en plataforma y estrategia de lanzamiento.', 'We build your online course: instructional design, scripts, video editing, platform setup and a launch strategy.'),
     keywords: ['crear curso online ecuador', 'como vender mi conocimiento', 'curso en hotmart', 'produccion de curso digital', 'monetizar conocimiento'],
     hero: {
       h1: B('Enseñas una vez. <span class="serif">Cobras cada vez.</span>', 'Teach once. <span class="serif">Get paid every time.</span>'),
