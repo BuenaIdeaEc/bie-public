@@ -1,23 +1,50 @@
 ---
 // BIE — Presentación privada "Adaptabilidad Digital". No listada en el menú ni en el sitemap.
 // Ruta independiente: no se referencia desde ninguna otra página del sitio.
+// v2: revelado por pasos, vista de presentador (?presenter), cronómetro, atajos, swipe,
+//     wake lock, impresión a PDF como respaldo, escena 7 en tono claro.
 import '../../styles/site.css';
 
 const SITE = 'https://businessintelligence.solutions';
 const WA_NUM = '593988253030';
 const wa = (msg: string) => `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
 const waNeed = wa('Hola, vi la presentación de Adaptabilidad Digital de BIE y quiero conversar sobre mi caso.\n\n— Origen: web/presentaciones/adaptabilidad-digital/es');
+const url = `${SITE}/presentaciones/adaptabilidad-digital/`;
 
 const SCENES = [
-  { n: '01', id: 'apertura', label: 'Apertura' },
-  { n: '02', id: 'senal', label: 'La señal' },
-  { n: '03', id: 'costo', label: 'El costo invisible' },
-  { n: '04', id: 'brecha', label: 'La brecha de adopción' },
-  { n: '05', id: 'capas', label: 'Las capas de optimización' },
-  { n: '06', id: 'caso', label: 'Caso Óscar Caicho' },
-  { n: '07', id: 'humano', label: 'El humano no desaparece' },
-  { n: '08', id: 'adaptabilidad', label: 'Adaptabilidad digital' },
-  { n: '09', id: 'cierre', label: 'Cierre' },
+  { n: '01', label: 'Apertura', next: '01 · Identificar la brecha' },
+  { n: '02', label: 'La señal', next: '02 · Ver el costo invisible' },
+  { n: '03', label: 'El costo invisible', next: '03 · Entender la brecha' },
+  { n: '04', label: 'La brecha de adopción', next: '04 · Explorar las capas' },
+  { n: '05', label: 'Las capas de optimización', next: '05 · Ver un caso real' },
+  { n: '06', label: 'Caso Óscar Caicho', next: '06 · Volver al principio humano' },
+  { n: '07', label: 'El humano no desaparece', next: '07 · Armar tu propio método' },
+  { n: '08', label: 'El método, en una página', next: '08 · Cerrar la sesión' },
+  { n: '09', label: 'Cierre', next: '↺ Volver al inicio' },
+];
+
+// Notas del presentador: solo reformulan el guion aprobado, sin datos nuevos.
+const NOTES = [
+  'Dejar claro desde el inicio: esto es una sesión para aprender a analizar la propia práctica, no una presentación de ventas. Una sola idea: hoy no basta con saber, hay que poder convertir ese conocimiento en experiencias, sistemas y resultados. Preguntar cuánto de su semana se va en cosas que no son su conocimiento.',
+  'El principio: si algo se repite dos o tres veces por semana, merece analizarse. Hacer el ejercicio de verdad (2 minutos, papel o teléfono): tres tareas repetidas y la pregunta que más les hace su público. Luego las tres preguntas de análisis: riesgo, valor, criterio. Nada se automatiza sin pasar por ahí.',
+  'Revelar una consecuencia a la vez y pedir que cada una identifique cuál reconoce en su práctica: esa es su primera candidata a analizar. Cierre: el problema no siempre es trabajar poco; muchas veces es trabajar mucho dentro de una operación fragmentada.',
+  'Dos velocidades: la tecnología corre; las personas atienden, venden, se capacitan y operan mientras intentan adaptarse. Que una herramienta exista no significa que se pueda implementar bien. La barrera no es el acceso: es convertirla en algo útil, comprensible y sostenible.',
+  'Usarlo como autodiagnóstico: que cada una piense en qué capa está hoy su punto más débil. Tocar dos o tres capas, no las ocho. En cada una: qué resuelve, un ejemplo, y por qué sola no alcanza. Cierre: el valor aparece cuando las piezas trabajan juntas.',
+  'Antes → intervención → después, un paso por pulsación. La máquina prepara la base; Óscar revisa, corrige y aporta criterio clínico, y conserva el control científico y comunicacional. Sin cifras. Abrir la demo en la pestaña nueva y volver.',
+  'Momento humano de la charla (pantalla clara). La tecnología organiza, conecta, propone, acelera, registra. El profesional valida, interpreta, decide, cuida, crea criterio, asume responsabilidad. No sacamos al humano: le sacamos de las manos lo que no requiere su conocimiento.',
+  'Lo que se llevan: el método en cinco pasos, empezando por conocer a su público (quién es, dónde las busca, qué pregunta siempre, qué le cuesta entender, por qué vuelve). Invitar a fotografiar la pantalla. Recalcar: una sola cosa a la vez, y medirla.',
+  'Recién aquí aparece BIE, en una línea: diseñamos adaptabilidad digital alrededor de la realidad de cada profesional, online, desde cualquier país. Si quieren compañía para aplicar el método, ahí puede empezar la conversación. Dejar el WhatsApp a la vista.',
+];
+
+const LAYERS = [
+  { name: 'Marca e identidad', problema: 'Nadie recuerda ni confía en lo que no logra reconocer.', ejemplo: 'Un logotipo, colores y tono de voz consistentes en cada punto de contacto.', aislado: 'Una identidad bien diseñada sin canal donde mostrarla no genera negocio por sí sola.' },
+  { name: 'Página web y presencia digital', problema: 'Si no te encuentran, no existes para tu mercado.', ejemplo: 'Un sitio que explica lo que haces y facilita el contacto.', aislado: 'Una web sin estrategia detrás puede ser solamente una vitrina.' },
+  { name: 'Contenido y redes sociales', problema: 'Publicar sin rumbo no construye autoridad.', ejemplo: 'Contenido con un objetivo comercial claro, no solo presencia.', aislado: 'Contenido sin un proceso de captación detrás no convierte a nadie.' },
+  { name: 'Captación y seguimiento comercial', problema: 'Un interesado que nadie vuelve a contactar es una oportunidad perdida.', ejemplo: 'Un proceso que asegura que cada contacto reciba seguimiento.', aislado: 'Captar sin una operación que sostenga la entrega genera promesas incumplidas.' },
+  { name: 'Procesos internos y operación', problema: 'Cada persona resolviendo distinto genera inconsistencia.', ejemplo: 'Pasos claros y repetibles para el trabajo que se repite.', aislado: 'Procesos ordenados sin datos no muestran si de verdad están funcionando.' },
+  { name: 'Datos y medición', problema: 'Sin datos, las decisiones son intuición disfrazada de estrategia.', ejemplo: 'Saber qué funciona y qué no, con evidencia y no con impresiones.', aislado: 'Medir sin poder actuar sobre lo medido solo acumula reportes.' },
+  { name: 'Automatización', problema: 'Hay tareas que no requieren criterio humano cada vez que ocurren.', ejemplo: 'Un paso repetitivo que deja de necesitar que alguien lo ejecute a mano.', aislado: 'Automatizar un proceso mal diseñado solo lo hace fallar más rápido.' },
+  { name: 'Inteligencia artificial', problema: 'Hay trabajo de análisis y generación que puede partir de una base ya preparada.', ejemplo: 'Una primera versión lista para revisar, no para publicar a ciegas.', aislado: 'La IA sin revisión humana pierde exactamente lo que la vuelve confiable.' },
 ];
 ---
 <!doctype html>
@@ -27,6 +54,11 @@ const SCENES = [
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Adaptabilidad Digital — BIE</title>
 <meta name="robots" content="noindex, nofollow">
+<meta property="og:title" content="Adaptabilidad Digital — BIE">
+<meta property="og:description" content="La tecnología avanzó. ¿Tu operación también? Presentación privada de BIE.">
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:type" content="website">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,102 +66,174 @@ const SCENES = [
 <style is:global>
 html,body{height:100%;overflow:hidden;overscroll-behavior:none;background:var(--black)}
 body{position:fixed;inset:0;font-family:var(--font)}
-
-.deck{position:fixed;inset:0;background:var(--black)}
-.px{position:fixed;width:8px;height:8px;background:var(--accent)}
-.px.tl{top:18px;left:18px}.px.br{bottom:64px;right:18px}
+body.loading .deck{opacity:0}
+.deck{position:fixed;inset:0;background:var(--black);transition:opacity .3s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.px{position:fixed;width:8px;height:8px;background:var(--accent);z-index:5;animation:px-blink 2.2s steps(2) infinite}
+.px.tl{top:18px;left:18px}
 
 /* ── escenas ── */
-.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;color:var(--text);
   padding:min(9vh,80px) min(7vw,88px) 100px;opacity:0;pointer-events:none;overflow-y:auto;
-  transform:translateY(24px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  transform:translateY(calc(26px * var(--dir,1)));transition:opacity .45s var(--ease),transform .55s var(--ease)}
 .scene::-webkit-scrollbar{width:0;height:0}
 .scene.active{opacity:1;pointer-events:auto;transform:none}
-.scene.leaving{transform:translateY(-24px)}
-@media(prefers-reduced-motion:reduce){.scene{transition:opacity .25s linear;transform:none!important}}
+#ghost{position:fixed;right:-.04em;bottom:52px;z-index:1;font-size:min(40vh,34vw);font-weight:700;letter-spacing:-.06em;line-height:.8;
+  color:var(--text);opacity:.045;pointer-events:none;transition:opacity .5s var(--ease),color .5s}
+#ghost.light{color:#101012;opacity:.06}
+.scene.light{background:var(--bone);--text:#101012;--text2:#3a3d42;--text3:#6b7076;--border:#d8d5cf;--surface:#f1efe9;--accent-pale:#fbe9e8}
+
+/* reveal escalonado al entrar */
+.rv{opacity:0;transform:translateY(14px)}
+.scene.active .rv{animation:rv .6s var(--ease) both;animation-delay:calc(var(--i,0) * 75ms + 120ms)}
+@keyframes rv{to{opacity:1;transform:none}}
+/* pasos controlados por el presentador */
+.step{opacity:0;transform:translateY(12px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.step.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .scene{transition:opacity .25s linear;transform:none!important}
+  .rv,.scene.active .rv{animation:none;opacity:1;transform:none}
+  .step{transition:none}
+  .px{animation:none}
+}
 
 .eyebrow{font-family:var(--mono);font-size:clamp(10px,1.1vw,12px);letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
 .eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
-.s-title{font-size:clamp(30px,4.6vw,64px);font-weight:400;letter-spacing:-.02em;line-height:1.06;margin-top:18px;max-width:16ch;text-wrap:balance}
+.s-title{font-size:clamp(28px,4.2vw,60px);font-weight:400;letter-spacing:-.02em;line-height:1.06;margin-top:18px;max-width:16ch;text-wrap:balance}
+.s-title.sm{font-size:clamp(26px,3.4vw,46px);max-width:22ch}
 .s-body{font-size:clamp(15px,1.4vw,19px);line-height:1.55;color:var(--text2);max-width:56ch;margin-top:20px}
 .s-note{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--accent);margin-top:18px;max-width:52ch;line-height:1.5}
-.s-grid{margin-top:34px;max-width:980px}
+.s-note.big{font-family:var(--font);font-size:clamp(16px,1.5vw,21px);letter-spacing:-.01em;color:var(--text);max-width:40ch;line-height:1.35;margin-top:26px;border-left:2px solid var(--accent);padding-left:16px}
+.meta-line{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-top:34px}
 
-/* pipeline (escena 02) */
+/* escena 02 — cadena */
 .pipe{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:32px}
-.pipe-step{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--text);border:1px solid var(--border);padding:10px 16px}
+.pipe-step{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--text);border:1px solid var(--border);padding:10px 16px;position:relative}
+.pipe-step.last{border-color:var(--accent);color:var(--accent)}
 .pipe-arrow{color:var(--accent);font-size:16px}
-.examples{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;max-width:900px}
-.ex-btn{text-align:left;background:transparent;border:1px solid var(--border);color:var(--text);padding:16px;font-size:14px;font-weight:500;transition:border-color .25s,color .25s}
+.examples{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;max-width:900px}
+.ex-btn{text-align:left;background:transparent;border:1px solid var(--border);color:var(--text);padding:14px 16px;font-size:14px;font-weight:500;transition:border-color .25s,color .25s;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.ex-btn i{font-style:normal;color:var(--text3);font-family:var(--mono);font-size:12px;transition:transform .25s}
 .ex-btn:hover,.ex-btn.on{border-color:var(--accent)}
-.ex-reveal{grid-column:1/-1;border:1px solid var(--accent);background:var(--accent-pale);padding:16px 18px;color:var(--text2);font-size:14px;line-height:1.5;display:none}
+.ex-btn.on i{transform:rotate(45deg);color:var(--accent)}
+.ex-reveal{grid-column:1/-1;border:1px solid var(--accent);background:var(--accent-pale);padding:14px 18px;color:var(--text2);font-size:14px;line-height:1.5;display:none}
 .ex-reveal.on{display:block}
 
-/* lista numerada (escena 03) */
-.num-list{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 30px;margin-top:30px;max-width:820px}
-.num-item{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--text2);line-height:1.4}
-.num-item b{font-family:var(--mono);color:var(--accent);font-size:13px;flex-shrink:0;padding-top:2px}
+/* ejercicio + preguntas (escena 02) */
+.exercise{display:flex;gap:14px;align-items:baseline;margin-top:10px;max-width:820px;border:1px solid var(--accent);padding:12px 16px;font-size:clamp(14px,1.3vw,17px);line-height:1.45;color:var(--text)}
+.exercise b{font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.qs{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;max-width:900px;align-items:center}
+.qs span{border:1px solid var(--border);padding:8px 12px;font-size:13px;color:var(--text2);display:flex;gap:8px;align-items:baseline}
+.qs span b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text)}
+.qs i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--text3);flex-basis:100%;margin-top:2px}
+.ask{display:block;font-size:.78em;color:var(--accent);margin-top:8px}
+/* método (escena 08) */
+.method{display:flex;flex-direction:column;margin-top:18px;max-width:900px}
+.m-step{display:flex;gap:18px;align-items:baseline;padding:7px 0;border-top:1px solid var(--border)}
+.m-step:last-child{border-bottom:1px solid var(--border)}
+.m-step b{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--accent);letter-spacing:.1em;flex-shrink:0}
+.m-step strong{font-weight:400;font-size:clamp(16px,1.6vw,21px);letter-spacing:-.01em;display:block;color:var(--text)}
+.m-step span{display:block;font-size:clamp(12.5px,1.1vw,14.5px);color:var(--text2);line-height:1.3;margin-top:1px}
+[data-scene="8"] .s-note.big{margin-top:12px}
+[data-scene="8"] .s-title{max-width:26ch}
+[data-scene="1"] .s-title{max-width:24ch}
+[data-scene="9"] .s-title{max-width:24ch}
+/* escena 03 — costo */
+.ledger{margin-top:22px;max-width:880px;display:flex;flex-direction:column}
+.ledger-row{display:flex;gap:22px;align-items:baseline;padding:11px 0;border-top:1px solid var(--border);font-size:clamp(17px,1.9vw,25px);letter-spacing:-.015em;line-height:1.2;color:var(--text)}
+.ledger-row{padding:9px 0}
+[data-scene="3"] .s-note.big{margin-top:20px}
+.ledger-row:last-child{border-bottom:1px solid var(--border)}
+.ledger-row b{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--accent);letter-spacing:.1em;flex-shrink:0}
 
-/* dos velocidades (escena 04) */
-.speeds{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px;max-width:900px}
-.speed-card{border:1px solid var(--border);padding:22px}
-.speed-h{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
-.speed-bar{height:6px;background:var(--surface);position:relative;overflow:hidden;margin-bottom:14px}
-.speed-bar i{position:absolute;inset:0;background:var(--accent);transform-origin:left}
-.speed-bar.fast i{animation:sp-fast 1.1s var(--ease) infinite alternate}
-.speed-bar.slow i{animation:sp-slow 2.6s var(--ease) infinite alternate}
-@keyframes sp-fast{from{transform:scaleX(.25)}to{transform:scaleX(1)}}
-@keyframes sp-slow{from{transform:scaleX(.55)}to{transform:scaleX(.7)}}
-@media(prefers-reduced-motion:reduce){.speed-bar i{animation:none;transform:scaleX(.6)}}
-.speed-card p{font-size:14.5px;color:var(--text2);line-height:1.5}
+/* escena 04 — curvas */
+.gap-wrap{margin-top:12px;max-width:540px}
+[data-scene="4"] .s-note.big{margin-top:14px}
+[data-scene="4"] .s-note{margin-top:10px}
+.gap-svg{width:100%;height:auto;display:block}
+.gap-svg text{font-family:var(--mono);font-size:11px;letter-spacing:.08em;fill:var(--text3)}
+.gap-svg .axis{stroke:var(--border);stroke-width:1}
+.gap-svg .curve{fill:none;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+.gap-svg .c-tech{stroke:var(--accent)}
+.gap-svg .c-people{stroke:var(--text2)}
+.scene.active .gap-svg .c-tech{animation:draw 1.5s var(--ease) .2s forwards}
+.scene.active .gap-svg .c-people{animation:draw 1.5s var(--ease) .55s forwards}
+.gap-svg .gap-mark{opacity:0}
+.scene.active .gap-svg .gap-mark{animation:fadein .5s ease 1.9s forwards}
+.gap-svg .gap-mark line{stroke:var(--accent);stroke-width:1;stroke-dasharray:3 3}
+.gap-svg .gap-mark text{fill:var(--accent)}
+.gap-svg .lbl-tech{fill:var(--accent)}
+.gap-svg .lbl-people{fill:var(--text2)}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.gap-svg .curve{stroke-dashoffset:0;animation:none!important}.gap-svg .gap-mark{opacity:1;animation:none!important}}
 
-/* capas (escena 05) */
-.layers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:28px;max-width:1040px}
-.layer-btn{text-align:left;background:transparent;border:1px solid var(--border);padding:14px;color:var(--text);transition:border-color .2s}
+/* escena 05 — capas */
+.layers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px;max-width:1040px}
+.layer-btn{text-align:left;background:transparent;border:1px solid var(--border);padding:13px 14px;color:var(--text);transition:border-color .2s,background .2s}
 .layer-n{font-family:var(--mono);font-size:10px;color:var(--text3)}
 .layer-name{font-size:14px;font-weight:500;margin-top:5px;line-height:1.25}
 .layer-btn:hover,.layer-btn.on{border-color:var(--accent)}
+.layer-btn.on{background:var(--accent-pale)}
 .layer-btn.on .layer-name{color:var(--accent)}
-.layer-detail{margin-top:16px;max-width:1040px;border:1px solid var(--accent);background:var(--accent-pale);padding:18px 20px;display:none}
+.layer-details{margin-top:14px;max-width:1040px;min-height:0}
+.layer-detail{border:1px solid var(--accent);background:var(--accent-pale);padding:16px 20px;display:none}
 .layer-detail.on{display:block}
-.layer-detail .ld-row{font-size:14px;color:var(--text2);line-height:1.5;margin-top:8px}
-.layer-detail .ld-row:first-child{margin-top:0}
-.layer-detail b{color:var(--text);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;margin-right:8px}
+.layer-detail .ld-title{display:none}
+.layer-detail .ld-row{font-size:14px;color:var(--text2);line-height:1.5;margin-top:7px;display:flex;gap:12px;align-items:baseline}
+.layer-detail .ld-row:first-of-type{margin-top:0}
+.layer-detail b{color:var(--text);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:400;flex-shrink:0;min-width:15ch}
+.layer-hint{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--text3);margin-top:12px}
 
-/* caso Oscar (escena 06) */
-.case-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:28px;max-width:1040px}
-.case-col{border:1px solid var(--border);padding:18px}
-.case-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
-.case-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
-.case-col li{font-size:13.5px;color:var(--text2);line-height:1.4;padding-left:14px;position:relative}
+/* escena 06 — caso */
+.case-flow{display:grid;grid-template-columns:1fr auto 1.15fr auto 1fr;gap:12px;margin-top:22px;max-width:1080px;align-items:stretch}
+.case-col{border:1px solid var(--border);padding:16px 18px}
+.case-col.bie{border-color:var(--accent);background:var(--accent-pale)}
+.case-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.case-col.bie h4{color:var(--accent)}
+.case-col ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.case-col li{font-size:13px;color:var(--text2);line-height:1.4;padding-left:13px;position:relative}
 .case-col li::before{content:'—';position:absolute;left:0;color:var(--text3)}
-.case-cta{margin-top:24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.case-arrow{align-self:center;color:var(--accent);font-size:22px}
+.tool-strip{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:14px;max-width:1080px}
+.tool-strip span{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--text2);border:1px solid var(--border);padding:6px 10px}
+.tool-strip span.human{border-color:var(--accent);color:var(--accent)}
+.tool-strip i{color:var(--text3);font-style:normal;font-size:12px}
+.case-cta{margin-top:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 
-/* humano (escena 07) */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px;max-width:820px}
-.split-col h4{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+/* escena 07 — humano (tono claro) */
+.split{display:grid;grid-template-columns:1fr 1px 1fr;gap:0 40px;margin-top:14px;max-width:900px}
+[data-scene="7"] .s-note.big{margin-top:12px}
+.split-rule{background:var(--border)}
+.split-col h4{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
 .split-col.tech h4{color:var(--text3)}
 .split-col.human h4{color:var(--accent)}
-.split-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
-.split-col li{font-size:15px;color:var(--text2)}
+.split-col ul{list-style:none;display:flex;flex-direction:column;gap:3px}
+.split-col li{font-size:clamp(18px,1.85vw,25px);letter-spacing:-.02em;line-height:1.15}
+.split-col.tech li{color:var(--text3)}
+.split-col.human li{color:var(--text)}
 
-/* adaptabilidad (escena 08) */
-.entry-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;max-width:760px}
-.entry-chip{font-family:var(--mono);font-size:12px;letter-spacing:.03em;border:1px solid var(--border);padding:9px 14px;color:var(--text2)}
+/* escena 08 — adaptabilidad */
+.entry-list{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 24px;margin-top:12px;max-width:980px}
+[data-scene="8"] .s-body{margin-top:14px;font-size:clamp(14px,1.25vw,17px)}
+[data-scene="8"] .s-note.big{margin-top:16px}
+.entry-chip{display:flex;gap:12px;align-items:baseline;font-size:clamp(14px,1.3vw,18px);color:var(--text);padding:5px 0;border-bottom:1px solid var(--border)}
+.entry-chip b{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--text3);letter-spacing:.1em}
 
-/* cierre (escena 09) */
-.closing-quote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2vw,25px);line-height:1.3;color:var(--text);max-width:46ch;margin-top:16px}
-.close-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-.close-contact{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:14px}
-[data-scene="9"] .s-body{margin-top:12px;max-width:60ch}
-[data-scene="9"].scene{justify-content:flex-start;padding-top:min(5vh,44px);padding-bottom:112px}
+/* escena 09 — cierre */
+.closing-quote{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2vw,25px);line-height:1.3;color:var(--text);max-width:46ch;margin-top:12px}
+.close-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.close-contact{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:10px}
+[data-scene="9"] .s-body{margin-top:10px;max-width:60ch;font-size:clamp(14px,1.25vw,17px)}
+[data-scene="9"] .s-body+.s-body{margin-top:8px}
+[data-scene="9"].scene{justify-content:flex-start;padding-top:min(4.5vh,36px);padding-bottom:112px}
 
 .btn-primary,.btn-ghost{font-size:13px}
 a.btn-primary,a.btn-ghost{display:inline-flex;align-items:center;gap:8px}
 
 /* ── controles ── */
 #bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-  padding:16px min(7vw,88px);background:linear-gradient(0deg,rgba(7,7,9,.92),rgba(7,7,9,0));gap:16px}
+  padding:16px min(7vw,88px);background:linear-gradient(0deg,rgba(7,7,9,.92),rgba(7,7,9,0));gap:16px;transition:background .4s}
 .bar-l,.bar-r{display:flex;align-items:center;gap:10px}
 .ctl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);
   background:transparent;border:1px solid var(--border);padding:10px 14px;transition:border-color .2s,color .2s;white-space:nowrap}
@@ -137,126 +241,212 @@ a.btn-primary,a.btn-ghost{display:inline-flex;align-items:center;gap:8px}
 .ctl:disabled{opacity:.3;pointer-events:none}
 .ctl.next{color:var(--bone);border-color:var(--bone)}
 .ctl.next:hover{border-color:var(--accent);color:var(--accent)}
-#count{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--text3);font-variant-numeric:tabular-nums}
+#count{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--text3);font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:10px}
+#steps{display:inline-flex;gap:4px}
+#steps i{width:5px;height:5px;background:var(--border);display:block}
+#steps i.on{background:var(--accent)}
+#timer{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--text3);font-variant-numeric:tabular-nums;display:none}
+#timer.show{display:inline}
+#timer.warn{color:var(--accent)}
 #progress-rail{position:fixed;top:0;left:0;right:0;height:2px;background:var(--border);z-index:60}
 #progress-fill{height:100%;background:var(--accent);width:11.11%;transition:width .4s var(--ease)}
 @media(prefers-reduced-motion:reduce){#progress-fill{transition:none}}
 
-/* índice discreto */
+/* escena clara: controles en tinta */
+body[data-scene="7"] #bar{background:linear-gradient(0deg,rgba(255,253,249,.96),rgba(255,253,249,0))}
+body[data-scene="7"] .ctl{color:#3a3d42;border-color:#c9c5be}
+body[data-scene="7"] .ctl.next{color:#101012;border-color:#101012}
+body[data-scene="7"] .ctl:hover{color:var(--accent);border-color:var(--accent)}
+body[data-scene="7"] #count,body[data-scene="7"] #timer{color:#6b7076}
+body[data-scene="7"] #steps i{background:#c9c5be}
+body[data-scene="7"] #steps i.on{background:var(--accent)}
+body[data-scene="7"] #progress-rail{background:#d8d5cf}
+body[data-scene="7"] #idx-btn{color:#3a3d42;border-color:#c9c5be}
+
+/* índice + atajos */
 #idx-btn{position:fixed;top:16px;right:16px;z-index:60}
-#idx-panel{position:fixed;inset:0;background:var(--black);backdrop-filter:blur(14px);z-index:70;
+#idx-panel{position:fixed;inset:0;background:var(--black);z-index:70;
   display:flex;flex-direction:column;justify-content:center;padding:min(9vh,80px) min(7vw,88px);
   opacity:0;pointer-events:none;transition:opacity .3s}
 #idx-panel.open{opacity:1;pointer-events:auto}
-.idx-row{display:flex;align-items:baseline;gap:18px;padding:12px 0;border-bottom:1px solid var(--border);
-  font-size:clamp(17px,2.4vw,26px);font-weight:400;color:var(--text2);cursor:pointer;transition:color .2s}
-.idx-row:hover,.idx-row.current{color:var(--text)}
-.idx-row.current b{color:var(--accent)}
+#idx-list{display:flex;flex-direction:column;max-width:720px}
+.idx-row{display:flex;align-items:baseline;gap:18px;padding:11px 0;border-bottom:1px solid var(--border);width:100%;text-align:left;background:none;border-left:0;border-right:0;border-top:0;
+  font-family:var(--font);font-size:clamp(16px,2.2vw,24px);font-weight:400;color:var(--text2);cursor:pointer;transition:color .2s}
+.idx-row:hover,.idx-row[aria-current="true"]{color:var(--text)}
+.idx-row[aria-current="true"] b{color:var(--accent)}
 .idx-row b{font-family:var(--mono);font-size:13px;color:var(--text3);font-weight:400}
 #idx-close{position:absolute;top:16px;right:16px}
+.keys{margin-top:26px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);line-height:1.9;max-width:720px}
+.keys kbd{border:1px solid var(--border);padding:1px 6px;color:var(--text2);font-family:inherit;margin-right:6px}
+
+/* notas en pantalla (tecla N) */
+#notes{position:fixed;left:min(7vw,88px);bottom:76px;z-index:55;max-width:52ch;background:rgba(16,16,18,.92);border:1px solid var(--border);border-left:2px solid var(--accent);
+  padding:12px 14px;font-family:var(--mono);font-size:11.5px;line-height:1.55;color:var(--text2);display:none}
+#notes.show{display:block}
+body[data-scene="7"] #notes{background:rgba(255,253,249,.95);color:#3a3d42;border-color:#c9c5be;border-left-color:var(--accent)}
+
+/* vista de presentador (?presenter) */
+#presenter{display:none}
+body.is-presenter .deck,body.is-presenter #bar,body.is-presenter #idx-btn,body.is-presenter #progress-rail,body.is-presenter .px,body.is-presenter #notes,body.is-presenter #idx-panel{display:none!important}
+body.is-presenter #presenter{display:grid;position:fixed;inset:0;background:var(--black);color:var(--text);padding:28px;grid-template-rows:auto 1fr auto;gap:18px}
+.pr-top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.pr-time{font-size:clamp(28px,5vw,44px);color:var(--text);font-variant-numeric:tabular-nums;letter-spacing:0}
+.pr-time.warn{color:var(--accent)}
+.pr-main{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;min-height:0}
+.pr-now b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:400}
+.pr-now h2{font-size:clamp(24px,3.6vw,42px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:8px}
+.pr-notes{margin-top:16px;font-size:clamp(15px,1.6vw,19px);line-height:1.55;color:var(--text2);max-width:60ch}
+.pr-next{border-left:1px solid var(--border);padding-left:24px}
+.pr-next b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-weight:400}
+.pr-next h3{font-size:clamp(18px,2.2vw,26px);font-weight:400;letter-spacing:-.015em;margin-top:8px;color:var(--text2)}
+.pr-next p{margin-top:12px;font-family:var(--mono);font-size:11px;color:var(--text3);line-height:1.6}
+.pr-bar{display:flex;gap:10px;flex-wrap:wrap}
 
 @media(max-width:760px){
   .scene{padding:9vh 22px 150px;justify-content:flex-start}
-  .layers{gap:8px}
-  .layer-btn{padding:12px}
-  .examples,.num-list,.speeds,.layers,.case-cols,.split{grid-template-columns:1fr}
+  #ghost{font-size:30vw;bottom:120px}
+  .examples,.case-flow,.entry-list{grid-template-columns:1fr}
+  .case-arrow{display:none}
+  .split{grid-template-columns:1fr;gap:18px}
+  .split-rule{display:none}
+  .layers{grid-template-columns:1fr 1fr;gap:8px}
+  .layer-btn{padding:11px 12px}
+  .layer-name{font-size:13px}
+  .layer-detail .ld-row{flex-direction:column;gap:2px}
+  .layer-detail b{min-width:0}
   #bar{flex-direction:column-reverse;align-items:stretch;padding:10px 14px 12px;gap:8px}
   .bar-l,.bar-r{justify-content:space-between;gap:8px}
   .bar-r{flex-direction:row-reverse}
   .ctl{white-space:normal;text-align:center;line-height:1.3;flex:1}
   .ctl.next{flex:1.4}
   #fs-btn{display:none}
+  #notes{left:14px;right:14px;max-width:none;bottom:120px}
   .close-actions{flex-direction:column;align-items:stretch}
   .close-actions a,.close-actions button{text-align:center;justify-content:center}
+  body.is-presenter #presenter{padding:18px}
+  .pr-main{grid-template-columns:1fr}
+  .pr-next{border-left:0;padding-left:0;border-top:1px solid var(--border);padding-top:16px}
+}
+
+/* impresión: respaldo en PDF, una escena por página, todo revelado */
+@media print{
+  :root{--text:#101012;--text2:#2b2e33;--text3:#6b7076;--border:#c9c5be;--black:#fff;--bg:#fff;--bone:#fff;--accent-pale:#fbe9e8;--surface:#f1efe9}
+  html,body{overflow:visible;position:static;height:auto;background:#fff}
+  .deck{position:static;background:#fff}
+  .scene{position:relative;inset:auto;opacity:1!important;transform:none!important;pointer-events:auto;min-height:96vh;padding:40px 48px;
+    page-break-after:always;break-after:page;overflow:visible;background:#fff;color:#101012;justify-content:flex-start}
+  #ghost{display:none}
+  .rv,.step{opacity:1!important;transform:none!important;animation:none!important}
+  .ex-reveal,.layer-detail{display:block!important;margin-top:8px}
+  .layer-detail .ld-title{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+  .gap-svg .curve{stroke-dashoffset:0;animation:none!important}.gap-svg .gap-mark{opacity:1}
+  #bar,#idx-btn,#idx-panel,#progress-rail,.px,#notes,#timer,#presenter,.layer-hint{display:none!important}
+  a{color:inherit}
 }
 </style>
 </head>
-<body>
+<body class="loading">
 
 <div id="progress-rail"><div id="progress-fill"></div></div>
-<button id="idx-btn" class="ctl" aria-label="Abrir índice">☰ Índice</button>
+<span class="px tl" aria-hidden="true"></span>
+<button id="idx-btn" class="ctl" aria-label="Abrir índice y atajos">☰ Índice</button>
+<div id="live" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></div>
 
-<main class="deck">
+<main class="deck" id="deck">
+  <div id="ghost" aria-hidden="true">01</div>
 
-  <section class="scene" data-scene="1">
-    <span class="eyebrow">Adaptabilidad digital · BIE</span>
-    <h1 class="s-title">La tecnología avanzó.<br><span class="serif">¿Tu operación también?</span></h1>
-    <p class="s-body">Hoy no competimos solamente por conocimiento. También competimos por la capacidad de convertir ese conocimiento en experiencias, sistemas y resultados.</p>
+  <section class="scene" data-scene="1" data-n="01" tabindex="-1">
+    <span class="eyebrow rv">Adaptabilidad digital · BIE</span>
+    <h1 class="s-title rv">La tecnología avanzó.<br><span class="serif">¿Tu operación también?</span></h1>
+    <p class="s-body rv">Hoy no competimos solamente por conocimiento. También competimos por la capacidad de convertir ese conocimiento en experiencias, sistemas y resultados.</p>
+    <p class="s-note big step">Esto no es una presentación de ventas. Es una sesión para aprender a mirar tu propia práctica — y a tu público — con otros ojos.</p>
+    <p class="meta-line rv">Sesión privada · Septiembre 2026 · Emiliano González</p>
   </section>
 
-  <section class="scene" data-scene="2">
-    <span class="eyebrow">02 / 09</span>
-    <h2 class="s-title">Lo repetitivo <span class="serif">deja una pista.</span></h2>
+  <section class="scene" data-scene="2" data-n="02" tabindex="-1">
+    <span class="eyebrow rv">02 / 09 · La señal</span>
+    <h2 class="s-title rv">Lo repetitivo <span class="serif">deja una pista.</span></h2>
     <div class="pipe">
-      <span class="pipe-step">Tarea que se repite</span><span class="pipe-arrow">→</span>
-      <span class="pipe-step">Tiempo acumulado</span><span class="pipe-arrow">→</span>
-      <span class="pipe-step">Error o desgaste</span><span class="pipe-arrow">→</span>
-      <span class="pipe-step">Oportunidad de optimización</span>
+      <span class="pipe-step rv">Tarea que se repite</span><span class="pipe-arrow rv">→</span>
+      <span class="pipe-step rv">Tiempo acumulado</span><span class="pipe-arrow rv">→</span>
+      <span class="pipe-step rv">Error o desgaste</span><span class="pipe-arrow rv">→</span>
+      <span class="pipe-step last rv">Oportunidad de optimización</span>
     </div>
-    <p class="s-note">Si ocurre dos o tres veces por semana, merece ser analizada.</p>
-    <div class="examples">
-      <button class="ex-btn" data-ex="1">Preparar contenido</button>
-      <button class="ex-btn" data-ex="2">Responder la misma consulta</button>
-      <button class="ex-btn" data-ex="3">Registrar información en varios lugares</button>
+    <p class="s-note big step">Si ocurre dos o tres veces por semana, merece ser analizada.</p>
+    <div class="exercise step"><b>Ejercicio · 2 min</b><span>Anota tres tareas que hiciste más de dos veces esta semana, y la pregunta que tu público (pacientes, familias, colegas) más te repite.</span></div>
+    <div class="qs step"><span><b>Riesgo</b>¿Qué pasa si sale mal?</span><span><b>Valor</b>¿Cuánto tiempo acumula al mes?</span><span><b>Criterio</b>¿Necesita tu juicio cada vez?</span><i>Solo después de responder esto, una tarea se automatiza, simplifica, integra o elimina.</i></div>
+    <div class="examples step">
+      <button class="ex-btn" data-ex="1" aria-expanded="false">Preparar contenido <i>+</i></button>
+      <button class="ex-btn" data-ex="2" aria-expanded="false">Responder la misma consulta <i>+</i></button>
+      <button class="ex-btn" data-ex="3" aria-expanded="false">Registrar información en varios lugares <i>+</i></button>
       <div class="ex-reveal" data-ex-panel="1">Buscar información, estructurar y diseñar cada vez desde cero. Gran parte de esa base puede dejar de rehacerse — no de pensarse.</div>
       <div class="ex-reveal" data-ex-panel="2">La misma pregunta, respondida de cero cada vez. Puede tener una base lista que el profesional ajusta, en vez de escribirla de nuevo.</div>
       <div class="ex-reveal" data-ex-panel="3">Un mismo dato tecleado dos o tres veces en sistemas distintos. Puede vivir en un solo lugar y aparecer donde se necesita.</div>
     </div>
   </section>
 
-  <section class="scene" data-scene="3">
-    <span class="eyebrow">03 / 09</span>
-    <h2 class="s-title">El costo <span class="serif">invisible.</span></h2>
-    <div class="num-list">
-      <div class="num-item"><b>01</b>Tiempo profesional utilizado en tareas operativas.</div>
-      <div class="num-item"><b>02</b>Herramientas que no se comunican entre sí.</div>
-      <div class="num-item"><b>03</b>Datos que se pierden o no se analizan.</div>
-      <div class="num-item"><b>04</b>Oportunidades que dependen de que alguien recuerde actuar.</div>
+  <section class="scene" data-scene="3" data-n="03" tabindex="-1">
+    <span class="eyebrow rv">03 / 09 · El costo invisible</span>
+    <h2 class="s-title rv">Lo que no se ve <span class="serif">en la factura.</span></h2>
+    <div class="ledger">
+      <div class="ledger-row step"><b>01</b><span>Tiempo profesional utilizado en tareas operativas.</span></div>
+      <div class="ledger-row step"><b>02</b><span>Herramientas que no se comunican entre sí.</span></div>
+      <div class="ledger-row step"><b>03</b><span>Datos que se pierden o no se analizan.</span></div>
+      <div class="ledger-row step"><b>04</b><span>Oportunidades que dependen de que alguien recuerde actuar.</span></div>
     </div>
-    <p class="s-note">El problema no siempre es trabajar poco. Muchas veces es trabajar mucho dentro de una operación fragmentada.</p>
+    <p class="s-note big step">El problema no siempre es trabajar poco. Muchas veces es trabajar mucho dentro de una operación fragmentada.<br><span class="ask">¿Cuál de las cuatro reconoces en tu práctica? Esa es tu primera candidata a analizar.</span></p>
   </section>
 
-  <section class="scene" data-scene="4">
-    <span class="eyebrow">04 / 09</span>
-    <h2 class="s-title">La brecha <span class="serif">de adopción.</span></h2>
-    <div class="speeds">
-      <div class="speed-card">
-        <div class="speed-h">La tecnología</div>
-        <div class="speed-bar fast"><i></i></div>
-        <p>Avanza rápido: nuevas herramientas, modelos y capacidades aparecen todo el tiempo.</p>
-      </div>
-      <div class="speed-card">
-        <div class="speed-h">Las personas</div>
-        <div class="speed-bar slow"><i></i></div>
-        <p>Deben atender, vender, capacitarse y operar mientras intentan adaptarse, con el mismo tiempo de siempre.</p>
-      </div>
+  <section class="scene" data-scene="4" data-n="04" tabindex="-1">
+    <span class="eyebrow rv">04 / 09 · La brecha de adopción</span>
+    <h2 class="s-title rv">Dos velocidades, <span class="serif">una brecha.</span></h2>
+    <div class="gap-wrap rv">
+      <svg class="gap-svg" viewBox="0 0 640 250" role="img" aria-label="Dos curvas que se separan con el tiempo: la tecnología disponible sube rápido; la capacidad real de adopción sube despacio. La distancia entre ambas es la brecha.">
+        <line class="axis" x1="36" y1="218" x2="612" y2="218"/>
+        <line class="axis" x1="36" y1="218" x2="36" y2="28"/>
+        <text x="612" y="238" text-anchor="end">tiempo →</text>
+        <text x="30" y="22" text-anchor="start">capacidad ↑</text>
+        <path class="curve c-tech" pathLength="1" d="M40,206 C 220,202 380,160 540,60 S 600,34 606,30"/>
+        <path class="curve c-people" pathLength="1" d="M40,206 C 220,196 400,178 606,150"/>
+        <text class="lbl-tech" x="470" y="52" text-anchor="end">Tecnología disponible</text>
+        <text class="lbl-people" x="470" y="170" text-anchor="end">Capacidad real de adopción</text>
+        <g class="gap-mark">
+          <line x1="606" y1="36" x2="606" y2="146"/>
+          <text x="600" y="98" text-anchor="end">la brecha</text>
+        </g>
+      </svg>
     </div>
-    <p class="s-body">Que una herramienta exista no significa que una organización pueda implementarla correctamente.</p>
-    <p class="s-note">La barrera actual no es únicamente el acceso a tecnología. Es convertirla en una solución útil, comprensible y sostenible.</p>
+    <p class="s-note big step">Que una herramienta exista no significa que una organización pueda implementarla correctamente.</p>
+    <p class="s-note step">La barrera actual no es únicamente el acceso a tecnología. Es convertirla en una solución útil, comprensible y sostenible.</p>
   </section>
 
-  <section class="scene" data-scene="5">
-    <span class="eyebrow">05 / 09</span>
-    <h2 class="s-title">Las capas <span class="serif">de optimización.</span></h2>
-    <div class="layers" id="layers">
-      <button class="layer-btn" data-layer="0"><span class="layer-n">01</span><div class="layer-name">Marca e identidad</div></button>
-      <button class="layer-btn" data-layer="1"><span class="layer-n">02</span><div class="layer-name">Página web y presencia digital</div></button>
-      <button class="layer-btn" data-layer="2"><span class="layer-n">03</span><div class="layer-name">Contenido y redes sociales</div></button>
-      <button class="layer-btn" data-layer="3"><span class="layer-n">04</span><div class="layer-name">Captación y seguimiento comercial</div></button>
-      <button class="layer-btn" data-layer="4"><span class="layer-n">05</span><div class="layer-name">Procesos internos y operación</div></button>
-      <button class="layer-btn" data-layer="5"><span class="layer-n">06</span><div class="layer-name">Datos y medición</div></button>
-      <button class="layer-btn" data-layer="6"><span class="layer-n">07</span><div class="layer-name">Automatización</div></button>
-      <button class="layer-btn" data-layer="7"><span class="layer-n">08</span><div class="layer-name">Inteligencia artificial</div></button>
+  <section class="scene" data-scene="5" data-n="05" tabindex="-1">
+    <span class="eyebrow rv">05 / 09 · Las capas de optimización</span>
+    <h2 class="s-title rv">Ocho capas para <span class="serif">diagnosticar tu práctica.</span></h2>
+    <div class="layers rv" id="layers">
+      {LAYERS.map((l, i) => (
+        <button class="layer-btn" data-layer={i} aria-expanded="false" aria-controls={`ld-${i}`}><span class="layer-n">{String(i + 1).padStart(2, '0')}</span><div class="layer-name">{l.name}</div></button>
+      ))}
     </div>
-    <div class="layer-detail" id="layer-detail"></div>
-    <p class="s-note" style="margin-top:22px">Una página web sin proceso puede ser solamente una vitrina. Un sistema sin estrategia puede ser solamente una base de datos. El valor aparece cuando las piezas trabajan juntas.</p>
+    <div class="layer-details rv">
+      {LAYERS.map((l, i) => (
+        <div class="layer-detail" id={`ld-${i}`}>
+          <div class="ld-title">{String(i + 1).padStart(2, '0')} · {l.name}</div>
+          <div class="ld-row"><b>Qué resuelve</b><span>{l.problema}</span></div>
+          <div class="ld-row"><b>Ejemplo</b><span>{l.ejemplo}</span></div>
+          <div class="ld-row"><b>Aislada, no alcanza</b><span>{l.aislado}</span></div>
+        </div>
+      ))}
+      <p class="layer-hint" id="layer-hint">¿En qué capa está hoy tu punto más débil? Pulsa una para abrirla · teclas 1–8</p>
+    </div>
+    <p class="s-note rv" style="margin-top:14px">Una página web sin proceso puede ser solamente una vitrina. Un sistema sin estrategia puede ser solamente una base de datos. El valor aparece cuando las piezas trabajan juntas.</p>
   </section>
 
-  <section class="scene" data-scene="6">
-    <span class="eyebrow">06 / 09 · Caso real</span>
-    <h2 class="s-title">Óscar Caicho, <span class="serif">Clínica de Heridas.</span></h2>
-    <div class="case-cols">
-      <div class="case-col">
+  <section class="scene" data-scene="6" data-n="06" tabindex="-1">
+    <span class="eyebrow rv">06 / 09 · Caso real autorizado</span>
+    <h2 class="s-title sm rv">Óscar Caicho · <span class="serif">Clínica de Heridas.</span></h2>
+    <div class="case-flow">
+      <div class="case-col step">
         <h4>Antes</h4>
         <ul>
           <li>Profesional de salud, formador y conferencista.</li>
@@ -264,7 +454,8 @@ a.btn-primary,a.btn-ghost{display:inline-flex;align-items:center;gap:8px}
           <li>Trabajo necesario, pero en buena parte repetitivo — tiempo que podría ir a formación, atención o investigación.</li>
         </ul>
       </div>
-      <div class="case-col">
+      <span class="case-arrow step" aria-hidden="true">→</span>
+      <div class="case-col bie step">
         <h4>Intervención BIE</h4>
         <ul>
           <li>Carga documentos científicos y extrae su contenido.</li>
@@ -274,7 +465,8 @@ a.btn-primary,a.btn-ghost{display:inline-flex;align-items:center;gap:8px}
           <li>La revisión y decisión final siguen siendo del experto.</li>
         </ul>
       </div>
-      <div class="case-col">
+      <span class="case-arrow step" aria-hidden="true">→</span>
+      <div class="case-col step">
         <h4>Después</h4>
         <ul>
           <li>La máquina prepara la base.</li>
@@ -284,94 +476,116 @@ a.btn-primary,a.btn-ghost{display:inline-flex;align-items:center;gap:8px}
         </ul>
       </div>
     </div>
-    <div class="case-cta">
+    <div class="tool-strip step">
+      <span>Documentos</span><i>→</i><span>Contenido</span><i>→</i><span>Estructura</span><i>→</i><span>Bibliografía</span><i>→</i><span>Imágenes</span><i>→</i><span>Quiz</span><i>→</i><span>PC / teléfono</span><i>→</i><span class="human">Revisión del experto</span>
+    </div>
+    <div class="case-cta step">
       <a class="btn-primary" href="https://oscar-caicho.netlify.app/" target="_blank" rel="noopener noreferrer"><span>Ver el caso funcionando</span></a>
       <span class="s-note" style="margin:0">Se abre en una pestaña nueva — esta presentación sigue aquí.</span>
     </div>
   </section>
 
-  <section class="scene" data-scene="7">
-    <span class="eyebrow">07 / 09</span>
-    <h2 class="s-title">La tecnología prepara.<br><span class="serif">El experto decide.</span></h2>
+  <section class="scene light" data-scene="7" data-n="07" tabindex="-1">
+    <span class="eyebrow rv">07 / 09 · El humano no desaparece</span>
+    <h2 class="s-title rv">La tecnología prepara.<br><span class="serif">El experto decide.</span></h2>
     <div class="split">
-      <div class="split-col tech">
+      <div class="split-col tech step">
         <h4>Tecnología</h4>
         <ul><li>Organiza</li><li>Conecta</li><li>Propone</li><li>Acelera</li><li>Registra</li><li>Aprende de procesos autorizados</li></ul>
       </div>
-      <div class="split-col human">
+      <div class="split-rule" aria-hidden="true"></div>
+      <div class="split-col human step">
         <h4>Profesional</h4>
         <ul><li>Valida</li><li>Interpreta</li><li>Decide</li><li>Cuida</li><li>Crea criterio</li><li>Asume responsabilidad</li></ul>
       </div>
     </div>
-    <p class="s-note" style="margin-top:26px">El objetivo no es sacar al humano de la operación. Es sacar de sus manos aquello que no requiere desperdiciar su conocimiento.</p>
+    <p class="s-note big step">El objetivo no es sacar al humano de la operación. Es sacar de sus manos aquello que no requiere desperdiciar su conocimiento.</p>
   </section>
 
-  <section class="scene" data-scene="8">
-    <span class="eyebrow">08 / 09</span>
-    <h2 class="s-title">Nuestra moneda es <span class="serif">la adaptabilidad digital.</span></h2>
-    <p class="s-body">BIE estudia cómo funciona una persona, negocio u organización y construye la combinación tecnológica que necesita para avanzar.</p>
-    <div class="entry-list">
-      <span class="entry-chip">Página web profesional</span>
-      <span class="entry-chip">Marca mejor comunicada</span>
-      <span class="entry-chip">Contenido con estrategia</span>
-      <span class="entry-chip">Seguimiento de clientes</span>
-      <span class="entry-chip">Una automatización</span>
-      <span class="entry-chip">Sistema operativo empresarial</span>
-      <span class="entry-chip">Herramienta personalizada</span>
+  <section class="scene" data-scene="8" data-n="08" tabindex="-1">
+    <span class="eyebrow rv">08 / 09 · Lo que te llevas</span>
+    <h2 class="s-title rv">El método, <span class="serif">en una página.</span></h2>
+    <div class="method">
+      <div class="m-step step"><b>01</b><div><strong>Conoce a tu público.</strong><span>¿Quién es? ¿Dónde te busca? ¿Qué pregunta siempre? ¿Qué le cuesta entender? ¿Por qué vuelve — o no?</span></div></div>
+      <div class="m-step step"><b>02</b><div><strong>Detecta lo que se repite.</strong><span>Dos o tres veces por semana ya es una señal.</span></div></div>
+      <div class="m-step step"><b>03</b><div><strong>Analiza riesgo, valor y criterio.</strong><span>Automatizar, simplificar, integrar o eliminar — nunca a ciegas.</span></div></div>
+      <div class="m-step step"><b>04</b><div><strong>Ubica la capa.</strong><span>Marca, web, contenido, captación, procesos, datos, automatización o IA.</span></div></div>
+      <div class="m-step step"><b>05</b><div><strong>Implementa una sola cosa y mídela.</strong><span>Un resultado verificable antes de la siguiente.</span></div></div>
     </div>
-    <p class="s-note">No todos necesitan todo. Cada implementación debe responder a una necesidad y producir un resultado verificable.</p>
+    <p class="s-note big step">No todos necesitan todo. Cada cambio debe responder a una necesidad real de tu práctica y producir un resultado que puedas comprobar.</p>
   </section>
 
-  <section class="scene" data-scene="9">
-    <span class="eyebrow">09 / 09 · Cierre</span>
-    <h2 class="s-title">Tu conocimiento merece <span class="serif">una operación a su altura.</span></h2>
-    <p class="s-body">No necesitas convertirte en experto en cada nueva herramienta. Necesitas una estructura capaz de adaptarlas a tu trabajo. Trabajamos online con profesionales, empresas y organizaciones de distintos sectores y países. Diseñamos soluciones alrededor de su realidad, no alrededor de una plantilla genérica.</p>
-    <p class="closing-quote">"Si existe una parte de su trabajo que les quita tiempo, se repite constantemente o impide que su conocimiento llegue más lejos, ahí puede comenzar una conversación con BIE."</p>
-    <div class="close-actions">
-      <a class="btn-primary" href={SITE}><span>Conocer BIE</span></a>
+  <section class="scene" data-scene="9" data-n="09" tabindex="-1">
+    <span class="eyebrow rv">09 / 09 · Cierre</span>
+    <h2 class="s-title rv">Tu conocimiento merece <span class="serif">una operación a su altura.</span></h2>
+    <p class="s-body rv">No necesitas convertirte en experto en cada nueva herramienta. Necesitas una estructura capaz de adaptarlas a tu trabajo — y ahora tienes un método para saber por dónde empezar.</p>
+    <p class="s-body rv">Si quieres compañía para aplicarlo: BIE diseña adaptabilidad digital alrededor de la realidad de cada profesional, online, con distintos sectores y países. Nunca alrededor de una plantilla genérica.</p>
+    <p class="closing-quote rv">"Si existe una parte de su trabajo que les quita tiempo, se repite constantemente o impide que su conocimiento llegue más lejos, ahí puede comenzar una conversación con BIE."</p>
+    <div class="close-actions rv">
+      <a class="btn-primary" href={SITE} target="_blank" rel="noopener noreferrer"><span>Conocer BIE</span></a>
       <a class="btn-primary" href={waNeed} target="_blank" rel="noopener noreferrer"><span>Conversar sobre una necesidad</span></a>
       <button class="btn-ghost" id="restart-btn">Reiniciar presentación</button>
     </div>
-    <p class="close-contact">BUSINESS INTELLIGENCE ENHANCER · businessintelligence.solutions · WhatsApp +593 98 825 3030</p>
+    <p class="close-contact rv">BUSINESS INTELLIGENCE ENHANCER · businessintelligence.solutions · WhatsApp +593 98 825 3030</p>
   </section>
 
 </main>
 
+<div id="notes" role="note"></div>
+
 <div id="bar">
   <div class="bar-l">
     <button class="ctl" id="prev-btn">← Anterior</button>
-    <span id="count">01 / 09</span>
+    <span id="count"><span id="count-txt">01 / 09</span><span id="steps"></span></span>
+    <span id="timer">00:00</span>
   </div>
   <div class="bar-r">
     <button class="ctl" id="fs-btn">⤢ Pantalla completa</button>
-    <button class="ctl next" id="next-btn">02 · Ver el costo invisible</button>
+    <button class="ctl next" id="next-btn">01 · Identificar la brecha</button>
   </div>
 </div>
 
-<div id="idx-panel">
+<div id="idx-panel" role="dialog" aria-label="Índice de escenas">
   <button id="idx-close" class="ctl" aria-label="Cerrar índice">✕ Cerrar</button>
   <div id="idx-list"></div>
+  <p class="keys">
+    <kbd>→</kbd><kbd>espacio</kbd> siguiente paso o escena &nbsp; <kbd>←</kbd> escena anterior &nbsp; <kbd>1–9</kbd> ir a escena &nbsp; <kbd>F</kbd> pantalla completa<br>
+    <kbd>I</kbd> índice &nbsp; <kbd>T</kbd> cronómetro &nbsp; <kbd>N</kbd> notas en pantalla &nbsp; <kbd>P</kbd> vista de presentador (segunda ventana) &nbsp; <kbd>Ctrl+P</kbd> guardar PDF de respaldo
+  </p>
 </div>
 
-<script define:vars={{ scenes: SCENES }}>
-const NEXT_LABEL = {
-  1:'01 · Identificar la brecha', 2:'02 · Ver el costo invisible', 3:'03 · Entender la brecha',
-  4:'04 · Explorar las capas', 5:'05 · Ver un caso real', 6:'06 · Volver al principio humano',
-  7:'07 · Conocer lo que realmente vendemos', 8:'08 · Abrir la siguiente posibilidad', 9:null,
-};
-const TOTAL = scenes.length;
-const sceneEls = Array.from(document.querySelectorAll('.scene'));
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-const countEl = document.getElementById('count');
-const fillEl = document.getElementById('progress-fill');
-const idxBtn = document.getElementById('idx-btn');
-const idxPanel = document.getElementById('idx-panel');
-const idxClose = document.getElementById('idx-close');
-const idxList = document.getElementById('idx-list');
-const fsBtn = document.getElementById('fs-btn');
+<div id="presenter">
+  <div class="pr-top"><span>Vista de presentador · BIE</span><span class="pr-time" id="pr-time">00:00</span><span id="pr-count">01 / 09</span></div>
+  <div class="pr-main">
+    <div class="pr-now"><b>Ahora</b><h2 id="pr-title"></h2><p class="pr-notes" id="pr-notes"></p></div>
+    <div class="pr-next"><b>Siguiente</b><h3 id="pr-next"></h3><p id="pr-steps"></p></div>
+  </div>
+  <div class="pr-bar">
+    <button class="ctl" id="pr-prev">← Anterior</button>
+    <button class="ctl next" id="pr-nextbtn">Siguiente →</button>
+    <button class="ctl" id="pr-timer">⏱ Iniciar / pausar</button>
+    <button class="ctl" id="pr-reset">Reiniciar cronómetro</button>
+  </div>
+</div>
 
-let current = 1;
+<script define:vars={{ scenes: SCENES, notes: NOTES }}>
+const TOTAL = scenes.length;
+const $ = (s) => document.querySelector(s);
+const sceneEls = Array.from(document.querySelectorAll('.scene'));
+const isPresenter = new URLSearchParams(location.search).has('presenter');
+if (isPresenter) document.body.classList.add('is-presenter');
+
+const prevBtn = $('#prev-btn'), nextBtn = $('#next-btn'), countTxt = $('#count-txt'), stepsEl = $('#steps'),
+  fillEl = $('#progress-fill'), idxBtn = $('#idx-btn'), idxPanel = $('#idx-panel'), idxClose = $('#idx-close'),
+  idxList = $('#idx-list'), fsBtn = $('#fs-btn'), notesEl = $('#notes'), timerEl = $('#timer'), liveEl = $('#live');
+
+let current = 1, dir = 1, busy = false, applyingRemote = false;
+const stepsOn = {}; // escena -> pasos revelados
+
+// índices para el reveal escalonado
+sceneEls.forEach(s => s.querySelectorAll('.rv').forEach((el, i) => el.style.setProperty('--i', i)));
+
+const stepEls = (n) => Array.from(sceneEls[n - 1].querySelectorAll('.step'));
 
 function readInitial() {
   const h = parseInt((location.hash || '').replace('#', ''), 10);
@@ -381,100 +595,196 @@ function readInitial() {
   return 1;
 }
 
+function applySteps(n) {
+  const els = stepEls(n), k = stepsOn[n] || 0;
+  els.forEach((el, i) => el.classList.toggle('on', i < k));
+  const total = els.length;
+  stepsEl.innerHTML = total ? els.map((_, i) => `<i class="${i < k ? 'on' : ''}"></i>`).join('') : '';
+  stepsEl.style.display = total ? 'inline-flex' : 'none';
+}
+
 function render() {
-  sceneEls.forEach(el => {
-    const n = parseInt(el.dataset.scene, 10);
-    el.classList.toggle('active', n === current);
-  });
-  countEl.textContent = String(current).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
+  document.body.dataset.scene = String(current);
+  const ghost = $('#ghost'); ghost.textContent = scenes[current - 1].n; ghost.classList.toggle('light', sceneEls[current - 1].classList.contains('light'));
+  document.documentElement.style.setProperty('--dir', String(dir));
+  sceneEls.forEach(el => el.classList.toggle('active', parseInt(el.dataset.scene, 10) === current));
+  applySteps(current);
+  const s = scenes[current - 1];
+  countTxt.textContent = s.n + ' / ' + String(TOTAL).padStart(2, '0');
   fillEl.style.width = (current / TOTAL * 100) + '%';
   prevBtn.disabled = current === 1;
-  const label = NEXT_LABEL[current];
-  if (label) { nextBtn.textContent = label; nextBtn.disabled = false; }
-  else { nextBtn.textContent = 'Fin de la presentación'; nextBtn.disabled = true; }
+  nextBtn.textContent = s.next;
+  nextBtn.disabled = false;
+  notesEl.textContent = notes[current - 1];
   sessionStorage.setItem('bie-deck-scene', String(current));
   history.replaceState(null, '', '#' + current);
   buildIndex();
+  renderPresenter();
+  liveEl.textContent = `Escena ${current} de ${TOTAL}: ${s.label}`;
+  if (!isPresenter) sceneEls[current - 1].focus({ preventScroll: true });
+  if (!applyingRemote) broadcast({ type: 'nav', scene: current, step: stepsOn[current] || 0 });
 }
 
-function goTo(n) {
+function goTo(n, opts = {}) {
   if (n < 1 || n > TOTAL) return;
+  if (busy && !opts.force) return;
+  dir = n >= current ? 1 : -1;
+  if (opts.revealAll) stepsOn[n] = stepEls(n).length;
+  else if (opts.reset !== false && n !== current) stepsOn[n] = 0;
   current = n;
+  busy = true; setTimeout(() => { busy = false; }, 380);
   render();
+  requestWakeLock();
 }
 
-prevBtn.addEventListener('click', () => goTo(current - 1));
-nextBtn.addEventListener('click', () => goTo(current + 1));
+function next() {
+  const els = stepEls(current), k = stepsOn[current] || 0;
+  if (k < els.length) { stepsOn[current] = k + 1; applySteps(current); renderPresenter(); if (!applyingRemote) broadcast({ type: 'nav', scene: current, step: stepsOn[current] }); return; }
+  if (current === TOTAL) { goTo(1); return; }
+  goTo(current + 1);
+}
+function prev() { if (current > 1) goTo(current - 1, { revealAll: true }); }
 
+prevBtn.addEventListener('click', prev);
+nextBtn.addEventListener('click', next);
+$('#restart-btn').addEventListener('click', () => goTo(1));
+
+// ── teclado ──
 document.addEventListener('keydown', (e) => {
-  if (idxPanel.classList.contains('open')) {
-    if (e.key === 'Escape') closeIdx();
-    return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const tag = (e.target && e.target.tagName) || '';
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+  if (idxPanel.classList.contains('open')) { if (e.key === 'Escape' || e.key.toLowerCase() === 'i') { e.preventDefault(); closeIdx(); } return; }
+  switch (e.key) {
+    case 'ArrowRight': case ' ': case 'Enter': case 'PageDown': e.preventDefault(); next(); break;
+    case 'ArrowLeft': case 'PageUp': case 'Backspace': e.preventDefault(); prev(); break;
+    case 'Home': e.preventDefault(); goTo(1); break;
+    case 'End': e.preventDefault(); goTo(TOTAL, { revealAll: true }); break;
+    case 'f': case 'F': e.preventDefault(); toggleFs(); break;
+    case 'i': case 'I': e.preventDefault(); openIdx(); break;
+    case 't': case 'T': e.preventDefault(); toggleTimerVisible(); break;
+    case 'n': case 'N': e.preventDefault(); notesEl.classList.toggle('show'); break;
+    case 'p': case 'P': e.preventDefault(); openPresenter(); break;
+    default:
+      if (/^[1-9]$/.test(e.key)) {
+        const k = parseInt(e.key, 10);
+        if (current === 5 && k <= 8 && !e.shiftKey) { toggleLayer(k - 1); }
+        else if (k <= TOTAL) goTo(k, { revealAll: true });
+      }
   }
-  if (e.key === 'ArrowRight') goTo(current + 1);
-  if (e.key === 'ArrowLeft') goTo(current - 1);
 });
 
+// ── swipe (móvil / tablet) ──
+let tx = null, ty = null;
+document.addEventListener('touchstart', (e) => { const t = e.changedTouches[0]; tx = t.clientX; ty = t.clientY; }, { passive: true });
+document.addEventListener('touchend', (e) => {
+  if (tx === null) return;
+  const t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty; tx = ty = null;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) { if (dx < 0) next(); else prev(); }
+}, { passive: true });
+
+// ── índice ──
 function buildIndex() {
-  idxList.innerHTML = scenes.map(s => {
-    const n = parseInt(s.n, 10);
-    return `<div class="idx-row${n === current ? ' current' : ''}" data-jump="${n}"><b>${s.n}</b><span>${s.label}</span></div>`;
+  idxList.innerHTML = scenes.map((s, i) => {
+    const n = i + 1;
+    return `<button class="idx-row" data-jump="${n}" aria-current="${n === current}"><b>${s.n}</b><span>${s.label}</span></button>`;
   }).join('');
-  idxList.querySelectorAll('[data-jump]').forEach(row => {
-    row.addEventListener('click', () => { goTo(parseInt(row.dataset.jump, 10)); closeIdx(); });
-  });
+  idxList.querySelectorAll('[data-jump]').forEach(row => row.addEventListener('click', () => { goTo(parseInt(row.dataset.jump, 10), { revealAll: true, force: true }); closeIdx(); }));
 }
-function openIdx() { idxPanel.classList.add('open'); idxBtn.style.visibility = 'hidden'; }
+function openIdx() { idxPanel.classList.add('open'); idxBtn.style.visibility = 'hidden'; idxClose.focus(); }
 function closeIdx() { idxPanel.classList.remove('open'); idxBtn.style.visibility = 'visible'; }
 idxBtn.addEventListener('click', openIdx);
 idxClose.addEventListener('click', closeIdx);
 
-fsBtn.addEventListener('click', () => {
+// ── pantalla completa + wake lock ──
+function toggleFs() {
   if (!document.fullscreenElement) document.documentElement.requestFullscreen?.().catch(() => {});
   else document.exitFullscreen?.().catch(() => {});
-});
+}
+fsBtn.addEventListener('click', toggleFs);
+let wakeLock = null;
+async function requestWakeLock() {
+  try { if ('wakeLock' in navigator && !wakeLock) { wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; }); } } catch (_) {}
+}
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') requestWakeLock(); });
 
-document.getElementById('restart-btn').addEventListener('click', () => goTo(1));
-
-// escena 02 — ejemplos
+// ── escena 02: ejemplos ──
 document.querySelectorAll('.ex-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const id = btn.dataset.ex;
-    const panel = document.querySelector(`.ex-reveal[data-ex-panel="${id}"]`);
-    const wasOn = panel.classList.contains('on');
+    const id = btn.dataset.ex, panel = document.querySelector(`.ex-reveal[data-ex-panel="${id}"]`), wasOn = panel.classList.contains('on');
     document.querySelectorAll('.ex-reveal').forEach(p => p.classList.remove('on'));
-    document.querySelectorAll('.ex-btn').forEach(b => b.classList.remove('on'));
-    if (!wasOn) { panel.classList.add('on'); btn.classList.add('on'); }
+    document.querySelectorAll('.ex-btn').forEach(b => { b.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); });
+    if (!wasOn) { panel.classList.add('on'); btn.classList.add('on'); btn.setAttribute('aria-expanded', 'true'); }
   });
 });
 
-// escena 05 — capas
-const LAYERS = [
-  { problema:'Nadie recuerda ni confía en lo que no logra reconocer.', ejemplo:'Un logotipo, colores y tono de voz consistentes en cada punto de contacto.', aislado:'Una identidad bien diseñada sin canal donde mostrarla no genera negocio por sí sola.' },
-  { problema:'Si no te encuentran, no existes para tu mercado.', ejemplo:'Un sitio que explica lo que haces y facilita el contacto.', aislado:'Una web sin estrategia detrás puede ser solamente una vitrina.' },
-  { problema:'Publicar sin rumbo no construye autoridad.', ejemplo:'Contenido con un objetivo comercial claro, no solo presencia.', aislado:'Contenido sin un proceso de captación detrás no convierte a nadie.' },
-  { problema:'Un interesado que nadie vuelve a contactar es una oportunidad perdida.', ejemplo:'Un proceso que asegura que cada contacto reciba seguimiento.', aislado:'Captar sin una operación que sostenga la entrega genera promesas incumplidas.' },
-  { problema:'Cada persona resolviendo distinto genera inconsistencia.', ejemplo:'Pasos claros y repetibles para el trabajo que se repite.', aislado:'Procesos ordenados sin datos no muestran si de verdad están funcionando.' },
-  { problema:'Sin datos, las decisiones son intuición disfrazada de estrategia.', ejemplo:'Saber qué funciona y qué no, con evidencia y no con impresiones.', aislado:'Medir sin poder actuar sobre lo medido solo acumula reportes.' },
-  { problema:'Hay tareas que no requieren criterio humano cada vez que ocurren.', ejemplo:'Un paso repetitivo que deja de necesitar que alguien lo ejecute a mano.', aislado:'Automatizar un proceso mal diseñado solo lo hace fallar más rápido.' },
-  { problema:'Hay trabajo de análisis y generación que puede partir de una base ya preparada.', ejemplo:'Una primera versión lista para revisar, no para publicar a ciegas.', aislado:'La IA sin revisión humana pierde exactamente lo que la vuelve confiable.' },
-];
-const layerDetail = document.getElementById('layer-detail');
-document.querySelectorAll('.layer-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const i = parseInt(btn.dataset.layer, 10);
-    const wasOn = btn.classList.contains('on');
-    document.querySelectorAll('.layer-btn').forEach(b => b.classList.remove('on'));
-    if (wasOn) { layerDetail.classList.remove('on'); return; }
-    btn.classList.add('on');
-    const d = LAYERS[i];
-    layerDetail.innerHTML = `<div class="ld-row"><b>Qué resuelve —</b> ${d.problema}</div><div class="ld-row"><b>Ejemplo —</b> ${d.ejemplo}</div><div class="ld-row"><b>Aislado, no alcanza —</b> ${d.aislado}</div>`;
-    layerDetail.classList.add('on');
-  });
-});
+// ── escena 05: capas ──
+const layerBtns = Array.from(document.querySelectorAll('.layer-btn'));
+const layerDetails = Array.from(document.querySelectorAll('.layer-detail'));
+function toggleLayer(i) {
+  const btn = layerBtns[i]; if (!btn) return;
+  const wasOn = btn.classList.contains('on');
+  layerBtns.forEach(b => { b.classList.remove('on'); b.setAttribute('aria-expanded', 'false'); });
+  layerDetails.forEach(d => d.classList.remove('on'));
+  $('#layer-hint').style.display = wasOn ? '' : 'none';
+  if (wasOn) return;
+  btn.classList.add('on'); btn.setAttribute('aria-expanded', 'true'); layerDetails[i].classList.add('on');
+}
+layerBtns.forEach((btn, i) => btn.addEventListener('click', () => toggleLayer(i)));
 
+// ── cronómetro ──
+let tStart = parseInt(localStorage.getItem('bie-deck-timer') || '0', 10) || 0; // 0 = sin iniciar
+let tPausedAt = parseInt(localStorage.getItem('bie-deck-timer-paused') || '0', 10) || 0;
+function fmt(ms) { const s = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+function elapsed() { if (!tStart) return 0; return (tPausedAt || Date.now()) - tStart; }
+function tickTimer() {
+  const ms = elapsed(), txt = fmt(ms), warn = ms >= 18 * 60 * 1000;
+  timerEl.textContent = txt; timerEl.classList.toggle('warn', warn);
+  const pt = $('#pr-time'); if (pt) { pt.textContent = txt; pt.classList.toggle('warn', warn); }
+}
+setInterval(tickTimer, 500);
+function timerStart() { if (tPausedAt) { tStart = Date.now() - (tPausedAt - tStart); tPausedAt = 0; } else if (!tStart) tStart = Date.now(); persistTimer(); broadcast({ type: 'timer', tStart, tPausedAt }); }
+function timerToggle() { if (tStart && !tPausedAt) { tPausedAt = Date.now(); } else { timerStart(); return; } persistTimer(); broadcast({ type: 'timer', tStart, tPausedAt }); }
+function timerReset() { tStart = 0; tPausedAt = 0; persistTimer(); broadcast({ type: 'timer', tStart, tPausedAt }); tickTimer(); }
+function persistTimer() { localStorage.setItem('bie-deck-timer', String(tStart)); localStorage.setItem('bie-deck-timer-paused', String(tPausedAt)); }
+function toggleTimerVisible() { timerEl.classList.toggle('show'); if (timerEl.classList.contains('show') && !tStart) timerStart(); }
+
+// ── sincronización entre ventanas (deck ↔ presentador) ──
+const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('bie-deck-adaptabilidad') : null;
+function broadcast(msg) { try { bc && bc.postMessage(msg); } catch (_) {} }
+if (bc) bc.onmessage = (e) => {
+  const m = e.data || {};
+  if (m.type === 'nav') { applyingRemote = true; stepsOn[m.scene] = m.step || 0; if (m.scene !== current) { dir = m.scene >= current ? 1 : -1; current = m.scene; render(); } else { applySteps(current); renderPresenter(); } applyingRemote = false; }
+  if (m.type === 'timer') { tStart = m.tStart; tPausedAt = m.tPausedAt; persistTimer(); tickTimer(); }
+};
+function openPresenter() {
+  const w = window.open(location.pathname + '?presenter', 'bie-presenter', 'width=820,height=560');
+  if (!w) alert('El navegador bloqueó la ventana. Abre manualmente: ' + location.origin + location.pathname + '?presenter');
+}
+function renderPresenter() {
+  if (!isPresenter) return;
+  const s = scenes[current - 1], nx = scenes[current];
+  $('#pr-count').textContent = s.n + ' / ' + String(TOTAL).padStart(2, '0');
+  $('#pr-title').textContent = s.label;
+  $('#pr-notes').textContent = notes[current - 1];
+  $('#pr-next').textContent = nx ? nx.n + ' · ' + nx.label : 'Fin — volver al inicio';
+  const els = stepEls(current), k = stepsOn[current] || 0;
+  $('#pr-steps').textContent = els.length ? `Pasos revelados: ${k} de ${els.length} — cada pulsación muestra el siguiente.` : 'Esta escena no tiene pasos.';
+}
+if (isPresenter) {
+  $('#pr-prev').addEventListener('click', prev);
+  $('#pr-nextbtn').addEventListener('click', next);
+  $('#pr-timer').addEventListener('click', timerToggle);
+  $('#pr-reset').addEventListener('click', timerReset);
+  if (!tStart) timerStart();
+}
+
+// ── arranque: espera fuentes para evitar el salto tipográfico en la primera escena ──
 current = readInitial();
-render();
+stepsOn[current] = stepEls(current).length; // tras recargar, nada queda oculto
+const ready = (document.fonts && document.fonts.ready) ? document.fonts.ready : Promise.resolve();
+Promise.race([ready, new Promise(r => setTimeout(r, 1500))]).then(() => { document.body.classList.remove('loading'); render(); tickTimer(); });
+window.__deck = { goTo, next, prev, get current() { return current; } };
 </script>
 </body>
 </html>
