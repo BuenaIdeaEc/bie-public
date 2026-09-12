@@ -1,0 +1,77 @@
+---
+// BIE — Aviso de privacidad. Refleja el tratamiento real que hace este sitio hoy:
+// formulario de contacto (Netlify Function -> Supabase) y analítica propia (track.js).
+// No sustituye una revisión legal especializada (ver Auditoria_Web_BIE.md, hallazgo H10).
+import '../styles/site.css';
+const SITE = 'https://businessintelligence.solutions';
+const WA = 'https://wa.me/593988253030?text=' + encodeURIComponent('Hola, tengo una pregunta sobre el tratamiento de mis datos en el sitio de BIE.\n\n— Origen: web/privacidad/es');
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aviso de privacidad — BIE</title>
+<meta name="description" content="Qué datos recopila businessintelligence.solutions, para qué los usa, dónde se guardan y cómo ejercer tus derechos.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href={`${SITE}/privacidad/`}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style is:global>
+main.legal{max-width:760px;margin:0 auto;padding:min(9vh,80px) min(6vw,32px) 100px}
+main.legal .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+main.legal .eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+main.legal h1{font-size:clamp(28px,4vw,44px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:18px}
+main.legal .updated{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:14px}
+main.legal h2{font-size:clamp(19px,2.2vw,24px);font-weight:400;letter-spacing:-.01em;margin-top:44px;margin-bottom:14px;color:var(--bone)}
+main.legal p,main.legal li{font-size:15px;line-height:1.7;color:var(--text2)}
+main.legal p{margin-top:12px}
+main.legal ul{margin-top:12px;padding-left:20px}
+main.legal li{margin-top:8px}
+main.legal a{color:var(--bone);border-bottom:1px solid var(--border)}
+main.legal a:hover{border-color:var(--accent)}
+main.legal .callout{margin-top:44px;border:1px solid var(--border);padding:20px 22px;background:var(--surface)}
+main.legal .callout p{color:var(--text2)}
+main.legal .back{display:inline-block;margin-top:50px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--text3)}
+@media(max-width:600px){main.legal{padding:14vh 22px 60px}}
+</style>
+</head>
+<body>
+<main class="legal">
+  <span class="eyebrow">BIE — Business Intelligence Enhancer</span>
+  <h1>Aviso de privacidad</h1>
+  <p class="updated">Última actualización: 12 de septiembre de 2026 · Aplica a businessintelligence.solutions</p>
+
+  <p>Este aviso explica, en lenguaje simple, qué información recopila este sitio, para qué la usamos, dónde vive y qué puedes hacer si quieres corregirla o eliminarla. Describe el tratamiento real que hace la página — no un texto genérico copiado de otro sitio.</p>
+
+  <h2>Qué información recopilamos</h2>
+  <p>Cuando escribes en el formulario de contacto o en el asistente de WhatsApp del sitio, guardamos lo que tú mismo ingresas: nombre, teléfono, empresa, qué necesitas y tu mensaje. No pedimos ni almacenamos contraseñas, datos financieros ni información sensible.</p>
+  <p>Mientras navegas, el sitio también registra datos técnicos sin identificarte por nombre: qué páginas visitas, qué botones tocas, de qué sitio vienes (por ejemplo, Google o Instagram) y un identificador de sesión temporal generado por tu navegador. Esta parte no incluye tu nombre, teléfono ni mensaje — viven en tablas separadas.</p>
+
+  <h2>Para qué la usamos</h2>
+  <ul>
+    <li>Responder tu consulta por WhatsApp y darte seguimiento comercial.</li>
+    <li>Entender qué páginas y productos generan más interés, para mejorar el sitio y el catálogo.</li>
+    <li>Llevar un registro interno de quién nos ha contactado, para no perder ni duplicar conversaciones.</li>
+  </ul>
+  <p>No usamos tus datos para publicidad dirigida ni los vendemos ni los compartimos con terceros con fines comerciales.</p>
+
+  <h2>Dónde se guarda</h2>
+  <p>La información vive en la base de datos propia de BIE (Supabase, con acceso restringido por credenciales) y en el propio WhatsApp cuando la conversación continúa por ese canal — en ese caso, Meta (dueña de WhatsApp) trata el mensaje según sus propias políticas, ajenas a este aviso.</p>
+
+  <h2>Cuánto tiempo la conservamos</h2>
+  <p>Conservamos los datos de contacto mientras exista una relación comercial vigente o potencial contigo, o hasta que solicites su eliminación. Los datos técnicos de navegación (sin tu nombre) se conservan con fines de análisis interno del sitio.</p>
+
+  <h2>Tus derechos</h2>
+  <p>De acuerdo con la Ley Orgánica de Protección de Datos Personales (LOPDP) de Ecuador, puedes pedirnos en cualquier momento: saber qué datos tuyos tenemos, corregirlos si están mal, o eliminarlos. Para ejercer cualquiera de estos derechos, escríbenos por <a href={WA} target="_blank" rel="noopener noreferrer">WhatsApp</a> indicando tu nombre o teléfono de contacto; te confirmamos por el mismo medio.</p>
+
+  <h2>Menores de edad</h2>
+  <p>Este sitio está dirigido a empresas y profesionales. No recopilamos intencionalmente datos de menores de edad.</p>
+
+  <div class="callout">
+    <p>Este aviso describe la práctica real de businessintelligence.solutions a la fecha indicada arriba y se actualizará si el tratamiento cambia. Si tienes una duda puntual sobre tu caso, escríbenos — preferimos aclararlo directamente antes que dejarte con una duda.</p>
+  </div>
+
+  <a class="back" href="/">← Volver al inicio</a>
+</main>
+</body>
+</html>

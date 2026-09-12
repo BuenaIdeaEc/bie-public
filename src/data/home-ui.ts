@@ -111,6 +111,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   f_msg:{es:'Cuéntanos de tu empresa',en:'Tell us about your company'},
   f_send:{es:'Enviar por WhatsApp',en:'Send via WhatsApp'},
   f_note:{es:'SE ABRE WHATSAPP CON TU MENSAJE LISTO · 098 825 3030',en:'WHATSAPP OPENS WITH YOUR MESSAGE READY · 098 825 3030'},
+  f_privacy:{es:'Al enviar, aceptas nuestro <a href="/privacidad/">aviso de privacidad</a>.',en:'By submitting, you accept our <a href="/privacidad/">privacy notice</a>.'},
   ph_name:{es:'Tu nombre',en:'Your name'}, ph_comp:{es:'Nombre de tu empresa',en:'Your company name'},
   ph_msg:{es:'A qué se dedica, qué te gustaría lograr...',en:'What it does, what you want to achieve...'},
   waw_name:{es:'Equipo BIE',en:'BIE Team'},

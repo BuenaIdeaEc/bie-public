@@ -1,0 +1,72 @@
+---
+// BIE — Términos de uso del sitio web (no confundir con el alcance contractual de cada
+// producto, que se acuerda por separado con cada cliente). Ver hallazgo H10 de la auditoría.
+import '../styles/site.css';
+const SITE = 'https://businessintelligence.solutions';
+const WA = 'https://wa.me/593988253030?text=' + encodeURIComponent('Hola, tengo una pregunta sobre los términos de uso del sitio de BIE.\n\n— Origen: web/terminos/es');
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Términos de uso — BIE</title>
+<meta name="description" content="Condiciones de uso del sitio businessintelligence.solutions.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href={`${SITE}/terminos/`}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style is:global>
+main.legal{max-width:760px;margin:0 auto;padding:min(9vh,80px) min(6vw,32px) 100px}
+main.legal .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+main.legal .eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+main.legal h1{font-size:clamp(28px,4vw,44px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:18px}
+main.legal .updated{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:14px}
+main.legal h2{font-size:clamp(19px,2.2vw,24px);font-weight:400;letter-spacing:-.01em;margin-top:44px;margin-bottom:14px;color:var(--bone)}
+main.legal p,main.legal li{font-size:15px;line-height:1.7;color:var(--text2)}
+main.legal p{margin-top:12px}
+main.legal ul{margin-top:12px;padding-left:20px}
+main.legal li{margin-top:8px}
+main.legal a{color:var(--bone);border-bottom:1px solid var(--border)}
+main.legal a:hover{border-color:var(--accent)}
+main.legal .callout{margin-top:44px;border:1px solid var(--border);padding:20px 22px;background:var(--surface)}
+main.legal .callout p{color:var(--text2)}
+main.legal .back{display:inline-block;margin-top:50px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--text3)}
+@media(max-width:600px){main.legal{padding:14vh 22px 60px}}
+</style>
+</head>
+<body>
+<main class="legal">
+  <span class="eyebrow">BIE — Business Intelligence Enhancer</span>
+  <h1>Términos de uso</h1>
+  <p class="updated">Última actualización: 12 de septiembre de 2026 · Aplica a businessintelligence.solutions</p>
+
+  <p>Estos términos cubren el uso de este sitio web. No son el contrato de ningún producto o servicio de BIE — el alcance, precio, plazos y entregables de cada proyecto se acuerdan por separado, por escrito, antes de empezar cualquier trabajo.</p>
+
+  <h2>Sobre el contenido del sitio</h2>
+  <p>Los textos, imágenes, catálogo, marca y diseño de este sitio son propiedad de BIE — Business Intelligence Enhancer (Ecuador) o se usan con la autorización correspondiente. Puedes verlos y compartir el enlace del sitio libremente; no puedes copiarlos, reutilizarlos comercialmente ni presentarlos como propios sin permiso escrito.</p>
+
+  <h2>Los casos y ejemplos que mostramos</h2>
+  <p>Las empresas mencionadas en la sección "Empresas" trabajan o trabajaron con BIE con su autorización. Las capturas de pantalla marcadas como "Ilustración" son representaciones visuales del tipo de trabajo que hacemos, no capturas reales de un sistema en producción — se etiquetan así para que no haya confusión. Ningún resultado mostrado en el sitio es una garantía de que tu empresa obtendrá el mismo resultado: cada negocio parte de una situación distinta.</p>
+
+  <h2>Precios y cotizaciones</h2>
+  <p>Este sitio no publica precios exactos: la mayoría de nuestros servicios se cotizan según el alcance real de cada empresa, y te lo explicamos directamente por WhatsApp antes de que tomes cualquier decisión. Ninguna cifra mencionada en una conversación preliminar es vinculante hasta que ambas partes firmen una propuesta.</p>
+
+  <h2>El formulario y el asistente de WhatsApp</h2>
+  <p>Al escribirnos por el formulario o por WhatsApp, aceptas que usemos esa información para responderte y darte seguimiento comercial, según se explica en nuestro <a href="/privacidad/">aviso de privacidad</a>. El asistente automatizado de WhatsApp responde con información real de nuestros productos; si tu caso necesita más detalle, un humano del equipo toma la conversación.</p>
+
+  <h2>Disponibilidad del sitio</h2>
+  <p>Hacemos lo posible por mantener el sitio disponible y funcionando correctamente, pero no garantizamos que esté libre de interrupciones o errores en todo momento. Si encuentras algo roto, agradecemos que nos lo cuentes por WhatsApp.</p>
+
+  <h2>Legislación aplicable</h2>
+  <p>Estos términos se rigen por las leyes de Ecuador. Cualquier disputa relacionada con el uso de este sitio se resuelve ante los tribunales competentes de Ecuador.</p>
+
+  <div class="callout">
+    <p>Estos términos cubren el sitio web, no el servicio contratado. Si ya trabajas con nosotros, tu contrato firmado es el documento que manda sobre alcance, precio y plazos — estos términos no lo reemplazan ni lo modifican.</p>
+  </div>
+
+  <p style="margin-top:30px">¿Preguntas sobre estos términos? <a href={WA} target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a>.</p>
+
+  <a class="back" href="/">← Volver al inicio</a>
+</main>
+</body>
+</html>
