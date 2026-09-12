@@ -1,0 +1,49 @@
+---
+// BIE — Página 404 propia (Netlify sirve dist/404.html automáticamente para rutas inexistentes).
+import '../styles/site.css';
+const SITE = 'https://businessintelligence.solutions';
+const WA = 'https://wa.me/593988253030?text=' + encodeURIComponent('Hola, llegué a una página que no existe en el sitio de BIE y quiero saber más.\n\n— Origen: web/404/es');
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página no encontrada — BIE</title>
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style is:global>
+html,body{min-height:100%;background:var(--black)}
+main{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:min(9vh,80px) min(7vw,88px);position:relative;overflow:hidden}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.code{position:fixed;right:-.04em;bottom:40px;font-size:min(40vh,34vw);font-weight:700;letter-spacing:-.06em;line-height:.8;color:var(--text);opacity:.045;pointer-events:none}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+h1{font-size:clamp(30px,4.6vw,64px);font-weight:400;letter-spacing:-.02em;line-height:1.06;margin-top:18px;max-width:18ch;text-wrap:balance}
+p{font-size:clamp(15px,1.4vw,19px);line-height:1.55;color:var(--text2);max-width:52ch;margin-top:18px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+a.btn-primary,a.btn-ghost{display:inline-flex;align-items:center;gap:8px}
+.links{margin-top:34px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3)}
+.links a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media(max-width:760px){main{padding:14vh 22px 40px}.actions{flex-direction:column}.actions a{justify-content:center}}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<div class="code" aria-hidden="true">404</div>
+<main>
+  <span class="eyebrow">Página no encontrada</span>
+  <h1>Esta página no existe.<br><span class="serif">Lo que buscas, probablemente sí.</span></h1>
+  <p>El enlace puede estar incompleto o la página cambió de lugar. El catálogo completo y la página principal siguen aquí.</p>
+  <div class="actions">
+    <a class="btn-primary" href="/"><span>Ir al inicio</span></a>
+    <a class="btn-primary" href="/catalogo/?src=404"><span>Ver el catálogo</span></a>
+    <a class="btn-ghost" href={WA} target="_blank" rel="noopener noreferrer">Escribir por WhatsApp</a>
+  </div>
+  <p class="links">BUSINESS INTELLIGENCE ENHANCER · <a href={SITE}>businessintelligence.solutions</a></p>
+</main>
+</body>
+</html>

@@ -1,4 +1,7 @@
 ---
+import { UI } from '../data/home-ui';
+const UI_STATIC = Object.fromEntries(Object.entries(UI).filter(([, v]) => typeof v.es !== 'function'));
+const es = (k: string) => UI[k].es as string;
 // BIE-P06 — Home (v37b: copy honesto en feed_sub, sin prometer sincronizacion automatica que no existe).
 ---
 <!doctype html>
@@ -42,15 +45,16 @@
   "sameAs": []
 }
 </script>
+<link rel="preload" href="/fonts/texgyreheros-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 
 <style is:global>
-@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
-@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-italic.otf') format('opentype');font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-bolditalic.otf') format('opentype');font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-regular.woff2') format('woff2'),url('/fonts/texgyreheros-regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-bold.woff2') format('woff2'),url('/fonts/texgyreheros-bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-italic.woff2') format('woff2'),url('/fonts/texgyreheros-italic.otf') format('opentype');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-bolditalic.woff2') format('woff2'),url('/fonts/texgyreheros-bolditalic.otf') format('opentype');font-weight:700;font-style:italic;font-display:swap}
 @font-face{font-family:'Office Code Pro';src:url('/fonts/OfficeCodePro-Regular.woff') format('woff');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'Office Code Pro';src:url('/fonts/OfficeCodePro-Medium.woff') format('woff');font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:'Office Code Pro';src:url('/fonts/OfficeCodePro-Bold.woff') format('woff');font-weight:700;font-style:normal;font-display:swap}
@@ -833,21 +837,21 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <nav id="nav">
   <span class="nav-logo">BIE</span>
   <div class="nav-links">
-    <a href="#work" class="nav-link" data-sec="work" data-i18n="nav_work"></a>
-    <a href="/catalogo/" class="nav-link" data-sec="catalog" data-i18n="nav_catalog"></a>
-    <a href="#community" class="nav-link" data-sec="community" data-i18n="nav_comm"></a>
-    <button id="lang-toggle">EN</button>
-    <a href="#contact" class="nav-cta"><span data-i18n="nav_cta"></span></a>
-    <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a href="#work" class="nav-link" data-sec="work" data-i18n="nav_work" set:html={es('nav_work')}></a>
+    <a href="/catalogo/" class="nav-link" data-sec="catalog" data-i18n="nav_catalog" set:html={es('nav_catalog')}></a>
+    <a href="#community" class="nav-link" data-sec="community" data-i18n="nav_comm" set:html={es('nav_comm')}></a>
+    <button id="lang-toggle" aria-label="Cambiar idioma / Switch language">EN</button>
+    <a href="#contact" class="nav-cta"><span data-i18n="nav_cta" set:html={es('nav_cta')}></span></a>
+    <button id="burger" aria-label="Menú" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
 <div id="mobile-menu">
-  <a href="#work" class="mm-link"><span data-i18n="nav_work"></span><span class="mm-arrow">→</span></a>
-  <a href="#catalog" class="mm-link"><span data-i18n="nav_catalog"></span><span class="mm-arrow">→</span></a>
-  <a href="#community" class="mm-link"><span data-i18n="nav_comm"></span><span class="mm-arrow">→</span></a>
-  <a href="#contact" class="mm-link"><span data-i18n="nav_contact"></span><span class="mm-arrow">→</span></a>
-  <a id="mm-wa" href="#" class="mm-cta" data-i18n="mm_cta"></a>
+  <a href="#work" class="mm-link"><span data-i18n="nav_work" set:html={es('nav_work')}></span><span class="mm-arrow">→</span></a>
+  <a href="#catalog" class="mm-link"><span data-i18n="nav_catalog" set:html={es('nav_catalog')}></span><span class="mm-arrow">→</span></a>
+  <a href="#community" class="mm-link"><span data-i18n="nav_comm" set:html={es('nav_comm')}></span><span class="mm-arrow">→</span></a>
+  <a href="#contact" class="mm-link"><span data-i18n="nav_contact" set:html={es('nav_contact')}></span><span class="mm-arrow">→</span></a>
+  <a id="mm-wa" href="#" class="mm-cta" data-i18n="mm_cta" set:html={es('mm_cta')}></a>
 </div>
 
 <canvas id="fab-px"></canvas>
@@ -868,35 +872,36 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   <div class="waw-head">
     <div class="waw-avatar">B</div>
     <div class="waw-head-info">
-      <div class="waw-name" data-i18n="waw_name"></div>
-      <div class="waw-status"><span class="waw-status-dot"></span><span data-i18n="waw_status"></span></div>
+      <div class="waw-name" data-i18n="waw_name" set:html={es('waw_name')}></div>
+      <div class="waw-status"><span class="waw-status-dot"></span><span data-i18n="waw_status" set:html={es('waw_status')}></span></div>
     </div>
   </div>
   <div class="waw-body">
-    <div class="waw-bubble" data-i18n="waw_bubble"></div>
+    <div class="waw-bubble" data-i18n="waw_bubble" set:html={es('waw_bubble')}></div>
     <div class="waw-opts" id="waw-opts"></div>
   </div>
-  <div class="waw-foot" data-i18n="waw_foot"></div>
+  <div class="waw-foot" data-i18n="waw_foot" set:html={es('waw_foot')}></div>
 </div>
 
 <!-- HERO -->
+<main>
 <section id="hero">
   <div id="hero-flash"></div>
   <canvas id="hero-canvas"></canvas>
   <div class="hero-inner" id="hero-inner">
    <div class="hero-text">
     <p class="eyebrow">Business Intelligence Enhancer</p>
-    <p class="hero-dead" id="hero-kicker" data-i18n="hero_kicker"></p>
-    <h1 class="hero-main" data-i18n="thesis"></h1>
-    <p class="hero-sub" data-i18n="hero_sub"></p>
+    <p class="hero-dead" id="hero-kicker" data-i18n="hero_kicker" set:html={es('hero_kicker')}></p>
+    <h1 class="hero-main" data-i18n="thesis" set:html={es('thesis')}></h1>
+    <p class="hero-sub" data-i18n="hero_sub" set:html={es('hero_sub')}></p>
     <div class="hero-btns">
-      <a href="#" id="hero-wa" target="_blank" rel="noopener" class="btn-primary"><span data-i18n="btn_diag_hero"></span></a>
-      <a href="#work" class="btn-ghost" data-i18n="btn_work"></a>
+      <a href="#" id="hero-wa" target="_blank" rel="noopener" class="btn-primary"><span data-i18n="btn_diag_hero" set:html={es('btn_diag_hero')}></span></a>
+      <a href="#work" class="btn-ghost" data-i18n="btn_work" set:html={es('btn_work')}></a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-n" data-count="45" data-plus="1">0</div><div class="stat-l" data-i18n="stat1"></div></div>
-      <div class="stat"><div class="stat-n" data-count="47">0</div><div class="stat-l" data-i18n="stat2"></div></div>
-      <div class="stat"><div class="stat-n" data-count="5" data-plus="1">0</div><div class="stat-l" data-i18n="stat3"></div></div>
+      <div class="stat"><div class="stat-n" data-count="45" data-plus="1">0</div><div class="stat-l" data-i18n="stat1" set:html={es('stat1')}></div></div>
+      <div class="stat"><div class="stat-n" data-count="47">0</div><div class="stat-l" data-i18n="stat2" set:html={es('stat2')}></div></div>
+      <div class="stat"><div class="stat-n" data-count="5" data-plus="1">0</div><div class="stat-l" data-i18n="stat3" set:html={es('stat3')}></div></div>
     </div>
    </div>
    <div class="hero-cube-wrap" id="hero-cube-wrap">
@@ -913,17 +918,17 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <section id="simple">
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="sim_label"></p>
-      <h2 class="section-h2" data-i18n="sim_h2"></h2>
-      <p class="section-sub" data-i18n="sim_sub"></p>
+      <p class="section-label" data-i18n="sim_label" set:html={es('sim_label')}></p>
+      <h2 class="section-h2" data-i18n="sim_h2" set:html={es('sim_h2')}></h2>
+      <p class="section-sub" data-i18n="sim_sub" set:html={es('sim_sub')}></p>
     </div>
     <div class="sim-grid reveal d2">
-      <div class="sim-step"><span class="sim-n">01</span><h3 data-i18n="sim1_t"></h3><p data-i18n="sim1_b"></p></div>
-      <div class="sim-step"><span class="sim-n">02</span><h3 data-i18n="sim2_t"></h3><p data-i18n="sim2_b"></p></div>
-      <div class="sim-step"><span class="sim-n">03</span><h3 data-i18n="sim3_t"></h3><p data-i18n="sim3_b"></p></div>
-      <a class="sim-cta" id="sim-wa" href="#" target="_blank" rel="noopener"><span data-i18n="sim_btn"></span> →</a>
+      <div class="sim-step"><span class="sim-n">01</span><h3 data-i18n="sim1_t" set:html={es('sim1_t')}></h3><p data-i18n="sim1_b" set:html={es('sim1_b')}></p></div>
+      <div class="sim-step"><span class="sim-n">02</span><h3 data-i18n="sim2_t" set:html={es('sim2_t')}></h3><p data-i18n="sim2_b" set:html={es('sim2_b')}></p></div>
+      <div class="sim-step"><span class="sim-n">03</span><h3 data-i18n="sim3_t" set:html={es('sim3_t')}></h3><p data-i18n="sim3_b" set:html={es('sim3_b')}></p></div>
+      <a class="sim-cta" id="sim-wa" href="#" target="_blank" rel="noopener"><span data-i18n="sim_btn" set:html={es('sim_btn')}></span> →</a>
     </div>
-    <p class="sim-example reveal d3" data-i18n="sim_example"></p>
+    <p class="sim-example reveal d3" data-i18n="sim_example" set:html={es('sim_example')}></p>
   </div>
 </section>
 
@@ -933,14 +938,14 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   <canvas id="top-canvas"></canvas>
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="top_label"></p>
-      <h2 class="section-h2" data-i18n="top_h2"></h2>
-      <p class="section-sub" data-i18n="top_sub"></p>
+      <p class="section-label" data-i18n="top_label" set:html={es('top_label')}></p>
+      <h2 class="section-h2" data-i18n="top_h2" set:html={es('top_h2')}></h2>
+      <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
     </div>
     <div class="top-grid reveal d2" id="top-grid"></div>
     <div class="belt-cta reveal d3">
-      <p class="belt-cta-txt" data-i18n="top_note"></p>
-      <a class="belt-cta-btn" href="/catalogo/?src=home-mas-vendidos" data-i18n="btn_catalog"></a>
+      <p class="belt-cta-txt" data-i18n="top_note" set:html={es('top_note')}></p>
+      <a class="belt-cta-btn" href="/catalogo/?src=home-mas-vendidos" data-i18n="btn_catalog" set:html={es('btn_catalog')}></a>
     </div>
   </div>
 </section>
@@ -949,9 +954,9 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <section id="work">
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="work_label"></p>
-      <h2 class="section-h2" data-i18n="work_h2"></h2>
-      <p class="section-sub" data-i18n="work_sub"></p>
+      <p class="section-label" data-i18n="work_label" set:html={es('work_label')}></p>
+      <h2 class="section-h2" data-i18n="work_h2" set:html={es('work_h2')}></h2>
+      <p class="section-sub" data-i18n="work_sub" set:html={es('work_sub')}></p>
     </div>
     <div class="work-grid" id="work-grid"></div>
   </div>
@@ -962,15 +967,15 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   <canvas id="catalog-canvas"></canvas>
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="cat_label"></p>
-      <h2 class="section-h2" data-i18n="cat_h2"></h2>
-      <p class="section-sub" data-i18n="cat_sub"></p>
+      <p class="section-label" data-i18n="cat_label" set:html={es('cat_label')}></p>
+      <h2 class="section-h2" data-i18n="cat_h2" set:html={es('cat_h2')}></h2>
+      <p class="section-sub" data-i18n="cat_sub" set:html={es('cat_sub')}></p>
     </div>
     <div class="reveal d2">
       <div class="quiz" id="quiz"></div>
       <div class="cat-bridge">
-        <a class="cat-btn-main" href="/catalogo/?src=home-necesitas" data-i18n="btn_catalog"></a>
-        <a class="cat-btn-ghost" id="cat-diag" href="#" target="_blank" rel="noopener" data-i18n="cta_diag2"></a>
+        <a class="cat-btn-main" href="/catalogo/?src=home-necesitas" data-i18n="btn_catalog" set:html={es('btn_catalog')}></a>
+        <a class="cat-btn-ghost" id="cat-diag" href="#" target="_blank" rel="noopener" data-i18n="cta_diag2" set:html={es('cta_diag2')}></a>
       </div>
     </div>
   </div>
@@ -980,34 +985,34 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <section id="community">
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="comm_label"></p>
-      <h2 class="section-h2" data-i18n="comm_h2"></h2>
-      <p class="section-sub" data-i18n="comm_sub"></p>
+      <p class="section-label" data-i18n="comm_label" set:html={es('comm_label')}></p>
+      <h2 class="section-h2" data-i18n="comm_h2" set:html={es('comm_h2')}></h2>
+      <p class="section-sub" data-i18n="comm_sub" set:html={es('comm_sub')}></p>
     </div>
     <div class="comm-grid">
       <a class="comm-card soon reveal d1">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg></div>
-        <div><div class="comm-name">Instagram</div><div class="comm-handle" data-i18n="comm_handle"></div></div>
-        <p class="comm-desc" data-i18n="ig_desc"></p>
-        <span class="comm-cta soon"><span data-i18n="follow"></span></span>
+        <div><div class="comm-name">Instagram</div><div class="comm-handle" data-i18n="comm_handle" set:html={es('comm_handle')}></div></div>
+        <p class="comm-desc" data-i18n="ig_desc" set:html={es('ig_desc')}></p>
+        <span class="comm-cta soon"><span data-i18n="follow" set:html={es('follow')}></span></span>
       </a>
       <a class="comm-card soon reveal d2">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <div><div class="comm-name">TikTok</div><div class="comm-handle" data-i18n="comm_handle"></div></div>
-        <p class="comm-desc" data-i18n="tt_desc"></p>
-        <span class="comm-cta soon"><span data-i18n="follow"></span></span>
+        <div><div class="comm-name">TikTok</div><div class="comm-handle" data-i18n="comm_handle" set:html={es('comm_handle')}></div></div>
+        <p class="comm-desc" data-i18n="tt_desc" set:html={es('tt_desc')}></p>
+        <span class="comm-cta soon"><span data-i18n="follow" set:html={es('follow')}></span></span>
       </a>
       <a class="comm-card soon reveal d3">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 10v7M7 7v.1M11 17v-4a2.5 2.5 0 0 1 5 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-        <div><div class="comm-name">LinkedIn</div><div class="comm-handle" data-i18n="comm_handle"></div></div>
-        <p class="comm-desc" data-i18n="li_desc"></p>
-        <span class="comm-cta soon"><span data-i18n="connect"></span></span>
+        <div><div class="comm-name">LinkedIn</div><div class="comm-handle" data-i18n="comm_handle" set:html={es('comm_handle')}></div></div>
+        <p class="comm-desc" data-i18n="li_desc" set:html={es('li_desc')}></p>
+        <span class="comm-cta soon"><span data-i18n="connect" set:html={es('connect')}></span></span>
       </a>
       <a id="comm-wa" href="#" class="comm-card reveal d4">
         <div class="comm-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 9.2c0 3.3 2.7 6 6 6l1.4-1.4-1.8-1.2-1.2.6a4.6 4.6 0 0 1-2.4-2.4l.6-1.2-1.2-1.8-1.4 1.4z" fill="currentColor"/></svg></div>
-        <div><div class="comm-name" data-i18n="wa_ch"></div><div class="comm-handle">099 825 3030</div></div>
-        <p class="comm-desc" data-i18n="wa_desc"></p>
-        <span class="comm-cta"><span data-i18n="join"></span> →</span>
+        <div><div class="comm-name" data-i18n="wa_ch" set:html={es('wa_ch')}></div><div class="comm-handle">099 825 3030</div></div>
+        <p class="comm-desc" data-i18n="wa_desc" set:html={es('wa_desc')}></p>
+        <span class="comm-cta"><span data-i18n="join" set:html={es('join')}></span> →</span>
       </a>
     </div>
   </div>
@@ -1017,14 +1022,14 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <section id="feed">
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="feed_label"></p>
-      <h2 class="section-h2" data-i18n="feed_h2"></h2>
-      <p class="section-sub" data-i18n="feed_sub"></p>
+      <p class="section-label" data-i18n="feed_label" set:html={es('feed_label')}></p>
+      <h2 class="section-h2" data-i18n="feed_h2" set:html={es('feed_h2')}></h2>
+      <p class="section-sub" data-i18n="feed_sub" set:html={es('feed_sub')}></p>
     </div>
     <div class="feed-grid reveal d2" id="feed-grid"></div>
     <div class="feed-foot reveal d3">
-      <a class="feed-btn soon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.4" fill="currentColor"/></svg><span data-i18n="feed_ig"></span></a>
-      <a class="feed-btn soon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-i18n="feed_tt"></span></a>
+      <a class="feed-btn soon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.4" fill="currentColor"/></svg><span data-i18n="feed_ig" set:html={es('feed_ig')}></span></a>
+      <a class="feed-btn soon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M16.5 3.5c.5 2.6 2.2 4.3 4.8 4.6v3.2c-1.8 0-3.4-.6-4.8-1.6v6.8a6.4 6.4 0 1 1-6.4-6.4c.4 0 .8 0 1.2.1v3.4a3.1 3.1 0 1 0 2 2.9V3.5h3.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span data-i18n="feed_tt" set:html={es('feed_tt')}></span></a>
     </div>
   </div>
 </section>
@@ -1033,34 +1038,35 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 <section id="contact">
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label" data-i18n="ct_label"></p>
-      <h2 class="section-h2" data-i18n="ct_h2"></h2>
+      <p class="section-label" data-i18n="ct_label" set:html={es('ct_label')}></p>
+      <h2 class="section-h2" data-i18n="ct_h2" set:html={es('ct_h2')}></h2>
     </div>
     <div class="contact-grid">
       <div class="contact-left reveal d1">
-        <h3 data-i18n="ct_h3"></h3>
-        <p data-i18n="ct_p"></p>
+        <h3 data-i18n="ct_h3" set:html={es('ct_h3')}></h3>
+        <p data-i18n="ct_p" set:html={es('ct_p')}></p>
         <div class="contact-points">
-          <div class="cp"><span class="cp-px"></span><span data-i18n="cp1"></span></div>
-          <div class="cp"><span class="cp-px"></span><span data-i18n="cp2"></span></div>
-          <div class="cp"><span class="cp-px"></span><span data-i18n="cp3"></span></div>
+          <div class="cp"><span class="cp-px"></span><span data-i18n="cp1" set:html={es('cp1')}></span></div>
+          <div class="cp"><span class="cp-px"></span><span data-i18n="cp2" set:html={es('cp2')}></span></div>
+          <div class="cp"><span class="cp-px"></span><span data-i18n="cp3" set:html={es('cp3')}></span></div>
         </div>
       </div>
       <form class="form reveal d2" id="contact-form">
         <div class="form-row">
-          <div class="field"><label data-i18n="f_name"></label><input name="name" type="text" id="in-name" required></div>
-          <div class="field"><label data-i18n="f_phone"></label><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999"></div>
+          <div class="field"><label data-i18n="f_name" set:html={es('f_name')}></label><input name="name" type="text" id="in-name" required placeholder={es('ph_name')}></div>
+          <div class="field"><label data-i18n="f_phone" set:html={es('f_phone')}></label><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999"></div>
         </div>
-        <div class="field"><label data-i18n="f_comp"></label><input name="company" type="text" id="in-comp"></div>
-        <div class="field"><label data-i18n="f_need"></label><select name="need" id="in-need"></select></div>
-        <div class="field"><label data-i18n="f_msg"></label><textarea name="message" id="in-msg"></textarea></div>
-        <button type="submit" class="form-submit"><span data-i18n="f_send"></span></button>
-        <p class="form-note" data-i18n="f_note"></p>
+        <div class="field"><label data-i18n="f_comp" set:html={es('f_comp')}></label><input name="company" type="text" id="in-comp" placeholder={es('ph_comp')}></div>
+        <div class="field"><label data-i18n="f_need" set:html={es('f_need')}></label><select name="need" id="in-need"></select></div>
+        <div class="field"><label data-i18n="f_msg" set:html={es('f_msg')}></label><textarea name="message" id="in-msg" placeholder={es('ph_msg')}></textarea></div>
+        <button type="submit" class="form-submit"><span data-i18n="f_send" set:html={es('f_send')}></span></button>
+        <p class="form-note" data-i18n="f_note" set:html={es('f_note')}></p>
       </form>
     </div>
   </div>
 </section>
 
+</main>
 <footer>
   <div class="footer-inner">
     <div class="footer-mark">BIE<span class="fm-px"></span></div>
@@ -1081,6 +1087,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 </div>
 
 
+<script is:inline define:vars={{ UI: UI_STATIC }}>window.__UI = UI;</script>
 <script is:inline>
 // RAF híbrido (fallback a setTimeout cuando el entorno congela requestAnimationFrame)
 function RAF(cb){
@@ -1094,129 +1101,12 @@ function RAF(cb){
 let lang = 'es';
 const WA_NUM = '593988253030';
 
-const UI = {
-  nav_work:{es:'Empresas',en:'Companies'}, nav_catalog:{es:'Catálogo',en:'Catalog'},
-  nav_comm:{es:'Comunidad',en:'Community'}, nav_contact:{es:'Contacto',en:'Contact'},
-  nav_cta:{es:'Diagnóstico gratuito',en:'Free diagnosis'},
-  mm_cta:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
-  thesis:{es:'Dedica tu tiempo a lo que sabes hacer. <span class="accent serif">Nosotros construimos todo el resto.</span>',
-          en:'Spend your time on what you do best. <span class="accent serif">We build everything else.</span>'},
-  hero_kicker:{es:'Ya es demasiado, lo sabemos.',en:'It is already too much, we know.'},
-  hero_sub:{es:'Tu marca, tu página web, un asistente que responde tu WhatsApp y la administración de tu negocio — construidos por nosotros, funcionando para ti.',
-            en:'Your brand, your website, an assistant that answers your WhatsApp and your back office — built by us, working for you.'},
-  btn_work:{es:'Ver empresas reales',en:'See real companies'},
-  btn_cat:{es:'¿Qué necesitas tú?',en:'What do you need?'},
-  btn_diag_hero:{es:'Cuéntanos a qué te dedicas',en:'Tell us what you do'},
-  stat1:{es:'Implementaciones',en:'Implementations'}, stat2:{es:'Productos en catálogo',en:'Products in catalog'}, stat3:{es:'Empresas operando',en:'Companies running'},
-  vid_label:{es:'Mira esto primero',en:'Watch this first'},
-  vid_h2:{es:'90 segundos para entenderlo todo.',en:'90 seconds to understand it all.'},
-  vid_sub:{es:'Cómo funciona la cadena de valor de BIE, explicado en video.',en:'How the BIE value chain works, explained on video.'},
-  vid_tag:{es:'REEL · PROYECTOS REALES — VIDEO CON AVATAR PRÓXIMAMENTE',en:'REEL · REAL PROJECTS — AVATAR VIDEO COMING SOON'},
-  reel_hint:{es:'TOCA PARA AVANZAR · ESC PARA SALIR',en:'TAP TO ADVANCE · ESC TO EXIT'},
-  band_t:{es:'Cada proyecto de arriba empezó igual: <span class="serif">con una conversación.</span>',
-          en:'Every project above started the same way: <span class="serif">with a conversation.</span>'},
-  band_btn:{es:'Agendar mi diagnóstico gratuito',en:'Book my free diagnosis'},
-  top_label:{es:'Catálogo',en:'Catalog'},
-  top_h2:{es:'Lo que más<br><span class="serif">se vende.</span>',en:'What sells<br><span class="serif">the most.</span>'},
-  top_sub:{es:'Cada uno tiene su propia página que te explica, sin tecnicismos, qué es, cómo trabajamos y qué logras. Toca el que te llame la atención.',en:'Each one has its own page explaining, without jargon, what it is, how we work and what you get. Tap the one that catches your eye.'},
-  top_soon:{es:'Página completa muy pronto',en:'Full page coming soon'},
-  feed_label:{es:'Lo último en nuestras redes',en:'Latest from our channels'},
-  feed_h2:{es:'Contenido que se publica,<br><span class="serif">y clases que vienen.</span>',en:'Content we publish,<br><span class="serif">and classes to come.</span>'},
-  feed_sub:{es:'Lo más reciente que publicamos en Instagram y TikTok. Pronto, también clases y recursos para empresas y emprendedores.',en:'The latest we post on Instagram and TikTok. Soon, classes and resources for companies and founders too.'},
-  feed_ig:{es:'Seguir en Instagram',en:'Follow on Instagram'}, feed_tt:{es:'Seguir en TikTok',en:'Follow on TikTok'},
-  feed_tiles:{es:['Así se arma un sistema operativo para una tienda','Marca en 60 segundos','Live de ventas: detrás de cámaras','3 automatizaciones que todo negocio necesita','Antes y después de una identidad','Clase: cómo empezar bien tu empresa'],
-              en:['How a store operating system is built','Brand in 60 seconds','Live sales: behind the scenes','3 automations every business needs','Before and after of an identity','Class: how to start your company right']},
-  cur_drag:{es:'DRAG',en:'DRAG'}, cur_play:{es:'PLAY',en:'PLAY'},
-  work_label:{es:'La prueba, primero',en:'Proof first'},
-  work_h2:{es:'Empresas que ya<br>adaptamos digitalmente.',en:'Companies we already<br>digitally adapted.'},
-  work_sub:{es:'Negocios reales de Ecuador que ya trabajan con nosotros. Mira lo que construimos para cada uno.',
-            en:'Real businesses in Ecuador already working with us. See what we built for each one.'},
-  ba_title:{es:'Así se ve el cambio.',en:'This is what change looks like.'},
-  ba_note:{es:'Arrastra para comparar · capturas reales próximamente',en:'Drag to compare · real screenshots coming soon'},
-  ba_b1:{es:'Invisible.',en:'Invisible.'}, ba_b2:{es:'Sin marca · sin sistema · sin datos',en:'No brand · no system · no data'},
-  ba_a1:{es:'Impara<span class="ba-accent">ble.</span>',en:'Unstoppa<span class="ba-accent">ble.</span>'},
-  ba_a2:{es:'Marca clara · sistema propio · decisiones con datos',en:'Clear brand · own system · data-driven decisions'},
-  ba_lb:{es:'Antes de BIE',en:'Before BIE'}, ba_la:{es:'Con BIE',en:'With BIE'},
-  cat_label:{es:'Tu turno',en:'Your turn'},
-  cat_h2:{es:'Ahora — ¿qué necesitas <span class="serif">tú?</span>',en:'Now — what do <span class="serif">you</span> need?'},
-  cat_sub:{es:'De cuarenta y siete cosas que tu negocio podría necesitar, tú no tienes que saber cuál. Dinos qué te pasa hoy y te decimos qué lo resuelve.',
-           en:'Out of forty-seven things your business might need, you do not have to know which one. Tell us what is happening today and we will tell you what solves it.'},
-  sim_label:{es:'Así trabajamos',en:'How it works'},
-  sim_h2:{es:'Así de simple.<br><span class="serif">Cero tecnicismos.</span>',en:'This simple.<br><span class="serif">Zero tech-speak.</span>'},
-  sim_sub:{es:'No necesitas entender de tecnología. Ese es nuestro trabajo.',en:'You do not need to understand technology. That is our job.'},
-  sim_example:{es:'Así trabajamos con Tasting Ecuador: ella vende experiencias gastronómicas, nosotros construimos y operamos su marca, sus redes y su presencia digital — para que siga cocinando.',
-               en:'This is how we work with Tasting Ecuador: she sells culinary experiences, we build and run her brand, social media and digital presence — so she keeps cooking.'},
-  sim1_t:{es:'Nos escribes por WhatsApp',en:'You write us on WhatsApp'},
-  sim1_b:{es:'Nos cuentas tu negocio con tus palabras: qué vendes y qué te está costando trabajo.',en:'You tell us about your business in your own words: what you sell and what is giving you trouble.'},
-  sim2_t:{es:'Te decimos qué necesitas',en:'We tell you what you need'},
-  sim2_b:{es:'En una conversación de 30 minutos, gratis, te explicamos qué te conviene y por qué. Sin compromiso.',en:'In a free 30-minute conversation we explain what suits you and why. No strings attached.'},
-  sim3_t:{es:'Lo construimos por ti',en:'We build it for you'},
-  sim3_b:{es:'Te lo entregamos funcionando y te enseñamos a usarlo. Tú diriges tu negocio; el sistema trabaja.',en:'We deliver it working and teach you how to use it. You run your business; the system does the work.'},
-  sim_btn:{es:'Empezar por WhatsApp',en:'Start on WhatsApp'},
-  top_note:{es:'Estos son los más buscados y los más vendidos — no son los únicos. El catálogo crece y se adapta con cada empresa: hoy son 47 productos y siguen sumando.',
-            en:'These are the most searched and best sellers — not the only ones. The catalog grows and adapts with every company: 47 products today and counting.'},
-  cta_diag2:{es:'Diagnóstico gratuito por WhatsApp',en:'Free diagnosis on WhatsApp'},
-  belt_hint:{es:'La cadena avanza sola · arrastra o mantén presionado » para acelerar',en:'The chain moves on its own · drag or press and hold » to speed up'},
-  soon_w:{es:'páginas muy pronto',en:'pages coming soon'},
-  belt_click:{es:'Haz clic en el producto que deseas cotizar: si ya tiene página, se abre completa; si no, te atendemos directo por WhatsApp.',en:'Click the product you want a quote for: if it has a page it opens in full; if not, we take it straight to WhatsApp.'},
-  btn_catalog:{es:'Ver catálogo completo',en:'See the full catalog'},
-  panel_hint:{es:'Toca una fase para abrir sus soluciones',en:'Tap a phase to open its solutions'},
-  phase_w:{es:'FASE',en:'PHASE'},
-  next_label:{es:'Siguiente paso de la cadena',en:'Next step in the chain'},
-  m_how:{es:'Cómo trabajamos',en:'How we work'}, m_get:{es:'Lo que logras',en:'What you get'},
-  m_cta:{es:'Quiero esto',en:'I want this'},
-  m_diag:{es:'Diagnóstico gratuito',en:'Free diagnosis'},
+const UI = Object.assign({}, window.__UI, {
   m_buy_wa:{es:n=>`Hola, quiero contratar "${n}" para mi empresa. ¿Cómo empezamos?`,en:n=>`Hi, I want to hire "${n}" for my company. How do we start?`},
   m_diag_wa:{es:n=>`Hola, quiero mi diagnóstico gratuito de 30 minutos. Me interesa "${n}".`,en:n=>`Hi, I want my free 30-minute diagnosis. I am interested in "${n}".`},
-  m_soon:{es:'MUY PRONTO: PÁGINA COMPLETA DE ESTE PRODUCTO',en:'COMING SOON: FULL PAGE FOR THIS PRODUCT'},
   m_wa:{es:n=>`Hola, vengo de la página web de BIE. Me interesa "${n}" y quiero saber más.`,
         en:n=>`Hi, I come from the BIE website. I'm interested in "${n}" and want to know more.`},
-  bb_label:{es:'El black box',en:'The black box'},
-  bb_h2:{es:'Del vacío, a los pixels,<br><span class="accent serif">al black box.</span>',en:'From the void, to the pixels,<br><span class="accent serif">to the black box.</span>'},
-  bb_sub:{es:'Detrás de cada empresa que opera con BIE hay un sistema que trabaja en silencio: agentes de inteligencia artificial, automatizaciones y datos conectados. No lo ves. Solo ves los resultados.',
-          en:'Behind every company running on BIE there is a system working in silence: AI agents, automations and connected data. You never see it. You only see the results.'},
-  bb1_h:{es:'Responde mientras duermes',en:'Answers while you sleep'},
-  bb1_p:{es:'Tus clientes escriben a las 11 de la noche. El sistema responde, cotiza y agenda — sin que nadie de tu equipo toque el teléfono.',
-         en:'Your customers write at 11 pm. The system replies, quotes and books — without anyone on your team touching a phone.'},
-  bb2_h:{es:'Ningún cliente se pierde',en:'No customer gets lost'},
-  bb2_p:{es:'Cada contacto queda registrado y recibe seguimiento automático. El sistema recuerda lo que las personas olvidan.',
-         en:'Every contact is registered and gets automatic follow-up. The system remembers what people forget.'},
-  bb3_h:{es:'Ves todo en tiempo real',en:'See everything in real time'},
-  bb3_p:{es:'Ventas, pedidos, conversaciones — el estado completo de tu negocio en una sola pantalla, actualizado al segundo.',
-         en:'Sales, orders, conversations — the full state of your business on one screen, updated by the second.'},
-  comm_label:{es:'Nuestra comunidad',en:'Our community'},
-  comm_h2:{es:'Mantente actualizado.',en:'Stay up to date.'},
-  comm_sub:{es:'Noticias de marca y tecnología que afectan a tu negocio, directo en las redes donde ya estás.',
-            en:'Brand and technology news that affects your business, on the networks you already use.'},
-  comm_handle:{es:'Cuenta en preparación',en:'Account in progress'},
-  ig_desc:{es:'Casos reales, sistemas en acción y el detrás de escena de cada implementación.',en:'Real cases, systems in action and the behind-the-scenes of each build.'},
-  tt_desc:{es:'Tecnología explicada en un minuto: qué adoptar en tu empresa y qué ignorar.',en:'Technology explained in one minute: what to adopt and what to ignore.'},
-  li_desc:{es:'Análisis de negocio y adaptabilidad digital para directores y dueños de empresa.',en:'Business analysis and digital adaptability for directors and owners.'},
-  wa_ch:{es:'Canal WhatsApp',en:'WhatsApp Channel'},
-  wa_desc:{es:'Alertas directas: cambios de tecnología y oportunidades que afectan a tu negocio.',en:'Direct alerts: technology shifts and opportunities that affect your business.'},
-  follow:{es:'Próximamente',en:'Coming soon'}, connect:{es:'Próximamente',en:'Coming soon'}, join:{es:'Unirme',en:'Join'},
-  ct_label:{es:'Empieza aquí',en:'Start here'},
-  ct_h2:{es:'30 minutos que redefinen<br>por dónde <span class="serif">empezar.</span>',en:'30 minutes that redefine<br>where to <span class="serif">start.</span>'},
-  ct_h3:{es:'Diagnóstico gratuito',en:'Free diagnosis'},
-  ct_p:{es:'En una llamada de 30 minutos identificamos en qué fase está tu empresa, qué está faltando y cuál es el primer paso concreto. Llena el formulario y la conversación sigue directo en WhatsApp.',
-        en:'In a 30-minute call we identify what phase your company is in, what is missing and the first concrete step. Fill the form and the conversation continues on WhatsApp.'},
-  cp1:{es:'Sin compromiso ni presión comercial',en:'No commitment, no sales pressure'},
-  cp2:{es:'Respuesta en menos de 24 horas',en:'Reply within 24 hours'},
-  cp3:{es:'Te decimos con honestidad por dónde empezar',en:'We tell you honestly where to start'},
-  f_name:{es:'Nombre',en:'Name'}, f_phone:{es:'WhatsApp / Teléfono',en:'WhatsApp / Phone'}, f_comp:{es:'Empresa',en:'Company'},
-  f_need:{es:'¿Qué necesita tu empresa?',en:'What does your company need?'},
-  f_msg:{es:'Cuéntanos de tu empresa',en:'Tell us about your company'},
-  f_send:{es:'Enviar por WhatsApp',en:'Send via WhatsApp'},
-  f_note:{es:'SE ABRE WHATSAPP CON TU MENSAJE LISTO · 099 825 3030',en:'WHATSAPP OPENS WITH YOUR MESSAGE READY · 099 825 3030'},
-  ph_name:{es:'Tu nombre',en:'Your name'}, ph_comp:{es:'Nombre de tu empresa',en:'Your company name'},
-  ph_msg:{es:'A qué se dedica, qué te gustaría lograr...',en:'What it does, what you want to achieve...'},
-  waw_name:{es:'Equipo BIE',en:'BIE Team'},
-  waw_status:{es:'En línea · responde en minutos',en:'Online · replies in minutes'},
-  waw_bubble:{es:'Hola. <b>¿En cuál de estos momentos está tu empresa?</b> Elige y seguimos por WhatsApp:',
-              en:'Hi. <b>Which of these moments is your company in?</b> Pick one and we continue on WhatsApp:'},
-  waw_foot:{es:'CONVERSACIÓN DIRECTA · 099 825 3030',en:'DIRECT CONVERSATION · 099 825 3030'},
-  bubbles:{es:['¿Necesitas ayuda?','¿Ya sabes lo que deseas?','¿Vas a abrir un negocio?','¿Quieres que lo veamos juntos?','Estoy aquí, escríbeme.'],en:['Need a hand?','Already know what you want?','Opening a business?','Want to look at it together?','I am here — write me.']},
-};
+});
 
 const HERO_KICKER = { es:'Ya es demasiado, lo sabemos.', en:'It is already too much, we know.' };
 
