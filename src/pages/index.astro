@@ -380,7 +380,7 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
   background:rgba(7,7,9,.72);backdrop-filter:blur(8px);color:#fff;padding:6px 12px;border-radius:0}
 .wc-info{padding:22px 24px;border-top:1px solid var(--border)}
 .wc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
 .wc-name{font-size:22px;font-weight:400;letter-spacing:-.015em;margin-bottom:6px}
 .wc-desc{font-size:13px;color:var(--text2);line-height:1.6}
 .wc-socials{display:flex;gap:8px;flex-shrink:0}
@@ -1053,12 +1053,12 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       </div>
       <form class="form reveal d2" id="contact-form">
         <div class="form-row">
-          <div class="field"><label data-i18n="f_name" set:html={es('f_name')}></label><input name="name" type="text" id="in-name" required placeholder={es('ph_name')}></div>
-          <div class="field"><label data-i18n="f_phone" set:html={es('f_phone')}></label><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999"></div>
+          <div class="field"><label for="in-name" data-i18n="f_name" set:html={es('f_name')}></label><input name="name" type="text" id="in-name" required placeholder={es('ph_name')}></div>
+          <div class="field"><label for="in-phone" data-i18n="f_phone" set:html={es('f_phone')}></label><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999"></div>
         </div>
-        <div class="field"><label data-i18n="f_comp" set:html={es('f_comp')}></label><input name="company" type="text" id="in-comp" placeholder={es('ph_comp')}></div>
-        <div class="field"><label data-i18n="f_need" set:html={es('f_need')}></label><select name="need" id="in-need"></select></div>
-        <div class="field"><label data-i18n="f_msg" set:html={es('f_msg')}></label><textarea name="message" id="in-msg" placeholder={es('ph_msg')}></textarea></div>
+        <div class="field"><label for="in-comp" data-i18n="f_comp" set:html={es('f_comp')}></label><input name="company" type="text" id="in-comp" placeholder={es('ph_comp')}></div>
+        <div class="field"><label for="in-need" data-i18n="f_need" set:html={es('f_need')}></label><select name="need" id="in-need"></select></div>
+        <div class="field"><label for="in-msg" data-i18n="f_msg" set:html={es('f_msg')}></label><textarea name="message" id="in-msg" placeholder={es('ph_msg')}></textarea></div>
         <button type="submit" class="form-submit"><span data-i18n="f_send" set:html={es('f_send')}></span></button>
         <p class="form-note" data-i18n="f_note" set:html={es('f_note')}></p>
       </form>
