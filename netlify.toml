@@ -84,3 +84,17 @@
   from   = "/satelites"
   to     = "/#work"
   status = 301
+
+# Recuperan tráfico real: Search Console muestra clics e impresiones reales
+# a estas dos URLs de un sitio anterior, hoy en 404 (verificado 2026-09-12,
+# export de Rendimiento — /nosotros: 2 clics, posición 7.4; /como-funciona:
+# impresiones reales). Sin redirección, ese interés real se pierde en un error.
+[[redirects]]
+  from   = "/nosotros"
+  to     = "/"
+  status = 301
+
+[[redirects]]
+  from   = "/como-funciona"
+  to     = "/#simple"
+  status = 301
