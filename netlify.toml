@@ -6,7 +6,8 @@
   directory = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "20"
+  # package.json exige >=22.12.0 (Astro 6); estaba en 20 aquí, por debajo del mínimo real.
+  NODE_VERSION = "22"
 
 # Redirect www → apex (canonical domain)
 [[redirects]]

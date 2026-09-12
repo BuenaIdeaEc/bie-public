@@ -63,7 +63,7 @@ const T: Record<string, { es: string; en: string }> = {
   band_btn: { es: 'Quiero esto', en: 'I want this' },
   waw_name: { es: 'Equipo BIE', en: 'BIE Team' }, waw_status: { es: 'En línea · responde en minutos', en: 'Online · replies in minutes' },
   waw_bubble: { es: 'Hola. <b>¿En cuál de estos momentos está tu empresa?</b> Elige y seguimos por WhatsApp:', en: 'Hi. <b>Which of these moments is your company in?</b> Pick one and we continue on WhatsApp:' },
-  waw_foot: { es: 'CONVERSACIÓN DIRECTA · 099 825 3030', en: 'DIRECT CONVERSATION · 099 825 3030' },
+  waw_foot: { es: 'CONVERSACIÓN DIRECTA · 098 825 3030', en: 'DIRECT CONVERSATION · 098 825 3030' },
 };
 p.pains.forEach((x, i) => { T[`pain${i}_t`] = x.title; T[`pain${i}_b`] = x.body; });
 p.deliverables.forEach((x, i) => { T[`del${i}`] = x; });
@@ -945,8 +945,12 @@ function applyLang(){
 document.getElementById('lang-toggle').addEventListener('click',()=>{ lang=lang==='es'?'en':'es'; applyLang(); });
 applyLang();
 document.body.classList.add('past-hero');
-// cadena con teclado: ← anterior, → siguiente
-document.addEventListener('keydown',e=>{ if(e.target.closest('input,textarea,select'))return;
+// cadena con teclado: ← anterior, → siguiente — solo cuando no hay foco en ningún
+// control interactivo (evita navegar la página por accidente al usar botones, links,
+// acordeones o el quiz con flechas; H13 de la auditoría 2026-09-11).
+document.addEventListener('keydown',e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.target.closest('input,textarea,select,button,a,[tabindex],[contenteditable]'))return;
   if(e.key==='ArrowRight'){ const a=document.querySelector('.chain-arrow.right'); if(a) location.href=a.href; }
   if(e.key==='ArrowLeft'){ const a=document.querySelector('.chain-arrow.left'); if(a) location.href=a.href; } });
 

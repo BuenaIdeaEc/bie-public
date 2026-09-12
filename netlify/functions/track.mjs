@@ -20,7 +20,7 @@ const VALID_EVENTS = new Set([
 const insert = async (table, row) => {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) { console.log('track: sin credenciales, no se inserta en', table); return; }
+  if (!url || !key) { console.error(`track: SIN CREDENCIALES — se perdió un insert real en ${table}`, row); return false; }
   const r = await fetch(`${url}/rest/v1/${table}`, {
     method: 'POST',
     headers: {
@@ -31,7 +31,8 @@ const insert = async (table, row) => {
     },
     body: JSON.stringify(row),
   });
-  if (!r.ok) console.error(`track: insert en ${table} falló`, r.status, await r.text());
+  if (!r.ok) { console.error(`track: INSERT FALLÓ en ${table} (status ${r.status})`, await r.text(), 'row:', row); return false; }
+  return true;
 };
 
 export default async (req) => {
@@ -62,16 +63,27 @@ export default async (req) => {
     // de si la conversación de WhatsApp llega a darse o se pierde.
     if (event_type === 'form_submit' && body.meta?.lead) {
       const l = body.meta.lead;
-      await insert('leads', {
-        phone: l.phone || null,
-        company: l.company || null,
-        service_interest: l.service_interest || null,
-        message: l.message || null,
-        source: 'web-contacto',
-      });
+      const phone = (l.phone || '').trim() || null;
+      const email = (l.email || '').trim() || null;
+      // La tabla `leads` exige (CHECK leads_al_menos_un_canal) que email o phone
+      // vengan no vacíos — sin esto el insert lo rechaza la base, no acá.
+      if (!phone && !email) {
+        console.error('track: lead sin phone ni email, no se envía a la base', l);
+      } else {
+        const ok = await insert('leads', {
+          name: l.name || null,
+          phone,
+          email,
+          company: l.company || null,
+          service_interest: l.service_interest || null,
+          message: l.message || null,
+          source: 'web-contacto',
+        });
+        if (!ok) console.error('track: LEAD PERDIDO — revisar de inmediato', l);
+      }
     }
   } catch (e) {
-    console.error('track: error', e);
+    console.error('track: error inesperado procesando', event_type, e);
   }
 
   return new Response('ok', { status: 200 });
