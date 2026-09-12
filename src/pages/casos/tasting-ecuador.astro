@@ -1,0 +1,118 @@
+---
+// BIE — Primer caso de estudio real, autorizado por la clienta (Fase 2 del plan
+// de contenido/SEO, 2026-09-12). Hechos confirmados por EGO: el negocio ya
+// operaba antes de BIE (no se inventa una historia de "cero"); la intervención
+// de BIE fue estructurar su crecimiento y dar la identidad de una marca de alto
+// impacto. Sin cifras ni testimonios inventados.
+import '../../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/casos/tasting-ecuador/`;
+const title = 'Tasting Ecuador — de un negocio que ya funcionaba a una marca con crecimiento estructurado';
+const description = 'Tasting Ecuador ya operaba experiencias gastronómicas en Cuenca antes de BIE. El trabajo fue darle una identidad de marca de alto impacto y una operación digital estructurada para crecer sin depender de la improvisación.';
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/casos/tasting-ecuador/es')}`;
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
+    author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer' },
+    publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
+    inLanguage: 'es-EC', datePublished: '2026-09-12' },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Casos', item: SITE + '/#work' },
+    { '@type': 'ListItem', position: 3, name: 'Tasting Ecuador', item: url } ] },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | BIE</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:locale" content="es_EC">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+main{max-width:760px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:22px}
+.crumbs a{color:var(--text3);border-bottom:1px solid var(--border)}
+h1{font-size:clamp(26px,4vw,42px);font-weight:400;letter-spacing:-.02em;line-height:1.15;margin-top:16px;text-wrap:balance}
+.dek{font-size:clamp(16px,1.6vw,19px);line-height:1.55;color:var(--text2);margin-top:18px}
+.meta-row{display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
+.meta-item{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.meta-item b{display:block;font-family:var(--font);font-size:15px;letter-spacing:normal;text-transform:none;color:var(--text);margin-top:4px}
+article{margin-top:44px}
+article h2{font-size:clamp(21px,2.6vw,28px);font-weight:400;letter-spacing:-.015em;margin-top:44px;margin-bottom:14px}
+article p{font-size:16px;line-height:1.7;color:var(--text2);margin-top:14px;max-width:66ch}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.split > div{border:1px solid var(--border);padding:20px 22px}
+.split h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.split.after h3{color:var(--accent)}
+.split p{margin-top:0;font-size:14.5px}
+.honest-note{border-left:2px solid var(--accent);padding-left:16px;margin-top:24px;font-size:14.5px;color:var(--text3);line-height:1.6}
+.cta-box{margin-top:52px;border:1px solid var(--bone);padding:26px 28px}
+.cta-box p{color:var(--text2);margin-top:0}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media(max-width:640px){.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<main>
+  <p class="crumbs"><a href="/">Inicio</a> · <a href="/#work">Casos</a></p>
+  <span class="eyebrow">Caso real · Autorizado por la clienta</span>
+  <h1>Tasting Ecuador ya vendía experiencias gastronómicas. Lo que faltaba era una marca a la altura de lo que hacía.</h1>
+  <p class="dek">Este no es un caso de "empezar de cero" — Tasting Ecuador ya operaba en Cuenca antes de trabajar con BIE. El trabajo fue otro: ordenar el crecimiento y darle a esa operación real la identidad de una marca de alto impacto.</p>
+
+  <div class="meta-row">
+    <span class="meta-item">Cliente<b>Tasting Ecuador</b></span>
+    <span class="meta-item">Sector<b>Experiencias gastronómicas</b></span>
+    <span class="meta-item">Ubicación<b>Cuenca, Ecuador</b></span>
+    <span class="meta-item">Qué se construyó<b>Marca, redes y presencia digital</b></span>
+  </div>
+
+  <article>
+    <h2>El punto de partida</h2>
+    <p>Tasting Ecuador ya era un negocio real y en funcionamiento: experiencias gastronómicas en Cuenca, con clientes propios. No partía de cero, y sería falso presentarlo así. Lo que no tenía era una identidad de marca consistente ni una operación digital estructurada — el tipo de base que permite crecer de forma ordenada en vez de depender de la improvisación semana a semana.</p>
+
+    <h2>Qué construyó BIE</h2>
+    <p>BIE diseñó su identidad de marca desde cero — logotipo, sistema visual y tono — y organizó su presencia digital completa: redes sociales con una línea editorial consistente y un sitio web que representa lo que el negocio realmente ofrece. El objetivo no fue "estar en internet" por estar, sino que cada punto de contacto (redes, web, comunicación) hablara con la misma voz y la misma calidad.</p>
+
+    <div class="split">
+      <div>
+        <h3>Antes de la marca</h3>
+        <p>Un negocio real operando, sin un sistema de identidad ni presencia digital que reflejara la calidad de la experiencia que ofrecía.</p>
+      </div>
+      <div class="after">
+        <h3>Con la marca de BIE</h3>
+        <p>Identidad visual propia, redes y web con una sola voz consistente, y una base ordenada desde la que seguir creciendo — no una campaña puntual.</p>
+      </div>
+    </div>
+
+    <h2>Lo que cambió</h2>
+    <p>El crecimiento de Tasting Ecuador hoy está mejor estructurado que antes: no depende de piezas sueltas o de resolver cada semana desde cero, sino de una marca con la consistencia y la calidad de una marca de alto impacto detrás de cada publicación y cada punto de contacto con un cliente.</p>
+
+    <p class="honest-note">No publicamos aquí cifras de ventas ni métricas de redes — Tasting Ecuador autorizó este caso con su nombre, no con datos internos de su negocio. Lo que se describe arriba es exactamente lo que se construyó, sin exagerar ni inventar un resultado que no podemos mostrar.</p>
+
+    <div class="cta-box">
+      <p>Si tu negocio ya funciona pero tu marca no refleja lo que realmente haces, cuéntanos tu caso.</p>
+      <a class="btn-primary" href={wa('Hola, vi el caso de Tasting Ecuador en la web de BIE. Mi negocio ya opera pero quiero una marca a la altura de lo que hago. ¿Podemos hablar?')} target="_blank" rel="noopener noreferrer"><span>Contar mi caso por WhatsApp</span></a>
+    </div>
+  </article>
+</main>
+<footer>BUSINESS INTELLIGENCE ENHANCER · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>

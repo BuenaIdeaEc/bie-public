@@ -394,6 +394,8 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
 .wc-name{font-size:22px;font-weight:400;letter-spacing:-.015em;margin-bottom:6px}
 .wc-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.wc-case{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);border-bottom:1px solid var(--accent-dark)}
+.wc-case:hover{color:var(--accent);border-color:var(--accent)}
 .wc-socials{display:flex;gap:8px;flex-shrink:0}
 .wc-soc{width:30px;height:30px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s,color .2s;color:var(--text2)}
 .wc-soc:hover{border-color:var(--accent);background:var(--accent);color:#fff}
@@ -1315,6 +1317,7 @@ const COMPANIES = [
   { size:'wc-big', name:'Tasting Ecuador',
     kind:B('Marca completa + Redes + Web','Full brand + Social + Web'),
     desc:B('Experiencias gastronómicas en Cuenca. BIE creó la marca desde cero: logotipo, identidad, redes sociales y presencia digital completa.','Culinary experiences in Cuenca. BIE created the brand from scratch: logo, identity, social media and full digital presence.'),
+    caseUrl:'/casos/tasting-ecuador/?src=home-work',
     socials:['instagram','web'],
     slides:[ [B('Instagram','Instagram'), MOCK.tastingIG, 'linear-gradient(160deg,#eef4ee,#dce8dc)'],
              [B('Identidad','Identity'), MOCK.tastingBrand, 'linear-gradient(160deg,#f2ede6,#e6dcc8)'],
@@ -1516,6 +1519,7 @@ function renderWork(){
           <div class="wc-socials">${c.socials.map(s => `<span class="wc-soc" title="${s}">${SOC_ICONS[s]}</span>`).join('')}</div>
         </div>
         <div class="wc-desc">${t(c.desc)}</div>
+        ${c.caseUrl ? `<a class="wc-case" href="${c.caseUrl}">${t(UI.case_link)}</a>` : ''}
       </div>`;
     workGrid.appendChild(card);
   });

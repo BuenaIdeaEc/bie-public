@@ -34,6 +34,7 @@ export const UI: Record<string, { es: any; en: any }> = {
               en:['How a store operating system is built','Brand in 60 seconds','Live sales: behind the scenes','3 automations every business needs','Before and after of an identity','Class: how to start your company right']},
   cur_drag:{es:'DRAG',en:'DRAG'}, cur_play:{es:'PLAY',en:'PLAY'},
   illus_tag:{es:'Ilustración',en:'Illustration'},
+  case_link:{es:'Ver caso completo →',en:'See full case →'},
   work_label:{es:'La prueba, primero',en:'Proof first'},
   work_h2:{es:'Empresas que ya<br>adaptamos digitalmente.',en:'Companies we already<br>digitally adapted.'},
   work_sub:{es:'Negocios reales de Ecuador que ya trabajan con nosotros. Mira lo que construimos para cada uno.',
