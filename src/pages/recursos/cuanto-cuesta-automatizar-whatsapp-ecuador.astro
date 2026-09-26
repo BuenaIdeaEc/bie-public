@@ -12,6 +12,13 @@ const title = 'Cuánto cuesta automatizar WhatsApp en Ecuador — guía real de 
 const description = 'No existe un precio único: depende de tu volumen de mensajes, si necesitas un bot simple o un asistente con IA, y si ya tienes un CRM. Guía honesta de qué determina el costo real, sin cifras inventadas.';
 const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/recursos/cuanto-cuesta-whatsapp/es')}`;
 
+const FAQ = [
+  { q: '¿Necesito tener ya un CRM para automatizar WhatsApp?', a: 'No. Si solo necesitas que responda, se puede construir sin CRM detrás. Si además quieres que cada conversación quede registrada y con seguimiento, ahí sí hace falta uno — propio o conectado al que ya tengas.' },
+  { q: '¿Qué pasa si el cliente quiere hablar con una persona?', a: 'El asistente entiende lo que necesita y responde con información real de tu empresa; cuando la conversación requiere una persona, te la pasa a ti con todo el contexto de lo que ya se habló. No es un menú de opciones cerrado.' },
+  { q: '¿Puedo seguir usando mi número normal de WhatsApp Business?', a: 'Sí. Tu número sigue siendo tu número — se conecta sin frenar tu operación actual.' },
+  { q: '¿Cuánto tiempo toma implementarlo?', a: 'Depende de los cuatro factores de arriba, así que no hay una cifra única honesta que dar aquí. El primer mes después de conectarlo se dedica a observar conversaciones reales y ajustar lo que haga falta.' },
+];
+
 const ld = [
   { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
     author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer' },
@@ -21,6 +28,7 @@ const ld = [
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
     { '@type': 'ListItem', position: 2, name: 'Recursos', item: SITE + '/recursos/' },
     { '@type': 'ListItem', position: 3, name: title, item: url } ] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
 ];
 ---
 <!doctype html>
@@ -59,6 +67,9 @@ article li b{color:var(--text);font-weight:500}
 .factor{border:1px solid var(--border);padding:18px 20px;margin-top:16px}
 .factor h3{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
 .factor p{margin-top:0;font-size:14.5px}
+.faq-item{margin-top:22px}
+.faq-item h3{font-size:16px;font-weight:500;letter-spacing:-.01em;color:var(--text);margin-bottom:6px}
+.faq-item p{font-size:14.5px;margin-top:0}
 .cta-box{margin-top:52px;border:1px solid var(--bone);padding:26px 28px}
 .cta-box p{color:var(--text2);margin-top:0}
 .related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
@@ -79,7 +90,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
   <article>
     <p>Cuando alguien busca esto, casi siempre ya decidió que quiere dejar de responder WhatsApp a mano. La pregunta real detrás de "cuánto cuesta" no es el número — es <b>qué tan complejo es lo que necesitas</b>. Un negocio que solo necesita responder tres preguntas frecuentes fuera de horario no paga lo mismo que uno que quiere cotizar, agendar y hacer seguimiento automático de cada conversación.</p>
 
-    <h2>Los cuatro factores que de verdad mueven el precio</h2>
+    <h2>¿Qué determina el precio de automatizar WhatsApp?</h2>
 
     <div class="factor">
       <h3>01 · Qué tan inteligente necesita ser</h3>
@@ -98,20 +109,28 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
       <p>Un asistente genérico se configura rápido. Uno entrenado con el catálogo real de tu empresa, tu tono de marca y tus políticas exactas (qué puede prometer y qué no) toma más tiempo inicial — y es el que de verdad convierte, porque no suena a robot leyendo un guion.</p>
     </div>
 
-    <h2>Lo que deberías desconfiar si te lo ofrecen</h2>
+    <h2>¿Cómo saber si una cotización es seria?</h2>
     <ul>
       <li><b>Un precio sin preguntas.</b> Si nadie te preguntó cuántas conversaciones manejas al mes ni qué tan compleja es tu operación, el número que te dan no significa nada.</li>
       <li><b>"Todo incluido" sin mencionar a Meta.</b> El costo de mensajería es de Meta, no del proveedor. Si te cobran un solo número sin separarlo, en algún momento vas a tener una sorpresa.</li>
       <li><b>Promesas de que nunca hace falta un humano.</b> Un asistente bien construido resuelve la mayoría de los casos — pero siempre debe poder pasar la conversación a una persona cuando el caso lo requiere.</li>
     </ul>
 
-    <h2>Cómo lo resolvemos en BIE</h2>
-    <p>No publicamos un precio genérico porque sería falso — dependería de los cuatro factores de arriba. Lo que sí hacemos es una llamada de 30 minutos, gratuita, donde vemos tu volumen real de conversaciones y qué tan compleja necesitas que sea la respuesta, y de ahí sale una cotización que corresponde a tu caso, no a una tabla de precios genérica.</p>
+    <h2>¿Funciona la automatización de WhatsApp en Ecuador?</h2>
+    <p>Sí — WhatsApp es el canal donde ya está tu cliente en Ecuador, y eso no cambia por automatizarlo. Lo que sí cambia es quién responde primero: hoy es una persona cansada a las 11 de la noche, o nadie. No publicamos un precio genérico porque sería falso — dependería de los cuatro factores de arriba. Lo que sí hacemos es una llamada de 30 minutos, gratuita, donde vemos tu volumen real de conversaciones y qué tan compleja necesitas que sea la respuesta, y de ahí sale una cotización que corresponde a tu caso, no a una tabla de precios genérica.</p>
 
     <div class="cta-box">
       <p>Si quieres saber qué te costaría a ti específicamente, cuéntanos tu caso por WhatsApp — sin compromiso.</p>
       <a class="btn-primary" href={wa('Hola, quiero saber cuánto me costaría automatizar mi WhatsApp. Leí la guía de BIE y quiero que me ayuden con mi caso específico.')} target="_blank" rel="noopener noreferrer"><span>Contar mi caso por WhatsApp</span></a>
     </div>
+
+    <h2>Preguntas frecuentes</h2>
+    {FAQ.map((f) => (
+      <div class="faq-item">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
 
     <h2>Sigue leyendo</h2>
     <div class="related">

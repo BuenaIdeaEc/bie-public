@@ -36,6 +36,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   illus_tag:{es:'Ilustración',en:'Illustration'},
   case_link:{es:'Ver caso completo →',en:'See full case →'},
   work_label:{es:'La prueba, primero',en:'Proof first'},
+  trust_label:{es:'Empresas reales que confían en BIE',en:'Real companies that trust BIE'},
   work_h2:{es:'Empresas que ya<br>adaptamos digitalmente.',en:'Companies we already<br>digitally adapted.'},
   work_sub:{es:'Negocios reales de Ecuador que ya trabajan con nosotros. Mira lo que construimos para cada uno.',
             en:'Real businesses in Ecuador already working with us. See what we built for each one.'},

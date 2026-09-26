@@ -393,6 +393,9 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .wc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
 .wc-name{font-size:22px;font-weight:400;letter-spacing:-.015em;margin-bottom:6px}
+.trust-strip{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-top:32px;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.trust-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);flex-shrink:0}
+.trust-names{font-size:15px;letter-spacing:-.01em;color:var(--text2)}
 .wc-desc{font-size:13px;color:var(--text2);line-height:1.6}
 .wc-case{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-dark);border-bottom:1px solid var(--accent-dark)}
 .wc-case:hover{color:var(--accent);border-color:var(--accent)}
@@ -976,6 +979,10 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
       <p class="section-label" data-i18n="work_label" set:html={es('work_label')}></p>
       <h2 class="section-h2" data-i18n="work_h2" set:html={es('work_h2')}></h2>
       <p class="section-sub" data-i18n="work_sub" set:html={es('work_sub')}></p>
+    </div>
+    <div class="trust-strip reveal">
+      <span class="trust-label" data-i18n="trust_label" set:html={es('trust_label')}></span>
+      <span class="trust-names">Luway · Tasting Ecuador · Villa Tres · Amílcar · Óscar Caicho</span>
     </div>
     <div class="work-grid" id="work-grid"></div>
   </div>
