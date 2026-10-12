@@ -13,11 +13,27 @@
 //   WA_NOTIFY_NUMBER    — opcional: número (con código de país, sin +) al que avisar cada vez
 //                         que el bot responde solo, para que un humano sepa que hay que dar
 //                         seguimiento. Sin esto, el bot igual funciona — solo no avisa a nadie.
-//   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY — mismas que usa track.mjs, para dejar registro
-//                         en BIE OS. Sin esto, el bot responde igual — solo no queda registrado.
+//   WA_APP_SECRET       — App Secret de la app de Meta (developers.facebook.com → la app →
+//                         Configuración → Básica → "Clave secreta de la app"). Con ella se
+//                         verifica la firma X-Hub-Signature-256 de cada POST. OBLIGATORIA:
+//                         sin ella todo POST recibe 503 y no se procesa nada (falla cerrado).
+//   SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY — mismas que usa track.mjs. Ahora son
+//                         OBLIGATORIAS para responder: antes de contestar se registra el id del
+//                         mensaje en webhook_events (dedupe durable). Sin base, el bot no responde
+//                         (mejor sin respuesta que respuesta doble).
 // Sin WA_ACCESS_TOKEN el bot no responde (solo registra en el log), así que desplegar esto es
 // inofensivo.
+//
+// Seguridad / idempotencia (2026-10-12):
+//   1. Firma: HMAC-SHA256 del cuerpo CRUDO con WA_APP_SECRET, comparado en tiempo constante
+//      contra X-Hub-Signature-256 ("sha256=<hex>"). Firma ausente o inválida → 401.
+//   2. Dedupe: cada mensaje que el bot respondería se inserta primero en webhook_events
+//      (event_id = id del mensaje de WhatsApp, PK) con resolution=ignore-duplicates. Si la base
+//      no devuelve fila, ya se había procesado (reintento de Meta) → no se responde de nuevo.
+//      En payload NO se guarda PII (ni teléfono ni texto): solo id, timestamp, slug e idioma.
+//      Requiere la migración 0046 de BIE OS (agrega 'meta_whatsapp' al CHECK de gateway).
 
+import crypto from 'node:crypto';
 import respuestas from './respuestas.json' with { type: 'json' };
 
 const GRAPH = 'https://graph.facebook.com/v23.0';
@@ -81,6 +97,76 @@ const registrarEnBieOs = async (slug) => {
   } catch (e) { console.error('wa-bot: no se pudo registrar en BIE OS', e); }
 };
 
+// ── Firma de Meta ─────────────────────────────────────────────────────────────
+// true solo si `header` es exactamente "sha256=<64 hex>" y coincide con el HMAC del cuerpo crudo.
+export const verificarFirma = (rawBody, header, secret) => {
+  if (!secret || typeof header !== 'string') return false;
+  const m = header.trim().match(/^sha256=([0-9a-fA-F]{64})$/);
+  if (!m) return false;
+  const recibida = Buffer.from(m[1], 'hex');
+  const esperada = crypto.createHmac('sha256', secret).update(rawBody).digest();
+  return recibida.length === esperada.length && crypto.timingSafeEqual(recibida, esperada);
+};
+
+// ── Dedupe durable en BIE OS (webhook_events) ────────────────────────────────
+// Decide qué hacer según el resultado del insert con resolution=ignore-duplicates:
+//   'responder' — la fila se creó ahora (primera vez que vemos este mensaje)
+//   'duplicado' — la base no devolvió fila: el id ya existía (reintento de Meta)
+//   'error'     — el insert falló (red, credenciales, CHECK, etc.): no se responde
+export const decisionDedupe = ({ ok, data }) => {
+  if (!ok) return 'error';
+  if (Array.isArray(data) && data.length > 0) return 'responder';
+  if (Array.isArray(data) && data.length === 0) return 'duplicado';
+  return 'error';
+};
+
+const reclamarMensaje = async (msg, slug, lang) => {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) { console.error('wa-bot: sin SUPABASE_URL/SERVICE_ROLE_KEY, no se puede deduplicar → no se responde'); return 'error'; }
+  const ahora = new Date().toISOString();
+  try {
+    const r = await fetch(`${url}/rest/v1/webhook_events?select=event_id`, {
+      method: 'POST',
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=ignore-duplicates,return=representation',
+      },
+      body: JSON.stringify({
+        event_id: msg.id,
+        gateway: 'meta_whatsapp',
+        event_type: 'message',
+        payload: { message_id: msg.id, timestamp: msg.timestamp || null, slug, lang },
+        status: 'processed',
+        attempt_count: 1,
+        last_attempt_at: ahora,
+        processed_at: ahora,
+      }),
+    });
+    if (!r.ok) {
+      console.error('wa-bot: dedupe falló (insert webhook_events)', r.status, await r.text());
+      return 'error';
+    }
+    const data = await r.json().catch(() => null);
+    return decisionDedupe({ ok: true, data });
+  } catch (e) {
+    console.error('wa-bot: dedupe falló (error de red)', e);
+    return 'error';
+  }
+};
+
+// Responde un mensaje solo si logra reclamarlo en webhook_events.
+const responder = async (msg, slug, lang, texto) => {
+  if (!msg.id) { console.error('wa-bot: mensaje sin id, no se puede deduplicar → no se responde'); return; }
+  const decision = await reclamarMensaje(msg, slug, lang);
+  if (decision === 'duplicado') { console.log('wa-bot: mensaje ya procesado, se omite', msg.id); return; }
+  if (decision !== 'responder') return;
+  const ok = await enviarWA(msg.from, texto);
+  if (ok) { await registrarEnBieOs(slug); await avisar(slug, lang); }
+};
+
 export default async (req) => {
   const url = new URL(req.url);
 
@@ -97,8 +183,22 @@ export default async (req) => {
 
   if (req.method !== 'POST') return new Response('method not allowed', { status: 405 });
 
+  // Falla cerrado: sin App Secret no hay forma de saber si el POST viene de Meta.
+  const secret = process.env.WA_APP_SECRET;
+  if (!secret) {
+    console.error('wa-bot: WA_APP_SECRET no configurado — POST rechazado sin procesar');
+    return new Response('service unavailable', { status: 503 });
+  }
+
+  // La firma se calcula sobre los bytes crudos, antes de cualquier JSON.parse.
+  const raw = Buffer.from(await req.arrayBuffer());
+  if (!verificarFirma(raw, req.headers.get('x-hub-signature-256'), secret)) {
+    console.error('wa-bot: firma X-Hub-Signature-256 ausente o inválida — POST rechazado');
+    return new Response('unauthorized', { status: 401 });
+  }
+
   let payload;
-  try { payload = await req.json(); } catch { return new Response('bad request', { status: 400 }); }
+  try { payload = JSON.parse(raw.toString('utf8')); } catch { return new Response('bad request', { status: 400 }); }
 
   // Estructura estándar de Cloud API: entry[].changes[].value.messages[]
   try {
@@ -114,13 +214,11 @@ export default async (req) => {
           const lang = detectarIdioma(texto);
           if (slug) {
             // Lead de la web con origen: propuesta del producto, en su idioma, sin tocar nada más.
-            const ok = await enviarWA(msg.from, textoRespuesta(slug, lang));
-            if (ok) { await registrarEnBieOs(slug); await avisar(slug, lang); }
+            await responder(msg, slug, lang, textoRespuesta(slug, lang));
           } else if (/origen: web\//i.test(texto)) {
             // Vino de la web pero el slug no matchea (página futura): cierre universal.
             const cierre = respuestas.base.cierre[lang] || respuestas.base.cierre.es;
-            const ok = await enviarWA(msg.from, cierre);
-            if (ok) { await registrarEnBieOs(null); await avisar(null, lang); }
+            await responder(msg, null, lang, cierre);
           }
           // Mensajes sin origen web: no responde el bot — los atiende el humano en la app
           // (coexistence), para no pisar conversaciones en curso.
@@ -130,7 +228,8 @@ export default async (req) => {
   } catch (e) {
     console.error('wa-bot error:', e);
   }
-  // Siempre 200: Meta reintenta ante otros códigos y duplicaría procesamiento.
+  // 200 una vez verificada la firma y procesado: Meta reintenta ante otros códigos (los
+  // reintentos igual quedan frenados por el dedupe de webhook_events).
   return new Response('ok', { status: 200 });
 };
 
