@@ -2,36 +2,40 @@
 // BIE — Primer caso de estudio real, autorizado por la clienta (Fase 2 del plan
 // de contenido/SEO, 2026-09-12). Hechos confirmados por EGO (2026-10-03): empezó con meal prep, negocio
 // estable pero sin crecer (no es historia de "cero"); BIE lo convirtió en un sistema
-// empresarial con 4 líneas (rutas, clases, productos, e-books) y marca físico-digital;
+// empresarial con 3 líneas activas (clases, productos, e-books) y marca físico-digital;
+// las rutas gastronómicas siguen sin lanzar en tasting-ecuador.com: no se muestran (EGO, 2026-10-16);
 // es un satélite (crece con productos BIE a cambio de participación). Sin cifras inventadas.
 import '../../styles/site.css';
+import { TASTING_ALT } from '../../data/tasting-alt';
 
 const SITE = 'https://businessintelligence.solutions';
 const url = `${SITE}/casos/tasting-ecuador/`;
 const title = 'Tasting Ecuador — de cocinar bien a tener un negocio que crece';
-const description = 'Tasting Ecuador empezó con meal prep: un negocio estable, pero que no crecía. Junto a BIE lo convertimos en un negocio con rutas gastronómicas, clases, productos y e-books, y toda su marca.';
+const description = 'Tasting Ecuador empezó con meal prep: un negocio estable, pero que no crecía. Junto a BIE lo convertimos en un negocio con clases de cocina, productos y e-books, y toda su marca.';
 const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/casos/tasting-ecuador/es')}`;
 
 // Para sumar un servicio nuevo: copiar la imagen a public/images/casos/tasting/ y agregar una entrada aquí.
 const SLIDES = [
-  { img: 'web', alt: 'Página web de Tasting Ecuador: portada, catálogo de productos horneados y secciones de clases, meal prep, revista y perfil de la chef', tag: 'Presencia digital', title: 'Página web completa',
+  { img: 'web', alt: TASTING_ALT.web, tag: 'Presencia digital', title: 'Página web completa',
     text: 'Sitio propio con blog, tienda en línea, pagos con tarjeta, reservas y pedidos, y análisis de datos. Reúne en un solo lugar las clases de cocina, el meal prep, la revista editorial y los productos horneados por encargo.' },
-  { img: 'os', alt: 'Tasting Ecuador OS: panel de reportes con ingresos, gastos y platos por semana', tag: 'Sistema operativo', title: 'Tasting OS — más que un CRM',
+  { img: 'os', alt: TASTING_ALT.os, tag: 'Sistema operativo', title: 'Tasting OS — más que un CRM',
     text: 'Un sistema operativo propio para el negocio: dashboard, agenda, ventas, producción, clases, clientes, finanzas, reportes, lista de compras y marketing en un mismo lugar.', note: 'Las cifras que se ven son datos de ejemplo, no resultados reales de la clienta.' },
-  { img: 'branding', alt: 'Tablero de marca de Tasting Ecuador con logotipos alternos, paleta de colores y guía tipográfica', tag: 'Marca', title: 'Branding',
+  { img: 'branding', alt: TASTING_ALT.branding, tag: 'Marca', title: 'Branding',
     text: 'Logotipos principal y alternos, tipografías y paleta de colores definidos en una guía de marca, con ejemplos de aplicación en fotografía y piezas gráficas.' },
-  { img: 'instagram', alt: 'Malla de contenidos de Instagram de Tasting Ecuador con piezas de texto sobre fotografía de comida y textiles', tag: 'Redes sociales', title: 'Malla de contenidos en Instagram',
+  { img: 'instagram', alt: TASTING_ALT.instagram, tag: 'Redes sociales', title: 'Malla de contenidos en Instagram',
     text: 'Una línea editorial planificada para el perfil: piezas con una misma voz, fotografía propia y frases de marca que hacen que el feed se lea como un conjunto.' },
-  { img: 'disenos', alt: 'Agenda, e-books y menús de Tasting Ecuador con la identidad de la marca', tag: 'Diseño gráfico', title: 'Agenda, e-books y menús',
+  { img: 'disenos', alt: TASTING_ALT.disenos, tag: 'Diseño gráfico', title: 'Agenda, e-books y menús',
     text: 'Los diseños que el negocio necesita para operar, todos con la identidad de la marca: una agenda, e-books y menús listos para compartir con los clientes.' },
-  { img: 'documentos', alt: 'Cotización de Tasting Ecuador con encabezado de marca y estructura de servicio semanal', tag: 'Documentos', title: 'Cotizaciones, diplomas y papelería',
+  { img: 'documentos', alt: TASTING_ALT.documentos, tag: 'Documentos', title: 'Cotizaciones, diplomas y papelería',
     text: 'Documentos con la misma imagen de marca: cotizaciones, diplomas y papelería. Cada propuesta que sale del negocio se ve igual de cuidada que el resto.', note: 'Los datos del cliente del documento están difuminados.' },
 ];
 
 const ld = [
   { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
-    author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer' },
-    publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
+    about: { '@type': 'Organization', name: 'Tasting Ecuador', url: 'https://tasting-ecuador.com',
+      address: { '@type': 'PostalAddress', addressLocality: 'Cuenca', addressCountry: 'EC' } },
+    author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE, sameAs: ['https://instagram.com/businessintelligence.ec'] },
+    publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE, sameAs: ['https://instagram.com/businessintelligence.ec'], logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
     inLanguage: 'es-EC', datePublished: '2026-09-12' },
   { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
@@ -68,6 +72,9 @@ h1{font-size:clamp(26px,4vw,42px);font-weight:400;letter-spacing:-.02em;line-hei
 .dek{font-size:clamp(16px,1.6vw,19px);line-height:1.55;color:var(--text2);margin-top:18px}
 .meta-row{display:flex;flex-wrap:wrap;gap:24px;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)}
 .meta-item{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.meta-item b a{color:inherit;border-bottom:1px solid var(--accent)}
+.meta-item b a:hover{color:var(--accent)}
+.visit{margin-top:6px}
 .meta-item b{display:block;font-family:var(--font);font-size:15px;letter-spacing:normal;text-transform:none;color:var(--text);margin-top:4px}
 article{margin-top:44px}
 article h2{font-size:clamp(21px,2.6vw,28px);font-weight:400;letter-spacing:-.015em;margin-top:44px;margin-bottom:14px}
@@ -122,7 +129,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
   <p class="dek">Empezaron con meal prep. Les iba bien, pero siempre igual: estable, sin crecer. Junto a BIE lo convertimos en un negocio con varias líneas, y hoy sigue creciendo.</p>
 
   <div class="meta-row">
-    <span class="meta-item">Cliente<b>Tasting Ecuador</b></span>
+    <span class="meta-item">Cliente<b><a href="https://tasting-ecuador.com" target="_blank" rel="noopener">Tasting Ecuador</a></b></span>
     <span class="meta-item">Sector<b>Experiencias gastronómicas</b></span>
     <span class="meta-item">Ubicación<b>Cuenca, Ecuador</b></span>
     <span class="meta-item">Modelo<b>Satélite BIE</b></span>
@@ -133,9 +140,8 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
     <p>Tasting Ecuador preparaba comida por encargo (meal prep). Ya tenía clientes y funcionaba. Pero era como una tienda que abre todos los días igual: no se caía, y tampoco crecía.</p>
 
     <h2>Qué hicimos juntos</h2>
-    <p>Convertimos un emprendimiento en un negocio con sistema. En vez de vender una sola cosa, hoy Tasting Ecuador tiene cuatro líneas, y las creamos con ellos:</p>
+    <p>Convertimos un emprendimiento en un negocio con sistema. En vez de vender una sola cosa, hoy Tasting Ecuador tiene tres líneas, y las creamos con ellos:</p>
     <ul class="lines">
-      <li><b>Rutas gastronómicas</b> para conocer Ecuador comiendo.</li>
       <li><b>Clases de cocina</b> para aprender con la chef.</li>
       <li><b>Productos</b> horneados y preparados por encargo.</li>
       <li><b>E-books</b> con su conocimiento, para vender sin estar presentes.</li>
@@ -149,12 +155,13 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
       </div>
       <div class="after">
         <h3>Hoy</h3>
-        <p>Cuatro líneas de negocio, una marca que se reconoce y un sistema que ordena todo.</p>
+        <p>Tres líneas de negocio, una marca que se reconoce y un sistema que ordena todo.</p>
       </div>
     </div>
 
     <h2>Lo que hemos implementado</h2>
     <p>Un recorrido por lo que ya está funcionando. Esta lista crece a medida que se suman más cosas.</p>
+    <p class="visit"><a class="btn-ghost" href="https://tasting-ecuador.com" target="_blank" rel="noopener">Visitar tasting-ecuador.com <span aria-hidden="true">↗</span></a></p>
   </article>
 
   <section class="tgal" id="galeria" role="group" aria-roledescription="carrusel" aria-label="Servicios implementados en Tasting Ecuador">
@@ -207,6 +214,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
     <div class="cta-box">
       <p>Si tu negocio ya funciona pero no crece, cuéntanos tu caso.</p>
       <a class="btn-primary" href={wa('Hola, vi el caso de Tasting Ecuador en la web de BIE. Mi negocio ya funciona pero quiero que crezca. ¿Podemos hablar?')} target="_blank" rel="noopener noreferrer"><span>Contar mi caso por WhatsApp</span></a>
+      <a class="btn-ghost" href="https://tasting-ecuador.com" target="_blank" rel="noopener">Visitar tasting-ecuador.com <span aria-hidden="true">↗</span></a>
     </div>
   </article>
 </main>

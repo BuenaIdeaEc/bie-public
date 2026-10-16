@@ -2,6 +2,7 @@
 import { UI } from '../data/home-ui';
 import EsteMes from '../components/ui/EsteMes.astro';
 import { ESTE_MES } from '../data/este-mes';
+import { TASTING_ALT } from '../data/tasting-alt';
 const UI_STATIC = Object.fromEntries(Object.entries(UI).filter(([, v]) => typeof v.es !== 'function'));
 const es = (k: string) => UI[k].es as string;
 // Destinos de WhatsApp renderizados en servidor (H04 de la auditoría 2026-09-11: sin esto,
@@ -1069,6 +1070,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
 
 
 <script is:inline define:vars={{ UI: UI_STATIC }}>window.__UI = UI;</script>
+<script is:inline define:vars={{ TASTING_ALT }}>window.__TASTING_ALT = TASTING_ALT;</script>
 <script is:inline>
 // RAF híbrido (fallback a setTimeout cuando el entorno congela requestAnimationFrame)
 function RAF(cb){
@@ -1266,7 +1268,7 @@ const MOCK = {
     <div class="conf-slide" style="height:44px">Panel</div></div></div>`,
 };
 
-const TPHOTO = n => `<img class="g-photo" src="/images/casos/tasting/${n}.webp" alt="" width="1600" height="1131" loading="lazy" decoding="async">`;
+const TPHOTO = n => `<img class="g-photo" src="/images/casos/tasting/${n}.webp" alt="${(window.__TASTING_ALT && window.__TASTING_ALT[n]) || 'Tasting Ecuador'}" width="1600" height="1131" loading="lazy" decoding="async">`;
 const TBG = 'radial-gradient(ellipse at 50% 40%,#3a0c0c,#0b0b0d 75%)';
 const COMPANIES = [
   { size:'wc-big', name:'Luway',
