@@ -1,0 +1,251 @@
+---
+// BIE — A-12, piloto inicial de página web. Página estática dedicada (no la plantilla
+// genérica de producto, que nunca muestra precio por diseño). Fuente única de condiciones:
+// 03-LINEA-A/propuestas/OFERTA_web_inicial.md v1.2, aprobada por EGO 2026-09-26.
+// Construida 2026-09-30 a pedido de Central (prompt comercial A-12/Ecuador/recurrencia
+// mensual). NO DESPLEGADA — pendiente de revisión visual humana antes de publicar, por
+// instrucción explícita del encargo.
+import '../../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/productos/pagina-web/`;
+const title = 'Página Web en Ecuador — USD 150 + acompañamiento mensual | BIE';
+const description = 'Tu página web: USD 150 de creación más USD 25 al mes de acompañamiento, sin permanencia mínima. Primera versión en 7 días hábiles desde el anticipo, el brief y los materiales completos.';
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/producto/pagina-web/es')}`;
+
+const FAQ = [
+  { q: '¿Qué pasa si quiero cancelar la mensualidad?', a: 'Puedes cancelarla antes del siguiente período, sin permanencia mínima. Tu sitio sigue funcionando hasta el fin del período ya pagado, y te entregamos una copia exportable de la página y tus propios archivos, sin cargo por esa entrega.' },
+  { q: '¿Puedo usar mi propio dominio?', a: 'Sí. El subdominio de hosting va incluido; si prefieres tu propio dominio (tunegocio.com), la compra y renovación corren por tu cuenta — te informamos el costo del proveedor antes de contratar, sin sorpresas.' },
+  { q: '¿Cuántas rondas de ajustes tengo antes de publicar?', a: 'Dos rondas consolidadas dentro del alcance. Después de publicar, los cambios se manejan dentro del acompañamiento mensual, no como rondas sueltas.' },
+  { q: '¿Y si necesito tienda en línea, citas o un panel para editarla yo mismo?', a: 'Eso queda fuera de este piloto — está pensado para una página de presentación clara, no para funciones nuevas. Si tu negocio necesita eso, lo cotizamos aparte, como el resto del catálogo de BIE.' },
+  { q: '¿En cuánto tiempo la tengo lista?', a: 'La primera versión sale en siete días hábiles, contados desde que confirmamos tu anticipo, tu brief y tus materiales completos — textos e imágenes listas acortan ese plazo real.' },
+];
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: 'Página Web — piloto inicial', serviceType: 'Diseño de página web', description, url,
+    provider: { '@type': 'ProfessionalService', name: 'BIE — Business Intelligence Enhancer', alternateName: 'BIE', url: SITE, telephone: '+593988253030',
+      image: `${SITE}/icons/logo.svg`, priceRange: '$',
+      address: { '@type': 'PostalAddress', addressCountry: 'EC', addressLocality: 'Guayaquil' } },
+    areaServed: { '@type': 'Country', name: 'Ecuador' }, availableLanguage: ['es'] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Catálogo', item: SITE + '/catalogo/' },
+    { '@type': 'ListItem', position: 3, name: 'Página Web', item: url } ] },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/pagina-web.jpg`}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:locale" content="es_EC">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+main{max-width:860px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:22px}
+.crumbs a{color:var(--text3);border-bottom:1px solid var(--border)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+h1{font-size:clamp(30px,4.6vw,52px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:16px;max-width:18ch;text-wrap:balance}
+.dek{font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:var(--text2);margin-top:18px;max-width:58ch}
+
+/* precio — visible junto, no escondido */
+.price-box{margin-top:34px;border:1px solid var(--bone);padding:26px 28px;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.price-parts{display:flex;flex-wrap:wrap;gap:28px}
+.price-part b{display:block;font-size:clamp(26px,3.2vw,36px);font-weight:400;letter-spacing:-.02em;color:var(--text)}
+.price-part span{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:4px;display:block}
+.price-plus{font-size:24px;color:var(--text3);align-self:center}
+.price-note{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text3);margin-top:16px;max-width:58ch;line-height:1.6}
+
+section{margin-top:54px}
+h2{font-size:clamp(21px,2.6vw,27px);font-weight:400;letter-spacing:-.015em;margin-bottom:16px}
+p{font-size:15.5px;line-height:1.7;color:var(--text2);max-width:62ch}
+p + p{margin-top:12px}
+ul{margin-top:4px;padding-left:20px}
+li{font-size:15.5px;line-height:1.65;color:var(--text2);margin-top:9px;max-width:62ch}
+li b{color:var(--text);font-weight:500}
+
+/* demo / ilustración */
+.demo-box{border:1px solid var(--border);background:var(--surface);aspect-ratio:16/9;max-width:620px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.demo-box .browser-bar{position:absolute;top:0;left:0;right:0;height:30px;background:#1c1c1f;display:flex;align-items:center;gap:6px;padding:0 10px}
+.demo-box .dot{width:7px;height:7px;border-radius:50%;background:#403f3f}
+.demo-box .url{font-family:var(--mono);font-size:9px;color:var(--text3);background:#111;padding:3px 10px;margin-left:8px;flex:1}
+.demo-box .mock{margin-top:30px;width:100%;height:100%;padding:18px;display:flex;flex-direction:column;gap:8px}
+.demo-box .mock .line{height:9px;background:#2a2a2f}
+.demo-box .mock .line.w60{width:60%}.demo-box .mock .line.w40{width:40%}.demo-box .mock .line.w80{width:80%}
+.demo-box .mock .btn{margin-top:10px;width:120px;height:26px;background:var(--accent-dark)}
+.illus-tag{position:absolute;top:36px;right:10px;font-family:var(--mono);font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:rgba(7,7,9,.75);color:rgba(255,255,255,.7);padding:5px 9px;z-index:2}
+
+/* mes a mes */
+.cycle{display:flex;flex-direction:column;gap:0;margin-top:18px;max-width:640px}
+.cycle-step{display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--border)}
+.cycle-step:last-child{border-bottom:1px solid var(--border)}
+.cycle-step b{font-family:var(--mono);font-weight:400;font-size:11px;color:var(--accent);letter-spacing:.1em;flex-shrink:0;padding-top:2px}
+.cycle-step span{font-size:14.5px;color:var(--text2);line-height:1.5}
+
+/* proceso */
+.steps{display:flex;flex-direction:column;gap:14px;margin-top:18px;max-width:640px}
+.step-row{display:flex;gap:16px;align-items:baseline}
+.step-row b{font-family:var(--mono);font-weight:400;font-size:12px;color:var(--text3)}
+
+/* exclusiones */
+.exclusions{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;max-width:680px}
+.exclusions span{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--text3);border:1px solid var(--border);padding:7px 11px}
+
+/* faq */
+.faq-item{margin-top:22px;max-width:640px}
+.faq-item h3{font-size:16px;font-weight:500;letter-spacing:-.01em;color:var(--text);margin-bottom:6px}
+.faq-item p{font-size:14.5px;margin-top:0}
+
+.cta-box{margin-top:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.cta-note{font-family:var(--mono);font-size:11px;color:var(--text3);max-width:52ch;line-height:1.5}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:60px}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media(max-width:640px){
+  .price-box{flex-direction:column;align-items:flex-start;gap:18px}
+  .demo-box{max-width:100%}
+}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<main>
+  <p class="crumbs"><a href="/">Inicio</a> · <a href="/catalogo/">Catálogo</a> · Página Web</p>
+  <span class="eyebrow">A-12 · Piloto inicial · Ecuador</span>
+
+  <!-- 1. Resultado / encaje -->
+  <h1>Tu página web, con acompañamiento para seguir mejorando.</h1>
+  <p class="dek">Creamos la presencia digital de tu negocio en Ecuador y cada mes revisamos qué mejorar para que tu oferta sea clara y contactar contigo sea sencillo.</p>
+
+  <!-- 2. Precio y CTA -->
+  <div class="price-box">
+    <div class="price-parts">
+      <div class="price-part"><b>USD 150</b><span>Creación</span></div>
+      <span class="price-plus">+</span>
+      <div class="price-part"><b>USD 25<span style="font-size:15px;color:var(--text3)">/mes</span></b><span>Desde la publicación</span></div>
+    </div>
+  </div>
+  <p class="price-note">Mitad del pago de creación para reservar producción, la otra mitad después de tu revisión y antes de publicar. La mensualidad se cobra por adelantado, mes a mes, sin permanencia mínima — la cancelas cuando quieras antes del siguiente período.</p>
+  <div class="cta-box">
+    <a class="btn-primary" href={wa('Hola, quiero mi página web del piloto de BIE (USD 150 + USD 25/mes). ¿Cómo empezamos?')} target="_blank" rel="noopener noreferrer"><span>Quiero mi página web</span></a>
+    <a class="btn-ghost" href="#acompanamiento">Ver qué incluye el acompañamiento</a>
+  </div>
+
+  <!-- 3. Demostración / ilustración etiquetada -->
+  <section>
+    <h2>Así se ve</h2>
+    <div class="demo-box">
+      <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">tunegocio.com</span></div>
+      <div class="mock">
+        <div class="line w60" style="height:16px"></div>
+        <div class="line w40"></div>
+        <div class="line w80"></div>
+        <div class="btn"></div>
+      </div>
+      <span class="illus-tag">Ilustración</span>
+    </div>
+    <p style="margin-top:14px">Estructura real de una página de presentación — una sola acción clara para quien te visita. Diseño definitivo pendiente de dirección de arte y revisión visual.</p>
+    <p style="margin-top:12px">¿Viste el caso de <a href="/casos/tasting-ecuador/?src=ficha-pagina-web">Tasting Ecuador</a>? Es un proyecto integral: marca, tienda, sistema y varias líneas de negocio. Este piloto incluye solo una página de hasta cinco secciones; lo demás es otro alcance y se cotiza aparte.</p>
+  </section>
+
+  <!-- 4. Entregables -->
+  <section>
+    <h2>Qué recibes</h2>
+    <ul>
+      <li><b>Una página en español</b>, con hasta cinco secciones: presentación, servicios, por qué elegirte, información práctica y contacto.</li>
+      <li><b>Diseño adaptable</b> a móvil y computadora.</li>
+      <li><b>Textos breves</b> a partir de la información que tú confirmes, y hasta ocho imágenes con derechos de uso.</li>
+      <li><b>Enlace directo a tu WhatsApp</b> con mensaje inicial, y enlaces a tus redes.</li>
+      <li><b>SEO técnico básico</b>: título, descripción y metadatos para compartir — sin promesa de posición en Google.</li>
+      <li><b>Dos rondas de ajustes</b> antes de publicar.</li>
+      <li><b>Hosting administrado</b>, HTTPS, copia de respaldo tras cada cambio y revisión mensual de que todo cargue bien.</li>
+    </ul>
+  </section>
+
+  <!-- 5. Cómo funciona el mes a mes -->
+  <section id="acompanamiento">
+    <h2>Cómo funciona cada mes</h2>
+    <p>La mensualidad no es una bolsa de horas ni soporte reactivo: es revisión proactiva de tu negocio.</p>
+    <div class="cycle">
+      <div class="cycle-step"><b>01</b><span>Revisamos tu objetivo comercial, las consultas que llegaron y qué está generando fricción en la página.</span></div>
+      <div class="cycle-step"><b>02</b><span>Acordamos una mejora prioritaria — aclarar la oferta, reorganizar una sección, mejorar un botón, actualizar fotos.</span></div>
+      <div class="cycle-step"><b>03</b><span>La aplicamos sobre tu página existente, sin que tengas que pedirlo tú primero.</span></div>
+      <div class="cycle-step"><b>04</b><span>Cerramos con un resumen breve: qué se revisó, qué cambió, y qué vamos a observar el próximo mes.</span></div>
+    </div>
+  </section>
+
+  <!-- 6. Proceso de inicio -->
+  <section>
+    <h2>Cómo empezamos</h2>
+    <div class="steps">
+      <div class="step-row"><b>1</b><span>Antes de cobrar, confirmamos por escrito si encaja, si hay cupo y qué fecha te damos.</span></div>
+      <div class="step-row"><b>2</b><span>Reservas con la mitad del pago de creación y nos pasas tu brief, tus textos y tus fotos. Lo que ya nos contaste no te lo volvemos a pedir.</span></div>
+      <div class="step-row"><b>3</b><span>Te entregamos la primera versión en siete días hábiles, contados desde que tenemos anticipo, brief y materiales completos. La revisamos juntos, con dos rondas de ajustes.</span></div>
+      <div class="step-row"><b>4</b><span>Cuando estés conforme pagas la otra mitad y publicamos. Desde ahí empieza la mensualidad.</span></div>
+    </div>
+    <p style="margin-top:16px">Cupo limitado mientras este piloto está en marcha: la fecha te la confirmamos por escrito antes de cobrar.</p>
+  </section>
+
+  <!-- 7. Exclusiones -->
+  <section>
+    <h2>Qué no incluye este piloto</h2>
+    <p>Para que el precio sea real, el alcance es acotado. Esto se cotiza aparte si lo necesitas:</p>
+    <div class="exclusions">
+      <span>Dominio propio</span><span>Correo corporativo</span><span>Publicidad y campañas</span>
+      <span>Chatbot / automatizaciones</span><span>Tienda en línea y cobros</span><span>Reservas</span>
+      <span>Áreas privadas</span><span>Bases de datos</span><span>Integraciones</span>
+      <span>Panel autogestionable</span><span>Fotografía profesional</span><span>Asesoría legal</span>
+    </div>
+    <p style="margin-top:14px">Si tu negocio ya necesita algo de esta lista, el resto del <a href="/catalogo/">catálogo de BIE</a> lo cubre — este piloto es la puerta de entrada, no el límite de lo que hacemos.</p>
+  </section>
+
+  <!-- 8. Preguntas de compra -->
+  <section>
+    <h2>Antes de escribirnos</h2>
+    {FAQ.map((f) => (
+      <div class="faq-item">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
+  </section>
+
+  <!-- 9. Contacto -->
+  <section>
+    <h2>¿Empezamos?</h2>
+    <p>Cuéntanos tu negocio, qué vendes y qué quieres lograr con tu página — sin compromiso.</p>
+    <div class="cta-box">
+      <a class="btn-primary" href={wa('Hola, quiero mi página web del piloto de BIE (USD 150 + USD 25/mes). ¿Cómo empezamos?')} target="_blank" rel="noopener noreferrer"><span>Quiero mi página web</span></a>
+    </div>
+  </section>
+</main>
+<script is:inline>
+(function(){
+  try{
+    var src=(new URLSearchParams(location.search).get('src')||'').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,40);
+    if(!src)return;
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function(a){
+      a.href=a.href.replace(encodeURIComponent('web/producto/pagina-web/es'),encodeURIComponent('web/producto/pagina-web/es · vía '+src));
+    });
+  }catch(e){}
+})();
+</script>
+<footer>BUSINESS INTELLIGENCE ENHANCER · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>

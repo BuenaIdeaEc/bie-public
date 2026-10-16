@@ -6,8 +6,12 @@
 import '../../styles/site.css';
 import { PRODUCTS } from '../../data/products';
 
+// A-12 (pagina-web) tiene su propia página estática: src/pages/productos/pagina-web.astro.
+// Pedido comercial de EGO (2026-09-30, piloto A-12/OFERTA_web_inicial v1.2): esa ficha
+// necesita un orden y un precio visible que esta plantilla genérica no contempla (nunca
+// muestra precio, por diseño). Se excluye aquí para que Astro no genere una ruta duplicada.
 export function getStaticPaths() {
-  return PRODUCTS.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+  return PRODUCTS.filter((p) => p.slug !== 'pagina-web').map((p) => ({ params: { slug: p.slug }, props: { p } }));
 }
 
 const { p } = Astro.props;

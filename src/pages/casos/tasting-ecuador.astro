@@ -1,16 +1,32 @@
 ---
 // BIE — Primer caso de estudio real, autorizado por la clienta (Fase 2 del plan
-// de contenido/SEO, 2026-09-12). Hechos confirmados por EGO: el negocio ya
-// operaba antes de BIE (no se inventa una historia de "cero"); la intervención
-// de BIE fue estructurar su crecimiento y dar la identidad de una marca de alto
-// impacto. Sin cifras ni testimonios inventados.
+// de contenido/SEO, 2026-09-12). Hechos confirmados por EGO (2026-10-03): empezó con meal prep, negocio
+// estable pero sin crecer (no es historia de "cero"); BIE lo convirtió en un sistema
+// empresarial con 4 líneas (rutas, clases, productos, e-books) y marca físico-digital;
+// es un satélite (crece con productos BIE a cambio de participación). Sin cifras inventadas.
 import '../../styles/site.css';
 
 const SITE = 'https://businessintelligence.solutions';
 const url = `${SITE}/casos/tasting-ecuador/`;
-const title = 'Tasting Ecuador — de un negocio que ya funcionaba a una marca con crecimiento estructurado';
-const description = 'Tasting Ecuador ya operaba experiencias gastronómicas en Cuenca antes de BIE. El trabajo fue darle una identidad de marca de alto impacto y una operación digital estructurada para crecer sin depender de la improvisación.';
+const title = 'Tasting Ecuador — de cocinar bien a tener un negocio que crece';
+const description = 'Tasting Ecuador empezó con meal prep: un negocio estable, pero que no crecía. Junto a BIE lo convertimos en un negocio con rutas gastronómicas, clases, productos y e-books, y toda su marca.';
 const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/casos/tasting-ecuador/es')}`;
+
+// Para sumar un servicio nuevo: copiar la imagen a public/images/casos/tasting/ y agregar una entrada aquí.
+const SLIDES = [
+  { img: 'web', alt: 'Página web de Tasting Ecuador: portada, catálogo de productos horneados y secciones de clases, meal prep, revista y perfil de la chef', tag: 'Presencia digital', title: 'Página web completa',
+    text: 'Sitio propio con blog, tienda en línea, pagos con tarjeta, reservas y pedidos, y análisis de datos. Reúne en un solo lugar las clases de cocina, el meal prep, la revista editorial y los productos horneados por encargo.' },
+  { img: 'os', alt: 'Tasting Ecuador OS: panel de reportes con ingresos, gastos y platos por semana', tag: 'Sistema operativo', title: 'Tasting OS — más que un CRM',
+    text: 'Un sistema operativo propio para el negocio: dashboard, agenda, ventas, producción, clases, clientes, finanzas, reportes, lista de compras y marketing en un mismo lugar.', note: 'Las cifras que se ven son datos de ejemplo, no resultados reales de la clienta.' },
+  { img: 'branding', alt: 'Tablero de marca de Tasting Ecuador con logotipos alternos, paleta de colores y guía tipográfica', tag: 'Marca', title: 'Branding',
+    text: 'Logotipos principal y alternos, tipografías y paleta de colores definidos en una guía de marca, con ejemplos de aplicación en fotografía y piezas gráficas.' },
+  { img: 'instagram', alt: 'Malla de contenidos de Instagram de Tasting Ecuador con piezas de texto sobre fotografía de comida y textiles', tag: 'Redes sociales', title: 'Malla de contenidos en Instagram',
+    text: 'Una línea editorial planificada para el perfil: piezas con una misma voz, fotografía propia y frases de marca que hacen que el feed se lea como un conjunto.' },
+  { img: 'disenos', alt: 'Agenda, e-books y menús de Tasting Ecuador con la identidad de la marca', tag: 'Diseño gráfico', title: 'Agenda, e-books y menús',
+    text: 'Los diseños que el negocio necesita para operar, todos con la identidad de la marca: una agenda, e-books y menús listos para compartir con los clientes.' },
+  { img: 'documentos', alt: 'Cotización de Tasting Ecuador con encabezado de marca y estructura de servicio semanal', tag: 'Documentos', title: 'Cotizaciones, diplomas y papelería',
+    text: 'Documentos con la misma imagen de marca: cotizaciones, diplomas y papelería. Cada propuesta que sale del negocio se ve igual de cuidada que el resto.', note: 'Los datos del cliente del documento están difuminados.' },
+];
 
 const ld = [
   { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
@@ -42,7 +58,7 @@ const ld = [
 <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
 <style is:global>
 body{background:var(--black);color:var(--text)}
-main{max-width:760px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+main{max-width:920px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
 .px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
 .eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
@@ -66,7 +82,35 @@ article p{font-size:16px;line-height:1.7;color:var(--text2);margin-top:14px;max-
 .cta-box p{color:var(--text2);margin-top:0}
 footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
 footer a{color:var(--text2);border-bottom:1px solid var(--border)}
-@media(max-width:640px){.split{grid-template-columns:1fr}}
+.offer-bridge{margin-top:44px;border:1px solid var(--border);padding:24px 26px}
+.offer-bridge h2{margin-top:0}
+.offer-bridge .btn-primary{margin-top:18px}
+.tgal{margin-top:36px;max-width:720px}
+.lines{margin-top:14px;padding-left:20px;max-width:66ch}
+.lines li{font-size:16px;line-height:1.7;color:var(--text2);margin-top:6px}
+.lines b{color:var(--text);font-weight:500}
+.tg-stage{display:grid;border:1px solid var(--border);background:#000;aspect-ratio:1600/1131;overflow:hidden}
+.tg-slide{grid-area:1/1;margin:0;opacity:0;transition:opacity .7s ease;pointer-events:none}
+.tg-slide.on{opacity:1;pointer-events:auto}
+.tg-slide img{display:block;width:100%;height:100%;object-fit:cover}
+.tg-caption{display:grid;margin-top:20px;min-height:9.5em}
+.tg-text{grid-area:1/1;opacity:0;visibility:hidden;transition:opacity .5s ease}
+.tg-text.on{opacity:1;visibility:visible}
+.tg-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.tg-text h3{font-size:clamp(20px,2.4vw,26px);font-weight:400;letter-spacing:-.01em;margin-top:8px}
+.tg-text p{font-size:15.5px;line-height:1.65;color:var(--text2);margin-top:10px;max-width:70ch}
+.tg-text .tg-note{font-family:var(--mono);font-size:11.5px;color:var(--text3);letter-spacing:.02em}
+.tg-controls{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
+.tg-btn{background:transparent;border:1px solid var(--border);color:var(--text2);font-family:var(--mono);font-size:12px;letter-spacing:.08em;padding:10px 16px;cursor:pointer;min-height:44px;min-width:44px}
+.tg-btn:hover{border-color:var(--bone);color:var(--bone)}
+.tg-dots{display:flex;gap:2px;margin-left:6px}
+.tg-dot{width:44px;height:44px;background:transparent;border:0;cursor:pointer;position:relative}
+.tg-dot::after{content:'';position:absolute;left:12px;right:12px;top:50%;height:3px;background:var(--border);transition:background .3s}
+.tg-dot.on::after{background:var(--accent)}
+.tg-count{font-family:var(--mono);font-size:11px;color:var(--text3);margin-left:auto;font-variant-numeric:tabular-nums}
+.tg-btn:focus-visible,.tg-dot:focus-visible{outline:2px solid var(--bone);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.tg-slide,.tg-text{transition:none}}
+@media(max-width:640px){.split{grid-template-columns:1fr}.tg-caption{min-height:13em}.tg-dot{width:32px}.tg-dot::after{left:6px;right:6px}.tg-count{margin-left:0;width:100%}}
 </style>
 </head>
 <body>
@@ -74,45 +118,129 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
 <main>
   <p class="crumbs"><a href="/">Inicio</a> · <a href="/#work">Casos</a></p>
   <span class="eyebrow">Caso real · Autorizado por la clienta</span>
-  <h1>Tasting Ecuador ya vendía experiencias gastronómicas. Lo que faltaba era una marca a la altura de lo que hacía.</h1>
-  <p class="dek">Este no es un caso de "empezar de cero" — Tasting Ecuador ya operaba en Cuenca antes de trabajar con BIE. El trabajo fue otro: ordenar el crecimiento y darle a esa operación real la identidad de una marca de alto impacto.</p>
+  <h1>Tasting Ecuador cocinaba muy bien. Lo que le faltaba era un negocio que creciera.</h1>
+  <p class="dek">Empezaron con meal prep. Les iba bien, pero siempre igual: estable, sin crecer. Junto a BIE lo convertimos en un negocio con varias líneas, y hoy sigue creciendo.</p>
 
   <div class="meta-row">
     <span class="meta-item">Cliente<b>Tasting Ecuador</b></span>
     <span class="meta-item">Sector<b>Experiencias gastronómicas</b></span>
     <span class="meta-item">Ubicación<b>Cuenca, Ecuador</b></span>
-    <span class="meta-item">Qué se construyó<b>Marca, redes y presencia digital</b></span>
+    <span class="meta-item">Modelo<b>Satélite BIE</b></span>
   </div>
 
   <article>
-    <h2>El punto de partida</h2>
-    <p>Tasting Ecuador ya era un negocio real y en funcionamiento: experiencias gastronómicas en Cuenca, con clientes propios. No partía de cero, y sería falso presentarlo así. Lo que no tenía era una identidad de marca consistente ni una operación digital estructurada — el tipo de base que permite crecer de forma ordenada en vez de depender de la improvisación semana a semana.</p>
+    <h2>Dónde empezaron</h2>
+    <p>Tasting Ecuador preparaba comida por encargo (meal prep). Ya tenía clientes y funcionaba. Pero era como una tienda que abre todos los días igual: no se caía, y tampoco crecía.</p>
 
-    <h2>Qué construyó BIE</h2>
-    <p>BIE diseñó su identidad de marca desde cero — logotipo, sistema visual y tono — y organizó su presencia digital completa: redes sociales con una línea editorial consistente y un sitio web que representa lo que el negocio realmente ofrece. El objetivo no fue "estar en internet" por estar, sino que cada punto de contacto (redes, web, comunicación) hablara con la misma voz y la misma calidad.</p>
+    <h2>Qué hicimos juntos</h2>
+    <p>Convertimos un emprendimiento en un negocio con sistema. En vez de vender una sola cosa, hoy Tasting Ecuador tiene cuatro líneas, y las creamos con ellos:</p>
+    <ul class="lines">
+      <li><b>Rutas gastronómicas</b> para conocer Ecuador comiendo.</li>
+      <li><b>Clases de cocina</b> para aprender con la chef.</li>
+      <li><b>Productos</b> horneados y preparados por encargo.</li>
+      <li><b>E-books</b> con su conocimiento, para vender sin estar presentes.</li>
+    </ul>
+    <p>Y le dimos una marca completa, para la calle y para internet: logotipo, colores, redes, página web con tienda y su propio sistema para manejar el negocio.</p>
 
     <div class="split">
       <div>
-        <h3>Antes de la marca</h3>
-        <p>Un negocio real operando, sin un sistema de identidad ni presencia digital que reflejara la calidad de la experiencia que ofrecía.</p>
+        <h3>Antes</h3>
+        <p>Un buen negocio de comida, estable, vendiendo una sola cosa.</p>
       </div>
       <div class="after">
-        <h3>Con la marca de BIE</h3>
-        <p>Identidad visual propia, redes y web con una sola voz consistente, y una base ordenada desde la que seguir creciendo — no una campaña puntual.</p>
+        <h3>Hoy</h3>
+        <p>Cuatro líneas de negocio, una marca que se reconoce y un sistema que ordena todo.</p>
       </div>
     </div>
 
-    <h2>Lo que cambió</h2>
-    <p>El crecimiento de Tasting Ecuador hoy está mejor estructurado que antes: no depende de piezas sueltas o de resolver cada semana desde cero, sino de una marca con la consistencia y la calidad de una marca de alto impacto detrás de cada publicación y cada punto de contacto con un cliente.</p>
+    <h2>Lo que hemos implementado</h2>
+    <p>Un recorrido por lo que ya está funcionando. Esta lista crece a medida que se suman más cosas.</p>
+  </article>
 
-    <p class="honest-note">No publicamos aquí cifras de ventas ni métricas de redes — Tasting Ecuador autorizó este caso con su nombre, no con datos internos de su negocio. Lo que se describe arriba es exactamente lo que se construyó, sin exagerar ni inventar un resultado que no podemos mostrar.</p>
+  <section class="tgal" id="galeria" role="group" aria-roledescription="carrusel" aria-label="Servicios implementados en Tasting Ecuador">
+    <div class="tg-stage" id="tg-stage">
+      {SLIDES.map((s, i) => (
+        <figure class={`tg-slide${i === 0 ? ' on' : ''}`} data-i={i} aria-hidden={i === 0 ? 'false' : 'true'}>
+          <img src={`/images/casos/tasting/${s.img}.webp`} alt={s.alt} width="1600" height="1131" loading="eager" decoding="async">
+        </figure>
+      ))}
+    </div>
+    <div class="tg-caption" id="tg-caption" aria-live="off">
+      {SLIDES.map((s, i) => (
+        <div class={`tg-text${i === 0 ? ' on' : ''}`} data-i={i}>
+          <span class="tg-tag">{s.tag}</span>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+          {s.note && <p class="tg-note">{s.note}</p>}
+        </div>
+      ))}
+    </div>
+    <div class="tg-controls">
+      <button type="button" class="tg-btn" id="tg-prev" aria-label="Servicio anterior">←</button>
+      <button type="button" class="tg-btn" id="tg-play" aria-label="Pausar rotación automática" aria-pressed="false">Pausar</button>
+      <button type="button" class="tg-btn" id="tg-next" aria-label="Servicio siguiente">→</button>
+      <div class="tg-dots">
+        {SLIDES.map((s, i) => (
+          <button type="button" class={`tg-dot${i === 0 ? ' on' : ''}`} data-i={i} aria-label={`Ver ${s.title}`}></button>
+        ))}
+      </div>
+      <span class="tg-count" id="tg-count">1 / {SLIDES.length}</span>
+    </div>
+  </section>
+
+  <article>
+    <h2>Qué es un satélite</h2>
+    <p>Un satélite es un negocio que crece junto a BIE. Usa todo lo que sabemos hacer: marca, web, sistemas, redes. A cambio, nos da una participación en su negocio.</p>
+    <p>Dicho fácil: si a ellos les va bien, a nosotros también. Por eso no entregamos un trabajo y nos vamos: nos quedamos al lado, porque nos conviene que funcione.</p>
+
+    <h2>Lo que muestra este caso</h2>
+    <p>Cuando las cosas se hacen bien, una por una y con alguien que acompaña todo el camino, crecer deja de ser suerte y se vuelve un método.</p>
+
+    <p class="honest-note">No publicamos cifras de ventas ni métricas: Tasting Ecuador autorizó este caso con su nombre, no con los datos internos de su negocio. Lo que ves arriba es lo que se construyó, sin inventar resultados.</p>
+
+    <div class="offer-bridge">
+      <h2>¿Solo necesitas tu página web?</h2>
+      <p>Lo que ves en este caso es un proyecto integral, construido por etapas. No todo eso viene en nuestro piloto de página web: el piloto es una página de hasta cinco secciones con acompañamiento mensual, desde USD 150 de creación más USD 25 al mes.</p>
+      <a class="btn-primary" href="/productos/pagina-web/?src=caso-tasting-ecuador"><span>Ver la oferta de página web</span></a>
+    </div>
 
     <div class="cta-box">
-      <p>Si tu negocio ya funciona pero tu marca no refleja lo que realmente haces, cuéntanos tu caso.</p>
-      <a class="btn-primary" href={wa('Hola, vi el caso de Tasting Ecuador en la web de BIE. Mi negocio ya opera pero quiero una marca a la altura de lo que hago. ¿Podemos hablar?')} target="_blank" rel="noopener noreferrer"><span>Contar mi caso por WhatsApp</span></a>
+      <p>Si tu negocio ya funciona pero no crece, cuéntanos tu caso.</p>
+      <a class="btn-primary" href={wa('Hola, vi el caso de Tasting Ecuador en la web de BIE. Mi negocio ya funciona pero quiero que crezca. ¿Podemos hablar?')} target="_blank" rel="noopener noreferrer"><span>Contar mi caso por WhatsApp</span></a>
     </div>
   </article>
 </main>
+<script is:inline>
+(function(){
+  var slides=document.querySelectorAll('.tg-slide'),texts=document.querySelectorAll('.tg-text'),dots=document.querySelectorAll('.tg-dot');
+  var count=document.getElementById('tg-count'),play=document.getElementById('tg-play');
+  if(!slides.length)return;
+  var n=slides.length,cur=0,timer=null,paused=false;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(i){
+    cur=(i+n)%n;
+    for(var k=0;k<n;k++){
+      var on=k===cur;
+      slides[k].classList.toggle('on',on);slides[k].setAttribute('aria-hidden',on?'false':'true');
+      texts[k].classList.toggle('on',on);dots[k].classList.toggle('on',on);
+      if(on)dots[k].setAttribute('aria-current','true');else dots[k].removeAttribute('aria-current');
+    }
+    count.textContent=(cur+1)+' / '+n;
+  }
+  function stop(){if(timer){clearInterval(timer);timer=null;}}
+  function start(){stop();if(!paused&&!reduce)timer=setInterval(function(){show(cur+1);},5500);}
+  function setPaused(p){paused=p;play.textContent=p?'Reanudar':'Pausar';play.setAttribute('aria-pressed',p?'true':'false');play.setAttribute('aria-label',p?'Reanudar rotación automática':'Pausar rotación automática');start();}
+  document.getElementById('tg-prev').addEventListener('click',function(){show(cur-1);start();});
+  document.getElementById('tg-next').addEventListener('click',function(){show(cur+1);start();});
+  play.addEventListener('click',function(){setPaused(!paused);});
+  dots.forEach(function(d){d.addEventListener('click',function(){show(+d.getAttribute('data-i'));start();});});
+  var g=document.getElementById('galeria');
+  g.addEventListener('mouseenter',stop);g.addEventListener('mouseleave',start);
+  g.addEventListener('focusin',stop);g.addEventListener('focusout',start);
+  if(reduce){play.style.display='none';}
+  start();
+})();
+</script>
 <footer>BUSINESS INTELLIGENCE ENHANCER · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
 </body>
 </html>

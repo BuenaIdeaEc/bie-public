@@ -1,0 +1,55 @@
+---
+import type { EsteMes } from '../../data/este-mes';
+interface Props { data: EsteMes }
+const { data } = Astro.props;
+---
+<section id="este-mes" class="em" aria-labelledby="em-title">
+  <div class="em-inner">
+    <div class="em-card">
+      <div class="em-copy">
+        <p class="em-label">{data.etiqueta} <span class="em-code">{data.codigo}</span></p>
+        <h2 id="em-title" class="em-title">{data.titulo}</h2>
+        <p class="em-text">{data.texto}</p>
+        <ul class="em-cond">
+          {data.condiciones.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="em-buy">
+        <div class="em-prices">
+          {data.precios.map((p, i) => (
+            <>
+              {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
+              <div class="em-price"><b>{p.valor}</b><span>{p.nota}</span></div>
+            </>
+          ))}
+        </div>
+        <a class="em-btn" href={data.href}>{data.cta} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .em{padding:70px 0 20px;border-top:1px solid var(--border)}
+  .em-inner{max-width:1150px;margin:0 auto;padding:0 44px}
+  .em-card{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;border:1px solid var(--border);background:var(--surface);padding:36px}
+  .em-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dark)}
+  .em-code{color:var(--text3);margin-left:10px}
+  .em-title{font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:-.015em;line-height:1.15;margin-top:12px;text-wrap:balance}
+  .em-text{font-size:16px;line-height:1.6;color:var(--text2);margin-top:12px;max-width:52ch}
+  .em-cond{margin-top:18px;padding-left:18px;display:grid;gap:8px}
+  .em-cond li{font-size:14px;line-height:1.55;color:var(--text3);max-width:56ch}
+  .em-buy{display:flex;flex-direction:column;justify-content:center;gap:24px}
+  .em-prices{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+  .em-price b{display:block;font-size:clamp(26px,3vw,34px);font-weight:400;letter-spacing:-.02em;color:var(--text)}
+  .em-price span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:4px;max-width:22ch}
+  .em-plus{font-size:24px;color:var(--text3)}
+  .em-btn{align-self:flex-start;display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;transition:background .4s,border-color .4s,color .4s}
+  .em-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .em-btn:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
+  @media(max-width:860px){
+    .em{padding:48px 0 10px}
+    .em-inner{padding:0 22px}
+    .em-card{grid-template-columns:1fr;gap:26px;padding:24px 20px}
+  }
+</style>

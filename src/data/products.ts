@@ -606,7 +606,7 @@ export const PRODUCTS: ProductPage[] = [
     waMessage: B('Hola, vengo de la página de Identidad de Marca de BIE. Quiero construir la marca de mi empresa.', 'Hi, I come from the BIE Brand Identity page. I want to build my company\'s brand.'),
     chips: [B('3 conceptos listos', '3 concepts ready'), B('Manual de marca entregado', 'Brand manual delivered'), B('Aplicaciones aprobadas', 'Applications approved')],
     usedBy: [
-      { name: 'Tasting Ecuador', note: B('Marca creada desde cero · Cuenca', 'Brand built from scratch · Cuenca') },
+      { name: 'Tasting Ecuador', note: B('Marca y sistema de negocio · Cuenca', 'Brand and business system · Cuenca') },
       { name: 'Villa Tres', note: B('Marca y contenido · Guayaquil', 'Brand and content · Guayaquil') },
     ],
   },
