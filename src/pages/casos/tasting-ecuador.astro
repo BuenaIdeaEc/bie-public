@@ -32,11 +32,12 @@ const SLIDES = [
 
 const ld = [
   { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
+    image: `${SITE}/images/casos/tasting/web.webp`,
     about: { '@type': 'Organization', name: 'Tasting Ecuador', url: 'https://tasting-ecuador.com',
       address: { '@type': 'PostalAddress', addressLocality: 'Cuenca', addressCountry: 'EC' } },
     author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE, sameAs: ['https://instagram.com/businessintelligence.ec'] },
     publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE, sameAs: ['https://instagram.com/businessintelligence.ec'], logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
-    inLanguage: 'es-EC', datePublished: '2026-09-12' },
+    inLanguage: 'es-EC', datePublished: '2026-09-12T09:00:00-05:00', dateModified: '2026-10-16T18:37:00-05:00' },
   { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
     { '@type': 'ListItem', position: 2, name: 'Casos', item: SITE + '/#work' },
