@@ -773,3 +773,19 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   #wa-widget{bottom:86px;right:18px}
   #wa-bubble{right:86px;bottom:36px;max-width:190px;font-size:12px}
 }
+
+/* === Pase de elegancia (2026-10-16): menos consola, más editorial. Sin tocar colores ni tipografías de marca === */
+html body{cursor:auto}
+html body a,html body button,html body select,html body input,html body textarea{cursor:pointer}
+html body input,html body textarea{cursor:text}
+html body #cursor{display:none}
+#top-canvas,#catalog-canvas{display:none}
+html body .eyebrow,html body .section-label{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:.005em;font-size:20px;color:var(--accent)}
+html body .hero-dead{font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:22px;color:var(--text3)}
+html body .stat-l,html body .trust-label,html body .wc-kind,html body .qz-rec,html body .panel-next-label,html body .m-phase,html body .m-sec,html body .m-result-l,html body .feed-net,html body .field label,html body .video-tag,html body .ba-note,html body .top-tile .tt-badge{font-family:var(--font);text-transform:none;letter-spacing:.02em}
+html body .wc-kind{font-size:13px}
+html body .stat-l,html body .trust-label{font-size:13px}
+html body .g-tag,html body .g-illus{font-family:var(--font);text-transform:none;letter-spacing:.02em}
+html body .g-tag{font-size:12px}
+html body .g-illus{font-size:11px}
+html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-btn,html body .belt-cta-btn,html body .cat-btn-main,html body .cat-btn-ghost,html body .sim-cta,html body .qz-see,html body .qz-wa,html body .mm-cta,html body .wc-case{font-family:var(--font);text-transform:none;letter-spacing:.01em;font-size:15px}

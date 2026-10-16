@@ -543,7 +543,8 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .belt-cta-btn{display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;transition:background .4s var(--ease),border-color .4s,color .4s}
 .belt-cta-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 .g-slide.real>*{animation:none}
-.g-slide .g-photo{width:100%;height:100%;max-width:100%;object-fit:contain}
+.g-slide .g-photo{width:100%;height:100%;max-width:100%;object-fit:cover}
+.wc-big .gallery{height:auto;aspect-ratio:1600/1131}
 @media(max-width:640px){.phase-rail{display:flex;flex-direction:column;margin-top:64px;border-top:1px solid var(--border)}
 .reveal .phase-btn{opacity:0;transform:translateY(20px)}
 .reveal.in .phase-btn{opacity:1;transform:none}
@@ -845,6 +846,21 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   #wa-widget{bottom:86px;right:18px}
   #wa-bubble{right:86px;bottom:36px;max-width:190px;font-size:12px}
 }
+/* === Pase de elegancia (2026-10-16): menos consola, más editorial. Sin tocar colores ni tipografías de marca === */
+html body{cursor:auto}
+html body a,html body button,html body select,html body input,html body textarea{cursor:pointer}
+html body input,html body textarea{cursor:text}
+html body #cursor{display:none}
+#top-canvas,#catalog-canvas{display:none}
+html body .eyebrow,html body .section-label{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;text-transform:none;letter-spacing:.005em;font-size:20px;color:var(--accent)}
+html body .hero-dead{font-family:'Instrument Serif',Georgia,serif;font-style:italic;text-transform:none;letter-spacing:0;font-size:22px;color:var(--text3)}
+html body .stat-l,html body .trust-label,html body .wc-kind,html body .qz-rec,html body .panel-next-label,html body .m-phase,html body .m-sec,html body .m-result-l,html body .feed-net,html body .field label,html body .video-tag,html body .ba-note,html body .top-tile .tt-badge{font-family:var(--font);text-transform:none;letter-spacing:.02em}
+html body .wc-kind{font-size:13px}
+html body .stat-l,html body .trust-label{font-size:13px}
+html body .g-tag,html body .g-illus{font-family:var(--font);text-transform:none;letter-spacing:.02em}
+html body .g-tag{font-size:12px}
+html body .g-illus{font-size:11px}
+html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-btn,html body .belt-cta-btn,html body .cat-btn-main,html body .cat-btn-ghost,html body .sim-cta,html body .qz-see,html body .qz-wa,html body .mm-cta,html body .wc-case{font-family:var(--font);text-transform:none;letter-spacing:.01em;font-size:15px}
 </style>
 
 
@@ -950,7 +966,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
     </div>
     <div class="trust-strip reveal">
       <span class="trust-label" data-i18n="trust_label" set:html={es('trust_label')}></span>
-      <span class="trust-names">Luway · Tasting Ecuador · Villa Tres · Amílcar · Óscar Caicho</span>
+      <span class="trust-names">Tasting Ecuador · Luway · Villa Tres · Amílcar · Óscar Caicho</span>
     </div>
     <div class="work-grid" id="work-grid"></div>
   </div>
@@ -1271,13 +1287,6 @@ const MOCK = {
 const TPHOTO = n => `<img class="g-photo" src="/images/casos/tasting/${n}.webp" alt="${(window.__TASTING_ALT && window.__TASTING_ALT[n]) || 'Tasting Ecuador'}" width="1600" height="1131" loading="lazy" decoding="async">`;
 const TBG = 'radial-gradient(ellipse at 50% 40%,#3a0c0c,#0b0b0d 75%)';
 const COMPANIES = [
-  { size:'wc-big', name:'Luway',
-    kind:B('Sistema operativo + Link hub + Ventas en vivo','Operating system + Link hub + Live sales'),
-    desc:B('Moda en vivo por TikTok. BIE construyó Luway OS — inventario, ventas y entregas — su hub de enlaces y el flujo de ventas por WhatsApp.','Live fashion on TikTok. BIE built Luway OS — inventory, sales and deliveries — its link hub and the WhatsApp sales flow.'),
-    socials:['tiktok','instagram','web'],
-    slides:[ [B('Luway OS','Luway OS'), MOCK.luwayOS, 'linear-gradient(160deg,#fdf0f4,#f6dce6)'],
-             [B('Link Hub','Link Hub'), MOCK.luwayHub, 'linear-gradient(160deg,#f6e8ee,#eed4e0)'],
-             [B('TikTok Live','TikTok Live'), MOCK.luwayLive, 'linear-gradient(160deg,#f2e6e4,#e4ccc6)'] ] },
   { size:'wc-big', name:'Tasting Ecuador',
     kind:B('Marca + Redes + Web + Sistema operativo','Brand + Social + Web + Operating system'),
     desc:B('Experiencias gastronómicas en Cuenca. BIE estructuró su crecimiento: identidad de marca, redes, página web con tienda y su sistema operativo propio.','Culinary experiences in Cuenca. BIE structured its growth: brand identity, social media, a website with online store and its own operating system.'),
@@ -1290,6 +1299,13 @@ const COMPANIES = [
              [B('Instagram','Instagram'), TPHOTO('instagram'), TBG],
              [B('Diseños','Designs'), TPHOTO('disenos'), TBG],
              [B('Documentos','Documents'), TPHOTO('documentos'), TBG] ] },
+  { size:'wc-big', name:'Luway',
+    kind:B('Sistema operativo + Link hub + Ventas en vivo','Operating system + Link hub + Live sales'),
+    desc:B('Moda en vivo por TikTok. BIE construyó Luway OS — inventario, ventas y entregas — su hub de enlaces y el flujo de ventas por WhatsApp.','Live fashion on TikTok. BIE built Luway OS — inventory, sales and deliveries — its link hub and the WhatsApp sales flow.'),
+    socials:['tiktok','instagram','web'],
+    slides:[ [B('Luway OS','Luway OS'), MOCK.luwayOS, 'linear-gradient(160deg,#fdf0f4,#f6dce6)'],
+             [B('Link Hub','Link Hub'), MOCK.luwayHub, 'linear-gradient(160deg,#f6e8ee,#eed4e0)'],
+             [B('TikTok Live','TikTok Live'), MOCK.luwayLive, 'linear-gradient(160deg,#f2e6e4,#e4ccc6)'] ] },
   { size:'wc-small', name:'Villa Tres',
     kind:B('Marca + Contenido','Brand + Content'),
     desc:B('Hostal en Guayaquil. Identidad de marca y sistema de contenido para atraer huéspedes.','Guesthouse in Guayaquil. Brand identity and content system to attract guests.'),
@@ -1462,7 +1478,7 @@ function renderWork(){
     const card = document.createElement('div');
     card.className = `work-card ${c.size} reveal in d${(ci % 3) + 1} tilt`;
     card.innerHTML = `
-      <div class="gallery" data-g="${ci}">
+      <div class="gallery${c.real ? ' gal-real' : ''}" data-g="${ci}">
         ${c.slides.map((s, si) => `<div class="g-slide${si === 0 ? ' on' : ''}${c.real ? ' real' : ''}" data-s="${si}" style="background:${s[2]}">${s[1]}</div>`).join('')}
         <span class="g-tag">${t(c.slides[0][0])}</span>
         ${c.real ? '' : `<span class="g-illus">${t(UI.illus_tag)}</span>`}
