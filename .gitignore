@@ -25,3 +25,10 @@ pnpm-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# secretos locales
+.env.local
+.env.*.local
+
+# salidas de generacion
+scripts/higgsfield/out/
