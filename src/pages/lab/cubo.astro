@@ -1,0 +1,186 @@
+---
+// BIE — Laboratorio: prototipo del capítulo 1 de la home 10.0 ("Dentro del cubo").
+// 27 píxeles cuadrados encajan en un cubo con física determinista, dirigidos por el scroll.
+// Página oculta (noindex, sin enlaces) para revisión de EGO. No es parte de la home todavía.
+import '../../styles/site.css';
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lab · Capítulo 1 · El cubo se arma</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style is:global>
+html,body{background:#0f0f11;color:var(--text)}
+body{overflow-x:hidden}
+#stage{height:360vh;position:relative}
+#sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block}
+#labels{position:absolute;inset:0;pointer-events:none}
+.lbl{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,253,249,.72);white-space:nowrap;will-change:transform,opacity}
+.lbl::before{content:'';display:inline-block;width:5px;height:5px;background:var(--accent);margin-right:8px;vertical-align:middle}
+#copy{position:absolute;left:0;right:0;bottom:12vh;padding:0 clamp(20px,6vw,80px);pointer-events:none}
+.line{position:absolute;left:clamp(20px,6vw,80px);right:clamp(20px,6vw,80px);bottom:0;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;will-change:opacity}
+.line.on{opacity:1;transform:none}
+.line .k{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2.2vw,24px);color:var(--text3);display:block;margin-bottom:8px}
+.line h1,.line h2{font-size:clamp(30px,5vw,60px);font-weight:400;letter-spacing:-.02em;line-height:1.02;max-width:16ch;margin:0;text-wrap:balance}
+.line h2 em,.line h1 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;color:var(--accent);font-weight:400}
+.line .btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;pointer-events:auto}
+#hud{position:fixed;top:14px;right:14px;z-index:5;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--text3);background:rgba(15,15,17,.7);border:1px solid var(--border);padding:6px 9px}
+#after{min-height:60vh;display:grid;place-items:center;padding:40px 24px;text-align:center;color:var(--text3);font-family:var(--mono);font-size:12px;line-height:1.8}
+#after a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media (prefers-reduced-motion: reduce){ .line{transition:none} }
+</style>
+</head>
+<body>
+<div id="hud">LAB · CAP. 1 · <span id="pct">0%</span></div>
+<section id="stage" aria-label="El cubo se arma: prototipo con scroll">
+  <div id="sticky">
+    <canvas id="c" aria-hidden="true"></canvas>
+    <div id="labels" aria-hidden="true"></div>
+    <div id="copy">
+      <div class="line on" data-i="0"><span class="k">Ya es demasiado, lo sabemos.</span><h1>Cobros, citas, redes, inventario… <em>todo suelto.</em></h1></div>
+      <div class="line" data-i="1"><span class="k">Pieza por pieza, en su sitio.</span><h2>Dedica tu tiempo a lo que sabes hacer.</h2></div>
+      <div class="line" data-i="2"><span class="k">Un solo sistema.</span><h2>Nosotros construimos <em>todo el resto.</em></h2>
+        <div class="btns"><a class="btn-primary" href="#after"><span>Quiero cotizar</span></a><a class="btn-ghost" href="#after">Ver productos</a></div></div>
+    </div>
+  </div>
+</section>
+<div id="after">Fin del prototipo del capítulo 1.<br>Sube y baja para armar y desarmar el cubo. En celular, con el dedo.<br><a href="/">Volver a la home actual</a></div>
+
+<script>
+import * as THREE from 'three';
+
+const canvas = document.getElementById('c') as HTMLCanvasElement;
+const stage = document.getElementById('stage') as HTMLElement;
+const labelsEl = document.getElementById('labels') as HTMLElement;
+const pct = document.getElementById('pct') as HTMLElement;
+const lines = Array.from(document.querySelectorAll<HTMLElement>('.line'));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setClearColor(0x0f0f11, 1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x0f0f11, 12, 30);
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+const key = new THREE.DirectionalLight(0xdfe8ff, 1.6); key.position.set(-4, 6, 5); scene.add(key);
+const rim = new THREE.DirectionalLight(0xffffff, 1.1); rim.position.set(5, 3, -6); scene.add(rim);
+const fill = new THREE.PointLight(0xe53935, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
+
+// ---- grid 3x3x3, orden de construcción: capa inferior → media → superior; atrás → adelante; izq → der
+const S = 1, GAP = 0.045, STEP = S + GAP;
+const grid: {x:number,y:number,z:number}[] = [];
+for (const y of [-1, 0, 1]) for (const z of [-1, 0, 1]) for (const x of [-1, 0, 1]) grid.push({ x, y, z });
+
+// azar determinista (mismo caos en cada visita)
+let seed = 7;
+const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+const geo = new THREE.BoxGeometry(S, S, S);
+const edgesGeo = new THREE.EdgesGeometry(geo);
+const edgeMat = new THREE.LineBasicMaterial({ color: 0xd8d4cc, transparent: true, opacity: 0.28 });
+const dark = () => new THREE.MeshStandardMaterial({ color: 0x15151a, roughness: 0.85, metalness: 0.15 });
+const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0x15151a);
+
+const group = new THREE.Group(); scene.add(group);
+type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, target: THREE.Vector3, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement, word?: string };
+const pieces: Piece[] = [];
+const WORDS: Record<number, string> = { 2: 'cobros', 5: 'citas', 9: 'redes', 13: 'inventario', 16: 'web', 20: 'marca', 24: 'WhatsApp' };
+
+const N = grid.length, T_START = 0.06, T_END = 0.90, DUR = 0.16;
+grid.forEach((g, i) => {
+  const mats = [dark(), dark(), dark(), dark(), dark(), dark()];
+  const isFront = g.z === 1;
+  const mesh = new THREE.Mesh(geo, mats);
+  mesh.add(new THREE.LineSegments(edgesGeo, edgeMat));
+  group.add(mesh);
+  const r = 3.4 + rnd() * 3.6, th = rnd() * Math.PI * 2, ph = (rnd() - 0.5) * Math.PI * 0.8;
+  const start = new THREE.Vector3(Math.cos(ph) * Math.cos(th) * r * 1.3, Math.sin(ph) * r * 0.75 + 0.3, Math.cos(ph) * Math.sin(th) * r);
+  const target = new THREE.Vector3(g.x * STEP, g.y * STEP, g.z * STEP);
+  const t0 = T_START + (i / (N - 1)) * (T_END - T_START - DUR);
+  const p: Piece = { mesh, start, target, rot0: new THREE.Euler(rnd() * 2, rnd() * 2, rnd() * 2), t0, t1: t0 + DUR, front: isFront ? mats[4] : null };
+  if (WORDS[i]) { const el = document.createElement('div'); el.className = 'lbl'; el.textContent = WORDS[i]; labelsEl.appendChild(el); p.label = el; p.word = WORDS[i]; }
+  pieces.push(p);
+});
+
+// easing con rebote (la pieza llega, pasa un poco y se asienta)
+const easeOutBack = (u: number) => { const c = 1.55; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
+const smooth = (u: number) => u * u * (3 - 2 * u);
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+
+let target = 0, prog = reduce ? 1 : 0, lastLine = -1;
+const tmp = new THREE.Vector3();
+
+function layout() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', layout, { passive: true }); layout();
+
+function readScroll() {
+  const r = stage.getBoundingClientRect();
+  const span = stage.offsetHeight - innerHeight;
+  if (!(span > 0)) return;
+  target = clamp01(-r.top / span);
+  if (!Number.isFinite(prog)) prog = target;
+}
+addEventListener('scroll', readScroll, { passive: true }); readScroll();
+
+function frame(now: number) {
+  if (!Number.isFinite(prog)) prog = target;
+  prog += (target - prog) * (reduce ? 1 : 0.14);
+  const p = prog, t = now * 0.001;
+  const portrait = camera.aspect < 1, dist = portrait ? 1.35 : 1;
+
+  // cámara: empuje lento + leve órbita
+  const cp = smooth(p);
+  camera.position.set(THREE.MathUtils.lerp(0.4, 3.0, cp) * dist, THREE.MathUtils.lerp(2.4, 1.9, cp), THREE.MathUtils.lerp(14, 10.8, cp) * dist);
+  // en apaisado el cubo terminado se corre a la derecha para dejar sitio al texto
+  group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 1.9, cp);
+  group.position.y = portrait ? THREE.MathUtils.lerp(0, 1.9, cp) : 0;
+  camera.lookAt(group.position.x * 0.8, group.position.y - 0.2, 0);
+  group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
+
+  const redAmt = clamp01((p - 0.92) / 0.06);
+  fill.intensity = redAmt * 6;
+
+  for (const pc of pieces) {
+    const u = clamp01((p - pc.t0) / (pc.t1 - pc.t0));
+    const e = easeOutBack(u);
+    // en vertical el caos se aprieta en horizontal para que quepa en pantalla
+    tmp.copy(pc.start); if (portrait) { tmp.x *= 0.45; tmp.y *= 1.25; }
+    pc.mesh.position.lerpVectors(tmp, pc.target, e);
+    if (u === 0 && !reduce) { // deriva viva mientras está suelta
+      pc.mesh.position.x += Math.sin(t * 0.6 + pc.t0 * 40) * 0.12;
+      pc.mesh.position.y += Math.cos(t * 0.5 + pc.t0 * 30) * 0.12;
+    }
+    const k = 1 - smooth(u);
+    pc.mesh.rotation.set(pc.rot0.x * k + t * 0.25 * k, pc.rot0.y * k + t * 0.2 * k, pc.rot0.z * k);
+    if (pc.front) pc.front.color.copy(DARK).lerp(RED, redAmt);
+    if (pc.label) {
+      pc.mesh.getWorldPosition(tmp).project(camera);
+      const x = (tmp.x * 0.5 + 0.5) * canvas.clientWidth, y = (-tmp.y * 0.5 + 0.5) * canvas.clientHeight;
+      pc.label.style.transform = `translate(${x.toFixed(1)}px, ${(y - 26).toFixed(1)}px) translate(-50%,-50%)`;
+      pc.label.style.opacity = String(clamp01(1 - u * 1.6) * (tmp.z < 1 ? 1 : 0));
+    }
+  }
+
+  const li = p < 0.3 ? 0 : p < 0.9 ? 1 : 2;
+  if (li !== lastLine) { lines.forEach((l, i) => l.classList.toggle('on', i === li)); lastLine = li; }
+  pct.textContent = Math.round(p * 100) + '%';
+
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

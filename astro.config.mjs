@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://businessintelligence.solutions',
   devToolbar: { enabled: false },
-  integrations: [react(), sitemap({ filter: (page) => !page.includes('/presentaciones/') })],
+  integrations: [react(), sitemap({ filter: (page) => !page.includes('/presentaciones/') && !page.includes('/lab/') })],
   vite: {
     plugins: [tailwindcss()]
   }
