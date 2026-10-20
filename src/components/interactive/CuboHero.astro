@@ -70,6 +70,8 @@ const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setClearColor(0x0f0f11, 1);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x0f0f11, 12, 30);
@@ -77,6 +79,9 @@ const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
 
 scene.add(new THREE.AmbientLight(0xffffff, 0.22));
 const key = new THREE.DirectionalLight(0xdfe8ff, 1.6); key.position.set(-4, 6, 5); scene.add(key);
+key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.camera.near = 1; key.shadow.camera.far = 30;
+key.shadow.camera.left = key.shadow.camera.bottom = -8; key.shadow.camera.right = key.shadow.camera.top = 8; key.shadow.bias = -0.0015;
+const redRim = new THREE.DirectionalLight(0xe53935, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
 const rim = new THREE.DirectionalLight(0xffffff, 1.1); rim.position.set(5, 3, -6); scene.add(rim);
 const fill = new THREE.PointLight(0xe53935, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
 
@@ -96,6 +101,9 @@ const dark = () => new THREE.MeshStandardMaterial({ color: 0x15151a, roughness: 
 const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0x15151a);
 
 const group = new THREE.Group(); scene.add(group);
+// suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.55 }));
+floor.rotation.x = -Math.PI / 2; floor.position.y = -1.6; floor.receiveShadow = true; group.add(floor);
 type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
 const pieces: Piece[] = [];
 const WORDS: Record<number, string> = { 0: 'citas', 2: 'inventario', 4: 'redes', 6: 'cobros', 8: 'marca', 10: 'sistemas', 13: 'Instagram', 15: 'Facebook', 17: 'Meta', 20: 'WhatsApp', 23: 'web', 25: 'TikTok' };
@@ -105,6 +113,7 @@ grid.forEach((g, i) => {
   const mats = [dark(), dark(), dark(), dark(), dark(), dark()];
   const mesh = new THREE.Mesh(geo, mats);
   mesh.add(new THREE.LineSegments(edgesGeo, edgeMat));
+  mesh.castShadow = true; mesh.receiveShadow = true;
   group.add(mesh);
   const r = 3.4 + rnd() * 3.6, th = rnd() * Math.PI * 2, ph = (rnd() - 0.5) * Math.PI * 0.8;
   const start = new THREE.Vector3(Math.cos(ph) * Math.cos(th) * r * 1.3, Math.sin(ph) * r * 0.75 + 0.3, Math.cos(ph) * Math.sin(th) * r);
@@ -155,6 +164,9 @@ function frame(now: number) {
   group.position.y = portrait ? THREE.MathUtils.lerp(0, 2.6 + (1 - camera.aspect) * 1.5, cp) : 0;
   camera.lookAt(group.position.x * 0.8, group.position.y - 0.2, 0);
   group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
+  group.rotation.x = THREE.MathUtils.lerp(0.06, 0, cp);
+  redRim.intensity = 0.4 + cp * 1.6;
+  floor.material.opacity = 0.15 + cp * 0.45;
 
   // 0.66 todo encajado → 0.66-0.74 las juntas se cierran → 0.76-0.90 flash blanco → cara roja
   const seam = 1 - smooth(clamp01((p - 0.66) / 0.08));
