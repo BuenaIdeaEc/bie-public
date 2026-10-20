@@ -15,7 +15,7 @@ import '../../styles/site.css';
 <style is:global>
 html,body{background:#0f0f11;color:var(--text)}
 body{overflow-x:hidden}
-#stage{height:360vh;position:relative}
+#stage{height:230vh;position:relative}
 #sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
 #c{position:absolute;inset:0;width:100%;height:100%;display:block}
 #labels{position:absolute;inset:0;pointer-events:none}
@@ -92,9 +92,9 @@ const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0x15151a);
 const group = new THREE.Group(); scene.add(group);
 type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, target: THREE.Vector3, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement, word?: string };
 const pieces: Piece[] = [];
-const WORDS: Record<number, string> = { 2: 'cobros', 5: 'citas', 9: 'redes', 13: 'inventario', 16: 'web', 20: 'marca', 24: 'WhatsApp' };
+const WORDS: Record<number, string> = { 0: 'citas', 2: 'inventario', 4: 'redes', 6: 'cobros', 8: 'marca', 10: 'sistemas', 13: 'Instagram', 15: 'Facebook', 17: 'Meta', 20: 'WhatsApp', 23: 'web', 25: 'TikTok' };
 
-const N = grid.length, T_START = 0.06, T_END = 0.90, DUR = 0.16;
+const N = grid.length, T_START = 0.04, T_END = 0.74, DUR = 0.11;
 grid.forEach((g, i) => {
   const mats = [dark(), dark(), dark(), dark(), dark(), dark()];
   const isFront = g.z === 1;
@@ -136,20 +136,20 @@ addEventListener('scroll', readScroll, { passive: true }); readScroll();
 
 function frame(now: number) {
   if (!Number.isFinite(prog)) prog = target;
-  prog += (target - prog) * (reduce ? 1 : 0.14);
+  prog += (target - prog) * (reduce ? 1 : 0.18);
   const p = prog, t = now * 0.001;
-  const portrait = camera.aspect < 1, dist = portrait ? 1.35 : 1;
+  const portrait = camera.aspect < 1, dist = portrait ? 1.35 + (1 - camera.aspect) * 0.6 : 1;
 
   // cámara: empuje lento + leve órbita
   const cp = smooth(p);
   camera.position.set(THREE.MathUtils.lerp(0.4, 3.0, cp) * dist, THREE.MathUtils.lerp(2.4, 1.9, cp), THREE.MathUtils.lerp(14, 10.8, cp) * dist);
   // en apaisado el cubo terminado se corre a la derecha para dejar sitio al texto
   group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 1.9, cp);
-  group.position.y = portrait ? THREE.MathUtils.lerp(0, 1.9, cp) : 0;
+  group.position.y = portrait ? THREE.MathUtils.lerp(0, 1.9 + (1 - camera.aspect) * 1.5, cp) : 0;
   camera.lookAt(group.position.x * 0.8, group.position.y - 0.2, 0);
   group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
 
-  const redAmt = clamp01((p - 0.92) / 0.06);
+  const redAmt = clamp01((p - 0.76) / 0.08);
   fill.intensity = redAmt * 6;
 
   for (const pc of pieces) {
@@ -173,7 +173,7 @@ function frame(now: number) {
     }
   }
 
-  const li = p < 0.3 ? 0 : p < 0.9 ? 1 : 2;
+  const li = p < 0.22 ? 0 : p < 0.78 ? 1 : 2;
   if (li !== lastLine) { lines.forEach((l, i) => l.classList.toggle('on', i === li)); lastLine = li; }
   pct.textContent = Math.round(p * 100) + '%';
 
