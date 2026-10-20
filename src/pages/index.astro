@@ -403,15 +403,21 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 #work.rail .section-inner{width:100%}
 #work.rail .trust-strip{margin-top:22px;padding:12px 0}
 #work.rail .work-grid{display:flex!important;gap:22px;margin-top:36px;width:max-content;padding:0 44px;will-change:transform;overflow:visible;scroll-snap-type:none}
-#work.rail .work-card{flex:0 0 min(640px,62vw);grid-column:auto}
-#work.rail .gallery{height:clamp(190px,30vh,270px)}
+/* tarjetas = imagen; el texto solo al detener (cursor) o tocar */
+#work.rail .work-card{flex:0 0 min(820px,72vw);grid-column:auto;position:relative;cursor:grab}
+#work.rail .work-card:active{cursor:grabbing}
+#work.rail .gallery{height:auto;aspect-ratio:1600/1131;border-radius:var(--r-lg)}
+#work.rail .g-slide .g-photo{object-fit:cover}
+#work.rail .wc-info{position:absolute;left:0;right:0;bottom:0;padding:22px 24px 20px;background:linear-gradient(180deg,rgba(11,11,13,0) 0%,rgba(11,11,13,.86) 45%,rgba(11,11,13,.96) 100%);opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none}
+#work.rail .work-card:hover .wc-info,#work.rail .work-card.open .wc-info{opacity:1;transform:none;pointer-events:auto}
 #work.rail .wc-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#work.rail .g-dots{bottom:14px}
 #work.rail .cta-band{flex:0 0 min(520px,46vw);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px;margin:0;padding:32px}
 #work.rail .rail-hint{display:none}
 @media (max-width:640px){
   #work.rail{padding:70px 0 60px}
   #work.rail .work-grid{gap:14px;padding:0 22px;margin-top:28px}
-  #work.rail .work-card{flex:0 0 82vw}
+  #work.rail .work-card{flex:0 0 86vw}
   #work.rail .cta-band{flex:0 0 78vw}
 }
 @media (prefers-reduced-motion: reduce){ #work.rail .work-grid{transform:none!important;width:auto;overflow-x:auto;padding-bottom:12px} }
@@ -529,7 +535,37 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .cat-btn-main:hover{background:var(--accent);border-color:var(--accent);color:#fff}
 .cat-btn-ghost{display:inline-block;border:1px solid rgba(255,253,249,.28);color:var(--text2);font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;padding:22px 26px;transition:border-color .4s,color .4s}
 .cat-btn-ghost:hover{border-color:var(--bone);color:var(--bone)}
-#simple{padding:120px 0 110px;border-top:1px solid var(--border)}
+#simple.kin{height:340vh;position:relative;border-top:1px solid var(--border);padding:0;background:var(--bg)}
+.kin-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:flex;align-items:center;overflow:hidden}
+.kin-label{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2.2vw,24px);color:var(--accent);margin:0 0 14px}
+.kin-h2{font-size:clamp(34px,6.4vw,84px);font-weight:400;letter-spacing:-.025em;line-height:1.02;margin:0;max-width:14ch;text-wrap:balance}
+.kin-h2 .kin-w{display:inline-block;opacity:.12;transform:translateY(.35em) rotate(1.5deg);transition:opacity .35s ease,transform .5s cubic-bezier(.16,1,.3,1),color .35s}
+.kin-h2 .kin-w.on{opacity:1;transform:none}
+.kin-steps{list-style:none;margin:40px 0 0;padding:0;display:grid;gap:10px;max-width:760px}
+.kin-step{display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:14px;align-items:baseline;opacity:.18;transform:translateX(-10px);transition:opacity .4s ease,transform .5s cubic-bezier(.16,1,.3,1)}
+.kin-step.seen{opacity:.45;transform:none}
+.kin-step.on{opacity:1;transform:none}
+.kin-n{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:.16em;padding-top:4px}
+.kin-step h3{grid-column:2;font-size:clamp(22px,3.2vw,40px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin:0;transition:font-size .4s}
+.kin-step p{grid-column:2;font-size:clamp(14px,1.4vw,17px);line-height:1.55;color:var(--text2);margin:6px 0 0;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s cubic-bezier(.16,1,.3,1),opacity .4s}
+.kin-step.on p{max-height:6em;opacity:1}
+.kin-cta{margin-top:30px;opacity:0;transform:translateY(10px);transition:opacity .4s,transform .5s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.kin-cta.on{opacity:1;transform:none;pointer-events:auto}
+.kin .sim-example{margin-top:18px;max-width:52ch}
+@media (max-width:640px){
+  #simple.kin{height:300vh}
+  .kin-steps{margin-top:26px;gap:8px}
+  .kin-step{grid-template-columns:40px minmax(0,1fr);column-gap:10px}
+  .kin-cta .sim-cta{display:block;text-align:center}
+}
+@media (prefers-reduced-motion: reduce){
+  #simple.kin{height:auto;padding:100px 0}
+  .kin-sticky{position:static;height:auto}
+  .kin-h2 .kin-w{opacity:1;transform:none}
+  .kin-step,.kin-step.seen{opacity:1;transform:none}
+  .kin-step p{max-height:none;opacity:1}
+  .kin-cta{opacity:1;transform:none;pointer-events:auto}
+}
 .sim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:60px}
 .sim-step{border:1px solid var(--border);padding:34px 28px 38px;transition:border-color .4s var(--ease),background .4s var(--ease)}
 .sim-step:hover{border-color:var(--accent);background:var(--accent-pale)}
@@ -986,24 +1022,24 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
   </div>
 </section>
 
-<!-- ASÍ DE SIMPLE -->
-<section id="simple">
-  <div class="section-inner">
-    <div class="reveal">
-      <p class="section-label" data-i18n="sim_label" set:html={es('sim_label')}></p>
-      <h2 class="section-h2" data-i18n="sim_h2" set:html={es('sim_h2')}></h2>
-      <p class="section-sub" data-i18n="sim_sub" set:html={es('sim_sub')}></p>
+<!-- ASÍ DE SIMPLE: tipografía en movimiento dirigida por el scroll -->
+<section id="simple" class="kin">
+  <div class="kin-sticky">
+    <div class="section-inner">
+      <p class="kin-label" data-i18n="sim_label" set:html={es('sim_label')}></p>
+      <h2 class="kin-h2" id="kin-h2" data-i18n="sim_h2" set:html={es('sim_h2')}></h2>
+      <ol class="kin-steps" id="kin-steps">
+        <li class="kin-step" data-i="0"><span class="kin-n">01</span><h3 data-i18n="sim1_t" set:html={es('sim1_t')}></h3><p data-i18n="sim1_b" set:html={es('sim1_b')}></p></li>
+        <li class="kin-step" data-i="1"><span class="kin-n">02</span><h3 data-i18n="sim2_t" set:html={es('sim2_t')}></h3><p data-i18n="sim2_b" set:html={es('sim2_b')}></p></li>
+        <li class="kin-step" data-i="2"><span class="kin-n">03</span><h3 data-i18n="sim3_t" set:html={es('sim3_t')}></h3><p data-i18n="sim3_b" set:html={es('sim3_b')}></p></li>
+      </ol>
+      <div class="kin-cta" id="kin-cta">
+        <a class="sim-cta" id="sim-wa" href={WA_SIM_SSR} target="_blank" rel="noopener"><span data-i18n="sim_btn" set:html={es('sim_btn')}></span> →</a>
+        <p class="sim-example" data-i18n="sim_example" set:html={es('sim_example')}></p>
+      </div>
     </div>
-    <div class="sim-grid reveal d2">
-      <div class="sim-step"><span class="sim-n">01</span><h3 data-i18n="sim1_t" set:html={es('sim1_t')}></h3><p data-i18n="sim1_b" set:html={es('sim1_b')}></p></div>
-      <div class="sim-step"><span class="sim-n">02</span><h3 data-i18n="sim2_t" set:html={es('sim2_t')}></h3><p data-i18n="sim2_b" set:html={es('sim2_b')}></p></div>
-      <div class="sim-step"><span class="sim-n">03</span><h3 data-i18n="sim3_t" set:html={es('sim3_t')}></h3><p data-i18n="sim3_b" set:html={es('sim3_b')}></p></div>
-      <a class="sim-cta" id="sim-wa" href={WA_SIM_SSR} target="_blank" rel="noopener"><span data-i18n="sim_btn" set:html={es('sim_btn')}></span> →</a>
-    </div>
-    <p class="sim-example reveal d3" data-i18n="sim_example" set:html={es('sim_example')}></p>
   </div>
 </section>
-
 
 <!-- ESTE MES EN BIE: destacado mensual (datos en src/data/este-mes.ts) -->
 <EsteMes data={ESTE_MES} />
@@ -1368,6 +1404,7 @@ function applyStatics(){
   sel.innerHTML = NEED_OPTS[lang].map((o, i) => `<option value="${i === 0 ? '' : o}">${o}</option>`).join('');
   if (prev > 0) sel.selectedIndex = prev;
   document.getElementById('mm-wa').href = wa(WA_GEN[lang] + origin('home/menu'));
+  if (window.__kinSplit) window.__kinSplit();
   document.getElementById('waw-opts').innerHTML = WAW_OPTS.map(o =>
     `<a class="waw-opt" href="${wa(o.m[lang] + origin('home/cubo'))}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
 }
@@ -1522,6 +1559,55 @@ function renderWork(){
   if (window.__railMeasure) setTimeout(window.__railMeasure, 0);
 }
 
+// ═══ "Así de simple": tipografía en movimiento dirigida por el scroll ═══
+(function(){
+  const sec = document.getElementById('simple'), h2 = document.getElementById('kin-h2');
+  const steps = Array.from(document.querySelectorAll('.kin-step')), cta = document.getElementById('kin-cta');
+  if (!sec || !h2) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let words = [];
+  function split(){
+    // envuelve cada palabra en un span, conservando <br> y los spans de estilo
+    const walk = node => {
+      Array.from(node.childNodes).forEach(n => {
+        if (n.nodeType === 3){
+          const parts = n.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          parts.forEach(pt => {
+            if (!pt) return;
+            if (/^\s+$/.test(pt)) frag.appendChild(document.createTextNode(pt));
+            else { const w = document.createElement('span'); w.className = 'kin-w'; w.textContent = pt; frag.appendChild(w); }
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR' && !n.classList.contains('kin-w')) walk(n);
+      });
+    };
+    if (!h2.querySelector('.kin-w')) walk(h2);
+    words = Array.from(h2.querySelectorAll('.kin-w'));
+  }
+  window.__kinSplit = split; split();
+  if (reduce) { words.forEach(w => w.classList.add('on')); steps.forEach(st => st.classList.add('on')); cta.classList.add('on'); return; }
+  let last = -1;
+  function frame(){
+    requestAnimationFrame(frame);
+    const r = sec.getBoundingClientRect(), span = sec.offsetHeight - innerHeight;
+    if (r.bottom < 0 || r.top > innerHeight || span <= 0) return;
+    const p = Math.min(1, Math.max(0, -r.top / span));
+    const key = Math.round(p * 400);
+    if (key === last) return; last = key;
+    // 0-0.28 titular palabra a palabra · 0.3-0.82 los tres pasos · 0.84+ botón
+    words.forEach((w, i) => w.classList.toggle('on', p > 0.03 + (i / Math.max(1, words.length)) * 0.25));
+    const sp = (p - 0.30) / 0.52;
+    steps.forEach((st, i) => {
+      const a = i / 3, b = (i + 1) / 3;
+      st.classList.toggle('on', sp >= a && sp < b);
+      st.classList.toggle('seen', sp >= b);
+    });
+    cta.classList.toggle('on', p > 0.84);
+  }
+  requestAnimationFrame(frame);
+})();
+
 // ═══ Cadena "Empresas": avanza sola en bucle; el scroll la empuja; se frena al tocar o pasar el cursor ═══
 (function(){
   const sec = document.getElementById('work'), grid = document.getElementById('work-grid');
@@ -1558,6 +1644,14 @@ function renderWork(){
   const endDrag = e => { if (!drag) return; drag = false; fling = -dragVel; try { grid.releasePointerCapture(e.pointerId); } catch(_){} };
   grid.addEventListener('pointerup', endDrag); grid.addEventListener('pointercancel', endDrag);
   grid.addEventListener('click', e => { if (moved > 8) { e.preventDefault(); e.stopPropagation(); } }, true);
+  // tocar una tarjeta muestra u oculta su texto (en escritorio basta con detener el cursor encima)
+  grid.addEventListener('click', e => {
+    if (e.target.closest('a, button')) return;
+    const card = e.target.closest('.work-card'); if (!card) return;
+    const open = card.classList.contains('open');
+    grid.querySelectorAll('.work-card.open').forEach(c => c.classList.remove('open'));
+    if (!open) card.classList.add('open');
+  });
   window.addEventListener('resize', setup, { passive: true });
   window.__railMeasure = setup;
   function loop(now){
