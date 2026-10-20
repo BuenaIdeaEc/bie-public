@@ -40,7 +40,7 @@ const es = (k: string) => UI[k].es;
 #hero.cubo::after{display:none}
 .cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
 #cubo-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-#cubo-flash{position:absolute;inset:0;background:var(--bone);opacity:0;pointer-events:none;z-index:6}
+#cubo-flash{position:fixed;inset:0;background:var(--bone);opacity:0;pointer-events:none;z-index:1000}
 #cubo-labels{position:absolute;inset:0;pointer-events:none;z-index:2}
 .cubo-lbl{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,253,249,.72);white-space:nowrap;will-change:transform,opacity}
 .cubo-lbl::before{content:'';display:inline-block;width:5px;height:5px;background:var(--accent);margin-right:8px;vertical-align:middle}
@@ -65,6 +65,8 @@ const labelsEl = document.getElementById('cubo-labels') as HTMLElement;
 const flash = document.getElementById('cubo-flash') as HTMLElement;
 const lines = Array.from(document.querySelectorAll<HTMLElement>('.cubo-line'));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// sin menú desde el primer cuadro; se muestra cuando el cubo se completa
+if (!reduce) document.body.classList.add('cubo-intro');
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -198,6 +200,8 @@ function frame(now: number) {
     }
   }
 
+  // el menú aparece recién cuando el cubo está completo y el flash pasó
+  document.body.classList.toggle('cubo-intro', p < 0.84);
   const li = p < 0.22 ? 0 : p < 0.80 ? 1 : 2;
   if (li !== lastLine) { lines.forEach((l, i) => l.classList.toggle('on', i === li)); lastLine = li; }
   renderer.render(scene, camera);

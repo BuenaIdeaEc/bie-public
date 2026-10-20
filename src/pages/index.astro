@@ -397,27 +397,24 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .wc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
 .wc-name{font-size:22px;font-weight:400;letter-spacing:-.015em;margin-bottom:6px}
-/* Carril "Empresas": sección fija, el scroll vertical mueve las tarjetas en horizontal */
-@media (min-width:641px){
-  #work.rail{padding:0;background:var(--surface)}
-  #work.rail .work-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-top:72px}
-  #work.rail .section-inner{width:100%}
-  #work.rail .section-h2{font-size:clamp(28px,3.6vw,44px)}
-  #work.rail .trust-strip{margin-top:18px;padding:12px 0}
-  #work.rail .work-grid{display:flex;gap:22px;margin-top:28px;width:max-content;padding:0 44px;will-change:transform}
-  #work.rail .work-card{flex:0 0 min(640px,62vw);grid-column:auto}
-  #work.rail .gallery{height:clamp(190px,30vh,270px)}
-  #work.rail .wc-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-  #work.rail .work-sticky{padding-top:56px}
-  #work.rail .work-card.wc-small{flex-basis:min(520px,50vw)}
-  #work.rail .cta-band{flex:0 0 min(520px,46vw);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px;margin:0;padding:32px}
-  #work.rail .rail-hint{display:flex;align-items:center;gap:14px;max-width:1150px;margin:22px auto 0;padding:0 44px;width:100%}
-  .rail-bar{flex:1;height:1px;background:var(--border);position:relative}
-  .rail-bar i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--accent);transition:width .15s linear}
-  .rail-n{font-family:var(--mono);font-size:11px;color:var(--text3);font-variant-numeric:tabular-nums}
+/* Cadena "Empresas": las tarjetas avanzan solas en bucle; el scroll las empuja; al tocar o pasar el cursor se frenan */
+#work.rail{padding:110px 0 90px;background:var(--surface);overflow:hidden}
+#work.rail .work-sticky{position:static;height:auto}
+#work.rail .section-inner{width:100%}
+#work.rail .trust-strip{margin-top:22px;padding:12px 0}
+#work.rail .work-grid{display:flex!important;gap:22px;margin-top:36px;width:max-content;padding:0 44px;will-change:transform;overflow:visible;scroll-snap-type:none}
+#work.rail .work-card{flex:0 0 min(640px,62vw);grid-column:auto}
+#work.rail .gallery{height:clamp(190px,30vh,270px)}
+#work.rail .wc-desc{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#work.rail .cta-band{flex:0 0 min(520px,46vw);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px;margin:0;padding:32px}
+#work.rail .rail-hint{display:none}
+@media (max-width:640px){
+  #work.rail{padding:70px 0 60px}
+  #work.rail .work-grid{gap:14px;padding:0 22px;margin-top:28px}
+  #work.rail .work-card{flex:0 0 82vw}
+  #work.rail .cta-band{flex:0 0 78vw}
 }
-@media (max-width:640px){ #work.rail .rail-hint{display:none} }
-@media (prefers-reduced-motion: reduce){ #work.rail{height:auto!important} #work.rail .work-sticky{position:static;height:auto} #work.rail .work-grid{overflow-x:auto;width:auto;transform:none!important} }
+@media (prefers-reduced-motion: reduce){ #work.rail .work-grid{transform:none!important;width:auto;overflow-x:auto;padding-bottom:12px} }
 .trust-strip{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-top:32px;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .trust-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);flex-shrink:0}
 .trust-names{font-size:15px;letter-spacing:-.01em;color:var(--text2)}
@@ -564,6 +561,23 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .belt-cta-txt{font-size:15px;color:var(--text2);margin:0;max-width:520px}
 .belt-cta-btn{display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:15px 28px;transition:background .4s var(--ease),border-color .4s,color .4s}
 .belt-cta-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+/* Mosaico de productos con personas: la foto detrás, el texto encima */
+.top-tile.has-img{overflow:hidden;isolation:isolate;color:#fff}
+.top-tile.has-img .tt-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .9s var(--ease),filter .6s;filter:saturate(.85) brightness(.9)}
+.top-tile.has-img::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(11,11,13,.08) 0%,rgba(11,11,13,.2) 40%,rgba(11,11,13,.88) 100%)}
+.top-tile.has-img:hover{background:transparent;color:#fff;transform:translateY(-6px)}
+.top-tile.has-img:hover .tt-img{transform:scale(1.05);filter:saturate(1) brightness(1)}
+.top-tile.has-img .tt-num{color:rgba(255,253,249,.6)}
+.top-tile.has-img .tt-hook{color:rgba(255,253,249,.78)}
+.top-tile.has-img .tt-gen{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:rgba(255,253,249,.5);background:rgba(11,11,13,.55);padding:4px 7px}
+.top-tile.has-img.lit{background:transparent}
+.top-tile.has-img.lit .tt-img{filter:saturate(1) brightness(1)}
+.top-tile.has-img:hover .tt-num{color:rgba(255,253,249,.6)}
+@media (max-width:640px){ .top-tile.has-img{aspect-ratio:4/3;min-height:0} }
+/* Durante la intro del cubo no hay menú ni barra de progreso */
+#nav,#progress{transition:opacity .5s ease,transform .5s ease}
+body.cubo-intro #nav{opacity:0;transform:translateY(-10px);pointer-events:none}
+body.cubo-intro #progress{opacity:0}
 .g-slide.real>*{animation:none}
 .g-slide .g-photo{width:100%;height:100%;max-width:100%;object-fit:cover}
 .wc-big .gallery{height:auto;aspect-ratio:1600/1131}
@@ -1377,7 +1391,7 @@ const TOP = [
 ];
 function renderTop(){
   document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>
-    `<a class="top-tile" href="${x.href}"><span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
+    `<a class="top-tile has-img" href="${x.href}"><img class="tt-img" src="/images/productos/${x.href.split('/')[2]}.webp" alt="" width="900" height="900" loading="eager" decoding="async"><span class="tt-gen">${lang === 'es' ? 'Imagen generada' : 'Generated image'}</span><span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
 }
 
 // ═══ Render: marquee (títulos de fase, display gigante) ═══
@@ -1508,41 +1522,46 @@ function renderWork(){
   if (window.__railMeasure) setTimeout(window.__railMeasure, 0);
 }
 
-// ═══ Carril "Empresas": el scroll vertical desplaza las tarjetas en horizontal ═══
+// ═══ Cadena "Empresas": avanza sola en bucle; el scroll la empuja; se frena al tocar o pasar el cursor ═══
 (function(){
   const sec = document.getElementById('work'), grid = document.getElementById('work-grid');
-  const fillEl = document.getElementById('rail-fill'), nEl = document.getElementById('rail-n');
   if (!sec || !grid) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let travel = 0, cur = 0, target = 0, cards = 1;
-  function measure(){
-    if (innerWidth <= 640 || reduce){ sec.style.height = ''; grid.style.transform = ''; travel = 0; return; }
-    const w = grid.scrollWidth, extra = Math.max(0, w - innerWidth + 44);
-    travel = extra;
-    cards = grid.querySelectorAll('.work-card').length;
-    sec.style.height = (innerHeight + extra * 1.15) + 'px';
-    read();
-  }
-  function read(){
-    if (!travel) return;
-    const r = sec.getBoundingClientRect();
-    const span = sec.offsetHeight - innerHeight;
-    target = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
-  }
-  function loop(){
-    if (travel){
-      cur += (target - cur) * 0.16;
-      grid.style.transform = 'translate3d(' + (-cur * travel).toFixed(1) + 'px,0,0)';
-      if (fillEl) fillEl.style.width = (cur * 100).toFixed(1) + '%';
-      if (nEl) nEl.textContent = Math.min(cards, 1 + Math.round(cur * (cards - 1))) + ' / ' + cards;
+  if (reduce) return;
+  let half = 0, x = 0, speed = 0, baseSpeed = 38, lastY = scrollY, lastT = performance.now(), hover = false, visible = true;
+  function setup(){
+    // duplica la cadena una sola vez para que el bucle no tenga costura
+    if (!grid.dataset.looped){
+      const items = Array.from(grid.children);
+      items.forEach(el => { const c = el.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.classList.add('dup'); grid.appendChild(c); });
+      grid.dataset.looped = '1';
     }
-    requestAnimationFrame(loop);
+    const items = Array.from(grid.children);
+    const n = items.length / 2;
+    half = items.slice(0, n).reduce((w, el) => w + el.getBoundingClientRect().width, 0) + 22 * n;
   }
-  window.addEventListener('scroll', read, { passive: true });
-  window.addEventListener('resize', measure, { passive: true });
-  window.__railMeasure = measure;
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(sec);
+  grid.addEventListener('pointerenter', () => { hover = true; });
+  grid.addEventListener('pointerleave', () => { hover = false; });
+  grid.addEventListener('touchstart', () => { hover = true; }, { passive: true });
+  grid.addEventListener('touchend', () => { hover = false; }, { passive: true });
+  window.addEventListener('resize', setup, { passive: true });
+  window.__railMeasure = setup;
+  function loop(now){
+    requestAnimationFrame(loop);
+    const dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
+    if (!half || !visible) return;
+    // el scroll empuja la cadena en el sentido del desplazamiento
+    const dy = scrollY - lastY; lastY = scrollY;
+    const target = (hover ? 6 : baseSpeed) + Math.max(-220, Math.min(220, dy * 9));
+    speed += (target - speed) * 0.08;
+    x -= speed * dt;
+    if (x <= -half) x += half;
+    if (x > 0) x -= half;
+    grid.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+  }
+  setTimeout(setup, 80);
   requestAnimationFrame(loop);
-  setTimeout(measure, 50);
 })();
 
 // Drag-to-scroll + progreso de la galería horizontal
@@ -1770,15 +1789,15 @@ function bindBA(){
 // ═══ Galleries ═══
 function setSlide(gi, si){
   galleryState[gi] = si;
-  const gal = document.querySelector(`.gallery[data-g="${gi}"]`);
-  if (!gal) return;
-  gal.querySelectorAll('.g-slide').forEach(sl => {
-    const idx = +sl.dataset.s;
-    sl.classList.toggle('on', idx === si);
-    sl.classList.toggle('off', idx < si || (si === 0 && idx === COMPANIES[gi].slides.length - 1));
+  document.querySelectorAll(`.gallery[data-g="${gi}"]`).forEach(gal => {
+    gal.querySelectorAll('.g-slide').forEach(sl => {
+      const idx = +sl.dataset.s;
+      sl.classList.toggle('on', idx === si);
+      sl.classList.toggle('off', idx < si || (si === 0 && idx === COMPANIES[gi].slides.length - 1));
+    });
+    gal.querySelectorAll('.g-dot').forEach(d => d.classList.toggle('on', +d.dataset.s === si));
+    const tag = gal.querySelector('.g-tag'); if (tag) tag.textContent = t(COMPANIES[gi].slides[si][0]);
   });
-  gal.querySelectorAll('.g-dot').forEach(d => d.classList.toggle('on', +d.dataset.s === si));
-  gal.querySelector('.g-tag').textContent = t(COMPANIES[gi].slides[si][0]);
 }
 document.addEventListener('click', e => {
   const dot = e.target.closest('.g-dot');
