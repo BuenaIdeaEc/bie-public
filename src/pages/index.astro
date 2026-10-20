@@ -1543,8 +1543,21 @@ function renderWork(){
   new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(sec);
   grid.addEventListener('pointerenter', () => { hover = true; });
   grid.addEventListener('pointerleave', () => { hover = false; });
-  grid.addEventListener('touchstart', () => { hover = true; }, { passive: true });
-  grid.addEventListener('touchend', () => { hover = false; }, { passive: true });
+  // arrastre con mouse o dedo: la cadena sigue la mano y conserva el impulso al soltar
+  let drag = false, dragX = 0, dragVel = 0, dragT = 0, moved = 0, fling = 0;
+  grid.style.touchAction = 'pan-y';
+  grid.addEventListener('pointerdown', e => { drag = true; moved = 0; dragX = e.clientX; dragT = performance.now(); dragVel = 0; fling = 0; try { grid.setPointerCapture(e.pointerId); } catch(_){} });
+  grid.addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - dragX, now = performance.now();
+    x += dx; moved += Math.abs(dx);
+    dragVel = dx / Math.max(1, now - dragT) * 1000; dragX = e.clientX; dragT = now;
+    if (x <= -half) x += half; if (x > 0) x -= half;
+    grid.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0)';
+  });
+  const endDrag = e => { if (!drag) return; drag = false; fling = -dragVel; try { grid.releasePointerCapture(e.pointerId); } catch(_){} };
+  grid.addEventListener('pointerup', endDrag); grid.addEventListener('pointercancel', endDrag);
+  grid.addEventListener('click', e => { if (moved > 8) { e.preventDefault(); e.stopPropagation(); } }, true);
   window.addEventListener('resize', setup, { passive: true });
   window.__railMeasure = setup;
   function loop(now){
@@ -1553,8 +1566,11 @@ function renderWork(){
     if (!half || !visible) return;
     // el scroll empuja la cadena en el sentido del desplazamiento
     const dy = scrollY - lastY; lastY = scrollY;
-    const target = (hover ? 6 : baseSpeed) + Math.max(-220, Math.min(220, dy * 9));
-    speed += (target - speed) * 0.08;
+    if (drag) return;
+    // el scroll empuja fuerte; al soltar un arrastre, la cadena conserva el impulso y se frena sola
+    fling *= 0.94;
+    const target = (hover ? 4 : baseSpeed) + Math.max(-1400, Math.min(1400, dy * 48)) + fling;
+    speed += (target - speed) * 0.12;
     x -= speed * dt;
     if (x <= -half) x += half;
     if (x > 0) x -= half;
