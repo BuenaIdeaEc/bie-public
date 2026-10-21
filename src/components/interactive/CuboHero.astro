@@ -37,9 +37,9 @@ const es = (k: string) => UI[k].es;
 </section>
 
 <style is:global>
-#hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
+#hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:transparent;position:relative;z-index:2;margin-bottom:-100vh}
 #hero.cubo::after{display:none}
-.cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+.cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:rgb(15,15,17)}
 #cubo-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 #cubo-flash{position:fixed;inset:0;background:var(--bone);opacity:0;pointer-events:none;z-index:1000}
 #cubo-out{position:absolute;inset:0;background:var(--black);opacity:0;pointer-events:none;z-index:4}
@@ -70,7 +70,7 @@ const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 // sin menú desde el primer cuadro; se muestra cuando el cubo se completa
 if (!reduce) document.body.classList.add('cubo-intro');
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setClearColor(0x0f0f11, 1);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -108,6 +108,9 @@ const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0x15151a);
 
 const group = new THREE.Group(); scene.add(group); group.add(core);
 const outEl = document.getElementById('cubo-out') as HTMLElement;
+const stickyEl = stage.querySelector('.cubo-sticky') as HTMLElement;
+const setFin = (v: number) => document.body.style.setProperty('--fin', v.toFixed(3));
+setFin(reduce ? 1 : 0);
 const copyEl = document.querySelector('.cubo-copy') as HTMLElement;
 // suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.55 }));
@@ -160,6 +163,7 @@ function readScroll() {
   const raw = clamp01(-r.top / span);
   target = clamp01(raw / ASM);
   finT = reduce ? 0 : clamp01((raw - ASM) / (1 - ASM));
+  if (r.bottom <= 0 || reduce) { fin = 1; finT = 1; setFin(1); }
   if (!Number.isFinite(prog)) prog = target;
   // fuera de pantalla no se dibuja
   running = r.bottom > 0 && r.top < innerHeight;
@@ -196,7 +200,11 @@ function frame(now: number) {
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 0.9, f3);
   }
   core.intensity = f2 * 9;
-  outEl.style.opacity = smooth(clamp01((fin - 0.8) / 0.2)).toFixed(3);
+  // el fondo se abre: detrás aparece la siguiente sección, que se acerca (ver #work en la home)
+  outEl.style.opacity = '0';
+  renderer.setClearColor(0x0f0f11, 1 - f2);
+  stickyEl.style.backgroundColor = 'rgba(15,15,17,' + (1 - f2).toFixed(3) + ')';
+  setFin(fin);
   copyEl.style.opacity = (1 - clamp01(fin * 5)).toFixed(3);
   camera.lookAt(fin > 0.001 ? group.position.x * 0.8 * (1 - f1) : group.position.x * 0.8, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);
   redRim.intensity = 0.4 + cp * 1.6;

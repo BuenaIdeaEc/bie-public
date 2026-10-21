@@ -400,7 +400,9 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
 .wc-name{font-size:22px;font-weight:400;letter-spacing:-.015em;margin-bottom:6px}
 /* Cadena "Empresas": las tarjetas avanzan solas en bucle; el scroll las empuja; al tocar o pasar el cursor se frenan */
-#work.rail{padding:0;background:var(--surface);overflow:visible}
+#work.rail{padding:0;background:var(--black);overflow:visible;position:relative;z-index:1}
+/* llega desde el fondo mientras el cubo se abre (--fin lo escribe el cubo: 0 cerrado → 1 abierto) */
+#work.rail .work-sticky{background:var(--surface);transform:perspective(1400px) translate3d(0,calc((1 - var(--fin,1)) * -83vh),calc((1 - var(--fin,1)) * -1500px));transform-origin:50% 45%;will-change:transform}
 #work.rail .work-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:safe center;overflow:hidden;padding-top:64px}
 #work.rail .section-h2{font-size:clamp(26px,3.4vw,46px);max-width:22ch}
 #work.rail .section-label{margin-bottom:10px}
@@ -1134,7 +1136,6 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
     <div class="section-inner nicho-inner">
       <div class="nicho-head">
         <span class="nicho-k" data-i18n="nicho_k" set:html={es('nicho_k')}></span>
-        <span class="nicho-idx"><b id="nicho-i">01</b><span id="nicho-n"> / 12</span></span>
         <p class="nicho-src" data-i18n="nicho_src" set:html={es('nicho_src')}></p>
       </div>
       <p class="nicho-num" aria-live="off"><span id="nicho-num">0</span></p>
@@ -1752,23 +1753,24 @@ function renderWork(){
 (function(){
   const sec = document.getElementById('nicho'), st = sec && sec.querySelector('.nicho-sticky');
   if (!sec || !st) return;
-  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar'), iEl = document.getElementById('nicho-i'), nEl = document.getElementById('nicho-n');
+  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar');
   // Cifras REFERENCIALES para la vista previa. Antes de producción: fuente y año.
   const ITEMS = [
-    { slug: 'analisis-conversaciones-venta', n: 120000, es: ['negocios en Ecuador ya analizan cada conversación de venta.', 'Análisis de conversaciones'], en: ['businesses in Ecuador already analyze every sales conversation.', 'Conversation analysis'] },
-    { slug: 'registro-de-marca', n: 240000, es: ['negocios en Ecuador ya tienen su marca registrada.', 'Registro de marca'], en: ['businesses in Ecuador already own a registered trademark.', 'Trademark registration'] },
-    { slug: 'sistema-operativo', n: 310000, es: ['negocios en Ecuador ya operan con un sistema propio.', 'Sistema operativo de tu empresa'], en: ['businesses in Ecuador already run on their own system.', 'Your company operating system'] },
-    { slug: 'data-analytics', n: 420000, es: ['dueños en Ecuador ya ven sus números en un panel, no en papel.', 'Data Analytics & Dashboards'], en: ['owners in Ecuador already see their numbers on a dashboard, not on paper.', 'Data Analytics & Dashboards'] },
-    { slug: 'automatizaciones', n: 560000, es: ['negocios en Ecuador ya automatizan pedidos, envíos y cobros.', 'Automatizaciones'], en: ['businesses in Ecuador already automate orders, shipping and billing.', 'Automations'] },
-    { slug: 'link-hub', n: 640000, es: ['marcas en Ecuador ya tienen un solo enlace para todo.', 'Link Hub de marca'], en: ['brands in Ecuador already have one link for everything.', 'Brand Link Hub'] },
-    { slug: 'meta-ads', n: 780000, es: ['negocios en Ecuador ya pautan con inteligencia en Instagram y Facebook.', 'Meta Ads'], en: ['businesses in Ecuador already advertise smartly on Instagram and Facebook.', 'Meta Ads'] },
-    { slug: 'facturacion-electronica', n: 900000, es: ['negocios en Ecuador ya facturan electrónicamente, sin papel.', 'Facturación electrónica'], en: ['businesses in Ecuador already invoice electronically, no paper.', 'Electronic invoicing'] },
-    { slug: 'whatsapp-business-commerce', n: 1050000, es: ['personas en Ecuador ya compran por catálogo de WhatsApp.', 'WhatsApp Business Commerce'], en: ['people in Ecuador already buy through WhatsApp catalogs.', 'WhatsApp Business Commerce'] },
-    { slug: 'perfil-google-maps', n: 1300000, es: ['personas en Ecuador ya eligen un negocio por Google Maps.', 'Perfil de Google Maps'], en: ['people in Ecuador already pick a business on Google Maps.', 'Google Maps Profile'] },
-    { slug: 'asistente-inteligente-whatsapp', n: 1600000, es: ['personas en Ecuador ya reciben respuesta por WhatsApp a cualquier hora.', 'Asistente Inteligente 24/7'], en: ['people in Ecuador already get a WhatsApp reply at any hour.', '24/7 AI Assistant'] },
-    { slug: 'pagina-web', n: 2100000, es: ['personas en Ecuador ya compran por páginas web.', 'Página Web'], en: ['people in Ecuador already buy through websites.', 'Website'] },
+    { slug: 'analisis-conversaciones-venta', n: 120000, es: ['negocios ya analizan cada conversación de venta.', 'Análisis de conversaciones'], en: ['businesses already analyze every sales conversation.', 'Conversation analysis'] },
+    { slug: 'identidad-de-marca', n: 480000, es: ['negocios solo tienen un logotipo y lo llaman marca.', 'Identidad de marca'], en: ['businesses only have a logo and call it a brand.', 'Brand identity'] },
+    { slug: 'registro-de-marca', n: 240000, es: ['negocios ya tienen su marca registrada.', 'Registro de marca'], en: ['businesses already own a registered trademark.', 'Trademark registration'] },
+    { slug: 'sistema-operativo', n: 310000, es: ['negocios ya operan con un sistema propio.', 'Sistema operativo de tu empresa'], en: ['businesses already run on their own system.', 'Your company operating system'] },
+    { slug: 'automatizaciones', n: 560000, es: ['negocios todavía tienen sus servicios sin conectar entre sí.', 'Automatizaciones'], en: ['businesses still run services that do not talk to each other.', 'Automations'] },
+    { slug: 'data-analytics', n: 420000, es: ['dueños ya ven sus números en un panel, no en papel.', 'Data Analytics & Dashboards'], en: ['owners already see their numbers on a dashboard, not on paper.', 'Data Analytics & Dashboards'] },
+    { slug: 'link-hub', n: 640000, es: ['marcas ya tienen un solo enlace para todo.', 'Link Hub de marca'], en: ['brands already have one link for everything.', 'Brand Link Hub'] },
+    { slug: 'meta-ads', n: 780000, es: ['negocios ya pautan con inteligencia en Instagram y Facebook.', 'Meta Ads'], en: ['businesses already advertise smartly on Instagram and Facebook.', 'Meta Ads'] },
+    { slug: 'facturacion-electronica', n: 900000, es: ['negocios ya facturan electrónicamente, sin papel.', 'Facturación electrónica'], en: ['businesses already invoice electronically, no paper.', 'Electronic invoicing'] },
+    { slug: 'whatsapp-business-commerce', n: 1050000, es: ['personas ya compran por catálogo de WhatsApp.', 'WhatsApp Business Commerce'], en: ['people already buy through WhatsApp catalogs.', 'WhatsApp Business Commerce'] },
+    { slug: 'perfil-google-maps', n: 1300000, es: ['personas ya eligen un negocio por Google Maps.', 'Perfil de Google Maps'], en: ['people already pick a business on Google Maps.', 'Google Maps Profile'] },
+    { slug: 'asistente-inteligente-whatsapp', n: 1600000, es: ['personas ya reciben respuesta por WhatsApp a cualquier hora.', 'Asistente Inteligente 24/7'], en: ['people already get a WhatsApp reply at any hour.', '24/7 AI Assistant'] },
+    { slug: 'pagina-web', n: 2100000, es: ['personas ya compran por páginas web.', 'Página Web'], en: ['people already buy through websites.', 'Website'] },
   ];
-  const N = ITEMS.length; nEl.textContent = ' / ' + String(N).padStart(2, '0');
+  const N = ITEMS.length;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clamp = (v) => Math.min(1, Math.max(0, v)), sm = (u) => u * u * (3 - 2 * u), lp = (a, b, t) => a + (b - a) * t;
   const L = () => (document.documentElement.lang || 'es').startsWith('en') ? 'en' : 'es';
@@ -1777,7 +1779,6 @@ function renderWork(){
   function show(i){
     const it = ITEMS[i], lang = L();
     lineEl.textContent = it[lang][0]; prodEl.textContent = it[lang][1]; linkEl.href = '/productos/' + it.slug + '/?src=home-nicho';
-    iEl.textContent = String(i + 1).padStart(2, '0');
   }
   function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.5 + 0.7)) + 'px'; }
   addEventListener('resize', layout, { passive: true }); layout();
