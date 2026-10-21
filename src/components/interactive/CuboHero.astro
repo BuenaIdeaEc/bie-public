@@ -106,7 +106,7 @@ const group = new THREE.Group(); scene.add(group);
 // suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.55 }));
 floor.rotation.x = -Math.PI / 2; floor.position.y = -1.6; floor.receiveShadow = true; group.add(floor);
-type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
+type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
 const pieces: Piece[] = [];
 const WORDS: Record<number, string> = { 0: 'citas', 2: 'inventario', 4: 'redes', 6: 'cobros', 8: 'marca', 10: 'sistemas', 13: 'Instagram', 15: 'Facebook', 17: 'Meta', 20: 'WhatsApp', 23: 'web', 25: 'TikTok' };
 
@@ -117,16 +117,19 @@ grid.forEach((g, i) => {
   mesh.add(new THREE.LineSegments(edgesGeo, edgeMat));
   mesh.castShadow = true; mesh.receiveShadow = true;
   group.add(mesh);
-  const r = 3.4 + rnd() * 3.6, th = rnd() * Math.PI * 2, ph = (rnd() - 0.5) * Math.PI * 0.8;
-  const start = new THREE.Vector3(Math.cos(ph) * Math.cos(th) * r * 1.3, Math.sin(ph) * r * 0.75 + 0.3, Math.cos(ph) * Math.sin(th) * r);
+  // Cada pieza viaja por el rayo que une el centro con su sitio final: las posiciones de salida son
+  // el cubo final "explotado" (escala s0 > 1). Un cubo escalado nunca se solapa consigo mismo, así que
+  // las piezas no se cruzan ni se atraviesan mientras llegan; la central es el núcleo y espera en su sitio.
+  const s0 = 3.6 + rnd() * 3.2; rnd(); rnd();
+  const start = new THREE.Vector3(g.x * s0, g.y * s0, g.z * s0);
   const t0 = T_START + (i / (N - 1)) * (T_END - T_START - DUR);
-  const p: Piece = { mesh, start, target: new THREE.Vector3(), g, rot0: new THREE.Euler(rnd() * 2, rnd() * 2, rnd() * 2), t0, t1: t0 + DUR, front: g.z === 1 ? mats[4] : null };
+  const p: Piece = { mesh, start, s0, target: new THREE.Vector3(), g, rot0: new THREE.Euler(rnd() * 2, rnd() * 2, rnd() * 2), t0, t1: t0 + DUR, front: g.z === 1 ? mats[4] : null };
   if (WORDS[i]) { const el = document.createElement('div'); el.className = 'cubo-lbl'; el.textContent = WORDS[i]; labelsEl.appendChild(el); p.label = el; }
   pieces.push(p);
 });
 
-// la pieza llega, pasa un poco de largo y se asienta
-const easeOutBack = (u: number) => { const c = 1.55; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
+// la pieza frena al llegar, sin pasarse (pasarse la metería dentro de sus vecinas)
+const easeOutQuint = (u: number) => 1 - Math.pow(1 - u, 5);
 const smooth = (u: number) => u * u * (3 - 2 * u);
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 
@@ -181,15 +184,16 @@ function frame(now: number) {
 
   for (const pc of pieces) {
     const u = clamp01((p - pc.t0) / (pc.t1 - pc.t0));
-    const e = easeOutBack(u);
-    tmp.copy(pc.start); if (portrait) { tmp.x *= 0.45; tmp.y *= 1.25; }
+    const e = easeOutQuint(u);
+    const s = 1 + (pc.s0 - 1) * (1 - e) * (portrait ? 0.7 : 1);
     pc.target.set(pc.g.x * stepNow, pc.g.y * stepNow, pc.g.z * stepNow);
-    pc.mesh.position.lerpVectors(tmp, pc.target, e);
+    pc.mesh.position.copy(pc.target).multiplyScalar(s);
     if (u === 0 && !reduce) {
       pc.mesh.position.x += Math.sin(t * 0.6 + pc.t0 * 40) * 0.12;
       pc.mesh.position.y += Math.cos(t * 0.5 + pc.t0 * 30) * 0.12;
     }
-    const k = 1 - smooth(u);
+    // gira libremente lejos del cubo y se alinea antes de tocar a sus vecinas
+    const k = clamp01((s - 1.6) / 2.4);
     pc.mesh.rotation.set(pc.rot0.x * k + t * 0.25 * k, pc.rot0.y * k + t * 0.2 * k, pc.rot0.z * k);
     if (pc.front) pc.front.color.copy(DARK).lerp(RED, redAmt);
     if (pc.label) {

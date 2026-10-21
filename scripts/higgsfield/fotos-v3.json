@@ -1,0 +1,31 @@
+{
+  "_nota": "Fotos v3 pedidas por EGO el 2026-10-20: el punto focal siempre es el producto del que hablamos. Se generan con image.ts (Soul v2) y luego se animan con animate.ts. Pendiente de recarga de créditos.",
+  "asistente-inteligente-whatsapp": {
+    "foto": "Young Ecuadorian shop owner at a wooden counter looking at a phone held upright at chest height, centered and large in frame. The phone screen clearly shows a WhatsApp-style chat with several green and white message bubbles and a typing indicator. Around the phone, softly glowing floating notification cards with short chat lines and small counters hover in the air, slightly out of focus. Warm dim shop light, red accent light from the side, dark background. Photorealistic, editorial, no brand logos, no readable long text.",
+    "video": "Chat bubbles pop in one by one on the phone screen and the floating notification cards drift gently around it; the owner reads and smiles slightly."
+  },
+  "identidad-de-marca": {
+    "foto": "Ecuadorian woman in a denim jacket in a dark workshop, smiling, holding two red kraft paper shopping bags up at chest height with both hands so the bags fill the center of the frame. Each bag carries a clean minimalist white emblem and a short wordmark. Business cards with the same emblem lie on the table below. Warm light with a red rim light, dark background. Photorealistic, editorial, no real brand logos.",
+    "video": "She lifts the bags a little higher and turns them slightly so the emblem catches the light; slow push-in."
+  },
+  "crm-ia": {
+    "foto": "A florist in Guayaquil, woman in her forties, holding a tablet horizontally toward the camera in the exact center of the frame; the tablet screen clearly shows a customer list with names, tags and follow-up reminders, large and readable. Flowers softly blurred behind, warm light, red accent light, dark background. Photorealistic, editorial, no brand logos.",
+    "video": "A new customer row slides into the list and a reminder badge appears on the tablet; she looks up and nods."
+  },
+  "automatizaciones": {
+    "foto": "Dark warehouse office at night: a large monitor in the center of the frame shows an automation flow diagram with connected nodes labeled with small icons for orders, shipping labels, invoices and accounting; a printer beside it ejects a shipping label; parcels with labels stacked in the foreground; a thermal receipt printer. A man watches from the side, slightly out of focus. Red accent light, cinematic. Photorealistic, no brand logos.",
+    "video": "The flow nodes light up in sequence, the printer ejects a label and a parcel is pushed into frame; the man glances at the screen."
+  },
+  "whatsapp-business-commerce": {
+    "foto": "Young Ecuadorian seller at a clothing stall holding a phone toward the camera, phone large and centered; the screen shows a WhatsApp Business-style catalog grid of products with prices and an open chat with order messages. A second phone on the counter shows unread chats. Warm light, red accent light, dark background. Photorealistic, editorial, no brand logos.",
+    "video": "She scrolls the catalog and a new order message arrives with a subtle highlight; she smiles."
+  },
+  "data-analytics": {
+    "foto": "Restaurant owner in Ecuador, man in his fifties, sitting in front of a laptop in a dark dining room; the laptop screen is in the center of the frame showing a sales dashboard with bar and line charts; from the screen, translucent glowing chart elements and numbers float out into the air toward the camera, as if the data were leaving the screen. Red accent light, cinematic. Photorealistic, no brand logos.",
+    "video": "The bars rise, the line chart draws itself and the floating chart elements drift forward slowly; he leans in."
+  },
+  "link-hub": {
+    "foto": "Ecuadorian content creator, woman in her twenties, smiling, standing slightly to the left; she holds a phone up to her right at shoulder height, screen toward the camera, the phone large and sharp. The screen shows a clean link hub page: round profile photo, name and a stack of five plain rounded buttons, no labels. Neon-tinged studio light, red accent, dark background. Photorealistic, editorial, no brand logos.",
+    "video": "She tilts the phone slightly toward the camera and the buttons highlight one by one; hair moves gently."
+  }
+}

@@ -66,6 +66,8 @@ export const UI: Record<string, { es: any; en: any }> = {
   sim2_b:{es:'Te decimos qué te conviene, cuánto cuesta y en cuánto tiempo. Sin compromiso.',en:'We tell you what suits you, what it costs and how long it takes. No commitment.'},
   sim3_t:{es:'Lo construimos por ti',en:'We build it for you'},
   sim3_b:{es:'Te lo entregamos funcionando y te enseñamos a usarlo.',en:'We deliver it working and teach you how to use it.'},
+  sim4_t:{es:'Lo mantenemos contigo',en:'We keep it running with you'},
+  sim4_b:{es:'Asesoría y acompañamiento cuando tu negocio lo necesite. No te dejamos solo con la tecnología.',en:'Advice and support whenever your business needs it. We never leave you alone with the tech.'},
   sim_btn:{es:'Cotizar por WhatsApp',en:'Get a quote on WhatsApp'},
   top_note:{es:'No son los únicos: hoy son 47 productos y seguimos sumando.',
             en:'They are not the only ones: 47 products today and counting.'},

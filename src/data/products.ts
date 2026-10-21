@@ -115,7 +115,6 @@ export const PRODUCTS: ProductPage[] = [
     ),
     chips: [B('Visita desde Google', 'Visit from Google'), B('Formulario recibido', 'Form received'), B('Chat de WhatsApp iniciado', 'WhatsApp chat started')],
     usedBy: [
-      { name: 'Amílcar', note: B('Servicios profesionales · Web con agenda en línea', 'Professional services · Site with online booking') },
     ],
   },
   {
@@ -607,7 +606,6 @@ export const PRODUCTS: ProductPage[] = [
     chips: [B('3 conceptos listos', '3 concepts ready'), B('Manual de marca entregado', 'Brand manual delivered'), B('Aplicaciones aprobadas', 'Applications approved')],
     usedBy: [
       { name: 'Tasting Ecuador', note: B('Marca y sistema de negocio · Cuenca', 'Brand and business system · Cuenca') },
-      { name: 'Villa Tres', note: B('Marca y contenido · Guayaquil', 'Brand and content · Guayaquil') },
     ],
   },
   {
@@ -866,7 +864,6 @@ export const PRODUCTS: ProductPage[] = [
     waMessage: B('Hola, vengo de la página de Estrategia de Contenidos de BIE. Quiero un plan de contenido para mi marca.', 'Hi, I come from the BIE Content Strategy page. I want a content plan for my brand.'),
     chips: [B('12 semanas planificadas', '12 weeks planned'), B('Pilar de venta definido', 'Sales pillar defined'), B('Templates entregados', 'Templates delivered')],
     usedBy: [
-      { name: 'Villa Tres', note: B('Marca y contenido · Guayaquil', 'Brand and content · Guayaquil') },
     ],
   },
   {
