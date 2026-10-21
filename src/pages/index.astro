@@ -655,7 +655,7 @@ body.cubo-intro #progress{opacity:0}
 .g-slide.real>*{animation:none}
 .g-slide .g-photo{width:100%;height:100%;max-width:100%;object-fit:cover}
 .wc-big .gallery{height:auto;aspect-ratio:1600/1131}
-@media(max-width:640px){.phase-rail{display:flex;flex-direction:column;margin-top:64px;border-top:1px solid var(--border)}
+@media(max-width:640px){.phase-rail{display:flex;flex-direction:column;margin-top:64px;border-top:1px solid var(--border)}}
 .reveal .phase-btn{opacity:0;transform:translateY(20px)}
 .reveal.in .phase-btn{opacity:1;transform:none}
 .phase-rail .phase-btn:nth-child(1){transition-delay:.02s}
@@ -811,6 +811,29 @@ body.cubo-intro #progress{opacity:0}
 
 /* ═══ Contact ═══ */
 #contact{padding:140px 0;background:var(--surface)}
+/* Contacto como una frase: escribes dentro del texto, sin cajas */
+.madlib{margin-top:64px;max-width:1040px}
+.ml-line{font-family:var(--font);font-size:clamp(24px,3.6vw,50px);line-height:1.5;letter-spacing:-.025em;color:var(--text2);margin:0 0 6px}
+.ml-field{display:inline-block;position:relative;vertical-align:baseline}
+.ml-nw{white-space:nowrap}
+.ml-field input,.ml-field select,.ml-msg textarea{font:inherit;letter-spacing:inherit;color:var(--text);background:transparent;border:0;border-bottom:2px solid rgba(255,253,249,.22);border-radius:0;padding:0 .2em .04em;outline:none;appearance:none;-webkit-appearance:none;transition:border-color .3s;min-width:0}
+.ml-field input{width:8ch}
+.ml-field input::placeholder,.ml-msg textarea::placeholder{color:var(--text3);opacity:1}
+.ml-field input:focus,.ml-field select:focus,.ml-msg textarea:focus{border-bottom-color:var(--accent)}
+.ml-field input:not(:placeholder-shown){border-bottom-color:rgba(255,253,249,.55)}
+.ml-sel select{padding-right:1.1em;cursor:pointer;color:var(--text);max-width:min(70vw,22ch);text-overflow:ellipsis}
+.ml-sel::after{content:'';position:absolute;right:.25em;top:50%;width:.42em;height:.42em;border-right:2px solid var(--accent);border-bottom:2px solid var(--accent);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.ml-sel select option{background:var(--bg);color:var(--text);font-size:16px}
+.ml-msg{margin-top:14px}
+.ml-msg textarea{display:block;width:100%;resize:none;overflow:hidden;font-size:clamp(18px,2vw,26px);line-height:1.45;color:var(--text);min-height:1.6em}
+.ml-actions{display:flex;align-items:center;gap:36px;flex-wrap:wrap;margin-top:44px}
+.ml-points{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.ml-points li{font-size:13px;color:var(--text3);padding-left:16px;position:relative}
+.ml-points li::before{content:'';position:absolute;left:0;top:.5em;width:6px;height:6px;background:var(--accent)}
+.madlib .form-submit{margin:0;padding:20px 34px;font-size:13px}
+.madlib .form-note{text-align:left;margin-top:26px}
+.madlib .form-privacy{margin-top:8px}
+@media (max-width:640px){.madlib{margin-top:40px}.ml-line{font-size:clamp(22px,6.4vw,28px);line-height:1.55}.ml-field input{width:7ch}.ml-actions{gap:22px;margin-top:32px}.madlib .form-submit{width:100%;text-align:center}}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:56px;align-items:start}
 .contact-left h3{font-size:22px;font-weight:700;margin-bottom:16px}
 .contact-left p{font-size:14.5px;color:var(--text2);line-height:1.75;margin-bottom:28px}
@@ -864,6 +887,7 @@ footer{border-top:1px solid var(--border);padding:70px 44px 34px;background:var(
   .hero-inner{grid-template-columns:1fr .7fr}
   .hero-cube{--cs:180px;--half:90px}
 }
+@media (max-width:640px){
   #nav{padding-left:20px;padding-right:12px;height:58px}
   #hero{padding:96px 22px 90px;min-height:100svh}
   .hero-inner{grid-template-columns:1fr;row-gap:10px}
@@ -1169,29 +1193,21 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
       <p class="section-label" data-i18n="ct_label" set:html={es('ct_label')}></p>
       <h2 class="section-h2" data-i18n="ct_h2" set:html={es('ct_h2')}></h2>
     </div>
-    <div class="contact-grid">
-      <div class="contact-left reveal d1">
-        <h3 data-i18n="ct_h3" set:html={es('ct_h3')}></h3>
-        <p data-i18n="ct_p" set:html={es('ct_p')}></p>
-        <div class="contact-points">
-          <div class="cp"><span class="cp-px"></span><span data-i18n="cp1" set:html={es('cp1')}></span></div>
-          <div class="cp"><span class="cp-px"></span><span data-i18n="cp2" set:html={es('cp2')}></span></div>
-          <div class="cp"><span class="cp-px"></span><span data-i18n="cp3" set:html={es('cp3')}></span></div>
-        </div>
+    <form class="madlib reveal d1" id="contact-form">
+      <p class="ml-line"><span data-i18n="ml1" set:html={es('ml1')}></span> <span class="ml-field"><input name="name" type="text" id="in-name" required placeholder={es('ph_name')} aria-label={es('f_name')} autocomplete="name"></span> <span data-i18n="ml2" set:html={es('ml2')}></span> <span class="ml-nw"><span class="ml-field"><input name="company" type="text" id="in-comp" placeholder={es('ph_comp')} aria-label={es('f_comp')} autocomplete="organization"></span>.</span></p>
+      <p class="ml-line"><span data-i18n="ml3" set:html={es('ml3')}></span> <span class="ml-field ml-sel"><select name="need" id="in-need" aria-label={es('f_need')}></select></span> <span data-i18n="ml4" set:html={es('ml4')}></span> <span class="ml-nw"><span class="ml-field"><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999" aria-label={es('f_phone')} autocomplete="tel"></span>.</span></p>
+      <p class="ml-line ml-msg"><textarea name="message" id="in-msg" rows="1" placeholder={es('ph_msg')} aria-label={es('f_msg')}></textarea></p>
+      <div class="ml-actions">
+        <button type="submit" class="form-submit"><span data-i18n="f_send" set:html={es('f_send')}></span> →</button>
+        <ul class="ml-points">
+          <li data-i18n="cp2" set:html={es('cp2')}></li>
+          <li data-i18n="cp1" set:html={es('cp1')}></li>
+          <li data-i18n="cp3" set:html={es('cp3')}></li>
+        </ul>
       </div>
-      <form class="form reveal d2" id="contact-form">
-        <div class="form-row">
-          <div class="field"><label for="in-name" data-i18n="f_name" set:html={es('f_name')}></label><input name="name" type="text" id="in-name" required placeholder={es('ph_name')}></div>
-          <div class="field"><label for="in-phone" data-i18n="f_phone" set:html={es('f_phone')}></label><input name="phone" type="tel" id="in-phone" required placeholder="099 999 9999"></div>
-        </div>
-        <div class="field"><label for="in-comp" data-i18n="f_comp" set:html={es('f_comp')}></label><input name="company" type="text" id="in-comp" placeholder={es('ph_comp')}></div>
-        <div class="field"><label for="in-need" data-i18n="f_need" set:html={es('f_need')}></label><select name="need" id="in-need"></select></div>
-        <div class="field"><label for="in-msg" data-i18n="f_msg" set:html={es('f_msg')}></label><textarea name="message" id="in-msg" placeholder={es('ph_msg')}></textarea></div>
-        <button type="submit" class="form-submit"><span data-i18n="f_send" set:html={es('f_send')}></span></button>
-        <p class="form-note" data-i18n="f_note" set:html={es('f_note')}></p>
-        <p class="form-note form-privacy" data-i18n="f_privacy" set:html={es('f_privacy')}></p>
-      </form>
-    </div>
+      <p class="form-note" data-i18n="f_note" set:html={es('f_note')}></p>
+      <p class="form-note form-privacy" data-i18n="f_privacy" set:html={es('f_privacy')}></p>
+    </form>
   </div>
 </section>
 
@@ -1242,8 +1258,8 @@ const UI = Object.assign({}, window.__UI, {
 const HERO_KICKER = { es:'Ya es demasiado, lo sabemos.', en:'It is already too much, we know.' };
 
 const NEED_OPTS = {
-  es:['Selecciona una opción','Entender mi mercado y competencia','Construir mi marca e identidad','Sitio web o tienda en línea','Automatizar la atención y las ventas','Crecer con publicidad digital','Ordenar lo legal y administrativo','No sé por dónde empezar'],
-  en:['Select an option','Understand my market and competitors','Build my brand and identity','Website or online store','Automate service and sales','Grow with digital advertising','Get legal and admin in order','I do not know where to start'],
+  es:['elegir qué necesito','entender mi mercado y competencia','construir mi marca e identidad','una página web o tienda en línea','automatizar la atención y las ventas','crecer con publicidad digital','ordenar lo legal y administrativo','ayuda para saber por dónde empezar'],
+  en:['to pick what I need','to understand my market and competitors','to build my brand and identity','a website or online store','to automate service and sales','to grow with digital advertising','to get legal and admin in order','help to know where to start'],
 };
 const FORM_WA = {
   es:(n,c,ne,m)=>{let s=`Hola, vengo de la página web de BIE y quiero cotizar.\n\nNombre: ${n}`;if(c)s+=`\nEmpresa: ${c}`;if(ne)s+=`\nNecesito: ${ne}`;if(m)s+=`\n\nSobre mi empresa:\n${m}`;return s},
@@ -2130,6 +2146,14 @@ document.addEventListener('click', e => {
 
 // ═══ Contact form → WhatsApp ═══
 document.getElementById('contact-form').addEventListener('focusin', () => { if (window.bieTrack) bieTrack('form_start'); }, { once: true });
+// los campos de la frase crecen con lo que escribes
+(function(){
+  const fit = (el) => { const n = Math.max((el.value || el.placeholder || '').length, 4); el.style.width = (n * 0.7 + 1.6).toFixed(2) + 'ch'; };
+  document.querySelectorAll('.ml-field input').forEach((el) => { fit(el); el.addEventListener('input', () => fit(el)); });
+  const ta = document.getElementById('in-msg');
+  const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
+  ta.addEventListener('input', grow); grow();
+})();
 document.getElementById('contact-form').addEventListener('submit', e => {
   e.preventDefault();
   const d = new FormData(e.target);
