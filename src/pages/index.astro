@@ -161,25 +161,26 @@ button{cursor:pointer}
 .wa-float::after{content:'';position:absolute;left:50%;bottom:-16px;width:34px;height:7px;transform:translateX(-50%);
   background:rgba(7,7,9,.25);filter:blur(4px);border-radius:50%;animation:wa-shadow 3.4s ease-in-out infinite}
 @keyframes wa-shadow{0%,100%{transform:translateX(-50%) scaleX(1);opacity:.55}50%{transform:translateX(-50%) scaleX(.7);opacity:.3}}
-.wa-cube{display:block;width:46px;height:46px;position:relative;transform-style:preserve-3d;
+.wa-cube{display:block;width:50px;height:50px;position:relative;transform-style:preserve-3d;
   animation:wa-spin 9s linear infinite}
 @keyframes wa-spin{from{transform:rotateX(-18deg) rotateY(0deg)}to{transform:rotateX(-18deg) rotateY(360deg)}}
-.wa-face{position:absolute;inset:0;background:#0a0a0c;border:1.5px solid rgba(255,255,255,.22);
-  display:flex;align-items:center;justify-content:center;backface-visibility:hidden}
-.wa-edge{width:7px;height:7px;background:var(--accent);position:absolute;top:6px;left:6px;opacity:.9}
+.wa-face{position:absolute;inset:0;background:linear-gradient(150deg,#1b1b20 0%,#09090b 55%,#040405 100%);border:1px solid rgba(255,253,249,.42);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;backface-visibility:hidden}
+.wa-edge{width:8px;height:8px;background:var(--accent);position:absolute;top:7px;left:7px;box-shadow:0 0 10px rgba(229,57,53,.75)}
+#wa-fab{filter:drop-shadow(0 10px 18px rgba(0,0,0,.6))}
 #wa-bubble{position:fixed;bottom:48px;right:104px;z-index:151;background:var(--bone);color:var(--ink);border:1px solid rgba(255,253,249,.1);
   padding:12px 16px;font-size:13px;font-weight:700;letter-spacing:-.01em;max-width:230px;
   opacity:0;transform:translateX(14px) scale(.96);transform-origin:right center;pointer-events:none;
   transition:opacity .35s var(--ease),transform .35s var(--ease)}
 #wa-bubble.on{opacity:1;transform:none;pointer-events:auto;cursor:pointer}
-#wa-bubble::after{content:'';position:absolute;right:-6px;top:50%;width:10px;height:10px;background:#fff;border-right:1px solid rgba(255,253,249,.1);border-top:1px solid rgba(255,253,249,.1);transform:translateY(-50%) rotate(45deg)}
+#wa-bubble::after{content:'';position:absolute;right:-6px;top:50%;width:10px;height:10px;background:var(--bone);border-right:1px solid rgba(255,253,249,.1);border-top:1px solid rgba(255,253,249,.1);transform:translateY(-50%) rotate(45deg)}
 #wa-bubble .wb-px{display:inline-block;width:7px;height:7px;background:var(--accent);margin-right:9px;vertical-align:middle}
-.wa-face.f{transform:translateZ(23px)}
-.wa-face.b{transform:rotateY(180deg) translateZ(23px)}
-.wa-face.r{transform:rotateY(90deg) translateZ(23px)}
-.wa-face.l{transform:rotateY(-90deg) translateZ(23px)}
-.wa-face.t{transform:rotateX(90deg) translateZ(23px);background:#16161a}
-.wa-face.d{transform:rotateX(-90deg) translateZ(23px);background:#050507}
+.wa-face.f{transform:translateZ(25px)}
+.wa-face.b{transform:rotateY(180deg) translateZ(25px)}
+.wa-face.r{transform:rotateY(90deg) translateZ(25px)}
+.wa-face.l{transform:rotateY(-90deg) translateZ(25px)}
+.wa-face.t{transform:rotateX(90deg) translateZ(25px);background:#16161a}
+.wa-face.d{transform:rotateX(-90deg) translateZ(25px);background:#050507}
 #fab-px{position:fixed;bottom:0;right:0;width:190px;height:190px;z-index:149;pointer-events:none}
 #wa-fab,#fab-px,#wa-bubble{opacity:0;pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
 #wa-fab{transform:translateY(24px)}
@@ -614,20 +615,36 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 /* Comentarios de clientes y redes */
 #voces{padding:120px 0 90px;background:var(--bg);border-top:1px solid var(--border)}
 .voces-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:48px}
-.voz{border:1px solid var(--border);padding:26px 24px 22px;display:flex;flex-direction:column;gap:18px;min-height:150px;background:var(--surface)}
-.voz-mark{width:10px;height:10px;background:var(--accent);opacity:.7}
-.voz-q{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:21px;line-height:1.3;color:var(--text);margin:0}
-.voz-who{margin-top:auto;display:flex;flex-direction:column;gap:3px}
-.voz-who b{font-weight:500;font-size:16px}
-.voz-who b a{color:inherit;border-bottom:1px solid var(--accent)}
-.voz-who span{font-size:13px;color:var(--text3)}
+.voz{position:relative;border:1px solid var(--border);padding:28px 26px 24px;display:flex;flex-direction:column;gap:22px;min-height:190px;background:var(--surface);transition:border-color .4s,transform .4s var(--ease)}
+.voz:hover{border-color:rgba(255,253,249,.3);transform:translateY(-4px)}
+.voz::before{content:'';position:absolute;left:0;top:0;width:3px;height:36px;background:var(--accent)}
+.voz-n{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--text3)}
+.voz-q{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:22px;line-height:1.3;color:var(--text);margin:0}
+.voz-q::before{content:'“';color:var(--accent);margin-right:2px}
+.voz-q::after{content:'”';color:var(--accent);margin-left:2px}
+.voz-who{margin-top:auto;display:flex;flex-direction:column;gap:5px}
+.voz-name{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:30px;line-height:1.05;letter-spacing:-.01em;color:var(--text)}
+.voz-biz{font-size:13px;color:var(--text3);letter-spacing:.01em}
+.voz-biz a{color:var(--text2);border-bottom:1px solid var(--accent)}
 #redes{padding:90px 0 120px;background:var(--bg)}
-.redes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:40px}
-.red{border:1px solid var(--border);padding:24px;display:flex;flex-direction:column;gap:6px;transition:border-color .3s,transform .3s}
-.red:hover{border-color:var(--bone);transform:translateY(-3px)}
-.red-n{font-size:18px}
-.red-h{font-family:var(--mono);font-size:12px;color:var(--accent-dark)}
-.red-d{font-size:14px;color:var(--text2);margin-top:8px}
+.redes-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:48px;border:1px solid var(--border)}
+.red{position:relative;padding:38px 36px 34px;display:flex;flex-direction:column;gap:14px;min-height:280px;background:var(--surface);overflow:hidden;transition:background .5s var(--ease),color .5s}
+.red + .red{border-left:1px solid var(--border)}
+.red::after{content:'';position:absolute;inset:auto -40px -40px auto;width:220px;height:220px;border:1px solid rgba(255,253,249,.08);transform:rotate(45deg);transition:border-color .5s,transform .8s var(--ease)}
+.red:hover{background:var(--accent);color:#fff}
+.red:hover::after{border-color:rgba(255,255,255,.35);transform:rotate(45deg) scale(1.25)}
+.red-top{display:flex;align-items:center;gap:14px}
+.red-ico{display:inline-flex;color:var(--accent);transition:color .4s}
+.red:hover .red-ico{color:#fff}
+.red-n{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3)}
+.red:hover .red-n{color:rgba(255,255,255,.8)}
+.red-h{font-family:'Instrument Serif',Georgia,serif;font-size:clamp(28px,3.2vw,44px);line-height:1;letter-spacing:-.015em;color:var(--text);word-break:break-all;margin-top:6px}
+.red:hover .red-h{color:#fff}
+.red-d{font-size:15px;line-height:1.5;color:var(--text2);max-width:34ch}
+.red:hover .red-d{color:rgba(255,255,255,.85)}
+.red-go{margin-top:auto;font-size:26px;line-height:1;transition:transform .5s var(--ease)}
+.red:hover .red-go{transform:translateX(10px)}
+@media (max-width:760px){.redes-grid{grid-template-columns:1fr}.red + .red{border-left:0;border-top:1px solid var(--border)}.red{min-height:0;padding:28px 22px}}
 /* Durante la intro del cubo no hay menú ni barra de progreso */
 #nav,#progress{transition:opacity .5s ease,transform .5s ease}
 body.cubo-intro #nav{opacity:0;transform:translateY(-10px);pointer-events:none}
@@ -1098,20 +1115,21 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
   </div>
 </section>
 
-<!-- COMENTARIOS DE CLIENTES (frases solo cuando el cliente las dio) -->
+<!-- COMENTARIOS DE CLIENTES (frases solo cuando el cliente las dio; nunca inventadas) -->
 <section id="voces">
   <div class="section-inner">
     <div class="reveal">
-      <p class="section-label">Lo que dicen</p>
-      <h2 class="section-h2">Negocios que ya trabajan <span class="serif">con nosotros.</span></h2>
+      <p class="section-label">Comentarios</p>
+      <h2 class="section-h2">Lo que dicen <span class="serif">nuestros clientes.</span></h2>
     </div>
     <div class="voces-grid reveal d2">
-      {TESTIMONIOS.map((t) => (
+      {TESTIMONIOS.map((t, i) => (
         <article class={'voz' + (t.frase ? ' con-frase' : '')}>
-          {t.frase ? <blockquote class="voz-q">“{t.frase}”</blockquote> : <span class="voz-mark" aria-hidden="true"></span>}
+          <span class="voz-n">0{i + 1}</span>
+          {t.frase && <blockquote class="voz-q">{t.frase}</blockquote>}
           <div class="voz-who">
-            <b>{t.url ? <a href={t.url} target="_blank" rel="noopener">{t.negocio}</a> : t.negocio}</b>
-            <span>{t.persona ? t.persona + ' · ' : ''}{t.sector}</span>
+            <b class="voz-name">{t.persona || t.negocio}</b>
+            <span class="voz-biz">{t.persona && t.persona !== t.negocio && (t.url ? <a href={t.url} target="_blank" rel="noopener">{t.negocio}</a> : t.negocio)}{t.persona && t.persona !== t.negocio ? ' · ' : ''}{t.sector}</span>
           </div>
         </article>
       ))}
@@ -1128,10 +1146,17 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
     </div>
     <div class="redes-grid reveal d2">
       {REDES.filter((r) => r.url).map((r) => (
-        <a class="red" href={r.url} target="_blank" rel="noopener">
-          <span class="red-n">{r.nombre}</span>
+        <a class={'red red-' + r.nombre.toLowerCase()} href={r.url} target="_blank" rel="noopener">
+          <span class="red-top">
+            <span class="red-ico" aria-hidden="true">
+              {r.nombre === 'Instagram' && <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none"/></svg>}
+              {r.nombre === 'WhatsApp' && <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.3 21.7l4.9-1.3A9.8 9.8 0 1 0 12 2.2Zm0 1.8a8 8 0 1 1-4.1 14.9l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0 1 12 4Zm-3 4.1c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.7.5 0 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1a6.5 6.5 0 0 1-3.3-2.9c-.2-.3 0-.4.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.5L10 8.6c-.2-.5-.4-.5-.6-.5H9Z"/></svg>}
+            </span>
+            <span class="red-n">{r.nombre}</span>
+          </span>
           <span class="red-h">{r.handle}</span>
           <span class="red-d">{r.desc}</span>
+          <span class="red-go" aria-hidden="true">→</span>
         </a>
       ))}
     </div>
@@ -1484,9 +1509,20 @@ const TOP = [
   { href:'/productos/data-analytics/?src=home-mas-pedidos', video:true, n:B('Data Analytics & Dashboards','Data Analytics & Dashboards'), hook:B('Deja de adivinar: mira tu negocio en vivo.','Stop guessing: watch your business live.') },
   { href:'/productos/link-hub/?src=home-mas-pedidos', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
 ];
+function watchTileVideos(){
+  const vids = document.querySelectorAll('.top-tile video.tt-img');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    const v = e.target;
+    if (e.intersectionRatio >= .35) { if (v.paused) v.play().catch(() => {}); }
+    else if (!v.paused) v.pause();
+  }), { threshold: [0, .35, .7] });
+  vids.forEach((v) => io.observe(v));
+}
 function renderTop(){
   document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>
-    `<a class="top-tile has-img" href="${x.href}">${x.video ? `<video class="tt-img" src="/videos/productos/${x.href.split('/')[2]}.mp4" poster="/images/productos/${x.href.split('/')[2]}.webp" autoplay muted loop playsinline preload="metadata"></video>` : `<img class="tt-img" src="/images/productos/${x.href.split('/')[2]}.webp" alt="" width="900" height="900" loading="eager" decoding="async">`}<span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
+    `<a class="top-tile has-img" href="${x.href}"><video class="tt-img" src="/videos/productos/${x.href.split('/')[2]}.mp4" poster="/images/productos/${x.href.split('/')[2]}.webp" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
+  watchTileVideos();
 }
 
 // ═══ Render: marquee (títulos de fase, display gigante) ═══

@@ -1,13 +1,13 @@
 // Comentarios de clientes. Cada frase debe venir del cliente y estar autorizada;
-// mientras no haya frase, solo se muestra el nombre del negocio.
+// mientras no haya frase, solo se muestra el nombre (persona cuando la conocemos) y su negocio.
 export interface Testimonio { negocio: string; sector: string; persona?: string; frase?: string; url?: string }
 
 export const TESTIMONIOS: Testimonio[] = [
-  { negocio: 'Tasting Ecuador', sector: 'Experiencias gastronómicas · Cuenca', url: 'https://tasting-ecuador.com' },
+  { persona: 'Óscar Caicho', negocio: 'Óscar Caicho', sector: 'Conferencias y clínica' },
+  { persona: 'Paola', negocio: 'Tasting Ecuador', sector: 'Experiencias gastronómicas · Cuenca', url: 'https://tasting-ecuador.com' },
+  { persona: 'Amílcar', negocio: 'Amílcar', sector: 'Servicios profesionales' },
   { negocio: 'Luway', sector: 'Moda en vivo · TikTok y WhatsApp' },
   { negocio: 'Villa Tres', sector: 'Hostal · Guayaquil' },
-  { negocio: 'Amílcar', sector: 'Servicios profesionales' },
-  { negocio: 'Óscar Caicho', sector: 'Conferencias y clínica' },
 ];
 
 // Redes de BIE. Solo se muestran las que tienen enlace.
