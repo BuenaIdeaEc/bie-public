@@ -843,6 +843,7 @@ body.cubo-intro #progress{opacity:0}
 .nicho-link.swap{opacity:0}
 .nicho-arrow{transition:transform .4s var(--ease)}
 .nicho-link:hover .nicho-arrow{transform:translateX(6px)}
+.nicho-fuente{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin:16px 0 0;min-height:1.4em}
 .nicho-end{font-family:var(--font);font-size:clamp(17px,1.7vw,22px);line-height:1.45;max-width:46ch;margin:28px 0 0;min-height:2.9em;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .7s var(--ease)}
 .nicho-end.on{opacity:.95;transform:none}
 .nicho-end b{font-weight:700}
@@ -1174,11 +1175,11 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
     <div class="section-inner nicho-inner">
       <div class="nicho-head">
         <span class="nicho-k" data-i18n="nicho_k" set:html={es('nicho_k')}></span>
-        <p class="nicho-src" data-i18n="nicho_src" set:html={es('nicho_src')}></p>
       </div>
       <p class="nicho-num" aria-live="off"><span id="nicho-num">0</span></p>
       <p class="nicho-line" id="nicho-line"></p>
       <a class="nicho-link" id="nicho-link" href="/productos/"><span id="nicho-prod"></span><span class="nicho-arrow" aria-hidden="true">→</span></a>
+      <p class="nicho-fuente" id="nicho-fuente"></p>
       <p class="nicho-end" id="nicho-end" data-i18n="nicho_end" set:html={es('nicho_end')}></p>
     </div>
     <div class="nicho-bar" aria-hidden="true"><i id="nicho-bar"></i></div>
@@ -1782,22 +1783,20 @@ function renderWork(){
 (function(){
   const sec = document.getElementById('nicho'), st = sec && sec.querySelector('.nicho-sticky');
   if (!sec || !st) return;
-  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar');
+  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar'), srcEl = document.getElementById('nicho-fuente');
   // Cifras REFERENCIALES para la vista previa. Antes de producción: fuente y año.
+  // Cifras con fuente pública (año indicado). Si una fuente cambia, se cambia aquí y en General Brain/03-LINEA-A/FUENTES_cifras_home.md
   const ITEMS = [
-    { slug: 'analisis-conversaciones-venta', n: 120000, es: ['negocios ya analizan cada conversación de venta.', 'Análisis de conversaciones'], en: ['businesses already analyze every sales conversation.', 'Conversation analysis'] },
-    { slug: 'identidad-de-marca', n: 480000, es: ['negocios solo tienen un logotipo y lo llaman marca.', 'Identidad de marca'], en: ['businesses only have a logo and call it a brand.', 'Brand identity'] },
-    { slug: 'registro-de-marca', n: 240000, es: ['negocios ya tienen su marca registrada.', 'Registro de marca'], en: ['businesses already own a registered trademark.', 'Trademark registration'] },
-    { slug: 'sistema-operativo', n: 310000, es: ['negocios ya operan con un sistema propio.', 'Sistema operativo de tu empresa'], en: ['businesses already run on their own system.', 'Your company operating system'] },
-    { slug: 'automatizaciones', n: 560000, es: ['negocios todavía tienen sus servicios sin conectar entre sí.', 'Automatizaciones'], en: ['businesses still run services that do not talk to each other.', 'Automations'] },
-    { slug: 'data-analytics', n: 420000, es: ['dueños ya ven sus números en un panel, no en papel.', 'Data Analytics & Dashboards'], en: ['owners already see their numbers on a dashboard, not on paper.', 'Data Analytics & Dashboards'] },
-    { slug: 'link-hub', n: 640000, es: ['marcas ya tienen un solo enlace para todo.', 'Link Hub de marca'], en: ['brands already have one link for everything.', 'Brand Link Hub'] },
-    { slug: 'meta-ads', n: 780000, es: ['negocios ya pautan con inteligencia en Instagram y Facebook.', 'Meta Ads'], en: ['businesses already advertise smartly on Instagram and Facebook.', 'Meta Ads'] },
-    { slug: 'facturacion-electronica', n: 900000, es: ['negocios ya facturan electrónicamente, sin papel.', 'Facturación electrónica'], en: ['businesses already invoice electronically, no paper.', 'Electronic invoicing'] },
-    { slug: 'whatsapp-business-commerce', n: 1050000, es: ['personas ya compran por catálogo de WhatsApp.', 'WhatsApp Business Commerce'], en: ['people already buy through WhatsApp catalogs.', 'WhatsApp Business Commerce'] },
-    { slug: 'perfil-google-maps', n: 1300000, es: ['personas ya eligen un negocio por Google Maps.', 'Perfil de Google Maps'], en: ['people already pick a business on Google Maps.', 'Google Maps Profile'] },
-    { slug: 'asistente-inteligente-whatsapp', n: 1600000, es: ['personas ya reciben respuesta por WhatsApp a cualquier hora.', 'Asistente Inteligente 24/7'], en: ['people already get a WhatsApp reply at any hour.', '24/7 AI Assistant'] },
-    { slug: 'pagina-web', n: 2100000, es: ['personas ya compran por páginas web.', 'Página Web'], en: ['people already buy through websites.', 'Website'] },
+    { slug: 'marketplace-y-ecommerce', n: 5500, es: ['millones de dólares se vendieron en línea en Ecuador en 2024.', 'Marketplace y e-commerce', 'CECE · UEES, estudio 2024'], en: ['million dollars were sold online in Ecuador in 2024.', 'Marketplace & e-commerce', 'CECE · UEES, 2024 study'] },
+    { slug: 'whatsapp-business-commerce', n: 74, es: ['de cada 100 compradores en línea ya compran por WhatsApp.', 'WhatsApp Business Commerce', 'CECE · UEES, 2025'], en: ['out of 100 online shoppers already buy through WhatsApp.', 'WhatsApp Business Commerce', 'CECE · UEES, 2025'] },
+    { slug: 'asistente-inteligente-whatsapp', n: 32, es: ['de cada 100 ecuatorianos ya usaron IA, como chatbots, para comprar en línea.', 'Asistente Inteligente 24/7', 'CECE · UEES, 2025'], en: ['out of 100 Ecuadorians already used AI, like chatbots, to shop online.', '24/7 AI Assistant', 'CECE · UEES, 2025'] },
+    { slug: 'pagina-web', n: 28, es: ['de cada 100 mipymes tienen página web propia. El resto, todavía no.', 'Página Web', 'Pyme Digital · BID · ESPOL'], en: ['out of 100 small businesses have their own website. The rest, not yet.', 'Website', 'Pyme Digital · IDB · ESPOL'] },
+    { slug: 'sistema-operativo', n: 68, es: ['de cada 100 empresas siguen en el nivel más bajo de madurez digital.', 'Sistema operativo de tu empresa', 'Pyme Digital · BID · ESPOL'], en: ['out of 100 companies remain at the lowest level of digital maturity.', 'Your company operating system', 'Pyme Digital · IDB · ESPOL'] },
+    { slug: 'analisis-de-competencia', n: 1073524, es: ['empresas registradas en Ecuador. ¿Sabes cuáles compiten contigo?', 'Análisis de competencia', 'INEC · REEM 2024'], en: ['registered companies in Ecuador. Do you know which ones compete with you?', 'Competitor analysis', 'INEC · REEM 2024'] },
+    { slug: 'registro-de-marca', n: 179775, es: ['marcas registradas y vigentes en Ecuador. ¿La tuya está?', 'Registro de marca', 'OMPI, 2024'], en: ['trademarks registered and in force in Ecuador. Is yours?', 'Trademark registration', 'WIPO, 2024'] },
+    { slug: 'meta-ads', n: 6450000, es: ['personas usan Instagram en Ecuador.', 'Meta Ads', 'Meta · DataReportal, 2025'], en: ['people use Instagram in Ecuador.', 'Meta Ads', 'Meta · DataReportal, 2025'] },
+    { slug: 'perfil-google-maps', n: 15200000, es: ['personas usan internet en Ecuador. Cuando buscan cerca, el mapa decide.', 'Perfil de Google Maps', 'DataReportal, 2025'], en: ['people use the internet in Ecuador. When they search nearby, the map decides.', 'Google Maps Profile', 'DataReportal, 2025'] },
+    { slug: 'facturacion-electronica', n: 94, es: ['de cada 100 transacciones ya llegan al SRI en tiempo real.', 'Facturación electrónica', 'SRI · El Universo, 2026'], en: ['out of 100 transactions already reach the tax authority in real time.', 'Electronic invoicing', 'SRI · El Universo, 2026'] },
   ];
   const N = ITEMS.length;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1808,10 +1807,11 @@ function renderWork(){
   function show(i){
     const it = ITEMS[i], lang = L();
     lineEl.textContent = it[lang][0]; prodEl.textContent = it[lang][1]; linkEl.href = '/productos/' + it.slug + '/?src=home-nicho';
+    srcEl.textContent = (lang === 'en' ? 'Source: ' : 'Fuente: ') + it[lang][2];
   }
   function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.27 + 0.45)) + 'px'; }
   addEventListener('resize', layout, { passive: true }); layout();
-  if (reduce) { show(N - 1); numEl.textContent = '+' + fmt(ITEMS[N - 1].n); endEl.classList.add('on'); return; }
+  if (reduce) { show(N - 1); numEl.textContent = fmt(ITEMS[N - 1].n); endEl.classList.add('on'); return; }
   function read(){ const r = sec.getBoundingClientRect(); const span = sec.offsetHeight - innerHeight; if (span > 0) target = clamp(-r.top / span); }
   addEventListener('scroll', read, { passive: true }); read();
   window.__nichoLang = () => { if (cur >= 0) show(cur); };
@@ -1826,7 +1826,7 @@ function renderWork(){
     // cada producto cuenta desde cero, llega a su cifra, se reinicia y arranca el siguiente
     const to = ITEMS[i].n, u = 1 - Math.pow(1 - clamp(t / 0.72), 3);
     const v = to * u;
-    numEl.textContent = (t > 0.72 ? '+' : '') + fmt(v);
+    numEl.textContent = fmt(v);
     barEl.style.width = (q * 100).toFixed(2) + '%';
     endEl.classList.toggle('on', p > 0.9);
   }
