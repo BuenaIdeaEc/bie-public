@@ -1753,7 +1753,7 @@ function renderWork(){
   const sec = document.getElementById('nicho'), st = sec && sec.querySelector('.nicho-sticky');
   if (!sec || !st) return;
   const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar'), iEl = document.getElementById('nicho-i'), nEl = document.getElementById('nicho-n');
-  // Cifras REFERENCIALES para la vista previa (orden ascendente para que el contador solo suba). Antes de producción: fuente y año.
+  // Cifras REFERENCIALES para la vista previa. Antes de producción: fuente y año.
   const ITEMS = [
     { slug: 'analisis-conversaciones-venta', n: 120000, es: ['negocios en Ecuador ya analizan cada conversación de venta.', 'Análisis de conversaciones'], en: ['businesses in Ecuador already analyze every sales conversation.', 'Conversation analysis'] },
     { slug: 'registro-de-marca', n: 240000, es: ['negocios en Ecuador ya tienen su marca registrada.', 'Registro de marca'], en: ['businesses in Ecuador already own a registered trademark.', 'Trademark registration'] },
@@ -1793,9 +1793,10 @@ function renderWork(){
     const q = clamp((p - 0.07) / 0.83);
     const pos = q * N, i = Math.min(N - 1, Math.floor(pos)), t = pos - i;
     if (i !== cur) { cur = i; lineEl.classList.add('swap'); linkEl.classList.add('swap'); clearTimeout(swapT); swapT = setTimeout(() => { show(i); lineEl.classList.remove('swap'); linkEl.classList.remove('swap'); }, 160); }
-    const from = i === 0 ? 0 : ITEMS[i - 1].n, to = ITEMS[i].n;
-    const v = lp(from, to, sm(clamp(t / 0.8)));
-    numEl.textContent = (i === N - 1 && t > 0.8 ? '+' : '') + fmt(v);
+    // cada producto cuenta desde cero, llega a su cifra, se reinicia y arranca el siguiente
+    const to = ITEMS[i].n, u = 1 - Math.pow(1 - clamp(t / 0.72), 3);
+    const v = to * u;
+    numEl.textContent = (t > 0.72 ? '+' : '') + fmt(v);
     barEl.style.width = (q * 100).toFixed(2) + '%';
     endEl.classList.toggle('on', p > 0.9);
   }
