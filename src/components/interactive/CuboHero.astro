@@ -37,7 +37,7 @@ const es = (k: string) => UI[k].es;
 </section>
 
 <style is:global>
-#hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:transparent;position:relative;z-index:2;margin-bottom:-100vh}
+#hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
 #hero.cubo::after{display:none}
 .cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:rgb(15,15,17)}
 #cubo-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -200,10 +200,7 @@ function frame(now: number) {
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 0.9, f3);
   }
   core.intensity = f2 * 9;
-  // el fondo se abre: detrás aparece la siguiente sección, que se acerca (ver #work en la home)
-  outEl.style.opacity = '0';
-  renderer.setClearColor(0x0f0f11, 1 - f2);
-  stickyEl.style.backgroundColor = 'rgba(15,15,17,' + (1 - f2).toFixed(3) + ')';
+  outEl.style.opacity = smooth(clamp01((fin - 0.8) / 0.2)).toFixed(3);
   setFin(fin);
   copyEl.style.opacity = (1 - clamp01(fin * 5)).toFixed(3);
   camera.lookAt(fin > 0.001 ? group.position.x * 0.8 * (1 - f1) : group.position.x * 0.8, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);

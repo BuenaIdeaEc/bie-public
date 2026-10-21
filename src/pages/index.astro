@@ -373,7 +373,27 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .video-dur{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.55)}
 
 /* ═══ Work ═══ */
-#work{padding:140px 0;position:relative;background:var(--surface)}
+#work{padding:120px 0 80px;position:relative;background:var(--surface);overflow:hidden}
+/* dos hileras de láminas que corren solas en bucle (sentidos opuestos); al pasar el cursor se frenan */
+.reels{display:flex;flex-direction:column;gap:14px;margin-top:48px}
+.reel-row{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.reel-track{display:flex;gap:14px;width:max-content;animation:reel 60s linear infinite;will-change:transform}
+.reel-rev .reel-track{animation-direction:reverse}
+.reel-row:hover .reel-track{animation-play-state:paused}
+@keyframes reel{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.wt{position:relative;flex:0 0 auto;height:clamp(180px,27vh,300px);aspect-ratio:1600/1131;overflow:hidden;background:var(--bg);border:1px solid rgba(255,253,249,.06);display:flex;align-items:center;justify-content:center;color:inherit}
+.wt .g-slide{position:static;opacity:1;transform:none;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.wt .g-slide>*{animation:none;max-width:88%}
+.wt .g-slide.real>*{max-width:none}
+.wt .g-photo{width:100%;height:100%;object-fit:cover}
+.wt-name{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;font-size:13px;letter-spacing:-.01em;color:#fff;background:linear-gradient(180deg,rgba(11,11,13,0),rgba(11,11,13,.85));opacity:0;transform:translateY(6px);transition:opacity .3s,transform .4s var(--ease)}
+.wt-name b{font-weight:500}
+.wt-name span{opacity:.7;margin-left:8px}
+.wt:hover .wt-name{opacity:1;transform:none}
+.wt .g-illus{top:10px;right:10px}
+#work .trust-strip{margin-top:40px}
+@media (max-width:640px){#work{padding:90px 0 60px}.reels{gap:10px;margin-top:30px}.reel-track{gap:10px;animation-duration:40s}.wt{height:clamp(150px,22vh,200px)}}
+@media (prefers-reduced-motion: reduce){.reel-track{animation:none}}
 .work-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;margin-top:64px}
 .work-card{border:1px solid rgba(255,253,249,.1);background:var(--bg);overflow:hidden;position:relative;border-radius:var(--r-lg);
   transition:box-shadow .45s var(--ease),transform .3s var(--ease);transform-style:preserve-3d;will-change:transform}
@@ -402,7 +422,6 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 /* Cadena "Empresas": las tarjetas avanzan solas en bucle; el scroll las empuja; al tocar o pasar el cursor se frenan */
 #work.rail{padding:0;background:var(--black);overflow:visible;position:relative;z-index:1}
 /* llega desde el fondo mientras el cubo se abre (--fin lo escribe el cubo: 0 cerrado → 1 abierto) */
-#work.rail .work-sticky{background:var(--surface);transform:perspective(1400px) translate3d(0,calc((1 - var(--fin,1)) * -83vh),calc((1 - var(--fin,1)) * -1500px));transform-origin:50% 45%;will-change:transform}
 #work.rail .work-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:safe center;overflow:hidden;padding-top:64px}
 #work.rail .section-h2{font-size:clamp(26px,3.4vw,46px);max-width:22ch}
 #work.rail .section-label{margin-bottom:10px}
@@ -1092,21 +1111,43 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
 <div id="marquee"><div class="marquee-track" id="mq-track"></div></div>
 
 <!-- WORK -->
-<section id="work" class="rail">
-  <div class="work-sticky">
-    <div class="section-inner">
-      <div class="reveal">
-        <p class="section-label" data-i18n="work_label" set:html={es('work_label')}></p>
-        <h2 class="section-h2" data-i18n="work_h2" set:html={es('work_h2')}></h2>
-        <p class="section-sub" data-i18n="work_sub" set:html={es('work_sub')}></p>
-      </div>
-      <div class="trust-strip reveal">
-        <span class="trust-label" data-i18n="trust_label" set:html={es('trust_label')}></span>
-        <span class="trust-names">Tasting Ecuador · Luway · Óscar Caicho</span>
-      </div>
+<section id="work">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="work_label" set:html={es('work_label')}></p>
+      <h2 class="section-h2" data-i18n="work_h2" set:html={es('work_h2')}></h2>
+      <p class="section-sub" data-i18n="work_sub" set:html={es('work_sub')}></p>
     </div>
-    <div class="work-grid" id="work-grid"></div>
-    <div class="rail-hint" id="rail-hint" aria-hidden="true"><span class="rail-bar"><i id="rail-fill"></i></span><span class="rail-n" id="rail-n">1 / 5</span></div>
+  </div>
+  <div class="reels reveal d1">
+    <div class="reel-row" id="work-row-1"><div class="reel-track"></div></div>
+    <div class="reel-row reel-rev" id="work-row-2"><div class="reel-track"></div></div>
+  </div>
+  <div class="section-inner">
+    <div class="trust-strip reveal">
+      <span class="trust-label" data-i18n="trust_label" set:html={es('trust_label')}></span>
+      <span class="trust-names">Tasting Ecuador · Luway · Óscar Caicho</span>
+    </div>
+  </div>
+</section>
+
+<!-- ESTE MES EN BIE: destacado mensual (datos en src/data/este-mes.ts) -->
+<EsteMes data={ESTE_MES} />
+
+<!-- LOS MÁS PEDIDOS -->
+<section id="top">
+  <canvas id="top-canvas"></canvas>
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="top_label" set:html={es('top_label')}></p>
+      <h2 class="section-h2" data-i18n="top_h2" set:html={es('top_h2')}></h2>
+      <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
+    </div>
+    <div class="top-grid reveal d2" id="top-grid"></div>
+    <div class="belt-cta reveal d3">
+      <p class="belt-cta-txt" data-i18n="top_note" set:html={es('top_note')}></p>
+      <a class="belt-cta-btn" href="/catalogo/?src=home-mas-vendidos" data-i18n="btn_catalog" set:html={es('btn_catalog')}></a>
+    </div>
   </div>
 </section>
 
@@ -1144,26 +1185,6 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
       <p class="nicho-end" id="nicho-end" data-i18n="nicho_end" set:html={es('nicho_end')}></p>
     </div>
     <div class="nicho-bar" aria-hidden="true"><i id="nicho-bar"></i></div>
-  </div>
-</section>
-
-<!-- ESTE MES EN BIE: destacado mensual (datos en src/data/este-mes.ts) -->
-<EsteMes data={ESTE_MES} />
-
-<!-- LOS MÁS PEDIDOS -->
-<section id="top">
-  <canvas id="top-canvas"></canvas>
-  <div class="section-inner">
-    <div class="reveal">
-      <p class="section-label" data-i18n="top_label" set:html={es('top_label')}></p>
-      <h2 class="section-h2" data-i18n="top_h2" set:html={es('top_h2')}></h2>
-      <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
-    </div>
-    <div class="top-grid reveal d2" id="top-grid"></div>
-    <div class="belt-cta reveal d3">
-      <p class="belt-cta-txt" data-i18n="top_note" set:html={es('top_note')}></p>
-      <a class="belt-cta-btn" href="/catalogo/?src=home-mas-vendidos" data-i18n="btn_catalog" set:html={es('btn_catalog')}></a>
-    </div>
   </div>
 </section>
 
@@ -1663,41 +1684,21 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 // ═══ Render: work grid + before/after ═══
 let galleryState = COMPANIES.map(() => 0);
 function renderWork(){
-  const workGrid = document.getElementById('work-grid');
-  workGrid.innerHTML = '';
-  galleryState = COMPANIES.map(() => 0);
-  COMPANIES.forEach((c, ci) => {
-    const card = document.createElement('div');
-    card.className = `work-card ${c.size} reveal in d${(ci % 3) + 1} tilt`;
-    card.innerHTML = `
-      <div class="gallery${c.real ? ' gal-real' : ''}" data-g="${ci}">
-        ${c.slides.map((s, si) => `<div class="g-slide${si === 0 ? ' on' : ''}${c.real ? ' real' : ''}" data-s="${si}" style="background:${s[2]}">${s[1]}</div>`).join('')}
-        <span class="g-tag">${t(c.slides[0][0])}</span>
-        ${c.real ? '' : `<span class="g-illus">${t(UI.illus_tag)}</span>`}
-        <div class="g-dots">${c.slides.map((_, si) => `<button class="g-dot${si === 0 ? ' on' : ''}" data-g="${ci}" data-s="${si}" aria-label="${si + 1}"></button>`).join('')}</div>
-      </div>
-      <div class="wc-info">
-        <div class="wc-top">
-          <div>
-            <div class="wc-kind">${t(c.kind)}</div>
-            <div class="wc-name">${c.name}</div>
-          </div>
-          <div class="wc-socials">${c.socials.map(s => `<span class="wc-soc" title="${s}">${SOC_ICONS[s]}</span>`).join('')}</div>
-        </div>
-        <div class="wc-desc">${t(c.desc)}</div>
-        ${c.caseUrl ? `<a class="wc-case" href="${c.caseUrl}">${t(UI.case_link)}</a>` : ''}
-      </div>`;
-    workGrid.appendChild(card);
+  // Hilera 1: todas las láminas de Tasting. Hilera 2: Luway y Óscar, una lámina tras otra. Cada hilera se duplica para el bucle.
+  const tile = (c, s) => `<${c.caseUrl ? 'a' : 'div'} class="wt"${c.caseUrl ? ` href="${c.caseUrl}"` : ''}>
+      <div class="g-slide${c.real ? ' real' : ''}" style="background:${s[2]}">${s[1]}</div>
+      ${c.real ? '' : `<span class="g-illus">${t(UI.illus_tag)}</span>`}
+      <span class="wt-name"><b>${c.name}</b><span>${t(s[0])}</span></span>
+    </${c.caseUrl ? 'a' : 'div'}>`;
+  const rows = [COMPANIES.filter(c => c.real), COMPANIES.filter(c => !c.real)];
+  rows.forEach((cs, ri) => {
+    const track = document.querySelector('#work-row-' + (ri + 1) + ' .reel-track');
+    if (!track) return;
+    const html = cs.map(c => c.slides.map(s => tile(c, s)).join('')).join('');
+    track.innerHTML = html + html;
+    const n = cs.reduce((a, c) => a + c.slides.length, 0);
+    track.style.animationDuration = Math.max(28, n * 7) + 's';
   });
-  const band = document.createElement('a');
-  band.href = '#contact';
-  band.className = 'cta-band reveal in';
-  band.innerHTML = `
-    <div class="band-px"></div>
-    <div class="band-text">${UI.band_t[lang]}</div>
-    <span class="band-btn">${UI.band_btn[lang]} →</span>`;
-  workGrid.appendChild(band);
-  if (window.__railMeasure) setTimeout(window.__railMeasure, 0);
 }
 
 // ═══ "Así de simple": tipografía en movimiento dirigida por el scroll ═══
@@ -1780,7 +1781,7 @@ function renderWork(){
     const it = ITEMS[i], lang = L();
     lineEl.textContent = it[lang][0]; prodEl.textContent = it[lang][1]; linkEl.href = '/productos/' + it.slug + '/?src=home-nicho';
   }
-  function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.5 + 0.7)) + 'px'; }
+  function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.27 + 0.45)) + 'px'; }
   addEventListener('resize', layout, { passive: true }); layout();
   if (reduce) { show(N - 1); numEl.textContent = '+' + fmt(ITEMS[N - 1].n); endEl.classList.add('on'); return; }
   function read(){ const r = sec.getBoundingClientRect(); const span = sec.offsetHeight - innerHeight; if (span > 0) target = clamp(-r.top / span); }

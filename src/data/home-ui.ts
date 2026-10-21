@@ -55,7 +55,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   cat_h2:{es:'¿Qué te pasa <span class="serif">hoy?</span>',en:'What is happening <span class="serif">today?</span>'},
   cat_sub:{es:'Elige lo que más se parece a tu caso y te mostramos qué lo resuelve.',
            en:'Pick what looks most like your case and we show you what solves it.'},
-  sim_label:{es:'Así trabajamos',en:'How it works'},
+  sim_label:{es:'¿O prefieres trabajar más inteligente?',en:'Or would you rather work smarter?'},
   sim_h2:{es:'Así de simple.<br><span class="serif">Cero tecnicismos.</span>',en:'This simple.<br><span class="serif">Zero tech-speak.</span>'},
   sim_sub:{es:'Tú no tienes que entender de tecnología. Ese es nuestro trabajo.',en:'You do not have to understand technology. That is our job.'},
   sim_example:{es:'Así trabajamos con Tasting Ecuador: ella cocina; nosotros armamos su marca, su web, sus ventas y su sistema. Hoy tiene tres líneas de negocio.',
