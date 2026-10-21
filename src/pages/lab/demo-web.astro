@@ -1,0 +1,108 @@
+---
+// Página de ejemplo del piloto A-12: una página real, construida por BIE, para un negocio
+// ficticio ("Panadería La Esquina"). Sirve para mostrar en la home y en la ficha cómo queda
+// una página del piloto. Oculta (noindex, sin enlaces). Las fotos de productos son generadas.
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panadería La Esquina · Pan de masa madre en Quito</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--cream:#f6efe4;--ink:#23201c;--ink2:#5a544c;--crust:#8a4b24;--crust2:#b8702f;--line:#e2d6c4;--wa:#1f8f4d}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+header{position:sticky;top:0;background:rgba(246,239,228,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:5}
+.nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:Fraunces,serif;font-weight:700;font-size:22px;letter-spacing:-.01em}
+.logo em{font-style:italic;color:var(--crust);font-weight:500}
+.nav a{color:var(--ink2);text-decoration:none;font-size:14px;margin-left:26px}
+.nav .cta{background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;font-weight:600}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:72px 0 64px}
+.hero h1{font-family:Fraunces,serif;font-weight:500;font-size:clamp(40px,5.6vw,72px);line-height:1.02;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--crust)}
+.hero p{font-size:18px;color:var(--ink2);margin-top:20px;max-width:46ch}
+.btns{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 22px;border-radius:999px;font-weight:600;text-decoration:none;font-size:15px}
+.btn.wa{background:var(--wa);color:#fff}
+.btn.ghost{border:1.5px solid var(--ink);color:var(--ink)}
+.hero img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:28px;box-shadow:0 30px 60px -30px rgba(35,32,28,.45)}
+.strip{display:flex;gap:28px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink2);font-size:14px}
+.strip b{color:var(--ink)}
+section{padding:72px 0}
+h2{font-family:Fraunces,serif;font-weight:500;font-size:clamp(30px,3.6vw,44px);letter-spacing:-.015em;line-height:1.1}
+.sub{color:var(--ink2);margin-top:10px;max-width:56ch}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.card{background:#fff;border-radius:22px;overflow:hidden;border:1px solid var(--line)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.card div{padding:18px 20px 22px}
+.card h3{font-family:Fraunces,serif;font-weight:500;font-size:22px}
+.card p{color:var(--ink2);font-size:14.5px;margin-top:6px}
+.card .price{display:block;margin-top:12px;font-weight:600;color:var(--crust)}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.why div{border-top:2px solid var(--crust);padding-top:16px}
+.why h3{font-size:18px;font-weight:600}
+.why p{color:var(--ink2);font-size:15px;margin-top:6px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:28px;padding:40px}
+.info dl{display:grid;grid-template-columns:max-content 1fr;gap:10px 18px;margin-top:18px;font-size:15px}
+.info dt{color:var(--ink2)}
+.map{aspect-ratio:4/3;border-radius:18px;background:repeating-linear-gradient(45deg,#efe6d6 0 12px,#f6efe4 12px 24px);display:grid;place-items:center;color:var(--ink2);font-size:14px}
+.contact{text-align:center;padding:90px 0}
+.contact h2{font-size:clamp(34px,4.6vw,58px)}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--ink2);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer .by{color:#8a837a}
+@media (max-width:760px){.hero,.grid,.why,.info{grid-template-columns:1fr}.nav a:not(.cta){display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap nav"><span class="logo">La <em>Esquina</em></span><nav><a href="#productos">Productos</a><a href="#porque">Por qué</a><a href="#info">Horarios</a><a class="cta" href="#contacto">Pedir por WhatsApp</a></nav></div></header>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1>Pan de masa madre, <em>horneado cada mañana</em> en La Floresta.</h1>
+      <p>Harina ecuatoriana, 24 horas de fermentación y cero conservantes. Pide hoy y recógelo caliente mañana desde las 7.</p>
+      <div class="btns"><a class="btn wa" href="#contacto">Pedir por WhatsApp</a><a class="btn ghost" href="#productos">Ver productos</a></div>
+    </div>
+    <img src="/images/demo/pan.webp" alt="Pan de masa madre recién horneado" width="900" height="900">
+  </section>
+  <div class="strip"><span><b>Lun–Sáb</b> 7:00–19:00</span><span><b>Recoge en tienda</b> o entrega en Quito norte</span><span><b>Pedidos</b> hasta las 18:00 del día anterior</span></div>
+  <section id="productos">
+    <h2>Lo que horneamos</h2>
+    <p class="sub">Pocas cosas, bien hechas. Cambiamos la carta con la temporada.</p>
+    <div class="grid">
+      <div class="card"><img src="/images/demo/pan.webp" alt="Hogaza de masa madre"><div><h3>Hogaza clásica</h3><p>Masa madre, 24 h de fermentación. 800 g.</p><span class="price">$4,50</span></div></div>
+      <div class="card"><img src="/images/demo/dulces.webp" alt="Pastelería del día"><div><h3>Dulces del día</h3><p>Chocolate, frutos rojos y mantequilla de verdad.</p><span class="price">desde $1,80</span></div></div>
+      <div class="card"><img src="/images/demo/cafe.webp" alt="Café y croissant"><div><h3>Café y croissant</h3><p>Café de Loja y hojaldre de tres días. Para llevar.</p><span class="price">$3,90</span></div></div>
+    </div>
+  </section>
+  <section id="porque">
+    <h2>Por qué La Esquina</h2>
+    <div class="why">
+      <div><h3>Sin conservantes</h3><p>Harina, agua, sal y tiempo. Nada más.</p></div>
+      <div><h3>Horneado del día</h3><p>Lo que no se vende hoy no se vende mañana.</p></div>
+      <div><h3>Pedido en un mensaje</h3><p>Escribes, confirmamos, recoges. Sin apps ni registros.</p></div>
+    </div>
+  </section>
+  <section id="info">
+    <div class="info">
+      <div>
+        <h2>Horarios y dirección</h2>
+        <dl><dt>Dirección</dt><dd>Andalucía y Madrid, La Floresta, Quito</dd><dt>Lun–Sáb</dt><dd>7:00 a 19:00</dd><dt>Domingo</dt><dd>Cerrado</dd><dt>Entregas</dt><dd>Quito norte, $2,00</dd></dl>
+      </div>
+      <div class="map">Mapa</div>
+    </div>
+  </section>
+  <section id="contacto" class="contact">
+    <h2>¿Qué horneamos para ti?</h2>
+    <p class="sub" style="margin:12px auto 0">Escríbenos por WhatsApp. Respondemos en el día.</p>
+    <div class="btns" style="justify-content:center"><a class="btn wa" href="#contacto">Pedir por WhatsApp</a></div>
+  </section>
+</main>
+<footer class="wrap"><span>© Panadería La Esquina · Quito</span><span class="by">Página de ejemplo creada por BIE</span></footer>
+</body>
+</html>

@@ -82,6 +82,8 @@ li{font-size:15.5px;line-height:1.65;color:var(--text2);margin-top:9px;max-width
 li b{color:var(--text);font-weight:500}
 
 /* demo / ilustración */
+.demo-real{display:block;border:1px solid var(--border);max-width:720px;overflow:hidden;aspect-ratio:16/10}
+.demo-real img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
 .demo-box{border:1px solid var(--border);background:var(--surface);aspect-ratio:16/9;max-width:620px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .demo-box .browser-bar{position:absolute;top:0;left:0;right:0;height:30px;background:#1c1c1f;display:flex;align-items:center;gap:6px;padding:0 10px}
 .demo-box .dot{width:7px;height:7px;border-radius:50%;background:#403f3f}
@@ -150,17 +152,8 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
   <!-- 3. Demostración / ilustración etiquetada -->
   <section>
     <h2>Así se ve</h2>
-    <div class="demo-box">
-      <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">tunegocio.com</span></div>
-      <div class="mock">
-        <div class="line w60" style="height:16px"></div>
-        <div class="line w40"></div>
-        <div class="line w80"></div>
-        <div class="btn"></div>
-      </div>
-      <span class="illus-tag">Ilustración</span>
-    </div>
-    <p style="margin-top:14px">Estructura real de una página de presentación — una sola acción clara para quien te visita. Diseño definitivo pendiente de dirección de arte y revisión visual.</p>
+    <a class="demo-real" href="/lab/demo-web/" target="_blank" rel="noopener"><img src="/images/demo/web-1440.webp" alt="Página web de ejemplo creada por BIE para una panadería" width="1600" height="1000" loading="lazy" decoding="async"></a>
+    <p style="margin-top:14px">Una página de ejemplo construida por nosotros, tal cual se ve en pantalla: portada, productos, por qué elegirte, horarios y pedido por WhatsApp. Tócala para abrirla.</p>
     <p style="margin-top:12px">¿Viste el caso de <a href="/casos/tasting-ecuador/?src=ficha-pagina-web">Tasting Ecuador</a>? Es un proyecto integral: marca, tienda, sistema y varias líneas de negocio. Este piloto incluye solo una página de hasta cinco secciones; lo demás es otro alcance y se cotiza aparte.</p>
   </section>
 

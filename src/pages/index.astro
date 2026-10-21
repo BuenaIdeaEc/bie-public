@@ -4,6 +4,7 @@ import EsteMes from '../components/ui/EsteMes.astro';
 import { ESTE_MES } from '../data/este-mes';
 import CuboHero from '../components/interactive/CuboHero.astro';
 import { TASTING_ALT } from '../data/tasting-alt';
+import { TESTIMONIOS, REDES } from '../data/testimonios';
 const UI_STATIC = Object.fromEntries(Object.entries(UI).filter(([, v]) => typeof v.es !== 'function'));
 const es = (k: string) => UI[k].es as string;
 // Destinos de WhatsApp renderizados en servidor (H04 de la auditoría 2026-09-11: sin esto,
@@ -398,8 +399,8 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 .wc-kind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);margin-bottom:8px}
 .wc-name{font-size:22px;font-weight:400;letter-spacing:-.015em;margin-bottom:6px}
 /* Cadena "Empresas": las tarjetas avanzan solas en bucle; el scroll las empuja; al tocar o pasar el cursor se frenan */
-#work.rail{padding:110px 0 90px;background:var(--surface);overflow:hidden}
-#work.rail .work-sticky{position:static;height:auto}
+#work.rail{padding:0;background:var(--surface);overflow:visible}
+#work.rail .work-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-top:60px}
 #work.rail .section-inner{width:100%}
 #work.rail .trust-strip{margin-top:22px;padding:12px 0}
 #work.rail .work-grid{display:flex!important;gap:22px;margin-top:36px;width:max-content;padding:0 44px;will-change:transform;overflow:visible;scroll-snap-type:none}
@@ -415,12 +416,12 @@ body.past-hero #wa-bubble.on{opacity:1;pointer-events:auto}
 #work.rail .cta-band{flex:0 0 min(520px,46vw);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:18px;margin:0;padding:32px}
 #work.rail .rail-hint{display:none}
 @media (max-width:640px){
-  #work.rail{padding:70px 0 60px}
+  #work.rail .work-sticky{padding-top:40px}
   #work.rail .work-grid{gap:14px;padding:0 22px;margin-top:28px}
   #work.rail .work-card{flex:0 0 86vw}
   #work.rail .cta-band{flex:0 0 78vw}
 }
-@media (prefers-reduced-motion: reduce){ #work.rail .work-grid{transform:none!important;width:auto;overflow-x:auto;padding-bottom:12px} }
+@media (prefers-reduced-motion: reduce){ #work.rail{height:auto!important;padding:90px 0} #work.rail .work-sticky{position:static;height:auto} #work.rail .work-grid{transform:none!important;width:auto;overflow-x:auto;padding-bottom:12px} }
 .trust-strip{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-top:32px;padding:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .trust-label{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);flex-shrink:0}
 .trust-names{font-size:15px;letter-spacing:-.01em;color:var(--text2)}
@@ -610,6 +611,23 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 .top-tile.has-img.lit .tt-img{filter:saturate(1) brightness(1)}
 .top-tile.has-img:hover .tt-num{color:rgba(255,253,249,.6)}
 @media (max-width:640px){ .top-tile.has-img{aspect-ratio:4/3;min-height:0} }
+/* Comentarios de clientes y redes */
+#voces{padding:120px 0 90px;background:var(--bg);border-top:1px solid var(--border)}
+.voces-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:48px}
+.voz{border:1px solid var(--border);padding:26px 24px 22px;display:flex;flex-direction:column;gap:18px;min-height:150px;background:var(--surface)}
+.voz-mark{width:10px;height:10px;background:var(--accent);opacity:.7}
+.voz-q{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:21px;line-height:1.3;color:var(--text);margin:0}
+.voz-who{margin-top:auto;display:flex;flex-direction:column;gap:3px}
+.voz-who b{font-weight:500;font-size:16px}
+.voz-who b a{color:inherit;border-bottom:1px solid var(--accent)}
+.voz-who span{font-size:13px;color:var(--text3)}
+#redes{padding:90px 0 120px;background:var(--bg)}
+.redes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:40px}
+.red{border:1px solid var(--border);padding:24px;display:flex;flex-direction:column;gap:6px;transition:border-color .3s,transform .3s}
+.red:hover{border-color:var(--bone);transform:translateY(-3px)}
+.red-n{font-size:18px}
+.red-h{font-family:var(--mono);font-size:12px;color:var(--accent-dark)}
+.red-d{font-size:14px;color:var(--text2);margin-top:8px}
 /* Durante la intro del cubo no hay menú ni barra de progreso */
 #nav,#progress{transition:opacity .5s ease,transform .5s ease}
 body.cubo-intro #nav{opacity:0;transform:translateY(-10px);pointer-events:none}
@@ -1080,6 +1098,46 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
   </div>
 </section>
 
+<!-- COMENTARIOS DE CLIENTES (frases solo cuando el cliente las dio) -->
+<section id="voces">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Lo que dicen</p>
+      <h2 class="section-h2">Negocios que ya trabajan <span class="serif">con nosotros.</span></h2>
+    </div>
+    <div class="voces-grid reveal d2">
+      {TESTIMONIOS.map((t) => (
+        <article class={'voz' + (t.frase ? ' con-frase' : '')}>
+          {t.frase ? <blockquote class="voz-q">“{t.frase}”</blockquote> : <span class="voz-mark" aria-hidden="true"></span>}
+          <div class="voz-who">
+            <b>{t.url ? <a href={t.url} target="_blank" rel="noopener">{t.negocio}</a> : t.negocio}</b>
+            <span>{t.persona ? t.persona + ' · ' : ''}{t.sector}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- REDES -->
+<section id="redes">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label">Redes</p>
+      <h2 class="section-h2">Síguenos donde <span class="serif">ya estás.</span></h2>
+    </div>
+    <div class="redes-grid reveal d2">
+      {REDES.filter((r) => r.url).map((r) => (
+        <a class="red" href={r.url} target="_blank" rel="noopener">
+          <span class="red-n">{r.nombre}</span>
+          <span class="red-h">{r.handle}</span>
+          <span class="red-d">{r.desc}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
@@ -1418,17 +1476,17 @@ function renderH1(){
 // ═══ Render: los más pedidos (los 8 del batch, cada uno con su página) ═══
 const TOP = [
   { href:'/productos/asistente-inteligente-whatsapp/?src=home-mas-pedidos', n:B('Asistente Inteligente 24/7','24/7 AI Assistant'), hook:B('Responde, cotiza y agenda en WhatsApp las 24 horas.','Replies, quotes and books on WhatsApp 24/7.') },
-  { href:'/productos/pagina-web/?src=home-mas-pedidos', n:B('Página Web','Website'), hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
-  { href:'/productos/identidad-de-marca/?src=home-mas-pedidos', n:B('Identidad de Marca','Brand Identity'), hook:B('La marca que te hace reconocible y elegible.','The brand that makes you recognizable and choosable.') },
+  { href:'/productos/pagina-web/?src=home-mas-pedidos', video:true, n:B('Página Web','Website'), hook:B('Una web que convierte visitas en clientes, no un folleto.','A site that turns visits into customers, not a brochure.') },
+  { href:'/productos/identidad-de-marca/?src=home-mas-pedidos', video:true, n:B('Identidad de Marca','Brand Identity'), hook:B('La marca que te hace reconocible y elegible.','The brand that makes you recognizable and choosable.') },
   { href:'/productos/crm-ia/?src=home-mas-pedidos', n:B('CRM con IA','AI-Powered CRM'), hook:B('Ningún cliente sin seguimiento, nunca más.','No customer left unfollowed, ever again.') },
   { href:'/productos/automatizaciones/?src=home-mas-pedidos', n:B('Automatizaciones','Automations'), hook:B('Lo que hoy haces a mano, mañana se hace solo.','What you do by hand today runs on its own tomorrow.') },
   { href:'/productos/whatsapp-business-commerce/?src=home-mas-pedidos', n:B('WhatsApp Business Commerce','WhatsApp Business Commerce'), hook:B('Tu WhatsApp convertido en tu mejor canal de ventas.','Your WhatsApp turned into your best sales channel.') },
-  { href:'/productos/data-analytics/?src=home-mas-pedidos', n:B('Data Analytics & Dashboards','Data Analytics & Dashboards'), hook:B('Deja de adivinar: mira tu negocio en vivo.','Stop guessing: watch your business live.') },
+  { href:'/productos/data-analytics/?src=home-mas-pedidos', video:true, n:B('Data Analytics & Dashboards','Data Analytics & Dashboards'), hook:B('Deja de adivinar: mira tu negocio en vivo.','Stop guessing: watch your business live.') },
   { href:'/productos/link-hub/?src=home-mas-pedidos', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
 ];
 function renderTop(){
   document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>
-    `<a class="top-tile has-img" href="${x.href}"><img class="tt-img" src="/images/productos/${x.href.split('/')[2]}.webp" alt="" width="900" height="900" loading="eager" decoding="async"><span class="tt-gen">${lang === 'es' ? 'Imagen generada' : 'Generated image'}</span><span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
+    `<a class="top-tile has-img" href="${x.href}">${x.video ? `<video class="tt-img" src="/videos/productos/${x.href.split('/')[2]}.mp4" poster="/images/productos/${x.href.split('/')[2]}.webp" autoplay muted loop playsinline preload="metadata"></video>` : `<img class="tt-img" src="/images/productos/${x.href.split('/')[2]}.webp" alt="" width="900" height="900" loading="eager" decoding="async">`}<span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
 }
 
 // ═══ Render: marquee (títulos de fase, display gigante) ═══
@@ -1614,7 +1672,7 @@ function renderWork(){
   if (!sec || !grid) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
-  let half = 0, x = 0, speed = 0, baseSpeed = 38, lastY = scrollY, lastT = performance.now(), hover = false, visible = true;
+  let half = 0, x = 0, speed = 0, baseSpeed = 38, lastY = scrollY, lastT = performance.now(), hover = false, visible = true, pinTravel = 0, pinX = 0;
   function setup(){
     // duplica la cadena una sola vez para que el bucle no tenga costura
     if (!grid.dataset.looped){
@@ -1625,6 +1683,10 @@ function renderWork(){
     const items = Array.from(grid.children);
     const n = items.length / 2;
     half = items.slice(0, n).reduce((w, el) => w + el.getBoundingClientRect().width, 0) + 22 * n;
+    // tramo fijo: unas tres tarjetas de recorrido obligado
+    const cardW = items[0] ? items[0].getBoundingClientRect().width + 22 : 600;
+    pinTravel = Math.round(cardW * 3);
+    sec.style.height = (innerHeight + pinTravel) + 'px';
   }
   new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(sec);
   grid.addEventListener('pointerenter', () => { hover = true; });
@@ -1660,10 +1722,17 @@ function renderWork(){
     if (!half || !visible) return;
     // el scroll empuja la cadena en el sentido del desplazamiento
     const dy = scrollY - lastY; lastY = scrollY;
+    // mientras la sección está fija, el scroll vertical es el que recorre la cadena
+    const r = sec.getBoundingClientRect(), span = sec.offsetHeight - innerHeight;
+    const pinP = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+    const wantPin = -pinP * pinTravel;
+    const pinDelta = wantPin - pinX; pinX = wantPin;
+    x += pinDelta;
     if (drag) return;
     // el scroll empuja fuerte; al soltar un arrastre, la cadena conserva el impulso y se frena sola
     fling *= 0.94;
-    const target = (hover ? 4 : baseSpeed) + Math.max(-1400, Math.min(1400, dy * 48)) + fling;
+    const pinned = pinP > 0 && pinP < 1;
+    const target = (hover || pinned ? 4 : baseSpeed) + (pinned ? 0 : Math.max(-1400, Math.min(1400, dy * 48))) + fling;
     speed += (target - speed) * 0.12;
     x -= speed * dt;
     if (x <= -half) x += half;
