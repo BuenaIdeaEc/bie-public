@@ -810,6 +810,30 @@ body.cubo-intro #progress{opacity:0}
 .waw-opt:hover .waw-opt-px{animation:px-blink .7s steps(2) infinite}
 
 /* ═══ Contact ═══ */
+/* Mientras lo piensas: rojo pleno, texto negro, contador y frases por producto */
+#nicho{position:relative;height:700vh;background:var(--black)}
+.nicho-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;display:flex;align-items:center;padding-top:66px;box-sizing:border-box;background:rgb(var(--nr,11),var(--ng,11),var(--nb,13));color:var(--ntx,#f3f1ea)}
+.nicho-inner{width:100%}
+.nicho-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+.nicho-head .nicho-src{position:static;font-size:9.5px;opacity:.7;margin-left:auto}
+.nicho-idx b{font-weight:500}
+.nicho-num{font-family:var(--font);font-weight:400;font-size:clamp(76px,15.5vw,236px);line-height:.92;letter-spacing:-.055em;margin:26px 0 0;font-variant-numeric:tabular-nums}
+.nicho-line{font-family:var(--font);font-size:clamp(22px,3.1vw,42px);letter-spacing:-.025em;line-height:1.15;margin:22px 0 0;max-width:26ch;min-height:2.3em;opacity:1;transform:none;transition:opacity .35s ease,transform .45s var(--ease)}
+.nicho-line.swap{opacity:0;transform:translateY(10px)}
+.nicho-link{display:inline-flex;align-items:center;gap:12px;margin-top:26px;border:1.5px solid currentColor;padding:13px 20px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:inherit;transition:background .3s,color .3s,opacity .35s}
+.nicho-link:hover{background:#0b0b0d;color:#fff;border-color:#0b0b0d}
+.nicho-link.swap{opacity:0}
+.nicho-arrow{transition:transform .4s var(--ease)}
+.nicho-link:hover .nicho-arrow{transform:translateX(6px)}
+.nicho-end{font-family:var(--font);font-size:clamp(17px,1.7vw,22px);line-height:1.45;max-width:46ch;margin:28px 0 0;min-height:2.9em;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .7s var(--ease)}
+.nicho-end.on{opacity:.95;transform:none}
+.nicho-end b{font-weight:700}
+.nicho-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(0,0,0,.12)}
+.nicho-bar i{display:block;height:100%;width:0;background:#0b0b0d;transition:width .15s linear}
+.nicho-src{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.55;margin:0}
+@media (max-height:760px){.nicho-num{font-size:clamp(64px,12.5vw,170px);margin-top:16px}.nicho-line{margin-top:14px;font-size:clamp(20px,2.6vw,34px)}.nicho-link{margin-top:18px;padding:11px 16px}.nicho-end{margin-top:18px;font-size:16px}}
+@media (max-width:640px){#nicho{height:600vh}.nicho-sticky{padding-top:58px}.nicho-head{flex-wrap:wrap}.nicho-num{font-size:clamp(58px,19vw,96px);margin-top:20px}.nicho-line{font-size:clamp(20px,6vw,26px);max-width:none}.nicho-head .nicho-src{display:none}}
+@media (prefers-reduced-motion: reduce){#nicho{height:auto}.nicho-sticky{position:static;height:auto;padding:90px 0;background:var(--accent);color:#0b0b0d}.nicho-end{opacity:1;transform:none}}
 #contact{padding:140px 0;background:var(--surface)}
 /* Contacto como una frase: escribes dentro del texto, sin cajas */
 .madlib{margin-top:64px;max-width:1040px}
@@ -1101,6 +1125,24 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
         <p class="sim-example" data-i18n="sim_example" set:html={es('sim_example')}></p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- MIENTRAS LO PIENSAS: la pantalla se tiñe de rojo, el contador sube y cada frase es un producto -->
+<section id="nicho" aria-label="Tu nicho ya está en digital">
+  <div class="nicho-sticky">
+    <div class="section-inner nicho-inner">
+      <div class="nicho-head">
+        <span class="nicho-k" data-i18n="nicho_k" set:html={es('nicho_k')}></span>
+        <span class="nicho-idx"><b id="nicho-i">01</b><span id="nicho-n"> / 12</span></span>
+        <p class="nicho-src" data-i18n="nicho_src" set:html={es('nicho_src')}></p>
+      </div>
+      <p class="nicho-num" aria-live="off"><span id="nicho-num">0</span></p>
+      <p class="nicho-line" id="nicho-line"></p>
+      <a class="nicho-link" id="nicho-link" href="/productos/"><span id="nicho-prod"></span><span class="nicho-arrow" aria-hidden="true">→</span></a>
+      <p class="nicho-end" id="nicho-end" data-i18n="nicho_end" set:html={es('nicho_end')}></p>
+    </div>
+    <div class="nicho-bar" aria-hidden="true"><i id="nicho-bar"></i></div>
   </div>
 </section>
 
@@ -1491,6 +1533,7 @@ function applyStatics(){
   if (prev > 0) sel.selectedIndex = prev;
   document.getElementById('mm-wa').href = wa(WA_GEN[lang] + origin('home/menu'));
   if (window.__kinSplit) window.__kinSplit();
+  if (window.__nichoLang) window.__nichoLang();
   document.getElementById('waw-opts').innerHTML = WAW_OPTS.map(o =>
     `<a class="waw-opt" href="${wa(o.m[lang] + origin('home/cubo'))}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
 }
@@ -1702,6 +1745,61 @@ function renderWork(){
     });
     cta.classList.toggle('on', p > 0.86);
   }
+  requestAnimationFrame(frame);
+})();
+
+// ═══ Mientras lo piensas: el rojo entra con el scroll, el contador sube y cada frase es un producto ═══
+(function(){
+  const sec = document.getElementById('nicho'), st = sec && sec.querySelector('.nicho-sticky');
+  if (!sec || !st) return;
+  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar'), iEl = document.getElementById('nicho-i'), nEl = document.getElementById('nicho-n');
+  // Cifras REFERENCIALES para la vista previa (orden ascendente para que el contador solo suba). Antes de producción: fuente y año.
+  const ITEMS = [
+    { slug: 'analisis-conversaciones-venta', n: 120000, es: ['negocios en Ecuador ya analizan cada conversación de venta.', 'Análisis de conversaciones'], en: ['businesses in Ecuador already analyze every sales conversation.', 'Conversation analysis'] },
+    { slug: 'registro-de-marca', n: 240000, es: ['negocios en Ecuador ya tienen su marca registrada.', 'Registro de marca'], en: ['businesses in Ecuador already own a registered trademark.', 'Trademark registration'] },
+    { slug: 'sistema-operativo', n: 310000, es: ['negocios en Ecuador ya operan con un sistema propio.', 'Sistema operativo de tu empresa'], en: ['businesses in Ecuador already run on their own system.', 'Your company operating system'] },
+    { slug: 'data-analytics', n: 420000, es: ['dueños en Ecuador ya ven sus números en un panel, no en papel.', 'Data Analytics & Dashboards'], en: ['owners in Ecuador already see their numbers on a dashboard, not on paper.', 'Data Analytics & Dashboards'] },
+    { slug: 'automatizaciones', n: 560000, es: ['negocios en Ecuador ya automatizan pedidos, envíos y cobros.', 'Automatizaciones'], en: ['businesses in Ecuador already automate orders, shipping and billing.', 'Automations'] },
+    { slug: 'link-hub', n: 640000, es: ['marcas en Ecuador ya tienen un solo enlace para todo.', 'Link Hub de marca'], en: ['brands in Ecuador already have one link for everything.', 'Brand Link Hub'] },
+    { slug: 'meta-ads', n: 780000, es: ['negocios en Ecuador ya pautan con inteligencia en Instagram y Facebook.', 'Meta Ads'], en: ['businesses in Ecuador already advertise smartly on Instagram and Facebook.', 'Meta Ads'] },
+    { slug: 'facturacion-electronica', n: 900000, es: ['negocios en Ecuador ya facturan electrónicamente, sin papel.', 'Facturación electrónica'], en: ['businesses in Ecuador already invoice electronically, no paper.', 'Electronic invoicing'] },
+    { slug: 'whatsapp-business-commerce', n: 1050000, es: ['personas en Ecuador ya compran por catálogo de WhatsApp.', 'WhatsApp Business Commerce'], en: ['people in Ecuador already buy through WhatsApp catalogs.', 'WhatsApp Business Commerce'] },
+    { slug: 'perfil-google-maps', n: 1300000, es: ['personas en Ecuador ya eligen un negocio por Google Maps.', 'Perfil de Google Maps'], en: ['people in Ecuador already pick a business on Google Maps.', 'Google Maps Profile'] },
+    { slug: 'asistente-inteligente-whatsapp', n: 1600000, es: ['personas en Ecuador ya reciben respuesta por WhatsApp a cualquier hora.', 'Asistente Inteligente 24/7'], en: ['people in Ecuador already get a WhatsApp reply at any hour.', '24/7 AI Assistant'] },
+    { slug: 'pagina-web', n: 2100000, es: ['personas en Ecuador ya compran por páginas web.', 'Página Web'], en: ['people in Ecuador already buy through websites.', 'Website'] },
+  ];
+  const N = ITEMS.length; nEl.textContent = ' / ' + String(N).padStart(2, '0');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v) => Math.min(1, Math.max(0, v)), sm = (u) => u * u * (3 - 2 * u), lp = (a, b, t) => a + (b - a) * t;
+  const L = () => (document.documentElement.lang || 'es').startsWith('en') ? 'en' : 'es';
+  const fmt = (n) => Math.round(n).toLocaleString(L() === 'en' ? 'en-US' : 'es-EC');
+  let cur = -1, prog = 0, target = 0, swapT = 0;
+  function show(i){
+    const it = ITEMS[i], lang = L();
+    lineEl.textContent = it[lang][0]; prodEl.textContent = it[lang][1]; linkEl.href = '/productos/' + it.slug + '/?src=home-nicho';
+    iEl.textContent = String(i + 1).padStart(2, '0');
+  }
+  function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.5 + 0.7)) + 'px'; }
+  addEventListener('resize', layout, { passive: true }); layout();
+  if (reduce) { show(N - 1); numEl.textContent = '+' + fmt(ITEMS[N - 1].n); endEl.classList.add('on'); return; }
+  function read(){ const r = sec.getBoundingClientRect(); const span = sec.offsetHeight - innerHeight; if (span > 0) target = clamp(-r.top / span); }
+  addEventListener('scroll', read, { passive: true }); read();
+  window.__nichoLang = () => { if (cur >= 0) show(cur); };
+  function paint(){
+    const p = prog;
+    const red = sm(clamp(p / 0.07));
+    st.style.setProperty('--nr', String(Math.round(lp(11, 229, red)))); st.style.setProperty('--ng', String(Math.round(lp(11, 57, red)))); st.style.setProperty('--nb', String(Math.round(lp(13, 53, red))));
+    const tx = Math.round(lp(243, 11, red)); st.style.setProperty('--ntx', 'rgb(' + tx + ',' + tx + ',' + tx + ')');
+    const q = clamp((p - 0.07) / 0.83);
+    const pos = q * N, i = Math.min(N - 1, Math.floor(pos)), t = pos - i;
+    if (i !== cur) { cur = i; lineEl.classList.add('swap'); linkEl.classList.add('swap'); clearTimeout(swapT); swapT = setTimeout(() => { show(i); lineEl.classList.remove('swap'); linkEl.classList.remove('swap'); }, 160); }
+    const from = i === 0 ? 0 : ITEMS[i - 1].n, to = ITEMS[i].n;
+    const v = lp(from, to, sm(clamp(t / 0.8)));
+    numEl.textContent = (i === N - 1 && t > 0.8 ? '+' : '') + fmt(v);
+    barEl.style.width = (q * 100).toFixed(2) + '%';
+    endEl.classList.toggle('on', p > 0.9);
+  }
+  function frame(){ requestAnimationFrame(frame); prog += (target - prog) * 0.16; if (Math.abs(target - prog) > 0.0004 || cur < 0) paint(); }
   requestAnimationFrame(frame);
 })();
 
