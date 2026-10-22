@@ -1,0 +1,227 @@
+---
+// BIE — Artículo 2 del plan de posicionamiento (aprobado por EGO el 2026-10-21).
+// Búsqueda objetivo: "chatbot WhatsApp Ecuador" / "chatbot para empresas Ecuador precio" / "asistente IA WhatsApp".
+// Regla: precios de terceros = publicados en sus sitios en octubre de 2026, con enlace. Sin cifras inventadas.
+import '../../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/recursos/chatbot-whatsapp-para-negocios-en-ecuador/`;
+const title = 'Chatbot de WhatsApp para negocios en Ecuador en 2026: precios, tipos y errores comunes';
+const description = 'Qué es un chatbot de WhatsApp, los tres tipos que existen, cuánto cuestan en Ecuador según precios publicados (desde USD 25 al mes), qué cobra Meta aparte, qué necesitas antes de contratar y los errores que hacen que un bot espante clientes.';
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/recursos/chatbot-whatsapp/es')}`;
+const PUB = '2026-10-21';
+
+const FAQ = [
+  { q: '¿Cuánto cuesta un chatbot de WhatsApp en Ecuador?', a: 'Según precios publicados en octubre de 2026, un bot de reglas en plataforma sin código cuesta entre USD 25 y USD 150 al mes; un asistente con inteligencia artificial implementado por una agencia va desde USD 49 al mes en su versión básica hasta USD 290 al mes o más con implementación incluida. En BIE, la ruta «Que te compren» (WhatsApp Business con catálogo y asistente 24/7) parte de USD 247 y el resto se cotiza según tu volumen.' },
+  { q: '¿Necesito la API oficial de WhatsApp Business para tener un chatbot?', a: 'Para respuestas automáticas simples (bienvenida, ausencia, respuestas rápidas) basta la app gratuita WhatsApp Business. Para un bot que atienda conversaciones completas, se integre con tu catálogo o tu CRM y funcione las 24 horas, sí hace falta la API oficial (WhatsApp Cloud API) a través de un proveedor autorizado por Meta.' },
+  { q: '¿Qué cobra Meta por usar la API de WhatsApp?', a: 'Meta cobra por los mensajes de plantilla que tú inicias (marketing, utilidad y autenticación), con tarifas por país y tipo. Responder a un cliente que te escribió, dentro de la ventana de 24 horas, no tiene costo de Meta. Ese cobro es aparte de lo que pagues al proveedor del bot y debe aparecer separado en cualquier cotización seria.' },
+  { q: '¿El chatbot reemplaza a una persona?', a: 'No, y no debería. Un buen asistente resuelve la mayoría de las consultas repetitivas (precios, horarios, disponibilidad, seguimiento) y pasa a una persona las que requieren criterio, reclamos o negociación. Un bot que no sabe escalar a un humano espanta clientes.' },
+  { q: '¿Puedo seguir usando mi número actual de WhatsApp?', a: 'Sí. Tu número se conecta a la API y sigue siendo el mismo para tus clientes. Lo que cambia es que las conversaciones pasan por la plataforma del bot y, si lo integras, quedan registradas en tu CRM.' },
+  { q: '¿Cuánto tarda en implementarse?', a: 'Un bot de reglas en plataforma sin código puede estar listo en días. Un asistente con IA entrenado con tu información real toma entre una y cuatro semanas, según cuánto material tengas listo (catálogo, precios, políticas) y qué integraciones necesites.' },
+  { q: '¿Qué información tengo que preparar antes?', a: 'Tu catálogo o lista de servicios con precios, tus horarios, tus políticas (envíos, cambios, pagos), las preguntas que más te hacen y cómo quieres que hable el bot. Sin eso, cualquier chatbot responde vaguedades.' },
+  { q: '¿El bot puede cobrar o cerrar ventas?', a: 'Puede llevar al cliente hasta el pago: mostrar el catálogo, confirmar disponibilidad, enviar el enlace de pago o los datos de transferencia y registrar el pedido. El cobro en sí lo hace tu pasarela, tu banco o tu equipo, según cómo vendas.' },
+  { q: '¿Funciona con Instagram y Messenger también?', a: 'La mayoría de las plataformas de la API de Meta permiten conectar WhatsApp, Instagram y Messenger en la misma bandeja. Si vendes por Instagram, pídelo desde el inicio.' },
+  { q: '¿Qué pasa con los datos de mis clientes?', a: 'En Ecuador aplica la Ley Orgánica de Protección de Datos Personales (LOPDP). Exige saber dónde se guardan las conversaciones, quién tiene acceso y que el proveedor te entregue los datos si terminas el contrato.' },
+  { q: '¿Cómo sé si una cotización de chatbot es seria?', a: 'Tres señales: te preguntaron cuántas conversaciones manejas al mes antes de dar un precio; separan el costo de Meta del costo del proveedor; y te explican qué hace el bot cuando no sabe responder.' },
+  { q: '¿Qué diferencia hay entre un chatbot y un asistente con IA?', a: 'El chatbot de reglas sigue un guion fijo: menú, opciones, respuestas preparadas. El asistente con IA entiende lenguaje natural, consulta tu información real y responde como lo haría alguien de tu equipo. El primero es más barato; el segundo es el que no frustra al cliente.' },
+];
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
+    author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE },
+    publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
+    inLanguage: 'es-EC', datePublished: PUB, dateModified: PUB, mainEntityOfPage: url },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Recursos', item: SITE + '/recursos/' },
+    { '@type': 'ListItem', position: 3, name: title, item: url } ] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | BIE</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:locale" content="es_EC">
+<meta property="article:published_time" content={PUB}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+main{max-width:780px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:22px}
+.crumbs a{color:var(--text3);border-bottom:1px solid var(--border)}
+h1{font-size:clamp(28px,4.4vw,46px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:16px;text-wrap:balance}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 18px}
+.dek{font-size:clamp(16px,1.6vw,19px);line-height:1.55;color:var(--text2);margin-top:18px}
+.short{margin-top:28px;border-left:3px solid var(--accent);background:var(--surface);padding:18px 22px}
+.short h2{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.short p{margin:0;font-size:16px;line-height:1.6;color:var(--text)}
+.toc{margin-top:28px;border:1px solid var(--border);padding:16px 20px}
+.toc b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+.toc ol{margin:8px 0 0;padding-left:18px;columns:2;column-gap:24px}
+.toc li{font-size:14px;line-height:1.6;break-inside:avoid}
+.toc a{color:var(--text2);border-bottom:1px solid var(--border)}
+article{margin-top:44px}
+article h2{font-size:clamp(21px,2.6vw,28px);font-weight:400;letter-spacing:-.015em;margin-top:48px;margin-bottom:14px;scroll-margin-top:24px}
+article h3{font-size:17px;font-weight:500;margin-top:24px;margin-bottom:6px}
+article p{font-size:16px;line-height:1.7;color:var(--text2);margin-top:14px;max-width:68ch}
+article p b{color:var(--text);font-weight:500}
+article ul,article ol{margin-top:14px;padding-left:20px}
+article li{font-size:16px;line-height:1.65;color:var(--text2);margin-top:8px}
+article li b{color:var(--text);font-weight:500}
+.tbl{overflow-x:auto;margin-top:18px;border:1px solid var(--border)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);background:var(--surface);font-weight:500}
+td b{color:var(--text);font-weight:500}
+tr:last-child td{border-bottom:0}
+.src{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6}
+.src a{color:var(--text3);border-bottom:1px solid var(--border)}
+.cta-box{margin-top:44px;border:1px solid var(--bone);padding:26px 28px}
+.cta-box p{color:var(--text2);margin-top:0}
+.cta-box .btn-primary{margin-top:16px;display:inline-block}
+.faq-item{margin-top:22px}
+.faq-item h3{font-size:16px;font-weight:500;letter-spacing:-.01em;color:var(--text);margin-bottom:6px}
+.faq-item p{font-size:14.5px;margin-top:0}
+.related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.related a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:9px 14px;color:var(--text2)}
+.related a:hover{border-color:var(--accent);color:var(--text)}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media (max-width:640px){.toc ol{columns:1}}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<main>
+  <p class="crumbs"><a href="/">Inicio</a> · <a href="/recursos/">Recursos</a> · Chatbots</p>
+  <span class="eyebrow">Guía · Chatbot de WhatsApp</span>
+  <h1>Chatbot de WhatsApp para negocios en Ecuador en 2026: precios, tipos y errores comunes</h1>
+  <p class="meta"><span>Por BIE · Business Intelligence Enhancer</span><span>Publicado el 21 de octubre de 2026</span><span>Lectura: 10 minutos</span></p>
+  <p class="dek">En Ecuador, 74 de cada 100 compradores en línea ya cierran por WhatsApp. Esta guía explica qué es un chatbot de verdad, cuánto cuesta según precios publicados, qué cobra Meta aparte y qué tienes que preparar antes de contratar uno.</p>
+
+  <div class="short">
+    <h2>Respuesta corta</h2>
+    <p>Un chatbot de WhatsApp responde a tus clientes de forma automática, a cualquier hora. Hay tres tipos: respuestas automáticas de la app gratuita (USD 0), bots de reglas en plataformas sin código (<b>USD 25 a 150 al mes</b>) y asistentes con inteligencia artificial implementados por una agencia (<b>desde USD 49 al mes</b> en versión básica hasta <b>USD 290 al mes</b> con implementación incluida). Meta cobra aparte los mensajes que tú inicias. En BIE, la ruta «Que te compren» parte de <b>USD 247</b>.</p>
+  </div>
+
+  <nav class="toc" aria-label="Contenido">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#que-es">Qué es y qué no es un chatbot</a></li>
+      <li><a href="#tipos">Los tres tipos y cuál necesitas</a></li>
+      <li><a href="#precios">Precios publicados en Ecuador</a></li>
+      <li><a href="#meta">Lo que cobra Meta aparte</a></li>
+      <li><a href="#antes">Qué preparar antes de contratar</a></li>
+      <li><a href="#errores">Errores que espantan clientes</a></li>
+      <li><a href="#bie">Cómo lo hace BIE</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+    </ol>
+  </nav>
+
+  <article>
+    <p>La escena se repite en todo el país: un negocio recibe veinte mensajes mientras atiende a un cliente en el local, responde a las diez de la noche con el celular en la mano y pierde los pedidos que llegaron a las dos de la tarde porque nadie contestó a tiempo. El chatbot existe para eso. Pero «chatbot» se usa para cosas muy distintas, y la diferencia de precio y de resultado entre unas y otras es enorme.</p>
+
+    <h2 id="que-es">Qué es un chatbot de WhatsApp (y qué no es)</h2>
+    <p>Un chatbot es un programa que responde dentro de WhatsApp sin que una persona escriba. En su versión más simple, es un mensaje de bienvenida automático. En su versión más completa, es un <b>asistente con inteligencia artificial</b> que entiende lo que el cliente pide, consulta tu catálogo, tus precios y tus horarios reales, responde como lo haría alguien de tu equipo y pasa la conversación a una persona cuando hace falta.</p>
+    <p>Lo que no es: un reemplazo de tu equipo ni una máquina de enviar publicidad. Los bots que mandan promociones sin que nadie las pida terminan bloqueados y, con la API oficial, pueden costarte la cuenta.</p>
+
+    <h2 id="tipos">Los tres tipos de chatbot y cuál necesitas</h2>
+    <h3>1. Respuestas automáticas de WhatsApp Business (gratis)</h3>
+    <p>La app gratuita trae mensaje de bienvenida, mensaje de ausencia y respuestas rápidas con atajos. No es un bot que converse, pero ordena el canal. Si recibes pocos mensajes al día y los atiendes tú, empieza por aquí. Es lo primero que configuramos en <a href="/productos/whatsapp-business-commerce/?src=recurso-chatbot">WhatsApp Business Commerce</a>, junto con el catálogo dentro del chat.</p>
+    <h3>2. Bot de reglas (menús y opciones)</h3>
+    <p>Un guion fijo: «Escribe 1 para precios, 2 para horarios». Funciona para tareas acotadas como seguimiento de pedidos o preguntas frecuentes. Es barato y rápido de montar en plataformas sin código. Su límite: cuando el cliente escribe algo que no está en el menú, el bot se pierde y el cliente se va.</p>
+    <h3>3. Asistente con inteligencia artificial</h3>
+    <p>Entiende lenguaje natural, se entrena con tu información real y sostiene una conversación de venta: resuelve dudas, propone el producto correcto, confirma disponibilidad y deja todo registrado. Cuesta más al inicio y es el único de los tres que no frustra al cliente. Es nuestro <a href="/productos/asistente-inteligente-whatsapp/?src=recurso-chatbot">Asistente Inteligente 24/7</a>.</p>
+    <p><b>Regla práctica:</b> si recibes menos de diez conversaciones al día, el tipo 1 alcanza. Entre diez y cincuenta, el tipo 2 ordena el caos. Más de cincuenta, o si vendes cosas que requieren explicación, el tipo 3 es el que paga la inversión.</p>
+
+    <h2 id="precios">Precios de chatbot de WhatsApp en Ecuador (publicados en octubre de 2026)</h2>
+    <p>Precios que cada proveedor muestra en su propio sitio. No son cotizaciones privadas. Si un proveedor no publica precios, no aparece.</p>
+    <div class="tbl">
+      <table>
+        <tr><th>Proveedor</th><th>Tipo</th><th>Precio publicado</th><th>Qué incluye</th></tr>
+        <tr><td><b>HosftBot (TerryHosft)</b> · Quito</td><td>Plataforma sin código con IA</td><td>USD 0 (demo, 100 mensajes) · 25 · 75 · 150 al mes</td><td>Desde 1.000 mensajes al mes; en planes altos, varios bots, CRM y API</td></tr>
+        <tr><td><b>QuitoWeb · AndesIA</b> · Quito</td><td>Asistente con IA, agencia</td><td>desde USD 49 al mes</td><td>Implementación en 5 a 7 días hábiles</td></tr>
+        <tr><td><b>Blue Nova Consulting</b> · Quito</td><td>Asistente con IA sobre CRM propio</td><td>desde USD 290 al mes (plan básico)</td><td>Implementación con o sin permanencia; email marketing aparte</td></tr>
+        <tr><td><b>Pacusoft</b> · Quito</td><td>Desarrollo a medida, proveedor Meta</td><td>Se cotiza; publica rangos del proveedor de API de USD 30 a 200 al mes</td><td>Guías de implementación en 4 semanas</td></tr>
+        <tr><td><b>BIE</b> · Ecuador, 100 % digital</td><td>Asistente con IA entrenado con tu negocio</td><td>Ruta «Que te compren» desde USD 247; el resto según volumen</td><td>WhatsApp Business con catálogo, asistente 24/7 y acompañamiento mensual</td></tr>
+      </table>
+    </div>
+    <p class="src">Fuentes: <a href="https://terryhosft.com/" rel="nofollow noopener" target="_blank">terryhosft.com</a> · <a href="https://quitoweb.com/en/andesia/" rel="nofollow noopener" target="_blank">quitoweb.com</a> · <a href="https://bluenova.com.ec/chatbot-para-empresas-ecuador/" rel="nofollow noopener" target="_blank">bluenova.com.ec</a> · <a href="https://www.pacusoft.com/chatbots-empresariales-ecuador/" rel="nofollow noopener" target="_blank">pacusoft.com</a> · <a href="/">BIE</a>. Consultados el 21 de octubre de 2026. Los precios pueden cambiar; confírmalos con cada proveedor. Varios se publican sin IVA.</p>
+    <p>Lo que la tabla no dice y pesa más que el precio: <b>quién entrena al bot con tu información</b>. Una plataforma de USD 25 al mes te da la herramienta; el trabajo de cargar catálogo, políticas y tono lo haces tú. Una agencia cobra más porque hace ese trabajo y lo mantiene. El error más caro es pagar la plataforma barata y dejar el bot a medio configurar: responde mal, y un bot que responde mal es peor que ningún bot.</p>
+
+    <h2 id="meta">Lo que cobra Meta aparte (y casi nadie te dice al principio)</h2>
+    <p>Para un bot que converse de verdad hace falta la API oficial de WhatsApp Business, que se contrata a través de un proveedor autorizado por Meta. Ahí aparece un costo que no es del proveedor del bot: <b>Meta cobra por los mensajes de plantilla que tú inicias</b> (promociones, avisos de pedido, códigos de verificación), con tarifas distintas por país y por tipo de mensaje. Responder a un cliente que te escribió, dentro de una ventana de 24 horas, no tiene costo de Meta.</p>
+    <p>Dos consecuencias prácticas. Primera: un negocio que solo responde consultas paga muy poco a Meta; uno que manda campañas masivas paga por cada envío. Segunda: cualquier cotización seria separa tres líneas: la plataforma o el proveedor de API, el trabajo de implementación y el costo de Meta. Si te dan un solo número «todo incluido», en algún mes vas a tener una sorpresa. Las tarifas vigentes están en la página de precios de la plataforma de Meta para desarrolladores.</p>
+
+    <div class="cta-box">
+      <p>¿No sabes qué tipo te conviene? Cuéntanos cuántos mensajes recibes al día y qué vendes; te decimos con honestidad si te alcanza con la app gratuita o si ya necesitas un asistente.</p>
+      <a class="btn-primary" href={wa('Hola, leí la guía de chatbots de WhatsApp de BIE. Recibo más o menos estos mensajes al día: ')} target="_blank" rel="noopener noreferrer"><span>Escribir por WhatsApp</span></a>
+    </div>
+
+    <h2 id="antes">Qué preparar antes de contratar un chatbot</h2>
+    <p>El bot es tan bueno como la información que le das. Antes de pedir cotización, ten listo esto:</p>
+    <ol>
+      <li><b>Tu catálogo o lista de servicios con precios.</b> Si los precios cambian seguido, define quién los actualiza y cada cuánto.</li>
+      <li><b>Tus políticas:</b> envíos, zonas, tiempos, cambios, formas de pago, anticipos.</li>
+      <li><b>Las veinte preguntas que más te hacen.</b> Revisa tus chats de la última semana y anótalas; eso es el 80 % de lo que el bot va a responder.</li>
+      <li><b>Cómo quieres que hable.</b> Formal o cercano, con o sin emojis, cómo saluda, cómo se despide. En BIE extraemos esto de tus conversaciones reales con el <a href="/productos/analisis-conversaciones-venta/?src=recurso-chatbot">análisis de conversaciones de venta</a>.</li>
+      <li><b>Qué no puede prometer.</b> Descuentos, fechas, disponibilidad de cosas que no controlas. El bot necesita límites claros.</li>
+      <li><b>A quién pasa la conversación</b> y en qué horario cuando no sabe responder.</li>
+    </ol>
+
+    <h2 id="errores">Los errores que hacen que un bot espante clientes</h2>
+    <ul>
+      <li><b>No decir que es un bot.</b> El cliente se da cuenta igual y se siente engañado. Un asistente que se presenta como tal y promete pasar a una persona cuando haga falta genera más confianza.</li>
+      <li><b>Menús de ocho opciones.</b> Nadie lee. Máximo tres o cuatro, o mejor, lenguaje natural.</li>
+      <li><b>Responder vaguedades.</b> «Un asesor te contactará» a cada pregunta es peor que el silencio. El bot debe responder precios, horarios y disponibilidad de verdad.</li>
+      <li><b>Sin salida a un humano.</b> El caso que el bot no entiende debe llegar a alguien, con el historial completo, no reiniciarse.</li>
+      <li><b>Mandar promociones sin permiso.</b> Además de molestar, con la API oficial puede costarte restricciones en la cuenta.</li>
+      <li><b>Lanzarlo y olvidarlo.</b> El primer mes el bot se equivoca. Alguien tiene que leer las conversaciones, corregir y volver a entrenar. Por eso vendemos el bot con acompañamiento y no solo la instalación.</li>
+    </ul>
+
+    <h2 id="bie">Cómo lo hace BIE</h2>
+    <p>No vendemos «un chatbot»: montamos tu WhatsApp como canal de ventas y le ponemos un asistente encima. Primero ordenamos <a href="/productos/whatsapp-business-commerce/?src=recurso-chatbot">WhatsApp Business</a>: perfil completo, catálogo con fotos y precios dentro del chat, mensajes automáticos, etiquetas por etapa y un protocolo de atención. Luego entrenamos el <a href="/productos/asistente-inteligente-whatsapp/?src=recurso-chatbot">Asistente Inteligente 24/7</a> con tu información real y tu forma de hablar, con escalamiento a una persona y, si lo necesitas, registro de cada conversación en un <a href="/productos/crm-ia/?src=recurso-chatbot">CRM</a>. Y cada mes revisamos qué preguntó la gente, qué respondió mal y lo corregimos.</p>
+    <p>La ruta «Que te compren» parte de USD 247; el asistente completo se cotiza según cuántas conversaciones manejas y qué integraciones necesitas, con el costo de Meta separado y a tu nombre. Sin permanencia mínima: la cuenta de WhatsApp, el número y los datos son tuyos.</p>
+
+    <div class="cta-box">
+      <p>Si quieres saber qué te costaría a ti, escríbenos con tu volumen aproximado de mensajes y qué vendes. Respondemos en el día.</p>
+      <a class="btn-primary" href={wa('Hola, quiero cotizar un asistente de WhatsApp. Vendo: ')} target="_blank" rel="noopener noreferrer"><span>Cotizar mi asistente de WhatsApp</span></a>
+    </div>
+
+    <h2 id="faq">Preguntas frecuentes sobre chatbots de WhatsApp en Ecuador</h2>
+    {FAQ.map((f) => (
+      <div class="faq-item">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
+    <p class="src">Dato de 74 de cada 100 compradores en línea que cierran por WhatsApp: Cámara Ecuatoriana de Comercio Electrónico y UEES, 2025. Política de precios de la API: Meta for Developers, página de precios de WhatsApp Business Platform.</p>
+
+    <h2>Sigue leyendo</h2>
+    <div class="related">
+      <a href="/productos/asistente-inteligente-whatsapp/?src=recurso-chatbot">Asistente Inteligente 24/7 →</a>
+      <a href="/productos/whatsapp-business-commerce/?src=recurso-chatbot">WhatsApp Business Commerce →</a>
+      <a href="/productos/crm-ia/?src=recurso-chatbot">CRM con IA →</a>
+      <a href="/recursos/cuanto-cuesta-automatizar-whatsapp-ecuador/">Cuánto cuesta automatizar WhatsApp →</a>
+      <a href="/recursos/cuanto-cuesta-una-pagina-web-en-ecuador/">Cuánto cuesta una página web →</a>
+    </div>
+  </article>
+</main>
+<footer>BUSINESS INTELLIGENCE ENHANCER · RUC 0993404878001 · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>
