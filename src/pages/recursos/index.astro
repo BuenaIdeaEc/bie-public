@@ -1,0 +1,49 @@
+---
+// Índice de Recursos: guías de precios y decisiones para dueños de negocio en Ecuador.
+import '../../styles/site.css';
+const SITE = 'https://businessintelligence.solutions';
+const GUIAS = [
+  { href: '/recursos/cuanto-cuesta-una-pagina-web-en-ecuador/', t: 'Cuánto cuesta una página web en Ecuador en 2026: precios reales y qué incluye', d: 'Precios publicados por agencias de Quito y Guayaquil, costos ocultos y cómo leer una cotización.', fecha: '21 de octubre de 2026' },
+  { href: '/recursos/cuanto-cuesta-automatizar-whatsapp-ecuador/', t: 'Cuánto cuesta automatizar WhatsApp en Ecuador', d: 'Los cuatro factores que determinan el costo y cómo saber si una cotización es seria.', fecha: '12 de septiembre de 2026' },
+];
+const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Recursos de BIE', url: SITE + '/recursos/', inLanguage: 'es-EC' };
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recursos: guías de precios y decisiones digitales para negocios en Ecuador | BIE</title>
+<meta name="description" content="Guías honestas para dueños de negocio en Ecuador: cuánto cuesta una página web, automatizar WhatsApp y más. Con precios publicados y fuentes.">
+<link rel="canonical" href={SITE + '/recursos/'}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+main{max-width:780px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:22px}
+.crumbs a{color:var(--text3);border-bottom:1px solid var(--border)}
+h1{font-size:clamp(28px,4.4vw,46px);font-weight:400;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+.dek{font-size:17px;line-height:1.55;color:var(--text2);margin-top:16px;max-width:60ch}
+.list{margin-top:44px;display:flex;flex-direction:column;border-top:1px solid var(--border)}
+.g{display:block;padding:26px 0;border-bottom:1px solid var(--border);color:var(--text)}
+.g b{display:block;font-weight:400;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.015em;line-height:1.2}
+.g span{display:block;margin-top:8px;font-size:15px;line-height:1.55;color:var(--text2);max-width:62ch}
+.g em{display:block;margin-top:10px;font-style:normal;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.g:hover b{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+</style>
+</head>
+<body>
+<main>
+  <p class="crumbs"><a href="/">Inicio</a> · Recursos</p>
+  <h1>Guías para decidir con datos, no con miedo.</h1>
+  <p class="dek">Precios publicados, fuentes a la vista y cero tecnicismos. Lo que un dueño de negocio en Ecuador necesita saber antes de contratar.</p>
+  <div class="list">
+    {GUIAS.map((g) => <a class="g" href={g.href}><b>{g.t}</b><span>{g.d}</span><em>{g.fecha}</em></a>)}
+  </div>
+</main>
+<footer>BUSINESS INTELLIGENCE ENHANCER · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>

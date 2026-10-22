@@ -1,0 +1,248 @@
+---
+// BIE — Artículo 1 del plan de posicionamiento (aprobado por EGO el 2026-10-21).
+// Búsqueda objetivo: "cuánto cuesta una página web en Ecuador" / "precio página web Ecuador 2026".
+// Regla: ningún precio inventado. Los de terceros son los publicados en sus propios sitios en octubre de 2026,
+// con enlace; los de BIE son los de la ficha /productos/pagina-web/. Fuentes en General Brain/03-LINEA-A.
+import '../../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/recursos/cuanto-cuesta-una-pagina-web-en-ecuador/`;
+const title = 'Cuánto cuesta una página web en Ecuador en 2026: precios reales y qué incluye';
+const description = 'Precios publicados por agencias de Quito y Guayaquil (USD 250 a USD 2.000), lo que cuesta hacerla uno mismo, qué incluye cada opción, los costos ocultos y cuándo conviene cada camino. Con tabla comparativa y preguntas frecuentes.';
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/recursos/cuanto-cuesta-pagina-web/es')}`;
+const PUB = '2026-10-21';
+
+const FAQ = [
+  { q: '¿Cuánto cuesta una página web básica en Ecuador?', a: 'Según los precios publicados por agencias de Quito y Guayaquil en octubre de 2026, una página informativa de entre una y cinco secciones cuesta entre USD 250 y USD 490 de pago único, más IVA en varios casos. BIE la ofrece en USD 150 de creación más USD 25 al mes de acompañamiento, con hosting incluido y sin permanencia mínima.' },
+  { q: '¿Cuánto cuesta una tienda en línea en Ecuador?', a: 'Las agencias que publican precios ubican el comercio electrónico entre USD 690 y USD 990 como punto de partida, y una plataforma a medida desde USD 2.000. El costo real depende del número de productos, los medios de pago y la integración con inventario y envíos.' },
+  { q: '¿Qué incluye el precio de una página web?', a: 'Depende del proveedor. Lo mínimo serio: diseño adaptado a celular, textos revisados, formulario o botón de WhatsApp, certificado SSL, hosting del primer año y SEO técnico básico. Pregunta siempre si el dominio, el hosting, el correo corporativo y el mantenimiento entran o se cobran aparte.' },
+  { q: '¿Cuánto cuesta el dominio y el hosting en Ecuador?', a: 'Un dominio .com cuesta entre USD 12 y USD 20 al año; un .ec o .com.ec, alrededor de USD 55 al año según proveedores locales. El hosting administrado para una web pequeña va de USD 5 a USD 20 al mes. En varios paquetes de agencia el primer año viene incluido y desde el segundo se cobra.' },
+  { q: '¿Es mejor hacerla yo con Wix o Canva?', a: 'Si tienes tiempo, criterio de diseño y vas a actualizarla tú, un constructor te cuesta entre USD 10 y USD 30 al mes. La desventaja no es el precio: es que la página queda genérica, suele cargar lento y nadie la revisa comercialmente después. Para un negocio que vive de que lo encuentren, suele salir más caro a largo plazo.' },
+  { q: '¿Cuánto tiempo toma hacer una página web?', a: 'Una página informativa bien hecha toma entre una y tres semanas desde que entregas textos, fotos y logo. En BIE la primera versión está en siete días hábiles desde el anticipo y los materiales completos. Una tienda en línea toma entre tres y ocho semanas.' },
+  { q: '¿Qué es el mantenimiento y por qué me lo cobran?', a: 'Es el trabajo de mantener la web viva: actualizaciones de seguridad, respaldos, cambios de textos y fotos, y revisar que siga vendiendo. Sin mantenimiento, una web envejece y deja de aparecer en Google. Puede cobrarse por hora, por mes o estar incluido en un acompañamiento.' },
+  { q: '¿La página web incluye aparecer en Google?', a: 'No automáticamente. El SEO técnico básico (velocidad, títulos, estructura) suele venir incluido; posicionarse para búsquedas concretas es un trabajo mensual aparte. Lo que sí deberías exigir desde el día uno: que la página sea indexable y que cargue rápido en celular.' },
+  { q: '¿Puedo pagar la página web en cuotas?', a: 'Muchas agencias piden un anticipo del 50 % y el resto contra entrega. Los modelos de pago mensual, como el acompañamiento de BIE, reparten el costo en el tiempo y evitan el desembolso grande inicial.' },
+  { q: '¿Qué pasa si dejo de pagar el mantenimiento o el acompañamiento?', a: 'Depende del contrato. Exige que el dominio esté a tu nombre y que te entreguen accesos y archivos: así la web sigue siendo tuya aunque cambies de proveedor. En BIE el dominio es tuyo y no hay permanencia mínima.' },
+  { q: '¿Necesito página web si ya vendo por Instagram y WhatsApp?', a: 'Si te va bien así, no es urgente. Pero una página propia es lo único que aparece en Google cuando te buscan por nombre o por lo que vendes, y es el lugar donde el cliente confirma que eres un negocio serio antes de escribirte. En Ecuador, el 74 % de quienes compran en línea ya cierran por WhatsApp; la web es la puerta que lleva a ese chat.' },
+  { q: '¿Cómo sé si una cotización de página web es seria?', a: 'Tres señales: te preguntaron qué vendes y a quién antes de dar un precio; separan claramente creación, dominio, hosting y mantenimiento; y te dicen qué pasa con tus accesos si dejas de trabajar con ellos.' },
+];
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
+    author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE },
+    publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
+    inLanguage: 'es-EC', datePublished: PUB, dateModified: PUB, mainEntityOfPage: url },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Recursos', item: SITE + '/recursos/' },
+    { '@type': 'ListItem', position: 3, name: title, item: url } ] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | BIE</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:locale" content="es_EC">
+<meta property="article:published_time" content={PUB}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+main{max-width:780px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:22px}
+.crumbs a{color:var(--text3);border-bottom:1px solid var(--border)}
+h1{font-size:clamp(28px,4.4vw,46px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:16px;text-wrap:balance}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 18px}
+.dek{font-size:clamp(16px,1.6vw,19px);line-height:1.55;color:var(--text2);margin-top:18px}
+.short{margin-top:28px;border-left:3px solid var(--accent);background:var(--surface);padding:18px 22px}
+.short h2{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.short p{margin:0;font-size:16px;line-height:1.6;color:var(--text)}
+.toc{margin-top:28px;border:1px solid var(--border);padding:16px 20px}
+.toc b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+.toc ol{margin:8px 0 0;padding-left:18px;columns:2;column-gap:24px}
+.toc li{font-size:14px;line-height:1.6;break-inside:avoid}
+.toc a{color:var(--text2);border-bottom:1px solid var(--border)}
+article{margin-top:44px}
+article h2{font-size:clamp(21px,2.6vw,28px);font-weight:400;letter-spacing:-.015em;margin-top:48px;margin-bottom:14px;scroll-margin-top:24px}
+article h3{font-size:17px;font-weight:500;margin-top:24px;margin-bottom:6px}
+article p{font-size:16px;line-height:1.7;color:var(--text2);margin-top:14px;max-width:68ch}
+article p b{color:var(--text);font-weight:500}
+article ul{margin-top:14px;padding-left:20px}
+article li{font-size:16px;line-height:1.65;color:var(--text2);margin-top:8px}
+article li b{color:var(--text);font-weight:500}
+.tbl{overflow-x:auto;margin-top:18px;border:1px solid var(--border)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);background:var(--surface);font-weight:500}
+td b{color:var(--text);font-weight:500}
+tr:last-child td{border-bottom:0}
+.src{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6}
+.src a{color:var(--text3);border-bottom:1px solid var(--border)}
+.cta-box{margin-top:44px;border:1px solid var(--bone);padding:26px 28px}
+.cta-box p{color:var(--text2);margin-top:0}
+.cta-box .btn-primary{margin-top:16px;display:inline-block}
+.faq-item{margin-top:22px}
+.faq-item h3{font-size:16px;font-weight:500;letter-spacing:-.01em;color:var(--text);margin-bottom:6px}
+.faq-item p{font-size:14.5px;margin-top:0}
+.related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.related a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:9px 14px;color:var(--text2)}
+.related a:hover{border-color:var(--accent);color:var(--text)}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media (max-width:640px){.toc ol{columns:1}}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<main>
+  <p class="crumbs"><a href="/">Inicio</a> · <a href="/recursos/">Recursos</a> · Precios</p>
+  <span class="eyebrow">Guía de precios · Página web</span>
+  <h1>Cuánto cuesta una página web en Ecuador en 2026: precios reales y qué incluye</h1>
+  <p class="meta"><span>Por BIE · Business Intelligence Enhancer</span><span>Publicado el 21 de octubre de 2026</span><span>Lectura: 9 minutos</span></p>
+  <p class="dek">Reunimos los precios que las agencias de Quito y Guayaquil publican en sus propios sitios, lo que cuesta hacerla uno mismo y los cobros que casi nadie menciona al principio. Sin rangos inventados: cada cifra tiene su fuente.</p>
+
+  <div class="short">
+    <h2>Respuesta corta</h2>
+    <p>En Ecuador, en 2026, una página web informativa hecha por una agencia cuesta entre <b>USD 250 y USD 690</b> de pago único (varias cobran IVA aparte); una tienda en línea, entre <b>USD 690 y USD 990</b> de arranque; una plataforma a medida, desde <b>USD 2.000</b>. Hacerla uno mismo con un constructor cuesta entre USD 10 y USD 30 al mes más tu tiempo. BIE la ofrece en <b>USD 150 de creación más USD 25 al mes</b> de acompañamiento, sin permanencia mínima.</p>
+  </div>
+
+  <nav class="toc" aria-label="Contenido">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#precios">Precios publicados en Ecuador</a></li>
+      <li><a href="#tipos">Qué tipo de página necesitas</a></li>
+      <li><a href="#incluye">Qué debe incluir el precio</a></li>
+      <li><a href="#ocultos">Los costos que llegan después</a></li>
+      <li><a href="#tu-mismo">Hacerla tú mismo o contratar</a></li>
+      <li><a href="#bie">Cómo lo hace BIE</a></li>
+      <li><a href="#cotizacion">Cómo leer una cotización</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+    </ol>
+  </nav>
+
+  <article>
+    <p>Cuando un dueño de negocio busca «cuánto cuesta una página web», casi nunca quiere un número suelto: quiere saber si lo que le cotizaron es razonable, qué está pagando y qué le van a cobrar después. Esta guía responde eso con datos públicos, para que compares con criterio y no con miedo.</p>
+
+    <h2 id="precios">Precios de página web en Ecuador (publicados en octubre de 2026)</h2>
+    <p>Estos son los precios que cada proveedor muestra en su propio sitio. No son cotizaciones privadas ni promedios estimados. Si un proveedor no publica precios, no aparece en la tabla.</p>
+    <div class="tbl">
+      <table>
+        <tr><th>Proveedor</th><th>Ciudad</th><th>Página informativa</th><th>Tienda en línea</th><th>Incluye</th></tr>
+        <tr><td><b>BIE</b></td><td>Ecuador, 100 % digital</td><td>USD 150 + USD 25/mes</td><td>Se cotiza</td><td>Hasta cinco secciones, diseño móvil, WhatsApp, SEO técnico, hosting y acompañamiento mensual; sin permanencia</td></tr>
+        <tr><td><b>EAweb</b></td><td>Quito</td><td>USD 250 a 450</td><td>—</td><td>Diseño personalizado, responsive; primer año de dominio y hosting</td></tr>
+        <tr><td><b>Blue Nova Consulting</b></td><td>Quito</td><td>USD 290 (landing) a 490 (corporativa)</td><td>desde USD 990</td><td>Diseño, SEO técnico, soporte post lanzamiento; plan mensual con hosting USD 120</td></tr>
+        <tr><td><b>Publitek</b></td><td>Quito · Guayaquil · Cuenca</td><td>USD 390 a 690 + IVA</td><td>Carrito básico en el plan de 590</td><td>4 a 12 páginas, dominio, hosting, SSL, correo corporativo</td></tr>
+        <tr><td><b>Páginas Web Quito</b></td><td>Quito</td><td>USD 397 + IVA (una página)</td><td>—</td><td>Landing de una sola página</td></tr>
+        <tr><td><b>Gienog</b></td><td>Quito</td><td>USD 690</td><td>—</td><td>13 a 20 páginas, dominio y hosting un año, formulario, entrega en 30 días</td></tr>
+      </table>
+    </div>
+    <p class="src">Fuentes: <a href="https://eaweb.ec/" rel="nofollow noopener" target="_blank">eaweb.ec</a> · <a href="https://bluenova.com.ec/blue-nova-desarrollo-web-profesional-para-empresas-ecuatorianas/" rel="nofollow noopener" target="_blank">bluenova.com.ec</a> · <a href="https://www.publitek.com.ec/paquetes-y-precios.html" rel="nofollow noopener" target="_blank">publitek.com.ec</a> · <a href="https://paginaswebquito.com/" rel="nofollow noopener" target="_blank">paginaswebquito.com</a> · <a href="https://www.gienog.com/diseno-paginas-web-precios.html" rel="nofollow noopener" target="_blank">gienog.com</a> · <a href="/productos/pagina-web/">BIE</a>. Consultados el 21 de octubre de 2026. Los precios pueden cambiar; confírmalos con cada proveedor.</p>
+    <p>Dos lecturas rápidas de la tabla. Primera: <b>el rango real de una web informativa es USD 250 a 690</b>, y la diferencia la hacen el número de páginas, si el diseño es a medida o de plantilla y si hay alguien detrás después de la entrega. Segunda: casi nadie publica el precio de la tienda en línea porque depende de cuántos productos tengas y cómo cobres; quien te dé un número sin preguntarte eso está adivinando.</p>
+
+    <h2 id="tipos">Qué tipo de página necesitas (y cuánto cambia el precio)</h2>
+    <h3>Página de una sola sección (landing)</h3>
+    <p>Una pantalla larga que presenta el negocio, muestra lo que vendes y termina en un botón de WhatsApp. Es lo que necesita un consultorio, un servicio profesional o un negocio que vende por chat. Es la más rápida de hacer y la más barata: en el mercado va de USD 250 a 400.</p>
+    <h3>Página informativa de varias secciones</h3>
+    <p>Inicio, servicios o productos, sobre nosotros, contacto, a veces un blog. Es el estándar para una pyme que quiere aparecer en Google con varias búsquedas. Rango de mercado: USD 390 a 690.</p>
+    <h3>Tienda en línea</h3>
+    <p>Catálogo, carrito, medios de pago y envíos. El precio sube con el número de productos y con las integraciones: pasarela de pagos local, inventario, facturación electrónica. Arranca en USD 690 y puede pasar de USD 2.000 cuando se conecta con un sistema interno.</p>
+    <h3>Plataforma o sistema a medida</h3>
+    <p>Reservas, portales de clientes, paneles internos. Ya no es «una página web»: es software. Desde USD 2.000 y se cotiza por alcance. Si te ofrecen uno de estos por USD 500, desconfía.</p>
+
+    <div class="cta-box">
+      <p>¿No sabes cuál de las cuatro es la tuya? Cuéntanos qué vendes y a quién; te decimos con honestidad qué necesitas y qué no.</p>
+      <a class="btn-primary" href={wa('Hola, leí la guía de precios de página web de BIE. Mi negocio es: ')} target="_blank" rel="noopener noreferrer"><span>Escribir por WhatsApp</span></a>
+    </div>
+
+    <h2 id="incluye">Qué debe incluir el precio (exígelo por escrito)</h2>
+    <ul>
+      <li><b>Diseño para celular primero.</b> En Ecuador, ocho de cada diez compras en línea se hacen desde el teléfono. Si la web se diseñó en computadora y «se adapta», lo vas a notar en las ventas.</li>
+      <li><b>Textos revisados.</b> No es solo poner lo que tú mandes: alguien debe escribir para que el cliente entienda y actúe.</li>
+      <li><b>Botón de WhatsApp con mensaje listo</b> y, si aplica, formulario que llegue a tu correo o a tu chat.</li>
+      <li><b>Certificado SSL</b> (el candado). Sin esto, el navegador marca tu sitio como «no seguro».</li>
+      <li><b>SEO técnico básico:</b> títulos, descripciones, velocidad, mapa del sitio. Es lo que permite que Google te lea.</li>
+      <li><b>Hosting del primer año</b> y claridad sobre cuánto cuesta desde el segundo.</li>
+      <li><b>Dominio a tu nombre.</b> Si el dominio queda a nombre de la agencia, no eres dueño de tu web.</li>
+      <li><b>Accesos y archivos entregados.</b> Si mañana cambias de proveedor, debes poder llevarte todo.</li>
+    </ul>
+
+    <h2 id="ocultos">Los costos que llegan después</h2>
+    <p>La mayoría de las sorpresas no están en la creación sino en el segundo año. Esto es lo que suele aparecer:</p>
+    <ul>
+      <li><b>Dominio:</b> un .com cuesta entre USD 12 y 20 al año; un .ec o .com.ec, alrededor de USD 55 al año según proveedores locales como Neolo.</li>
+      <li><b>Hosting:</b> entre USD 5 y 20 al mes para una web pequeña con hosting administrado. Varias agencias lo incluyen el primer año y lo cobran desde el segundo.</li>
+      <li><b>Correo corporativo:</b> entre USD 1 y 7 por buzón al mes si se contrata aparte (Google Workspace, Microsoft 365 o el hosting).</li>
+      <li><b>Mantenimiento:</b> actualizaciones de seguridad, respaldos y cambios de contenido. Cobrado por hora, puede costar más que la web original en dos años.</li>
+      <li><b>Cambios «pequeños»:</b> cambiar una foto, un precio, un horario. Pregunta cuánto cuesta cada uno o si entra en un plan mensual.</li>
+      <li><b>Posicionamiento:</b> aparecer en Google para búsquedas concretas es un trabajo mensual aparte. Las agencias de Quito lo publican entre USD 197 y 497 al mes.</li>
+    </ul>
+    <p>Por eso el precio correcto de comparar no es el de creación, sino el <b>costo total de dos años</b>: creación más dominio, hosting, correo y mantenimiento. Una web de USD 300 sin nadie detrás puede costar más que una de USD 150 con acompañamiento mensual.</p>
+
+    <h2 id="tu-mismo">Hacerla tú mismo o contratar</h2>
+    <div class="tbl">
+      <table>
+        <tr><th>Opción</th><th>Costo</th><th>Cuándo conviene</th><th>Cuándo no</th></tr>
+        <tr><td><b>Constructor (Wix, Squarespace, Canva Sites)</b></td><td>USD 10 a 30 al mes + tu tiempo</td><td>Negocio que recién empieza, poco presupuesto, dueño con criterio de diseño y tiempo para mantenerla</td><td>Cuando la web es tu puerta de ventas principal: suele quedar genérica, cargar lento y nadie la revisa después</td></tr>
+        <tr><td><b>Freelance</b></td><td>USD 150 a 500, según experiencia</td><td>Proyecto pequeño y claro, con alguien de confianza</td><td>Si no hay contrato, no hay garantía de soporte ni de continuidad</td></tr>
+        <tr><td><b>Agencia por paquete</b></td><td>USD 250 a 690 + mantenimiento</td><td>Quieres entrega rápida, estándar conocido y factura</td><td>Si el paquete es de plantilla y el soporte termina al entregar</td></tr>
+        <tr><td><b>Creación + acompañamiento (BIE)</b></td><td>USD 150 + USD 25 al mes</td><td>Quieres que alguien revise cada mes si la web vende y mejore lo que haga falta</td><td>Si solo quieres «tener una web» y no vas a usarla</td></tr>
+      </table>
+    </div>
+
+    <h2 id="bie">Cómo lo hace BIE y por qué cuesta lo que cuesta</h2>
+    <p>Nuestra <a href="/productos/pagina-web/?src=recurso-precio-web">página web</a> cuesta USD 150 de creación y USD 25 al mes de acompañamiento. El precio es bajo a propósito: el valor no está en entregar la web, sino en lo que pasa después. Cada mes revisamos cómo le va comercialmente, proponemos una mejora concreta y la implementamos. Incluye hasta cinco secciones en español, diseño para celular, enlace a WhatsApp con mensaje listo, dos rondas de ajustes, SEO técnico básico y hosting administrado. La primera versión está en siete días hábiles desde el anticipo y los materiales completos.</p>
+    <p>Lo que no entra y se cotiza aparte, para que no haya sorpresas: dominio propio, pauta, <a href="/productos/asistente-inteligente-whatsapp/?src=recurso-precio-web">asistente de WhatsApp</a>, tienda en línea, reservas y contenido recurrente. El dominio queda a tu nombre y no hay permanencia mínima: si un mes no quieres seguir, la web sigue siendo tuya.</p>
+    <p>Puedes ver una página de ejemplo construida por nosotros desde la ficha del producto. No es una plantilla: es una web de panadería hecha con el mismo proceso que usaríamos contigo.</p>
+
+    <div class="cta-box">
+      <p>Si quieres saber cuánto costaría la tuya con lo que ya tienes (logo, fotos, textos), escríbenos. Respondemos en el día y te decimos por dónde empezar, sin compromiso.</p>
+      <a class="btn-primary" href={wa('Hola, quiero cotizar mi página web. Ya tengo: ')} target="_blank" rel="noopener noreferrer"><span>Cotizar mi página web</span></a>
+    </div>
+
+    <h2 id="cotizacion">Cómo leer una cotización de página web</h2>
+    <ul>
+      <li><b>¿Te preguntaron qué vendes y a quién?</b> Si el precio llegó antes que las preguntas, es un precio de plantilla.</li>
+      <li><b>¿Separan creación, dominio, hosting, correo y mantenimiento?</b> Un solo número «todo incluido» casi siempre esconde algo que se cobra en el año dos.</li>
+      <li><b>¿Dice cuántas rondas de cambios incluye?</b> Lo normal son dos. Sin límite claro, el proyecto se eterniza y alguien termina cobrando extra.</li>
+      <li><b>¿Qué pasa con tus accesos si terminan?</b> Dominio a tu nombre, archivos y claves entregados. Si no lo dice, pregúntalo antes de pagar.</li>
+      <li><b>¿Incluye IVA?</b> En Ecuador varias agencias publican precios sin el 15 % de IVA. Súmalo antes de comparar.</li>
+      <li><b>¿Hay alguien después de la entrega?</b> Una web sin nadie detrás envejece en meses. Pregunta cuánto cuesta un cambio pequeño y cuánto tardan en hacerlo.</li>
+    </ul>
+
+    <h2 id="faq">Preguntas frecuentes sobre el precio de una página web en Ecuador</h2>
+    {FAQ.map((f) => (
+      <div class="faq-item">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
+    <p class="src">Dato del 74 % de compras en línea cerradas por WhatsApp: Cámara Ecuatoriana de Comercio Electrónico y UEES, 2025. Dato de ocho de cada diez compras desde el teléfono: CECE. Precios de dominio: Neolo, guía de precios 2026.</p>
+
+    <h2>Sigue leyendo</h2>
+    <div class="related">
+      <a href="/productos/pagina-web/?src=recurso-precio-web">Página web →</a>
+      <a href="/productos/dominio-y-hosting/?src=recurso-precio-web">Dominio y hosting →</a>
+      <a href="/productos/perfil-google-maps/?src=recurso-precio-web">Perfil de Google Maps →</a>
+      <a href="/productos/identidad-de-marca/?src=recurso-precio-web">Identidad de marca →</a>
+      <a href="/productos/posicionamiento-seo/?src=recurso-precio-web">Posicionamiento SEO →</a>
+      <a href="/recursos/cuanto-cuesta-automatizar-whatsapp-ecuador/">Cuánto cuesta automatizar WhatsApp →</a>
+    </div>
+  </article>
+</main>
+<footer>BUSINESS INTELLIGENCE ENHANCER · RUC 0993404878001 · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>
