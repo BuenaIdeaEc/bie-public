@@ -1,0 +1,236 @@
+---
+// BIE — Artículo 3 del plan de posicionamiento (aprobado por EGO el 2026-10-21).
+// Búsqueda objetivo: "CRM WhatsApp Ecuador" / "CRM para pymes Ecuador" / "mejor CRM pequeña empresa".
+// Regla: precios de terceros = publicados en sus sitios o en comparativas públicas en octubre de 2026, con enlace. Sin cifras inventadas.
+import '../../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/recursos/crm-con-whatsapp-para-pymes-en-ecuador/`;
+const title = 'CRM con WhatsApp para pymes en Ecuador en 2026: cuándo comprar uno y cuándo hacerlo a medida';
+const description = 'Qué hace un CRM de verdad, por qué en Ecuador tiene que vivir dentro de WhatsApp, precios publicados de Kommo, Whaticket, HubSpot y agencias locales, el error de comprarlo antes de ordenar la venta, y cuándo conviene uno a medida.';
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + '\n\n— Origen: web/recursos/crm-whatsapp/es')}`;
+const PUB = '2026-10-21';
+
+const FAQ = [
+  { q: '¿Qué es un CRM y para qué sirve en una pyme?', a: 'Un CRM es el lugar donde queda registrado cada cliente y cada conversación: quién preguntó, qué le ofreciste, en qué quedó y cuándo hay que escribirle de nuevo. Sirve para que ninguna venta se pierda por olvido y para saber, con datos, de dónde vienen los clientes que sí compran.' },
+  { q: '¿Cuánto cuesta un CRM en Ecuador?', a: 'Según precios publicados en octubre de 2026: los CRM centrados en WhatsApp van de USD 15 por usuario al mes (Kommo, con permanencia mínima) a USD 39 al mes (Whaticket); los CRM clásicos como HubSpot tienen versión gratuita y planes de pago por usuario; las agencias locales publican CRM con IA desde USD 259 al mes y CRM a medida desde USD 5.000. En BIE, la ruta «Que funcione solo» parte de USD 250 y el resto se cotiza.' },
+  { q: '¿Necesito un CRM si vendo por WhatsApp?', a: 'Si recibes más conversaciones de las que puedes recordar, sí. La señal clara: has perdido una venta porque olvidaste responder, o no sabes cuántos clientes te escribieron el mes pasado ni cuántos compraron.' },
+  { q: '¿Qué diferencia hay entre un CRM clásico y uno WhatsApp-first?', a: 'El clásico (HubSpot, Pipedrive, Zoho) nació para equipos que venden por correo y llamadas, y WhatsApp se conecta como añadido. El WhatsApp-first (Kommo, Whaticket, Leadsales) pone el chat en el centro: la bandeja de WhatsApp es el CRM. Para una pyme ecuatoriana que vende por chat, el segundo suele encajar mejor.' },
+  { q: '¿Un CRM internacional se integra con el SRI o con Datafast?', a: 'Por lo general no de forma nativa. La facturación electrónica del SRI y los cobros con pasarelas locales suelen requerir integraciones hechas a medida o una herramienta local. Si eso es importante para ti, pregúntalo antes de contratar.' },
+  { q: '¿Cuándo conviene un CRM a medida?', a: 'Cuando tu proceso de venta no cabe en un software estándar: varios canales, inventario propio, entregas, facturación local, o cuando ya pagas tres herramientas que no se hablan entre sí. Un sistema a medida cuesta más al inicio y se amortiza cuando reemplaza varias suscripciones y horas de trabajo manual.' },
+  { q: '¿Qué pasa con mis datos si dejo de pagar?', a: 'Depende del proveedor. Exige exportación de contactos y conversaciones en un formato abierto y que la cuenta de WhatsApp Business quede a tu nombre. Un CRM que no te deja irte con tus datos no es tuyo.' },
+  { q: '¿Cuánto tiempo toma implementarlo?', a: 'Un CRM WhatsApp-first se conecta en días; que tu equipo lo use bien toma entre dos y ocho semanas. Lo que más tiempo lleva no es el software: es definir las etapas de tu venta y acostumbrar al equipo a registrar todo.' },
+  { q: '¿El CRM puede responder solo con inteligencia artificial?', a: 'Puede, si lo conectas con un asistente. El CRM registra y organiza; el asistente responde. Juntos, cada conversación queda atendida y anotada sin que una persona escriba.' },
+  { q: '¿Puedo probar antes de comprar?', a: 'Varios ofrecen prueba gratuita o versión gratuita limitada. Úsala con conversaciones reales durante dos semanas: si tu equipo no la usa en ese tiempo, el problema no es la herramienta.' },
+  { q: '¿Cómo sé si una cotización de CRM es seria?', a: 'Si te preguntaron cómo vendes hoy antes de proponer una herramienta; si separan licencia, implementación y mantenimiento; y si te dicen qué pasa con tus datos al terminar.' },
+];
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Article', headline: title, description, url,
+    author: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', url: SITE },
+    publisher: { '@type': 'Organization', name: 'BIE — Business Intelligence Enhancer', logo: { '@type': 'ImageObject', url: `${SITE}/icons/logo.svg` } },
+    inLanguage: 'es-EC', datePublished: PUB, dateModified: PUB, mainEntityOfPage: url },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Recursos', item: SITE + '/recursos/' },
+    { '@type': 'ListItem', position: 3, name: title, item: url } ] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title} | BIE</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta property="og:type" content="article">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:locale" content="es_EC">
+<meta property="article:published_time" content={PUB}>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+main{max-width:780px;margin:0 auto;padding:min(9vh,72px) 24px 100px}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+.crumbs{font-family:var(--mono);font-size:11px;color:var(--text3);margin-bottom:22px}
+.crumbs a{color:var(--text3);border-bottom:1px solid var(--border)}
+h1{font-size:clamp(28px,4.4vw,46px);font-weight:400;letter-spacing:-.02em;line-height:1.1;margin-top:16px;text-wrap:balance}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--text3);margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 18px}
+.dek{font-size:clamp(16px,1.6vw,19px);line-height:1.55;color:var(--text2);margin-top:18px}
+.short{margin-top:28px;border-left:3px solid var(--accent);background:var(--surface);padding:18px 22px}
+.short h2{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.short p{margin:0;font-size:16px;line-height:1.6;color:var(--text)}
+.toc{margin-top:28px;border:1px solid var(--border);padding:16px 20px}
+.toc b{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
+.toc ol{margin:8px 0 0;padding-left:18px;columns:2;column-gap:24px}
+.toc li{font-size:14px;line-height:1.6;break-inside:avoid}
+.toc a{color:var(--text2);border-bottom:1px solid var(--border)}
+article{margin-top:44px}
+article h2{font-size:clamp(21px,2.6vw,28px);font-weight:400;letter-spacing:-.015em;margin-top:48px;margin-bottom:14px;scroll-margin-top:24px}
+article h3{font-size:17px;font-weight:500;margin-top:24px;margin-bottom:6px}
+article p{font-size:16px;line-height:1.7;color:var(--text2);margin-top:14px;max-width:68ch}
+article p b{color:var(--text);font-weight:500}
+article ul,article ol{margin-top:14px;padding-left:20px}
+article li{font-size:16px;line-height:1.65;color:var(--text2);margin-top:8px}
+article li b{color:var(--text);font-weight:500}
+.tbl{overflow-x:auto;margin-top:18px;border:1px solid var(--border)}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--border);color:var(--text2)}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);background:var(--surface);font-weight:500}
+td b{color:var(--text);font-weight:500}
+tr:last-child td{border-bottom:0}
+.src{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:10px;line-height:1.6}
+.src a{color:var(--text3);border-bottom:1px solid var(--border)}
+.cta-box{margin-top:44px;border:1px solid var(--bone);padding:26px 28px}
+.cta-box p{color:var(--text2);margin-top:0}
+.cta-box .btn-primary{margin-top:16px;display:inline-block}
+.faq-item{margin-top:22px}
+.faq-item h3{font-size:16px;font-weight:500;letter-spacing:-.01em;color:var(--text);margin-bottom:6px}
+.faq-item p{font-size:14.5px;margin-top:0}
+.related{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.related a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:9px 14px;color:var(--text2)}
+.related a:hover{border-color:var(--accent);color:var(--text)}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media (max-width:640px){.toc ol{columns:1}}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<main>
+  <p class="crumbs"><a href="/">Inicio</a> · <a href="/recursos/">Recursos</a> · CRM</p>
+  <span class="eyebrow">Guía · CRM con WhatsApp</span>
+  <h1>CRM con WhatsApp para pymes en Ecuador en 2026: cuándo comprar uno y cuándo hacerlo a medida</h1>
+  <p class="meta"><span>Por BIE · Business Intelligence Enhancer</span><span>Publicado el 21 de octubre de 2026</span><span>Lectura: 10 minutos</span></p>
+  <p class="dek">El CRM es el software que más se compra y menos se usa en las pymes. Esta guía explica qué hace de verdad, por qué en Ecuador tiene que vivir dentro de WhatsApp, cuánto cuesta según precios publicados y cómo decidir entre comprar uno hecho o construirlo a tu medida.</p>
+
+  <div class="short">
+    <h2>Respuesta corta</h2>
+    <p>Un CRM registra cada cliente y cada conversación para que ninguna venta se pierda por olvido. Para una pyme que vende por chat en Ecuador, conviene uno <b>WhatsApp-first</b>: cuestan entre <b>USD 15 por usuario al mes y USD 39 al mes</b> según precios publicados. Los CRM clásicos (HubSpot, Pipedrive, Zoho) tienen versión gratuita y planes por usuario. Un CRM con IA implementado por una agencia local parte de <b>USD 259 al mes</b>; uno a medida, desde <b>USD 5.000</b>. Compra uno hecho si tu proceso cabe en él; hazlo a medida cuando ya pagas varias herramientas que no se hablan. En BIE, la ruta «Que funcione solo» parte de <b>USD 250</b>.</p>
+  </div>
+
+  <nav class="toc" aria-label="Contenido">
+    <b>En esta guía</b>
+    <ol>
+      <li><a href="#que-hace">Qué hace un CRM de verdad</a></li>
+      <li><a href="#whatsapp">Por qué debe vivir en WhatsApp</a></li>
+      <li><a href="#precios">Precios publicados</a></li>
+      <li><a href="#error">El error de comprarlo primero</a></li>
+      <li><a href="#comprar-o-hacer">Comprar hecho o hacerlo a medida</a></li>
+      <li><a href="#bie">Cómo lo hace BIE</a></li>
+      <li><a href="#cotizacion">Cómo leer una cotización</a></li>
+      <li><a href="#faq">Preguntas frecuentes</a></li>
+    </ol>
+  </nav>
+
+  <article>
+    <p>Casi todo dueño de negocio ha oído que «necesita un CRM». Pocos saben qué es más allá de las siglas, y muchos han pagado uno que su equipo abandonó al mes. Esta guía está escrita para que eso no te pase: para que sepas qué compras, cuánto cuesta y, sobre todo, qué tienes que tener listo antes.</p>
+
+    <h2 id="que-hace">Qué hace un CRM de verdad</h2>
+    <p>CRM significa gestión de relaciones con clientes. En la práctica es <b>una libreta compartida e inteligente</b>: cada persona que te escribe queda registrada con su nombre, lo que preguntó, lo que le ofreciste, en qué etapa está (preguntó, cotizó, pagó, recibió) y cuándo hay que volver a hablarle. Con eso, tres cosas cambian:</p>
+    <ul>
+      <li><b>Nadie se pierde.</b> El cliente que preguntó el martes y no respondió recibe un seguimiento el jueves, sin que tú lo recuerdes.</li>
+      <li><b>Cualquiera del equipo puede atender.</b> La historia completa está ahí; no depende de quién tenía el celular.</li>
+      <li><b>Sabes con datos.</b> Cuántos te escribieron este mes, cuántos compraron, de dónde vinieron los que sí compraron y dónde se cae la venta.</li>
+    </ul>
+    <p>Si hoy no puedes responder «cuántas personas me escribieron el mes pasado y cuántas compraron», no tienes CRM, tengas o no un software con ese nombre.</p>
+
+    <h2 id="whatsapp">Por qué en Ecuador el CRM tiene que vivir dentro de WhatsApp</h2>
+    <p>Los CRM clásicos nacieron para equipos que venden por correo y llamadas. En Ecuador la venta pasa por otro lado: <b>74 de cada 100 compradores en línea ya cierran por WhatsApp</b> (Cámara Ecuatoriana de Comercio Electrónico y UEES, 2025). Si el CRM está en un sistema y la conversación en el celular, nadie va a copiar los datos de un lado al otro. Al tercer día el CRM está vacío.</p>
+    <p>Por eso para una pyme que vende por chat conviene un CRM <b>WhatsApp-first</b>: la bandeja de WhatsApp es el CRM. Cada chat tiene etiqueta de etapa, responsable, recordatorio y notas, y los mensajes se responden desde la misma pantalla. Herramientas como Kommo, Whaticket o Leadsales trabajan así; los clásicos como HubSpot o Pipedrive conectan WhatsApp como añadido, con integraciones que a veces cuestan aparte.</p>
+
+    <h2 id="precios">Precios de CRM para pymes (publicados en octubre de 2026)</h2>
+    <div class="tbl">
+      <table>
+        <tr><th>Opción</th><th>Tipo</th><th>Precio publicado</th><th>Para quién</th></tr>
+        <tr><td><b>HubSpot</b></td><td>CRM clásico</td><td>Versión gratuita; planes de pago por usuario</td><td>Equipos que venden por correo y llamadas; WhatsApp como añadido</td></tr>
+        <tr><td><b>Kommo</b></td><td>WhatsApp-first</td><td>desde USD 15 por usuario al mes, mínimo 6 meses</td><td>Pymes que venden por chat y quieren bandeja compartida</td></tr>
+        <tr><td><b>Whaticket</b></td><td>WhatsApp-first</td><td>desde USD 39 al mes</td><td>Equipos pequeños con un número compartido</td></tr>
+        <tr><td><b>Blue Nova (BN System)</b> · Quito</td><td>CRM con IA, agencia</td><td>USD 259 al mes (plan Profesional)</td><td>Quien quiere CRM, asistente y pauta con el mismo proveedor</td></tr>
+        <tr><td><b>NM Tech Studio</b> · Guayaquil</td><td>CRM a medida</td><td>desde USD 5.000, pago único</td><td>Procesos que no caben en un software estándar</td></tr>
+        <tr><td><b>BIE</b> · Ecuador, 100 % digital</td><td>CRM con IA dentro de tu sistema</td><td>Ruta «Que funcione solo» desde USD 250; el resto bajo cotización</td><td>Pymes que quieren ordenar la venta y automatizar el seguimiento con acompañamiento mensual</td></tr>
+      </table>
+    </div>
+    <p class="src">Fuentes: <a href="https://www.nmtechstudio.com/blog/mejores-crms-pymes-ecuador-2026" rel="nofollow noopener" target="_blank">nmtechstudio.com (comparativa 2026, incluye precios de Kommo y Whaticket)</a> · <a href="https://bluenova.com.ec/crm-con-inteligencia-artificial-en-ecuador-2026/" rel="nofollow noopener" target="_blank">bluenova.com.ec</a> · <a href="https://www.hubspot.com/pricing/crm" rel="nofollow noopener" target="_blank">hubspot.com</a> · <a href="/">BIE</a>. Consultados el 21 de octubre de 2026. Los precios cambian; confírmalos con cada proveedor. Los de agencias suelen publicarse sin IVA.</p>
+    <p>Un detalle que importa en Ecuador: <b>los CRM internacionales no se integran de forma nativa con la facturación electrónica del SRI ni con pasarelas locales</b> como Datafast. Si necesitas que el pedido se facture solo o que el cobro quede registrado, eso es una integración aparte o una herramienta local.</p>
+
+    <div class="cta-box">
+      <p>¿No sabes si te alcanza con una herramienta hecha o ya necesitas algo a medida? Cuéntanos cómo vendes hoy y cuántas conversaciones manejas; te decimos qué conviene sin venderte lo que no necesitas.</p>
+      <a class="btn-primary" href={wa('Hola, leí la guía de CRM con WhatsApp de BIE. Hoy vendo así: ')} target="_blank" rel="noopener noreferrer"><span>Escribir por WhatsApp</span></a>
+    </div>
+
+    <h2 id="error">El error más caro: comprar el CRM antes de ordenar la venta</h2>
+    <p>Un CRM no inventa un proceso: registra el que ya tienes. Si hoy no sabes cuáles son las etapas de tu venta, quién responde qué y cuándo se hace seguimiento, el software solo va a reflejar ese desorden, y el equipo lo abandonará. Antes de pagar la primera mensualidad, escribe en una hoja:</p>
+    <ol>
+      <li><b>Las etapas:</b> por ejemplo, preguntó, cotizó, confirmó, pagó, entregado, volvió a comprar.</li>
+      <li><b>Qué dispara cada paso</b> y quién es responsable.</li>
+      <li><b>Cuándo se hace seguimiento</b> si el cliente no responde: a las 24 horas, a los 3 días, a la semana.</li>
+      <li><b>Qué dato quieres ver cada lunes:</b> cuántos entraron, cuántos compraron, cuánto vendiste.</li>
+    </ol>
+    <p>Con eso en una hoja, cualquier CRM se configura en una tarde. Sin eso, ninguno funciona. En BIE empezamos por aquí, con el <a href="/productos/analisis-conversaciones-venta/?src=recurso-crm">análisis de tus conversaciones reales</a>: ahí están las etapas que ya usas sin saberlo.</p>
+
+    <h2 id="comprar-o-hacer">Comprar un CRM hecho o hacerlo a medida</h2>
+    <div class="tbl">
+      <table>
+        <tr><th>Criterio</th><th>CRM hecho (suscripción)</th><th>CRM a medida</th></tr>
+        <tr><td><b>Costo inicial</b></td><td>Bajo: desde gratis o USD 15 a 39 al mes</td><td>Alto: desde USD 5.000 o setup más mensualidad</td></tr>
+        <tr><td><b>Tiempo</b></td><td>Días para conectar; semanas para que el equipo lo use</td><td>Semanas o meses de construcción</td></tr>
+        <tr><td><b>Encaje con tu proceso</b></td><td>Te adaptas tú a la herramienta</td><td>La herramienta se adapta a ti: inventario, entregas, facturación local</td></tr>
+        <tr><td><b>Integraciones locales (SRI, pasarelas)</b></td><td>Raras o de pago aparte</td><td>Las que necesites</td></tr>
+        <tr><td><b>Dependencia</b></td><td>Del proveedor: si sube el precio o cierra, migras</td><td>Del constructor: exige documentación y accesos</td></tr>
+        <tr><td><b>Cuándo conviene</b></td><td>Equipo pequeño, proceso simple, quieres empezar ya</td><td>Ya pagas varias herramientas que no se hablan, o tu proceso no cabe en ninguna</td></tr>
+      </table>
+    </div>
+    <p>La regla que usamos: <b>empieza con uno hecho si tu venta cabe en él</b>. Pasa a medida cuando el costo de las suscripciones más las horas de copiar datos entre sistemas supere lo que costaría construir uno propio, o cuando el negocio necesite algo que ningún software estándar hace. Ese segundo escenario es el <a href="/productos/sistema-operativo/?src=recurso-crm">sistema operativo de tu empresa</a>: CRM, inventario, entregas y cobros en un solo lugar, construido para tu operación.</p>
+
+    <h2 id="bie">Cómo lo hace BIE</h2>
+    <p>No te vendemos el software y te dejamos solo. Primero ordenamos la venta: etapas, responsables, seguimientos, a partir de tus conversaciones reales. Luego montamos el <a href="/productos/crm-ia/?src=recurso-crm">CRM con IA</a> sobre una herramienta hecha o dentro de tu propio sistema, según lo que necesites, con seguimiento automático y un panel con los números que importan. Si ya tienes asistente de WhatsApp, cada conversación queda registrada sin que nadie escriba. Y cada mes revisamos qué se está cayendo y lo ajustamos.</p>
+    <p>La ruta «Que funcione solo» (automatizaciones, CRM con IA y sistema operativo) parte de USD 250; el alcance completo se cotiza contigo según tu operación. Los datos, la cuenta de WhatsApp y los accesos son tuyos, sin permanencia mínima.</p>
+
+    <div class="cta-box">
+      <p>Si quieres saber qué CRM te conviene y cuánto te costaría ordenar tu venta, escríbenos. Respondemos en el día.</p>
+      <a class="btn-primary" href={wa('Hola, quiero ordenar mi venta con un CRM. Hoy manejo más o menos estas conversaciones al mes: ')} target="_blank" rel="noopener noreferrer"><span>Cotizar mi CRM</span></a>
+    </div>
+
+    <h2 id="cotizacion">Cómo leer una cotización de CRM</h2>
+    <ul>
+      <li><b>¿Te preguntaron cómo vendes hoy?</b> Si la propuesta llegó antes que las preguntas, es una licencia revendida.</li>
+      <li><b>¿Separan licencia, implementación y mantenimiento?</b> Un solo número esconde la mensualidad del año dos.</li>
+      <li><b>¿Dicen quién carga los datos y entrena al equipo?</b> Ese es el trabajo real; el software es lo de menos.</li>
+      <li><b>¿Qué pasa con tus datos al terminar?</b> Exportación en formato abierto y cuenta de WhatsApp a tu nombre.</li>
+      <li><b>¿Incluye IVA?</b> Súmale el 15 % si no lo dice.</li>
+      <li><b>¿Hay alguien después?</b> Un CRM sin revisión mensual se llena de contactos muertos en tres meses.</li>
+    </ul>
+
+    <h2 id="faq">Preguntas frecuentes sobre CRM para pymes en Ecuador</h2>
+    {FAQ.map((f) => (
+      <div class="faq-item">
+        <h3>{f.q}</h3>
+        <p>{f.a}</p>
+      </div>
+    ))}
+    <p class="src">Dato de 74 de cada 100 compradores en línea que cierran por WhatsApp: Cámara Ecuatoriana de Comercio Electrónico y UEES, 2025.</p>
+
+    <h2>Sigue leyendo</h2>
+    <div class="related">
+      <a href="/productos/crm-ia/?src=recurso-crm">CRM con IA →</a>
+      <a href="/productos/sistema-operativo/?src=recurso-crm">Sistema operativo de tu empresa →</a>
+      <a href="/productos/automatizaciones/?src=recurso-crm">Automatizaciones →</a>
+      <a href="/productos/analisis-conversaciones-venta/?src=recurso-crm">Análisis de conversaciones de venta →</a>
+      <a href="/recursos/chatbot-whatsapp-para-negocios-en-ecuador/">Chatbot de WhatsApp en Ecuador →</a>
+      <a href="/recursos/cuanto-cuesta-una-pagina-web-en-ecuador/">Cuánto cuesta una página web →</a>
+    </div>
+  </article>
+</main>
+<footer>BUSINESS INTELLIGENCE ENHANCER · RUC 0993404878001 · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>
