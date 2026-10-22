@@ -71,7 +71,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   sim_btn:{es:'Cotizar por WhatsApp',en:'Get a quote on WhatsApp'},
   nicho_k:{es:'Mientras lo piensas · En Ecuador, hoy',en:'While you think it over · In Ecuador, today'},
   nicho_end:{es:'Están en tu nicho. Buscan, comparan y pagan desde el celular. <b>Y todavía no te encuentran.</b> Nosotros te ponemos ahí.',en:'They are in your niche. They search, compare and pay from their phone. <b>And they still cannot find you.</b> We put you there.'},
-  nicho_src:{es:'Cifras referenciales · fuentes y año en revisión',en:'Reference figures · sources and year under review'},
+  nicho_cta:{es:'Quiero estar ahí →',en:'I want to be there →'},
   top_note:{es:'No son los únicos: hoy son 47 productos y seguimos sumando.',
             en:'They are not the only ones: 47 products today and counting.'},
   cta_diag2:{es:'No sé cuál elegir: hablemos',en:'Not sure which one: let us talk'},

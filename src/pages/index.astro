@@ -846,6 +846,9 @@ body.cubo-intro #progress{opacity:0}
 .nicho-fuente{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin:16px 0 0;min-height:1.4em}
 .nicho-end{font-family:var(--font);font-size:clamp(17px,1.7vw,22px);line-height:1.45;max-width:46ch;margin:28px 0 0;min-height:2.9em;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .7s var(--ease)}
 .nicho-end.on{opacity:.95;transform:none}
+.nicho-cta{display:inline-block;margin-top:18px;background:#0b0b0d;color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:15px 24px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .6s var(--ease),background .3s}
+.nicho-cta.on{opacity:1;transform:none}
+.nicho-cta:hover{background:#fff;color:#0b0b0d}
 .nicho-end b{font-weight:700}
 .nicho-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(0,0,0,.12)}
 .nicho-bar i{display:block;height:100%;width:0;background:#0b0b0d;transition:width .15s linear}
@@ -1181,6 +1184,7 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
       <a class="nicho-link" id="nicho-link" href="/productos/"><span id="nicho-prod"></span><span class="nicho-arrow" aria-hidden="true">→</span></a>
       <p class="nicho-fuente" id="nicho-fuente"></p>
       <p class="nicho-end" id="nicho-end" data-i18n="nicho_end" set:html={es('nicho_end')}></p>
+      <a class="nicho-cta" id="nicho-cta" href={WA_SIM_SSR} target="_blank" rel="noopener" data-i18n="nicho_cta" set:html={es('nicho_cta')}></a>
     </div>
     <div class="nicho-bar" aria-hidden="true"><i id="nicho-bar"></i></div>
   </div>
@@ -1783,7 +1787,7 @@ function renderWork(){
 (function(){
   const sec = document.getElementById('nicho'), st = sec && sec.querySelector('.nicho-sticky');
   if (!sec || !st) return;
-  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar'), srcEl = document.getElementById('nicho-fuente');
+  const numEl = document.getElementById('nicho-num'), lineEl = document.getElementById('nicho-line'), linkEl = document.getElementById('nicho-link'), prodEl = document.getElementById('nicho-prod'), endEl = document.getElementById('nicho-end'), barEl = document.getElementById('nicho-bar'), srcEl = document.getElementById('nicho-fuente'), ctaEl = document.getElementById('nicho-cta');
   // Cifras REFERENCIALES para la vista previa. Antes de producción: fuente y año.
   // Cifras con fuente pública (año indicado). Si una fuente cambia, se cambia aquí y en General Brain/03-LINEA-A/FUENTES_cifras_home.md
   const ITEMS = [
@@ -1809,9 +1813,9 @@ function renderWork(){
     lineEl.textContent = it[lang][0]; prodEl.textContent = it[lang][1]; linkEl.href = '/productos/' + it.slug + '/?src=home-nicho';
     srcEl.textContent = (lang === 'en' ? 'Source: ' : 'Fuente: ') + it[lang][2];
   }
-  function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.27 + 0.45)) + 'px'; }
+  function layout(){ sec.style.height = reduce ? '' : Math.round(innerHeight * (1 + N * 0.22 + 0.35)) + 'px'; }
   addEventListener('resize', layout, { passive: true }); layout();
-  if (reduce) { show(N - 1); numEl.textContent = fmt(ITEMS[N - 1].n); endEl.classList.add('on'); return; }
+  if (reduce) { show(N - 1); numEl.textContent = fmt(ITEMS[N - 1].n); endEl.classList.add('on'); ctaEl.classList.add('on'); return; }
   function read(){ const r = sec.getBoundingClientRect(); const span = sec.offsetHeight - innerHeight; if (span > 0) target = clamp(-r.top / span); }
   addEventListener('scroll', read, { passive: true }); read();
   window.__nichoLang = () => { if (cur >= 0) show(cur); };
@@ -1820,15 +1824,15 @@ function renderWork(){
     const red = sm(clamp(p / 0.07));
     st.style.setProperty('--nr', String(Math.round(lp(11, 229, red)))); st.style.setProperty('--ng', String(Math.round(lp(11, 57, red)))); st.style.setProperty('--nb', String(Math.round(lp(13, 53, red))));
     const tx = Math.round(lp(243, 11, red)); st.style.setProperty('--ntx', 'rgb(' + tx + ',' + tx + ',' + tx + ')');
-    const q = clamp((p - 0.07) / 0.83);
+    const q = clamp((p - 0.07) / 0.86);
     const pos = q * N, i = Math.min(N - 1, Math.floor(pos)), t = pos - i;
     if (i !== cur) { cur = i; lineEl.classList.add('swap'); linkEl.classList.add('swap'); clearTimeout(swapT); swapT = setTimeout(() => { show(i); lineEl.classList.remove('swap'); linkEl.classList.remove('swap'); }, 160); }
     // cada producto cuenta desde cero, llega a su cifra, se reinicia y arranca el siguiente
-    const to = ITEMS[i].n, u = 1 - Math.pow(1 - clamp(t / 0.72), 3);
+    const to = ITEMS[i].n, u = 1 - Math.pow(1 - clamp(t / 0.34), 3);
     const v = to * u;
     numEl.textContent = fmt(v);
     barEl.style.width = (q * 100).toFixed(2) + '%';
-    endEl.classList.toggle('on', p > 0.9);
+    endEl.classList.toggle('on', p > 0.93); ctaEl.classList.toggle('on', p > 0.95);
   }
   function frame(){ requestAnimationFrame(frame); prog += (target - prog) * 0.16; if (Math.abs(target - prog) > 0.0004 || cur < 0) paint(); }
   requestAnimationFrame(frame);
