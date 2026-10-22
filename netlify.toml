@@ -23,6 +23,23 @@
   status = 301
   force  = true
 
+
+# URLs antiguas que Google sigue rastreando (Search Console, 2026-10-22): sin perder al visitante
+[[redirects]]
+  from   = "/blog"
+  to     = "/recursos/"
+  status = 301
+
+[[redirects]]
+  from   = "/blog/*"
+  to     = "/recursos/"
+  status = 301
+
+[[redirects]]
+  from   = "/evento"
+  to     = "/"
+  status = 301
+
 [[headers]]
   for = "/*"
   [headers.values]
