@@ -14,6 +14,11 @@ const WA_NUM_SSR = '593988253030';
 const waSSR = (msg: string) => `https://wa.me/${WA_NUM_SSR}?text=${encodeURIComponent(msg)}`;
 const WA_HERO_SSR = waSSR('Hola, quiero cotizar un producto de BIE. ¿Qué me recomiendan para mi negocio?\n\n— Origen: web/home/hero/es');
 const WA_MENU_SSR = waSSR('Hola, quiero cotizar un producto de BIE. ¿Qué me recomiendan para mi negocio?\n\n— Origen: web/home/menu/es');
+const WA_START_SSR = waSSR('Hola, no sé por dónde empezar. Les cuento mi negocio: \n\n— Origen: web/home/empezar/es');
+const WA_PK1_SSR = waSSR('Hola, me interesa la ruta "Que te encuentren" (página web, Google Maps, marca). Mi negocio es: \n\n— Origen: web/home/ruta-1/es');
+const WA_PK2_SSR = waSSR('Hola, me interesa la ruta "Que te compren" (WhatsApp Business, asistente 24/7, redes). Mi negocio es: \n\n— Origen: web/home/ruta-2/es');
+const WA_PK3_SSR = waSSR('Hola, me interesa la ruta "Que funcione solo" (automatizaciones, CRM, sistema). Mi negocio es: \n\n— Origen: web/home/ruta-3/es');
+const WA_EST_SSR = waSSR('Hola, quiero el acompañamiento mensual de BIE. Mi negocio es: \n\n— Origen: web/home/acompanamiento/es');
 const WA_SIM_SSR = waSSR('Hola, quiero empezar. Les cuento mi negocio para saber qué necesito.\n\n— Origen: web/home/asi-de-simple/es');
 const WA_DIAG_SSR = waSSR('Hola, quiero un diagnóstico gratuito para mi empresa.\n\n— Origen: web/home/catalogo/es');
 const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Origen: web/home/comunidad/es');
@@ -28,7 +33,7 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <meta name="theme-color" content="#101012">
 <title>BIE — Business Intelligence Enhancer | Adaptación digital de empresas en Ecuador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="BIE adapta tu empresa a la tecnología de hoy: marca, sitio web, automatización con IA, publicidad digital y administración. 47 productos que puedes pedir hoy. Cotiza por WhatsApp. Ecuador.">
+<meta name="description" content="Página web, asistente de WhatsApp, marca y sistema para negocios en Ecuador. Lo construimos por ti y lo mantenemos contigo desde USD 25 al mes. Tres rutas para empezar. Cotiza por WhatsApp.">
 <meta property="og:title" content="BIE — Business Intelligence Enhancer">
 <meta property="og:description" content="Dedica tu tiempo a lo que sabes hacer. Nosotros construimos todo el resto: sistemas, marca y tecnología trabajando juntos. Cotiza por WhatsApp.">
 <meta property="og:type" content="website">
@@ -856,6 +861,49 @@ body.cubo-intro #progress{opacity:0}
 @media (max-height:760px){.nicho-num{font-size:clamp(64px,12.5vw,170px);margin-top:16px}.nicho-line{margin-top:14px;font-size:clamp(20px,2.6vw,34px)}.nicho-link{margin-top:18px;padding:11px 16px}.nicho-end{margin-top:18px;font-size:16px}}
 @media (max-width:640px){#nicho{height:600vh}.nicho-sticky{padding-top:58px}.nicho-head{flex-wrap:wrap}.nicho-num{font-size:clamp(58px,19vw,96px);margin-top:20px}.nicho-line{font-size:clamp(20px,6vw,26px);max-width:none}.nicho-head .nicho-src{display:none}}
 @media (prefers-reduced-motion: reduce){#nicho{height:auto}.nicho-sticky{position:static;height:auto;padding:90px 0;background:var(--accent);color:#0b0b0d}.nicho-end{opacity:1;transform:none}}
+/* Resultados por cliente bajo las hileras */
+.results{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--border)}
+.results li{padding:22px 24px 22px 0;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);margin-right:24px}
+.results li:last-child{border-right:0;margin-right:0}
+.results b{font-weight:500;font-size:15px;color:var(--text)}
+.results span{font-size:15px;line-height:1.45;color:var(--text2)}
+/* Salida fácil + tres rutas */
+.top-start{display:inline-flex;align-items:center;gap:14px;margin-top:34px;padding:18px 24px;border:1px solid var(--bone);color:var(--bone);font-size:16px;letter-spacing:-.01em;transition:background .3s,color .3s}
+.top-start:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.ts-px{width:8px;height:8px;background:var(--accent);flex-shrink:0}
+.top-start:hover .ts-px{background:#fff}
+.ts-arrow{transition:transform .4s var(--ease)}
+.top-start:hover .ts-arrow{transform:translateX(6px)}
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
+.pack{display:flex;flex-direction:column;gap:14px;padding:30px 28px 26px;border:1px solid var(--border);background:var(--surface);color:var(--text);position:relative;transition:border-color .4s,transform .5s var(--ease)}
+.pack::before{content:'';position:absolute;left:0;top:0;width:3px;height:40px;background:var(--accent)}
+.pack:hover{border-color:rgba(255,253,249,.35);transform:translateY(-5px)}
+.pack-k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3)}
+.pack-n{font-size:clamp(24px,2.3vw,32px);font-weight:400;letter-spacing:-.025em;line-height:1.05;margin:0}
+.pack-d{font-size:15px;line-height:1.5;color:var(--text2);margin:0}
+.pack-l{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pack-l li{font-size:14.5px;color:var(--text);padding-left:16px;position:relative}
+.pack-l li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--accent)}
+.pack-p{margin-top:auto;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--text3);display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 8px}
+.pack-p b{font-weight:400;font-size:26px;letter-spacing:-.02em;color:var(--text)}
+.pack-p em{font-style:normal;flex-basis:100%;font-size:12px}
+.pack-go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);margin-top:8px}
+.pack:hover .pack-go{color:var(--accent)}
+.top-pick{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin:56px 0 -36px}
+/* Producto estrella */
+#estrella{padding:120px 0;background:var(--black);border-top:1px solid var(--border)}
+.est-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:start}
+.est-left .section-h2{font-size:clamp(30px,3.6vw,52px);max-width:16ch}
+.est-left .section-sub{margin-top:22px}
+.est-right{border:1px solid var(--border);background:var(--surface);padding:34px 32px;display:flex;flex-direction:column;gap:22px}
+.est-price{margin:0;display:flex;flex-direction:column;gap:4px}
+.est-price b{font-weight:400;font-size:clamp(34px,4vw,54px);letter-spacing:-.03em;line-height:1}
+.est-price span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3)}
+.est-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.est-l li{font-size:15px;line-height:1.5;color:var(--text2);padding-left:18px;position:relative}
+.est-l li::before{content:'';position:absolute;left:0;top:.6em;width:7px;height:7px;background:var(--accent)}
+.est-btn{align-self:flex-start;white-space:nowrap}
+@media (max-width:860px){.results{grid-template-columns:1fr}.results li{border-right:0;margin-right:0;border-bottom:1px solid var(--border);padding:16px 0}.results li:last-child{border-bottom:0}.packs{grid-template-columns:1fr}.top-pick{margin:40px 0 -24px}.est-inner{grid-template-columns:1fr;gap:28px}#estrella{padding:80px 0}.top-start{width:100%;justify-content:space-between}}
 #contact{padding:140px 0;background:var(--surface)}
 /* Contacto como una frase: escribes dentro del texto, sin cajas */
 .madlib{margin-top:64px;max-width:1040px}
@@ -1125,10 +1173,11 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
     <div class="reel-row reel-rev" id="work-row-2"><div class="reel-track"></div></div>
   </div>
   <div class="section-inner">
-    <div class="trust-strip reveal">
-      <span class="trust-label" data-i18n="trust_label" set:html={es('trust_label')}></span>
-      <span class="trust-names">Tasting Ecuador · Luway · Óscar Caicho</span>
-    </div>
+    <ul class="results">
+      <li><b>Tasting Ecuador</b><span data-i18n="res1" set:html={es('res1')}></span></li>
+      <li><b>Luway</b><span data-i18n="res2" set:html={es('res2')}></span></li>
+      <li><b>Óscar Caicho</b><span data-i18n="res3" set:html={es('res3')}></span></li>
+    </ul>
   </div>
 </section>
 
@@ -1144,6 +1193,20 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
       <h2 class="section-h2" data-i18n="top_h2" set:html={es('top_h2')}></h2>
       <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
     </div>
+    <a class="top-start reveal d1" href={WA_START_SSR} target="_blank" rel="noopener"><span class="ts-px"></span><span data-i18n="top_start" set:html={es('top_start')}></span><span class="ts-arrow" aria-hidden="true">→</span></a>
+    <div class="packs reveal d1">
+      {[['pk1', WA_PK1_SSR], ['pk2', WA_PK2_SSR], ['pk3', WA_PK3_SSR]].map(([k, href], i) => (
+        <a class="pack" href={href} target="_blank" rel="noopener">
+          <span class="pack-k"><span data-i18n="pk_k" set:html={es('pk_k')}></span> 0{i + 1}</span>
+          <h3 class="pack-n" data-i18n={k + '_n'} set:html={es(k + '_n')}></h3>
+          <p class="pack-d" data-i18n={k + '_d'} set:html={es(k + '_d')}></p>
+          <ul class="pack-l">{(UI_STATIC[k + '_l'] as any).es.map((x: string, j: number) => <li data-i18n-list={k + '_l'} data-j={j}>{x}</li>)}</ul>
+          <span class="pack-p"><span data-i18n="pk_from" set:html={es('pk_from')}></span> <b data-i18n={k + '_p'} set:html={es(k + '_p')}></b><em data-i18n="pk_note" set:html={es('pk_note')}></em></span>
+          <span class="pack-go"><span data-i18n="pk_go" set:html={es('pk_go')}></span> →</span>
+        </a>
+      ))}
+    </div>
+    <p class="top-pick reveal" data-i18n="top_pick" set:html={es('top_pick')}></p>
     <div class="top-grid reveal d2" id="top-grid"></div>
     <div class="belt-cta reveal d3">
       <p class="belt-cta-txt" data-i18n="top_note" set:html={es('top_note')}></p>
@@ -1168,6 +1231,22 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
         <a class="sim-cta" id="sim-wa" href={WA_SIM_SSR} target="_blank" rel="noopener"><span data-i18n="sim_btn" set:html={es('sim_btn')}></span> →</a>
         <p class="sim-example" data-i18n="sim_example" set:html={es('sim_example')}></p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTO ESTRELLA: acompañamiento mensual -->
+<section id="estrella">
+  <div class="section-inner est-inner">
+    <div class="est-left reveal">
+      <p class="section-label" data-i18n="est_label" set:html={es('est_label')}></p>
+      <h2 class="section-h2" data-i18n="est_h2" set:html={es('est_h2')}></h2>
+      <p class="section-sub" data-i18n="est_p" set:html={es('est_p')}></p>
+    </div>
+    <div class="est-right reveal d1">
+      <p class="est-price"><b data-i18n="est_price" set:html={es('est_price')}></b><span data-i18n="est_price_n" set:html={es('est_price_n')}></span></p>
+      <ul class="est-l">{(UI_STATIC.est_l as any).es.map((x: string, j: number) => <li data-i18n-list="est_l" data-j={j}>{x}</li>)}</ul>
+      <a class="btn-primary est-btn" href={WA_EST_SSR} target="_blank" rel="noopener"><span data-i18n="est_btn" set:html={es('est_btn')}></span> →</a>
     </div>
   </div>
 </section>
@@ -1284,8 +1363,9 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
     <div class="footer-bottom">
       <span class="footer-text">BUSINESS INTELLIGENCE ENHANCER</span>
       <span class="footer-text">businessintelligence.solutions</span>
-      <span class="footer-text">© 2026 · ECUADOR</span>
-      <span class="footer-legal"><a href="/privacidad/">Privacidad</a><a href="/terminos/">Términos</a></span>
+      <span class="footer-text" data-i18n="ft_ruc" set:html={es('ft_ruc')}></span>
+      <span class="footer-text">© 2026</span>
+      <span class="footer-legal"><a href="/privacidad/" data-i18n="ft_lopdp" set:html={es('ft_lopdp')}></a><a href="/privacidad/">Privacidad</a><a href="/terminos/">Términos</a></span>
     </div>
   </div>
 </footer>
@@ -1558,6 +1638,7 @@ function applyStatics(){
   document.getElementById('mm-wa').href = wa(WA_GEN[lang] + origin('home/menu'));
   if (window.__kinSplit) window.__kinSplit();
   if (window.__nichoLang) window.__nichoLang();
+  document.querySelectorAll('[data-i18n-list]').forEach(el => { const l = UI[el.dataset.i18nList]; if (l && l[lang]) el.textContent = l[lang][+el.dataset.j]; });
   document.getElementById('waw-opts').innerHTML = WAW_OPTS.map(o =>
     `<a class="waw-opt" href="${wa(o.m[lang] + origin('home/cubo'))}" target="_blank"><span class="waw-opt-px"></span>${o.t[lang]}</a>`).join('');
 }
