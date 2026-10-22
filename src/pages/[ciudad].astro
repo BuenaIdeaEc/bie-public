@@ -1,0 +1,206 @@
+---
+// BIE — Landings por ciudad/provincia (paso 6 del plan de posicionamiento, 2026-10-22).
+// Una página por ciudad para las búsquedas locales ("página web Quito", "chatbot WhatsApp Guayaquil", "agencia digital Cuenca").
+// Honestidad: BIE trabaja 100 % en digital para todo Ecuador; no se inventa oficina ni equipo local. Cifras nacionales con fuente.
+import '../styles/site.css';
+
+export function getStaticPaths() {
+  return [{ params: { ciudad: 'quito' } }, { params: { ciudad: 'guayaquil' } }, { params: { ciudad: 'cuenca' } }];
+}
+const { ciudad } = Astro.params;
+
+const CITIES: Record<string, { nombre: string; provincia: string; gentilicio: string; intro: string; contexto: string; caso?: { nombre: string; texto: string; url: string } }> = {
+  quito: {
+    nombre: 'Quito', provincia: 'Pichincha', gentilicio: 'quiteño',
+    intro: 'En Quito compiten más agencias digitales que en cualquier otra ciudad del país. Eso es bueno para ti: puedes comparar. Aquí te decimos qué hacemos, cuánto cuesta empezar y cómo trabajamos con negocios de la capital sin que tengas que ir a ninguna oficina.',
+    contexto: 'Consultorios en la Carolina, restaurantes en La Floresta, tiendas en Cumbayá, servicios profesionales en el norte: todos compiten en las mismas búsquedas de Google y en el mismo WhatsApp. Lo que decide es quién aparece y quién responde primero.',
+  },
+  guayaquil: {
+    nombre: 'Guayaquil', provincia: 'Guayas', gentilicio: 'guayaquileño',
+    intro: 'Guayaquil es la ciudad comercial del Ecuador y la que más vende por WhatsApp. Si tu negocio está aquí y todavía responde a mano, cada hora sin contestar es una venta que se va a otro. Aquí te decimos qué hacemos, cuánto cuesta empezar y cómo trabajamos con negocios del puerto sin oficinas de por medio.',
+    contexto: 'Importadoras, boutiques, clínicas y restaurantes de Samborondón, Urdesa, Alborada o el centro: el cliente guayaquileño pregunta por WhatsApp, compara en Instagram y decide en minutos. Tu negocio tiene que estar listo en los tres lugares.',
+  },
+  cuenca: {
+    nombre: 'Cuenca', provincia: 'Azuay', gentilicio: 'cuencano',
+    intro: 'Cuenca es donde BIE tiene su caso más completo: Tasting Ecuador, que pasó de vender comida a construir un ecosistema de negocios en varias plataformas. Aquí te decimos qué hacemos, cuánto cuesta empezar y cómo trabajamos con negocios del Azuay.',
+    contexto: 'Gastronomía, turismo, artesanía, salud y servicios profesionales: en Cuenca el negocio vive de la reputación, y hoy la reputación se busca en Google y se confirma en WhatsApp antes de la primera visita.',
+    caso: { nombre: 'Tasting Ecuador', texto: 'Marca, sistema operativo propio, página web y contenido para una empresa de experiencias gastronómicas en Cuenca. De vender comida a crear un ecosistema de negocios en varias plataformas.', url: '/casos/tasting-ecuador/?src=landing-cuenca' },
+  },
+};
+const c = CITIES[ciudad];
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/${ciudad}/`;
+const title = `Página web, chatbot de WhatsApp y marca para negocios en ${c.nombre} | BIE`;
+const description = `Página web desde USD 150, asistente de WhatsApp, identidad de marca y sistema para negocios de ${c.nombre} y ${c.provincia}. Lo construimos por ti y lo mantenemos contigo, 100 % en digital. Tres rutas para empezar.`;
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + `\n\n— Origen: web/${ciudad}/es`)}`;
+const PUB = '2026-10-22';
+
+const RUTAS = [
+  { n: 'Que te encuentren', d: 'Para quien todavía no aparece cuando lo buscan.', l: ['Página web que vende', 'Perfil de Google Maps', 'Identidad de marca'], p: 'USD 275', c: 'Apareces cuando te buscan y te ven profesional desde el primer clic.', href: '/productos/pagina-web/' },
+  { n: 'Que te compren', d: 'Para quien ya tiene clientes escribiendo y no da abasto.', l: ['WhatsApp Business con catálogo', 'Asistente inteligente 24/7', 'Gestión de redes sociales'], p: 'USD 247', c: 'Respondes y cobras aunque estés ocupado. Nadie se queda sin respuesta.', href: '/productos/asistente-inteligente-whatsapp/' },
+  { n: 'Que funcione solo', d: 'Para quien vende bien pero vive apagando incendios.', l: ['Automatizaciones de procesos', 'CRM con IA', 'Sistema operativo de tu empresa'], p: 'USD 250 · el resto bajo cotización', c: 'Dejas de apagar incendios: todo queda registrado y se mueve solo.', href: '/productos/sistema-operativo/' },
+];
+
+const FAQ = [
+  { q: `¿Tienen oficina en ${c.nombre}?`, a: `No. BIE trabaja 100 % en digital para todo Ecuador. Todo pasa por WhatsApp, videollamada y tu propio sistema: no hay traslados, no hay citas presenciales que esperar, y los precios no cargan alquiler de oficina.` },
+  { q: `¿Cuánto cuesta una página web para un negocio de ${c.nombre}?`, a: `La página web de BIE cuesta USD 150 de creación más USD 25 al mes de acompañamiento, con hosting incluido y sin permanencia mínima. Las agencias de ${c.nombre === 'Quito' ? 'la ciudad' : 'Quito y Guayaquil'} publican entre USD 250 y USD 690 por una web informativa.` },
+  { q: '¿Qué es el acompañamiento mensual?', a: 'Cada mes revisamos cómo le va comercialmente a tu web, tu WhatsApp o tu sistema, proponemos una mejora concreta y la implementamos. Una persona real responde en el día. Se conversa contigo, sin permanencia mínima.' },
+  { q: `¿Trabajan con negocios pequeños de ${c.nombre}?`, a: 'Sí. Nuestros clientes son pymes: experiencias gastronómicas, moda en vivo, consultorios, conferencistas. Las tres rutas de entrada están pensadas para empezar con lo que te duele hoy y sumar el resto a tu ritmo.' },
+  { q: '¿Cómo empiezo?', a: 'Escríbenos por WhatsApp contando qué vendes y qué te gustaría resolver. Te decimos con honestidad por dónde empezar, sin compromiso. Respondemos en el día.' },
+  { q: '¿Qué pasa si dejo de trabajar con BIE?', a: 'Todo es tuyo: dominio, accesos, archivos, cuenta de WhatsApp y datos. Lo entregamos documentado para que cualquier proveedor pueda seguir.' },
+];
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: `Adaptación digital de negocios en ${c.nombre}`, provider: { '@id': `${SITE}/#org` }, areaServed: [{ '@type': 'City', name: c.nombre }, { '@type': 'AdministrativeArea', name: c.provincia }], url, description, serviceType: ['Diseño de páginas web', 'Chatbot de WhatsApp', 'Identidad de marca', 'CRM y automatización'],
+    hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Rutas de entrada', itemListElement: RUTAS.map((r) => ({ '@type': 'Offer', name: r.n, description: r.l.join(', '), price: r.p.replace(/[^0-9]/g, ''), priceCurrency: 'USD', url: SITE + r.href })) } },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' }, { '@type': 'ListItem', position: 2, name: c.nombre, item: url }] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
+<meta property="og:locale" content="es_EC">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.top a.logo{font-weight:700;letter-spacing:-.02em;font-size:18px;color:var(--text)}
+.top a.wa{border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px}
+.hero{padding:min(10vh,90px) 0 60px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+h1{font-size:clamp(32px,5vw,62px);font-weight:400;letter-spacing:-.03em;line-height:1.02;margin-top:18px;text-wrap:balance}
+h1 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.06em}
+.lead{font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:var(--text2);margin-top:22px;max-width:60ch}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn-primary{display:inline-block}
+.btn-ghost2{display:inline-block;border:1px solid var(--border);color:var(--text2);padding:16px 22px;font-size:14px}
+.facts{border:1px solid var(--border);padding:26px 28px;display:flex;flex-direction:column;gap:18px}
+.facts b{display:block;font-size:clamp(28px,3vw,40px);font-weight:400;letter-spacing:-.03em;line-height:1}
+.facts span{display:block;font-size:14px;color:var(--text2);margin-top:6px;line-height:1.5}
+.facts small{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+section{padding:70px 0}
+h2{font-size:clamp(26px,3.2vw,40px);font-weight:400;letter-spacing:-.025em;line-height:1.1;margin:0 0 14px;text-wrap:balance}
+h2 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.06em}
+.sub{font-size:16px;line-height:1.6;color:var(--text2);max-width:62ch}
+.rutas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.ruta{display:flex;flex-direction:column;gap:12px;padding:28px 26px 24px;border:1px solid var(--border);background:var(--surface);color:var(--text);transition:border-color .4s,transform .5s var(--ease)}
+.ruta:hover{border-color:rgba(255,253,249,.35);transform:translateY(-4px)}
+.ruta .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3)}
+.ruta h3{font-size:clamp(22px,2.2vw,30px);font-weight:400;letter-spacing:-.025em;line-height:1.05;margin:0}
+.ruta p{font-size:15px;line-height:1.5;color:var(--text2);margin:0}
+.ruta ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.ruta li{font-size:14.5px;padding-left:16px;position:relative}
+.ruta li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--accent)}
+.ruta .c{padding:12px 14px;background:var(--bg);border-left:2px solid var(--accent);font-size:14px;color:var(--text)}
+.ruta .p{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.ruta .p b{display:block;font-weight:400;font-size:22px;letter-spacing:-.02em;color:var(--text);margin-top:4px}
+.caso{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;border:1px solid var(--border);background:var(--surface);padding:32px}
+.caso img{width:100%;height:auto;display:block}
+.caso h3{font-size:24px;font-weight:400;letter-spacing:-.02em;margin:0 0 10px}
+.caso p{color:var(--text2);line-height:1.6;margin:0 0 18px}
+.caso a.more{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--bone);color:var(--bone);padding:12px 18px}
+.faq{margin-top:28px;border-top:1px solid var(--border)}
+.faq-item{padding:22px 0;border-bottom:1px solid var(--border)}
+.faq-item h3{font-size:17px;font-weight:500;letter-spacing:-.01em;margin:0 0 8px}
+.faq-item p{font-size:15px;line-height:1.6;color:var(--text2);margin:0;max-width:70ch}
+.cta{border:1px solid var(--bone);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta p{font-size:clamp(20px,2.4vw,30px);letter-spacing:-.02em;line-height:1.15;margin:0;max-width:24ch}
+.cities{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cities a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:9px 14px;color:var(--text2)}
+.cities a:hover{border-color:var(--accent);color:var(--text)}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:28px}.rutas{grid-template-columns:1fr}.caso{grid-template-columns:1fr}.top a.wa{display:none}section{padding:50px 0}}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<div class="wrap">
+  <div class="top"><a class="logo" href="/">BIE</a><a class="wa" href={wa(`Hola, tengo un negocio en ${c.nombre}. Quiero saber por dónde empezar.`)} target="_blank" rel="noopener">Escribir por WhatsApp</a></div>
+  <div class="hero">
+    <div>
+      <span class="eyebrow">{c.nombre} · {c.provincia}</span>
+      <h1>Página web, chatbot de WhatsApp y marca para negocios en {c.nombre}. <em>Funcionando, no prometido.</em></h1>
+      <p class="lead">{c.intro}</p>
+      <div class="hero-cta">
+        <a class="btn-primary" href={wa(`Hola, tengo un negocio en ${c.nombre}. Vendo: `)} target="_blank" rel="noopener"><span>Cuéntanos tu negocio</span></a>
+        <a class="btn-ghost2" href="#rutas">Ver las tres rutas</a>
+      </div>
+    </div>
+    <aside class="facts" aria-label="Datos de Ecuador">
+      <div><b>74 de cada 100</b><span>compradores en línea en Ecuador ya cierran por WhatsApp.</span><small>CECE · UEES, 2025</small></div>
+      <div><b>28 de cada 100</b><span>mipymes tienen página web propia. El resto, todavía no.</span><small>Pyme Digital · BID · ESPOL</small></div>
+      <div><b>USD 150</b><span>cuesta tu página web con BIE, más USD 25 al mes de acompañamiento. Sin permanencia.</span><small>Precio publicado en la ficha</small></div>
+    </aside>
+  </div>
+
+  <section id="rutas">
+    <h2>Tres rutas para empezar en {c.nombre}, <em>según lo que te duele hoy.</em></h2>
+    <p class="sub">{c.contexto}</p>
+    <div class="rutas">
+      {RUTAS.map((r, i) => (
+        <a class="ruta" href={wa(`Hola, tengo un negocio en ${c.nombre} y me interesa la ruta "${r.n}". Mi negocio es: `)} target="_blank" rel="noopener">
+          <span class="k">Ruta 0{i + 1}</span>
+          <h3>{r.n}</h3>
+          <p>{r.d}</p>
+          <ul>{r.l.map((x) => <li>{x}</li>)}</ul>
+          <span class="c">{r.c}</span>
+          <span class="p">Paquete desde<b>{r.p}</b>Lo que no entra se cotiza contigo.</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {c.caso && (
+    <section>
+      <h2>Un caso real, <em>en {c.nombre}.</em></h2>
+      <div class="caso">
+        <img src="/images/casos/tasting/branding.webp" alt="Identidad de marca de Tasting Ecuador, Cuenca" width="1600" height="1131" loading="lazy" decoding="async">
+        <div><h3>{c.caso.nombre}</h3><p>{c.caso.texto}</p><a class="more" href={c.caso.url}>Ver el caso →</a></div>
+      </div>
+    </section>
+  )}
+
+  <section>
+    <h2>Así trabajamos con negocios de {c.nombre}. <em>Cero tecnicismos.</em></h2>
+    <p class="sub">Nos escribes por WhatsApp. Elegimos juntos por dónde empezar. Lo construimos por ti y te lo entregamos funcionando. Y lo mantenemos contigo: cada mes revisamos, mejoramos y respondemos. Todo en digital: sin traslados, sin oficinas que pagar, con una persona real al otro lado.</p>
+    <div class="cities"><a href="/recursos/cuanto-cuesta-una-pagina-web-en-ecuador/">Cuánto cuesta una página web →</a><a href="/recursos/chatbot-whatsapp-para-negocios-en-ecuador/">Chatbot de WhatsApp →</a><a href="/recursos/crm-con-whatsapp-para-pymes-en-ecuador/">CRM con WhatsApp →</a><a href="/catalogo/">Catálogo completo →</a></div>
+  </section>
+
+  <section>
+    <h2>Preguntas de negocios en {c.nombre}</h2>
+    <div class="faq">
+      {FAQ.map((f) => <div class="faq-item"><h3>{f.q}</h3><p>{f.a}</p></div>)}
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <p>¿Tu negocio está en {c.nombre}? Cuéntanos qué vendes y te decimos por dónde empezar.</p>
+      <a class="btn-primary" href={wa(`Hola, tengo un negocio en ${c.nombre}. Quiero saber por dónde empezar. Vendo: `)} target="_blank" rel="noopener"><span>Escribir por WhatsApp</span></a>
+    </div>
+    <div class="cities">
+      {['quito', 'guayaquil', 'cuenca'].filter((x) => x !== ciudad).map((x) => <a href={`/${x}/`}>{CITIES[x].nombre} →</a>)}
+      <a href="/">Todo Ecuador →</a>
+    </div>
+  </section>
+</div>
+<footer>BUSINESS INTELLIGENCE ENHANCER · RUC 0993404878001 · Ecuador, 100 % digital · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>
