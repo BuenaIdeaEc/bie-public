@@ -33,7 +33,7 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <meta name="theme-color" content="#101012">
 <title>BIE — Business Intelligence Enhancer | Adaptación digital de empresas en Ecuador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Página web, asistente de WhatsApp, marca y sistema para negocios en Ecuador. Lo construimos por ti y lo mantenemos contigo desde USD 25 al mes. Tres rutas para empezar. Cotiza por WhatsApp.">
+<meta name="description" content="Página web, asistente de WhatsApp, marca y sistema para negocios en Ecuador. Lo construimos por ti y lo mantenemos contigo. Tres rutas para empezar. Cotiza por WhatsApp.">
 <meta property="og:title" content="BIE — Business Intelligence Enhancer">
 <meta property="og:description" content="Dedica tu tiempo a lo que sabes hacer. Nosotros construimos todo el resto: sistemas, marca y tecnología trabajando juntos. Cotiza por WhatsApp.">
 <meta property="og:type" content="website">
@@ -875,8 +875,16 @@ body.cubo-intro #progress{opacity:0}
 .ts-arrow{transition:transform .4s var(--ease)}
 .top-start:hover .ts-arrow{transform:translateX(6px)}
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
-.pack{display:flex;flex-direction:column;gap:14px;padding:30px 28px 26px;border:1px solid var(--border);background:var(--surface);color:var(--text);position:relative;transition:border-color .4s,transform .5s var(--ease)}
-.pack::before{content:'';position:absolute;left:0;top:0;width:3px;height:40px;background:var(--accent)}
+.pack{display:flex;flex-direction:column;gap:14px;padding:0 28px 26px;border:1px solid var(--border);background:var(--surface);color:var(--text);position:relative;overflow:hidden;transition:border-color .4s,transform .5s var(--ease)}
+.pack-media{display:block;margin:0 -28px 12px;aspect-ratio:16/9;overflow:hidden;position:relative;background:var(--bg)}
+.pack-media video,.pack-media img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9) brightness(.92);transition:transform .9s var(--ease)}
+.pack:hover .pack-media video,.pack:hover .pack-media img{transform:scale(1.04)}
+.pack-media::after{content:'';position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(180deg,rgba(17,17,20,0),var(--surface))}
+.pack-tag{position:absolute;top:14px;left:14px;z-index:2;background:var(--accent);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px}
+.pack-hot{border-color:rgba(229,57,53,.5)}
+.pack-c{margin:4px 0 0;padding:14px 16px;background:var(--bg);border-left:2px solid var(--accent);font-size:14px;line-height:1.5;color:var(--text)}
+.pack-ck{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.pack::before{display:none}
 .pack:hover{border-color:rgba(255,253,249,.35);transform:translateY(-5px)}
 .pack-k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3)}
 .pack-n{font-size:clamp(24px,2.3vw,32px);font-weight:400;letter-spacing:-.025em;line-height:1.05;margin:0}
@@ -885,7 +893,7 @@ body.cubo-intro #progress{opacity:0}
 .pack-l li{font-size:14.5px;color:var(--text);padding-left:16px;position:relative}
 .pack-l li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--accent)}
 .pack-p{margin-top:auto;padding-top:18px;border-top:1px solid var(--border);font-size:13px;color:var(--text3);display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 8px}
-.pack-p b{font-weight:400;font-size:26px;letter-spacing:-.02em;color:var(--text)}
+.pack-p b{font-weight:400;font-size:22px;letter-spacing:-.02em;color:var(--text)}
 .pack-p em{font-style:normal;flex-basis:100%;font-size:12px}
 .pack-go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);margin-top:8px}
 .pack:hover .pack-go{color:var(--accent)}
@@ -897,7 +905,7 @@ body.cubo-intro #progress{opacity:0}
 .est-left .section-sub{margin-top:22px}
 .est-right{border:1px solid var(--border);background:var(--surface);padding:34px 32px;display:flex;flex-direction:column;gap:22px}
 .est-price{margin:0;display:flex;flex-direction:column;gap:4px}
-.est-price b{font-weight:400;font-size:clamp(34px,4vw,54px);letter-spacing:-.03em;line-height:1}
+.est-price b{font-weight:400;font-size:clamp(30px,3.4vw,44px);letter-spacing:-.03em;line-height:1}
 .est-price span{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text3)}
 .est-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .est-l li{font-size:15px;line-height:1.5;color:var(--text2);padding-left:18px;position:relative}
@@ -1195,12 +1203,14 @@ html body .btn-primary,html body .btn-ghost,html body .nav-cta,html body .band-b
     </div>
     <a class="top-start reveal d1" href={WA_START_SSR} target="_blank" rel="noopener"><span class="ts-px"></span><span data-i18n="top_start" set:html={es('top_start')}></span><span class="ts-arrow" aria-hidden="true">→</span></a>
     <div class="packs reveal d1">
-      {[['pk1', WA_PK1_SSR], ['pk2', WA_PK2_SSR], ['pk3', WA_PK3_SSR]].map(([k, href], i) => (
-        <a class="pack" href={href} target="_blank" rel="noopener">
+      {([['pk1', WA_PK1_SSR, 'pagina-web', true], ['pk2', WA_PK2_SSR, 'whatsapp-business-commerce', true], ['pk3', WA_PK3_SSR, 'crm-ia', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
+        <a class={'pack' + (i === 1 ? ' pack-hot' : '')} href={href} target="_blank" rel="noopener">
+          <span class="pack-media">{vid ? <video src={'/videos/productos/' + media + '.mp4'} poster={'/images/productos/' + media + '.webp'} muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video> : <img src={'/images/productos/' + media + '.webp'} alt="" width="900" height="900" loading="lazy" decoding="async" />}{i === 1 && <span class="pack-tag" data-i18n="pk_tag2" set:html={es('pk_tag2')}></span>}</span>
           <span class="pack-k"><span data-i18n="pk_k" set:html={es('pk_k')}></span> 0{i + 1}</span>
           <h3 class="pack-n" data-i18n={k + '_n'} set:html={es(k + '_n')}></h3>
           <p class="pack-d" data-i18n={k + '_d'} set:html={es(k + '_d')}></p>
           <ul class="pack-l">{(UI_STATIC[k + '_l'] as any).es.map((x: string, j: number) => <li data-i18n-list={k + '_l'} data-j={j}>{x}</li>)}</ul>
+          <p class="pack-c"><span class="pack-ck" data-i18n="pk_change" set:html={es('pk_change')}></span><span data-i18n={k + '_c'} set:html={es(k + '_c')}></span></p>
           <span class="pack-p"><span data-i18n="pk_from" set:html={es('pk_from')}></span> <b data-i18n={k + '_p'} set:html={es(k + '_p')}></b><em data-i18n="pk_note" set:html={es('pk_note')}></em></span>
           <span class="pack-go"><span data-i18n="pk_go" set:html={es('pk_go')}></span> →</span>
         </a>

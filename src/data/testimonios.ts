@@ -6,7 +6,7 @@ export interface Testimonio { negocio: string; sector: string; persona?: string;
 export const TESTIMONIOS: Testimonio[] = [
   {
     persona: 'Óscar Caicho', negocio: 'Óscar Caicho', sector: 'Conferencias y clínica',
-    frase: 'Antes de cada charla tenía diez cosas en la cabeza. Ahora abro la app, está todo en orden y yo me concentro en hablar.',
+    frase: 'Antes de cada charla tenía diez cosas en la cabeza; era un proceso amplio y cansado. Ahora abro la app, está todo en orden, y yo me concentro en lo mío: hablar y educar.',
   },
   {
     persona: 'Paola', negocio: 'Tasting Ecuador', sector: 'Experiencias gastronómicas · Cuenca', url: 'https://tasting-ecuador.com',
@@ -14,7 +14,7 @@ export const TESTIMONIOS: Testimonio[] = [
   },
   {
     negocio: 'Luway', sector: 'Moda en vivo · TikTok y WhatsApp',
-    frase: 'Vendemos en vivo y todo pasa rápido. Con Luway OS el inventario y las entregas van solos; nosotros nos dedicamos a vender.',
+    frase: 'En los lives todo pasa rapidísimo: tallas, pedidos, entregas. Antes se nos escapaban cosas y nos dolía. Ahora Luway OS lo lleva todo y nosotras nos dedicamos a vender y a cuidar a nuestras clientas.',
   },
 ];
 
