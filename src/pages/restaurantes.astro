@@ -1,0 +1,185 @@
+---
+// BIE — Landing por sector: restaurantes (paso 6 del plan de posicionamiento, 2026-10-22).
+// Misma estructura que las landings por ciudad: una promesa, prueba con fuente, tres rutas, caso real, cuatro dudas, CTA repetido.
+// Honestidad: cifras con fuente y año; el caso es Tasting Ecuador (cliente real, autorizado).
+import '../styles/site.css';
+
+const SITE = 'https://businessintelligence.solutions';
+const url = `${SITE}/restaurantes/`;
+const title = 'Página web, WhatsApp con menú y pedidos automáticos para restaurantes en Ecuador | BIE';
+const description = 'Para restaurantes, cafeterías y negocios de comida en Ecuador: página web con menú desde USD 150, WhatsApp que toma pedidos y reservas solo, marca y sistema propio. Lo construimos por ti y lo mantenemos contigo.';
+const wa = (m: string) => `https://wa.me/593988253030?text=${encodeURIComponent(m + `\n\n— Origen: web/restaurantes/es`)}`;
+const MSG = 'Hola, tengo un restaurante. Se llama: ';
+
+const RUTAS = [
+  { n: 'Que te encuentren', l: ['Página web con menú y botón de pedido', 'Perfil de Google Maps con fotos y horario', 'Identidad de marca: menú, redes, local'], p: 'USD 275', c: 'Apareces cuando buscan dónde comer.', href: '/productos/pagina-web/' },
+  { n: 'Que te compren', l: ['WhatsApp Business con tu menú y precios', 'Asistente 24/7 que toma pedidos y reservas', 'Instagram que abre el apetito'], p: 'USD 247', c: 'Pedidos tomados aunque la cocina esté a tope.', href: '/productos/asistente-inteligente-whatsapp/' },
+  { n: 'Que funcione solo', l: ['Confirmaciones y recordatorios automáticos', 'CRM con IA: quién pide, qué pide, cuándo vuelve', 'Pedidos, inventario y caja en un solo sistema'], p: 'USD 250', c: 'Sabes qué se vende, qué sobra y quién vuelve.', href: '/productos/sistema-operativo/' },
+];
+
+const FAQ = [
+  { q: '¿Sirve para un local pequeño?', a: 'Sí. Empiezas por una sola ruta y sumas el resto cuando el negocio lo pida. Nuestros clientes son pymes, no cadenas.' },
+  { q: '¿Y si ya estoy en una app de delivery?', a: 'Perfecto: sigue ahí. Pero las apps cobran comisión por cada pedido y el cliente es de ellas. Con tu propio WhatsApp y tu web, el pedido y el cliente son tuyos.' },
+  { q: '¿Cuánto cuesta empezar?', a: 'La página web con menú: USD 150 de creación + USD 25 al mes. Las rutas: paquete desde USD 247. Te damos el precio antes de empezar, no después.' },
+  { q: '¿Tienen que venir al local?', a: 'No. Trabajamos 100 % en digital para todo Ecuador. Las fotos las coordinamos contigo y todo lo demás pasa por WhatsApp y videollamada.' },
+];
+
+const ld = [
+  { '@context': 'https://schema.org', '@type': 'Service', name: 'Adaptación digital para restaurantes en Ecuador', provider: { '@id': `${SITE}/#org` }, areaServed: { '@type': 'Country', name: 'Ecuador' }, audience: { '@type': 'BusinessAudience', name: 'Restaurantes, cafeterías y negocios de comida' }, url, description, serviceType: ['Página web con menú', 'Chatbot de WhatsApp para pedidos y reservas', 'Identidad de marca', 'CRM y automatización'],
+    hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Rutas de entrada', itemListElement: RUTAS.map((r) => ({ '@type': 'Offer', name: r.n, description: r.l.join(', '), price: r.p.replace(/[^0-9]/g, ''), priceCurrency: 'USD', url: SITE + r.href })) } },
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE + '/' }, { '@type': 'ListItem', position: 2, name: 'Restaurantes', item: url }] },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: FAQ.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+---
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{title}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:image" content={`${SITE}/images/casos/tasting/web.webp`}>
+<meta property="og:locale" content="es_EC">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
+<style is:global>
+body{background:var(--black);color:var(--text)}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+.px{position:fixed;top:18px;left:18px;width:8px;height:8px;background:var(--accent)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+.top a.logo{font-weight:700;letter-spacing:-.02em;font-size:18px;color:var(--text)}
+.top a.wa{border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:12px 18px}
+.hero{padding:min(10vh,90px) 0 60px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:end}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--accent)}
+h1{font-size:clamp(38px,6vw,76px);font-weight:400;letter-spacing:-.035em;line-height:.98;margin-top:18px;text-wrap:balance}
+h1 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.06em}
+.lead{font-size:clamp(18px,1.9vw,23px);line-height:1.45;color:var(--text2);margin-top:22px;max-width:40ch;text-wrap:pretty}
+.hero-cta{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-top:30px}
+.btn-primary{display:inline-block}
+.micro{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.facts{border:1px solid var(--border);padding:26px 28px;display:flex;flex-direction:column;gap:18px}
+.facts b{display:block;font-size:clamp(28px,3vw,40px);font-weight:400;letter-spacing:-.03em;line-height:1}
+.facts span{display:block;font-size:14px;color:var(--text2);margin-top:6px;line-height:1.5}
+.facts small{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+section{padding:70px 0}
+h2{font-size:clamp(28px,3.6vw,46px);font-weight:400;letter-spacing:-.03em;line-height:1.05;margin:0 0 14px;text-wrap:balance}
+h2 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:1.06em}
+.sub{font-size:17px;line-height:1.5;color:var(--text2);max-width:52ch}
+.rutas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.ruta{display:flex;flex-direction:column;gap:12px;padding:28px 26px 24px;border:1px solid var(--border);background:var(--surface);color:var(--text);transition:border-color .4s,transform .5s var(--ease)}
+.ruta:hover{border-color:rgba(255,253,249,.35);transform:translateY(-4px)}
+.ruta .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3)}
+.ruta h3{font-size:clamp(24px,2.4vw,32px);font-weight:400;letter-spacing:-.025em;line-height:1.05;margin:0}
+.ruta p{font-size:16px;line-height:1.45;color:var(--text);margin:0}
+.ruta ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.ruta li{font-size:14.5px;color:var(--text2);padding-left:16px;position:relative;line-height:1.4}
+.ruta li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;background:var(--accent)}
+.ruta .p{margin-top:auto;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--text3)}
+.ruta .p b{display:block;font-weight:400;font-size:24px;letter-spacing:-.02em;color:var(--text);margin-top:4px}
+.ruta .go{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--bone);margin-top:6px}
+.ruta:hover .go{color:var(--accent)}
+.caso{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;border:1px solid var(--border);background:var(--surface);padding:32px}
+.caso img{width:100%;height:auto;display:block}
+.caso h3{font-size:24px;font-weight:400;letter-spacing:-.02em;margin:0 0 10px}
+.caso p{color:var(--text2);line-height:1.5;margin:0 0 18px}
+.caso a.more{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--bone);color:var(--bone);padding:12px 18px}
+.steps{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.steps li{border-top:1px solid var(--border);padding-top:14px;font-size:clamp(17px,1.8vw,22px);letter-spacing:-.015em;line-height:1.2}
+.steps b{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.14em;color:var(--accent);margin-bottom:8px}
+.faq{margin-top:28px;border-top:1px solid var(--border)}
+.faq-item{padding:22px 0;border-bottom:1px solid var(--border)}
+.faq-item h3{font-size:18px;font-weight:500;letter-spacing:-.01em;margin:0 0 8px}
+.faq-item p{font-size:15px;line-height:1.55;color:var(--text2);margin:0;max-width:60ch}
+.cta{border:1px solid var(--bone);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta p{font-size:clamp(22px,2.6vw,34px);letter-spacing:-.025em;line-height:1.1;margin:0;max-width:22ch}
+.cities{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.cities a{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--border);padding:9px 14px;color:var(--text2)}
+.cities a:hover{border-color:var(--accent);color:var(--text)}
+.sticky-wa{display:none}
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text3)}
+footer a{color:var(--text2);border-bottom:1px solid var(--border)}
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;gap:28px}.rutas{grid-template-columns:1fr}.caso{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.top a.wa{display:none}section{padding:50px 0}
+  .sticky-wa{display:block;position:fixed;left:16px;right:16px;bottom:16px;z-index:50;background:var(--accent);color:#fff;text-align:center;padding:16px;font-size:15px;font-weight:700;letter-spacing:-.01em;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  body{padding-bottom:84px}
+}
+</style>
+</head>
+<body>
+<span class="px" aria-hidden="true"></span>
+<div class="wrap">
+  <div class="top"><a class="logo" href="/">BIE</a><a class="wa" href={wa(MSG)} target="_blank" rel="noopener">Escribir por WhatsApp</a></div>
+  <div class="hero">
+    <div>
+      <span class="eyebrow">Restaurantes · Cafeterías · Comida</span>
+      <h1>Tu restaurante lleno, <em>sin vivir pegado al celular.</em></h1>
+      <p class="lead">Menú, pedidos y reservas por WhatsApp que se responden solos. Una página que aparece cuando buscan dónde comer. Lo construimos por ti.</p>
+      <div class="hero-cta">
+        <a class="btn-primary" href={wa(MSG)} target="_blank" rel="noopener"><span>Escríbenos cómo se llama tu local →</span></a>
+        <span class="micro">Respondemos en el día · Precio antes de empezar · Sin compromiso</span>
+      </div>
+    </div>
+    <aside class="facts" aria-label="Datos de Ecuador">
+      <div><b>74 de cada 100</b><span>compradores en línea en Ecuador ya cierran por WhatsApp.</span><small>CECE · UEES, 2025</small></div>
+      <div><b>+30 %</b><span>crecieron los pedidos a restaurantes por app en 2025. Cada uno paga comisión.</span><small>PedidosYa Ecuador, enero 2026</small></div>
+      <div><b>USD 150</b><span>tu página con menú y botón de pedido, lista en 7 días hábiles.</span><small>Precio publicado</small></div>
+    </aside>
+  </div>
+
+  <section id="rutas">
+    <h2>Elige por dónde empezar. <em>Hoy.</em></h2>
+    <p class="sub">El cliente busca dónde comer en Google, mira fotos en Instagram y pide por WhatsApp. Si en uno de los tres no estás, pide en otro lado.</p>
+    <div class="rutas">
+      {RUTAS.map((r, i) => (
+        <a class="ruta" href={wa(`Hola, tengo un restaurante y quiero la ruta "${r.n}". Se llama: `)} target="_blank" rel="noopener">
+          <span class="k">Ruta 0{i + 1}</span>
+          <h3>{r.n}</h3>
+          <p>{r.c}</p>
+          <ul>{r.l.map((x) => <li>{x}</li>)}</ul>
+          <span class="p">Paquete desde<b>{r.p}</b></span>
+          <span class="go">Quiero esta ruta →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2>Un caso real, <em>de comida.</em></h2>
+    <div class="caso">
+      <img src="/images/casos/tasting/web.webp" alt="Página web de Tasting Ecuador, experiencias gastronómicas en Cuenca" width="1600" height="1600" loading="lazy" decoding="async">
+      <div><h3>Tasting Ecuador</h3><p>Experiencias gastronómicas en Cuenca. Marca, web con reservas, Instagram y sistema propio. De vender comida a un ecosistema de negocios en varias plataformas.</p><a class="more" href="/casos/tasting-ecuador/?src=landing-restaurantes">Ver el caso →</a></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Así de simple. <em>Cero tecnicismos.</em></h2>
+    <ol class="steps"><li><b>01</b>Nos escribes por WhatsApp</li><li><b>02</b>Elegimos juntos</li><li><b>03</b>Lo construimos por ti</li><li><b>04</b>Lo mantenemos contigo</li></ol>
+    <div class="cities"><a href="/recursos/cuanto-cuesta-una-pagina-web-en-ecuador/">Cuánto cuesta una página web →</a><a href="/recursos/chatbot-whatsapp-para-negocios-en-ecuador/">Chatbot de WhatsApp →</a><a href="/catalogo/">Catálogo completo →</a></div>
+  </section>
+
+  <section>
+    <h2>Lo que preguntan antes de empezar</h2>
+    <div class="faq">
+      {FAQ.map((f) => <div class="faq-item"><h3>{f.q}</h3><p>{f.a}</p></div>)}
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <p>Escríbenos cómo se llama tu local. En 24 horas sabes por dónde empezar y cuánto cuesta.</p>
+      <a class="btn-primary" href={wa(MSG)} target="_blank" rel="noopener"><span>Escribir por WhatsApp</span></a>
+    </div>
+    <div class="cities"><a href="/quito/">Quito →</a><a href="/guayaquil/">Guayaquil →</a><a href="/cuenca/">Cuenca →</a><a href="/">Todo Ecuador →</a></div>
+  </section>
+</div>
+<a class="sticky-wa" href={wa(MSG)} target="_blank" rel="noopener">Escríbenos cómo se llama tu local →</a>
+<footer>BUSINESS INTELLIGENCE ENHANCER · RUC 0993404878001 · Ecuador, 100 % digital · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+</body>
+</html>

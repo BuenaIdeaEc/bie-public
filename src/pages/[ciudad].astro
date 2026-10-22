@@ -178,7 +178,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
     <section>
       <h2>Un caso real, <em>en {c.nombre}.</em></h2>
       <div class="caso">
-        <img src="/images/casos/tasting/branding.webp" alt="Identidad de marca de Tasting Ecuador, Cuenca" width="1600" height="1131" loading="lazy" decoding="async">
+        <img src="/images/casos/tasting/branding.webp" alt="Identidad de marca de Tasting Ecuador, Cuenca" width="1600" height="1600" loading="lazy" decoding="async">
         <div><h3>{c.caso.nombre}</h3><p>{c.caso.texto}</p><a class="more" href={c.caso.url}>Ver el caso →</a></div>
       </div>
     </section>
@@ -204,7 +204,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
     </div>
     <div class="cities">
       {['quito', 'guayaquil', 'cuenca'].filter((x) => x !== ciudad).map((x) => <a href={`/${x}/`}>{CITIES[x].nombre} →</a>)}
-      <a href="/">Todo Ecuador →</a>
+      <a href="/restaurantes/">Para restaurantes →</a><a href="/">Todo Ecuador →</a>
     </div>
   </section>
 </div>

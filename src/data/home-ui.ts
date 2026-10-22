@@ -61,7 +61,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   est_btn:{es:'Quiero acompañamiento',en:'I want the companion plan'},
   res1:{es:'De vender comida a crear un ecosistema de negocios en varias plataformas.',en:'From selling food to building a business ecosystem across several platforms.'},
   res2:{es:'Inventario, ventas y entregas en un solo sistema.',en:'Inventory, sales and deliveries in one system.'},
-  res3:{es:'Sus conferencias con app propia, un sistema operativo para su negocio y dirección de marca para sus eventos y su imagen pública.',en:'His conferences with their own app, an operating system for his business and brand direction for his events and public image.'},
+  res3:{es:'Dirección de su evento Escuela de Heridas Guayaquil en marca y tecnología: identidad, página web, material físico y certificados automáticos. Además, su app de conferencias y su sistema operativo.',en:'Direction of his Escuela de Heridas Guayaquil event in brand and technology: identity, website, printed material and automatic certificates. Plus his conference app and operating system.'},
   ft_ruc:{es:'RUC 0993404878001 · Ecuador · 100 % digital',en:'Tax ID 0993404878001 · Ecuador · 100% digital'},
   ft_lopdp:{es:'Protección de datos (LOPDP)',en:'Data protection (LOPDP)'},
   top_soon:{es:'Página completa muy pronto',en:'Full page coming soon'},

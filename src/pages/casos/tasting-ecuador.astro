@@ -26,8 +26,6 @@ const SLIDES = [
     text: 'Una línea editorial planificada para el perfil: piezas con una misma voz, fotografía propia y frases de marca que hacen que el feed se lea como un conjunto.' },
   { img: 'disenos', alt: TASTING_ALT.disenos, tag: 'Diseño gráfico', title: 'Agenda, e-books y menús',
     text: 'Los diseños que el negocio necesita para operar, todos con la identidad de la marca: una agenda, e-books y menús listos para compartir con los clientes.' },
-  { img: 'documentos', alt: TASTING_ALT.documentos, tag: 'Documentos', title: 'Cotizaciones, diplomas y papelería',
-    text: 'Documentos con la misma imagen de marca: cotizaciones, diplomas y papelería. Cada propuesta que sale del negocio se ve igual de cuidada que el resto.', note: 'Los datos del cliente del documento están difuminados.' },
 ];
 
 const ld = [
@@ -97,7 +95,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
 .lines{margin-top:14px;padding-left:20px;max-width:66ch}
 .lines li{font-size:16px;line-height:1.7;color:var(--text2);margin-top:6px}
 .lines b{color:var(--text);font-weight:500}
-.tg-stage{display:grid;border:1px solid var(--border);background:#000;aspect-ratio:1600/1131;overflow:hidden}
+.tg-stage{display:grid;border:1px solid var(--border);background:#000;aspect-ratio:1;overflow:hidden}
 .tg-slide{grid-area:1/1;margin:0;opacity:0;transition:opacity .7s ease;pointer-events:none}
 .tg-slide.on{opacity:1;pointer-events:auto}
 .tg-slide img{display:block;width:100%;height:100%;object-fit:cover}
@@ -169,7 +167,7 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
     <div class="tg-stage" id="tg-stage">
       {SLIDES.map((s, i) => (
         <figure class={`tg-slide${i === 0 ? ' on' : ''}`} data-i={i} aria-hidden={i === 0 ? 'false' : 'true'}>
-          <img src={`/images/casos/tasting/${s.img}.webp`} alt={s.alt} width="1600" height="1131" loading="eager" decoding="async">
+          <img src={`/images/casos/tasting/${s.img}.webp`} alt={s.alt} width="1600" height="1600" loading="eager" decoding="async">
         </figure>
       ))}
     </div>
