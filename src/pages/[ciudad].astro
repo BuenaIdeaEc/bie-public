@@ -70,6 +70,8 @@ const ld = [
 <meta property="og:url" content={url}>
 <meta property="og:image" content={`${SITE}/images/og/og-default.jpg`}>
 <meta property="og:locale" content="es_EC">
+<link rel="preload" href="/fonts/texgyreheros-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json" is:inline set:html={JSON.stringify(ld)}></script>
 <style is:global>
@@ -210,5 +212,6 @@ footer a{color:var(--text2);border-bottom:1px solid var(--border)}
 </div>
 <a class="sticky-wa" href={wa(MSG)} target="_blank" rel="noopener">Escríbenos qué vendes →</a>
 <footer>BUSINESS INTELLIGENCE ENHANCER · RUC 0993404878001 · Ecuador, 100 % digital · <a href={SITE}>businessintelligence.solutions</a> · <a href="/privacidad/">Privacidad</a></footer>
+<script src="/track.js" defer></script>
 </body>
 </html>
