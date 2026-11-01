@@ -156,6 +156,8 @@ function frame(now: number) {
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 7.5 * dist, f1);
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 0.9, f3);
   }
+  // en teléfonos bajos el cubo armado sube para dejarle sitio al título
+  if (short) canvas.style.transform = 'translateY(' + (-cp * (1 - f1) * 21).toFixed(2) + '%)';
   core.intensity = f2 * 4;
   const rp = smooth(clamp01((fin - 0.1) / 0.72));
   if (rp !== lastRp) {
