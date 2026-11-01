@@ -74,7 +74,8 @@ new THREE.TextureLoader().load('/images/marca/bie-cuadro.webp', (logo) => {
     t.needsUpdate = true;
     pc.map = t;
   }
-  logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), new THREE.MeshBasicMaterial({ map: logo, toneMapped: false, fog: false }));
+  logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), new THREE.MeshBasicMaterial({ map: logo, toneMapped: false, fog: false, transparent: true, depthTest: false }));
+  logoPlane.renderOrder = 10;
   logoPlane.position.z = 1.504; logoPlane.visible = false; group.add(logoPlane);
   logoReady = true;
 });
