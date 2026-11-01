@@ -1,5 +1,6 @@
 ---
 import { UI } from '../data/home-ui';
+import { PHASES } from '../data/catalogo';
 import EsteMes from '../components/ui/EsteMes.astro';
 import { ESTE_MES } from '../data/este-mes';
 import CuboHero from '../components/interactive/CuboHero.astro';
@@ -27,6 +28,25 @@ const SERVICIOS: { k: string, href: string, img?: string, video?: string, alt: s
   { k: 'sv3', href: '/productos/asistente-inteligente-whatsapp/?src=home-que-hacemos', video: 'asistente-inteligente-whatsapp', alt: '' },
   { k: 'sv4', href: '/productos/sistema-operativo/?src=home-que-hacemos', img: '/images/casos/luway/os.webp', alt: 'Sistema de Luway con ventas, inventario y métricas' },
 ];
+// Catálogo en el inicio: los mismos 47 productos de /catalogo/, con nombres de categoría en lenguaje simple
+const CATS: Record<string, { es: string; en: string }> = {
+  '01': { es: 'Entender tu mercado', en: 'Understand your market' },
+  '02': { es: 'Ordenar tu empresa', en: 'Organize your company' },
+  '03': { es: 'Marca, contenido y sonido', en: 'Brand, content and sound' },
+  '04': { es: 'Aparecer en internet', en: 'Show up online' },
+  '05': { es: 'Automatizar con inteligencia artificial', en: 'Automate with AI' },
+  '06': { es: 'Conseguir más clientes', en: 'Get more customers' },
+  '07': { es: 'Papeles, impuestos y personal', en: 'Paperwork, taxes and staff' },
+  '08': { es: 'Capacitar a tu equipo', en: 'Train your team' },
+};
+// se reparten por turnos desde cada categoría, empezando por lo menos esperado, para que se note la variedad
+const pHrefOrder = [2, 6, 5, 3, 7, 4, 1, 0];
+const START: Record<number, number> = { 2: 3, 6: 4 };
+const buckets = pHrefOrder.map((i) => { const p = PHASES[i].products, k = START[i] || 0; return [...p.slice(k), ...p.slice(0, k)]; });
+const ALL_PRODUCTS = Array.from({ length: Math.max(...buckets.map((x) => x.length)) }).flatMap((_, n) => buckets.map((x) => x[n]).filter(Boolean));
+const pHref = (slug?: string) => '/productos/' + slug + '/?src=home-catalogo';
+// tres hileras con productos de distintas categorías, para que se note la variedad
+const PC_ROWS = [0, 1, 2].map((r) => ALL_PRODUCTS.filter((_, i) => i % 3 === r));
 const WA_DIAG_SSR = waSSR('Hola, quiero un diagnóstico gratuito para mi empresa.\n\n— Origen: web/home/catalogo/es');
 const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Origen: web/home/comunidad/es');
 // BIE-P06 — Home (v37b: copy honesto en feed_sub, sin prometer sincronizacion automatica que no existe).
@@ -1289,7 +1309,7 @@ html body .pack-media{aspect-ratio:1}
 html body .pack:hover .pack-media img,html body .pack:hover .pack-media video{transform:scale(1.03)}
 html body .pack-k{display:none}
 html body .pack-tag{top:12px;left:12px;background:rgba(255,255,255,.76);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);color:var(--text);padding:7px 11px;font-size:13.5px}
-.pack-body,html body .pack-body{margin:-44px 10px 0;padding:18px 18px 0;background:rgba(255,255,255,.76);border:0;gap:10px}
+.pack-body,html body .pack-body{margin:-44px 0 0;padding:18px 18px 0;background:rgba(255,255,255,.76);border:0;gap:10px}
 html body .pack-n{font-size:clamp(30px,2.35vw,36px);letter-spacing:-.04em;line-height:1;font-weight:400}
 html body .pack-d{font-size:16px;line-height:1.3;color:var(--text2)}
 html body .pack-l{gap:0;margin:8px 0 0}
@@ -1494,6 +1514,38 @@ html body #voces .voces-grid{transition:margin .65s var(--ease)}
   .nx-tunnel{display:none}
   html body .nicho-inner,html body .nicho-bar{opacity:1}
 }
+/* === Catálogo (2026-11-01): 47 productos a la vista y categorías que se despliegan === */
+html body #productos{position:relative;padding:clamp(80px,11vw,170px) 0 clamp(50px,7vw,110px);overflow:hidden}
+.pc-rows{margin-top:clamp(34px,5vw,70px);display:flex;flex-direction:column;gap:clamp(4px,.8vw,12px)}
+.pc-row{overflow:hidden}
+.pc-track{display:flex;width:max-content;will-change:transform}
+.pc-track a{flex:none;padding-right:.9em;font-size:clamp(30px,4.6vw,70px);font-weight:500;letter-spacing:-.025em;line-height:1.14;color:var(--text);white-space:nowrap;transition:color .25s}
+.pc-row:nth-child(2) .pc-track a{color:rgba(8,8,8,.32)}
+.pc-track a:hover{color:var(--cta)!important}
+.pc-cats{margin-top:clamp(36px,5vw,70px);border-bottom:1px solid var(--border)}
+.pc-cat{border-top:1px solid var(--border)}
+.pc-cat summary{list-style:none;display:flex;align-items:center;gap:12px;padding:19px 0;font-size:clamp(20px,2.2vw,30px);font-weight:500;letter-spacing:-.02em;line-height:1.15;cursor:pointer;transition:color .2s}
+.pc-cat summary::-webkit-details-marker{display:none}
+.pc-cat summary:hover{color:var(--cta)}
+.pc-cat summary small{font-size:15px;font-weight:400;letter-spacing:0;color:var(--text3);margin-right:auto}
+.pc-cat[open] .tm-x::after{transform:none}
+.pc-cat ul{list-style:none;margin:0;padding:0 0 18px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,4vw,60px)}
+.pc-cat li a{display:grid;grid-template-columns:minmax(0,1fr) 20px;column-gap:12px;padding:13px 0;border-top:1px solid rgba(8,8,8,.07);color:var(--text)}
+.pc-cat li b{font-weight:500;font-size:17px;letter-spacing:-.01em}
+.pc-cat li span{grid-column:1;font-size:14.5px;line-height:1.35;color:var(--text2);margin-top:3px}
+.pc-cat li em{grid-column:2;grid-row:1 / span 2;align-self:center;font-style:normal;color:var(--text3);transition:transform .3s var(--ease),color .2s}
+.pc-cat li a:hover b,.pc-cat li a:hover em{color:var(--cta)}
+.pc-cat li a:hover em{transform:translateX(4px)}
+html body .pc-all{margin-top:30px}
+html body .pc-all span::before{display:none}
+.pc-one{display:inline-block;margin-top:clamp(28px,4vw,48px);font-size:17px;color:var(--text);border-bottom:1px solid currentColor;padding-bottom:3px}
+.pc-one:hover{color:var(--cta)}
+@media (max-width:860px){
+  .pc-track a{font-size:clamp(28px,8vw,36px)}
+  .pc-cat ul{grid-template-columns:minmax(0,1fr)}
+  html body .pc-all{display:block;text-align:center}
+}
+@media (prefers-reduced-motion: reduce){.pc-row{overflow-x:auto}}
 </style>
 
 
@@ -1515,7 +1567,7 @@ html body #voces .voces-grid{transition:margin .65s var(--ease)}
   <a class="nav-logo" href="/" aria-label="BIE, inicio"><img src="/images/marca/bie-cuadro-96.webp" width="40" height="40" alt="BIE"></a>
   <div class="nav-links">
     <a href="#work" class="nav-link" data-sec="work" data-i18n="nav_work" set:html={es('nav_work')}></a>
-    <a href="/catalogo/" class="nav-link" data-sec="catalog" data-i18n="nav_catalog" set:html={es('nav_catalog')}></a>
+    <a href="#productos" class="nav-link" data-sec="productos" data-i18n="nav_catalog" set:html={es('nav_catalog')}></a>
     <a href="#top" class="nav-link" data-sec="top" data-i18n="nav_prod" set:html={es('nav_prod')}></a>
     <button id="lang-toggle" aria-label="Cambiar idioma / Switch language">EN</button>
     <a href="#contact" class="nav-cta"><span data-i18n="nav_cta" set:html={es('nav_cta')}></span></a>
@@ -1525,7 +1577,7 @@ html body #voces .voces-grid{transition:margin .65s var(--ease)}
 
 <div id="mobile-menu">
   <a href="#work" class="mm-link"><span data-i18n="nav_work" set:html={es('nav_work')}></span><span class="mm-arrow">→</span></a>
-  <a href="#catalog" class="mm-link"><span data-i18n="nav_catalog" set:html={es('nav_catalog')}></span><span class="mm-arrow">→</span></a>
+  <a href="#productos" class="mm-link"><span data-i18n="nav_catalog" set:html={es('nav_catalog')}></span><span class="mm-arrow">→</span></a>
   <a href="#top" class="mm-link"><span data-i18n="nav_prod" set:html={es('nav_prod')}></span><span class="mm-arrow">→</span></a>
   <a href="#contact" class="mm-link"><span data-i18n="nav_contact" set:html={es('nav_contact')}></span><span class="mm-arrow">→</span></a>
   <button type="button" class="mm-link mm-lang" id="mm-lang">English<span class="mm-arrow">→</span></button>
@@ -1587,6 +1639,39 @@ html body #voces .voces-grid{transition:margin .65s var(--ease)}
       </div>
     </article>
   ))}
+</section>
+
+<!-- CATÁLOGO: se entiende que son 47 y que se puede pedir uno solo -->
+<section id="productos" aria-label="Catálogo de productos">
+  <div class="section-inner">
+    <div class="reveal">
+      <p class="section-label" data-i18n="pc_k" set:html={es('pc_k')}></p>
+      <h2 class="section-h2" data-i18n="pc_h" set:html={es('pc_h')}></h2>
+      <p class="section-sub" data-i18n="pc_d" set:html={es('pc_d')}></p>
+    </div>
+  </div>
+  <div class="pc-rows" id="pc-rows">
+    {PC_ROWS.map((row) => (
+      <div class="pc-row"><div class="pc-track">
+        {row.map((x) => <a href={pHref(x.slug)} data-es={x.n.es} data-en={x.n.en}>{x.n.es}</a>)}
+      </div></div>
+    ))}
+  </div>
+  <div class="section-inner">
+    <div class="pc-cats">
+      {PHASES.map((p) => (
+        <details class="pc-cat">
+          <summary><span data-es={CATS[p.num].es} data-en={CATS[p.num].en}>{CATS[p.num].es}</span><small>{p.products.length}</small><i class="tm-x" aria-hidden="true"></i></summary>
+          <ul>
+            {p.products.map((x) => (
+              <li><a href={pHref(x.slug)}><b data-es={x.n.es} data-en={x.n.en}>{x.n.es}</b><span data-es={x.d.es} data-en={x.d.en}>{x.d.es}</span><em aria-hidden="true">→</em></a></li>
+            ))}
+          </ul>
+        </details>
+      ))}
+    </div>
+    <a class="btn-primary pc-all" href="/catalogo/?src=home-catalogo"><span data-i18n="pc_all" set:html={es('pc_all')}></span></a>
+  </div>
 </section>
 
 <!-- WORK -->
@@ -1657,14 +1742,7 @@ html body #voces .voces-grid{transition:margin .65s var(--ease)}
         </a>
       ))}
     </div>
-    <details class="top-more">
-      <summary><span data-i18n="top_pick" set:html={es('top_pick')}></span><span class="tm-x" aria-hidden="true"></span></summary>
-      <div class="top-grid" id="top-grid"></div>
-    </details>
-    <div class="belt-cta reveal d3">
-      <p class="belt-cta-txt" data-i18n="top_note" set:html={es('top_note')}></p>
-      <a class="belt-cta-btn" href="/catalogo/?src=home-mas-vendidos" data-i18n="btn_catalog" set:html={es('btn_catalog')}></a>
-    </div>
+    <a class="pc-one" href="#productos" data-i18n="pc_one" set:html={es('pc_one')}></a>
   </div>
 </section>
 
@@ -2046,6 +2124,7 @@ function applyStatics(){
     const v = UI[el.dataset.i18n];
     if (v && typeof v[lang] === 'string') el.innerHTML = v[lang];
   });
+  document.querySelectorAll('[data-es]').forEach((el) => { el.textContent = el.dataset[lang]; });
   document.getElementById('lang-toggle').textContent = lang === 'es' ? 'EN' : 'ES';
   document.getElementById('mm-lang').firstChild.textContent = lang === 'es' ? 'English' : 'Español';
   document.getElementById('in-name').placeholder = UI.ph_name[lang];
@@ -2101,7 +2180,7 @@ const TILE_MEDIA = (slug) => slug === 'pagina-web' ? '<img class="tt-img" src="/
   ? `<video class="tt-img" data-src="/videos/productos/${slug}.mp4" data-poster="/images/productos/${slug}.webp" muted loop playsinline preload="none" aria-hidden="true"></video>`
   : `<img class="tt-img" src="/images/productos/${slug}.webp" alt="" loading="lazy" decoding="async">`;
 function renderTop(){
-  document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>
+  (document.getElementById('top-grid') || {}).innerHTML = TOP.map((x, i) =>
     `<a class="top-tile has-img" href="${x.href}">${TILE_MEDIA(x.href.split('/')[2])}<span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
   watchTileVideos();
 }
@@ -2372,6 +2451,31 @@ function renderWork(){
     sy += diff * .13;
     if (!moving && now - last < 33) return;
     last = now; draw(now);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ═══ Catálogo: los nombres corren solos y con el scroll, en sentidos opuestos ═══
+(function(){
+  const rows = Array.from(document.querySelectorAll('.pc-track'));
+  if (!rows.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  rows.forEach((el) => { Array.from(el.children).forEach((a) => { const c = a.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.tabIndex = -1; el.appendChild(c); }); });
+  const st = rows.map((el, i) => ({ el, x: 0, half: 0, dir: i % 2 ? 1 : -1, k: 1 - i * .12 }));
+  const wrap = document.getElementById('pc-rows');
+  let on = false, last = performance.now(), lastY = scrollY, tick = 0;
+  new IntersectionObserver((es) => { on = es[0].isIntersecting; }, { rootMargin: '120px 0px' }).observe(wrap);
+  addEventListener('scroll', () => { const dy = scrollY - lastY; lastY = scrollY; if (on) st.forEach((t) => { t.x += t.dir * Math.abs(dy) * .62 * t.k; }); }, { passive: true });
+  function frame(now){
+    requestAnimationFrame(frame);
+    const dt = Math.min(.05, (now - last) / 1000); last = now;
+    if (!on) return;
+    if (tick++ % 90 === 0) st.forEach((t) => { t.half = t.el.scrollWidth / 2; });
+    st.forEach((t) => {
+      if (!t.half) return;
+      t.x += t.dir * 24 * t.k * dt;
+      t.x = ((t.x % t.half) - t.half) % t.half;
+      t.el.style.transform = 'translate3d(' + t.x.toFixed(1) + 'px,0,0)';
+    });
   }
   requestAnimationFrame(frame);
 })();
@@ -3019,7 +3123,7 @@ setTimeout(() => {
 const nav = document.getElementById('nav');
 const progress = document.getElementById('progress');
 
-const SECTIONS = ['work','top','catalog'].map(id => document.getElementById(id));
+const SECTIONS = ['work','productos','top'].map(id => document.getElementById(id));
 window.addEventListener('scroll', () => {
   const scroller = document.scrollingElement || document.documentElement;
   const sc = scroller.scrollTop;
