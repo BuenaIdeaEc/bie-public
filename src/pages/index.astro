@@ -39,14 +39,16 @@ const CATS: Record<string, { es: string; en: string }> = {
   '07': { es: 'Papeles, impuestos y personal', en: 'Paperwork, taxes and staff' },
   '08': { es: 'Capacitar a tu equipo', en: 'Train your team' },
 };
-// se reparten por turnos desde cada categoría, empezando por lo menos esperado, para que se note la variedad
-const pHrefOrder = [2, 6, 5, 3, 7, 4, 1, 0];
-const START: Record<number, number> = { 2: 3, 6: 4 };
-const buckets = pHrefOrder.map((i) => { const p = PHASES[i].products, k = START[i] || 0; return [...p.slice(k), ...p.slice(0, k)]; });
-const ALL_PRODUCTS = Array.from({ length: Math.max(...buckets.map((x) => x.length)) }).flatMap((_, n) => buckets.map((x) => x[n]).filter(Boolean));
 const pHref = (slug?: string) => '/productos/' + slug + '/?src=home-catalogo';
-// tres hileras con productos de distintas categorías, para que se note la variedad
-const PC_ROWS = [0, 1, 2].map((r) => ALL_PRODUCTS.filter((_, i) => i % 3 === r));
+// orden de la rueda: primero lo que más se busca; dentro de cada categoría, en su orden del catálogo
+const PX_ORDER = ['04', '03', '05', '06', '07', '01', '02', '08'];
+const PX_START: Record<string, string> = { '04': 'pagina-web' };
+const PX_CATS = PX_ORDER.map((num) => {
+  const p = PHASES.find((x) => x.num === num)!;
+  const k = Math.max(0, p.products.findIndex((x) => x.slug === PX_START[num]));
+  return { num, products: [...p.products.slice(k), ...p.products.slice(0, k)] };
+});
+const PX_ITEMS = PX_CATS.flatMap((c) => c.products.map((x) => ({ ...x, cat: c.num })));
 const WA_DIAG_SSR = waSSR('Hola, quiero un diagnóstico gratuito para mi empresa.\n\n— Origen: web/home/catalogo/es');
 const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Origen: web/home/comunidad/es');
 // BIE-P06 — Home (v37b: copy honesto en feed_sub, sin prometer sincronizacion automatica que no existe).
@@ -1546,6 +1548,52 @@ html body .pc-all span::before{display:none}
   html body .pc-all{display:block;text-align:center}
 }
 @media (prefers-reduced-motion: reduce){.pc-row{overflow-x:auto}}
+/* === Rueda de productos (2026-11-01): uno por uno, a pantalla completa === */
+html body #productos{padding-bottom:0;overflow:visible}
+.px{position:relative;margin-top:clamp(20px,3vw,40px)}
+.px-sticky{position:sticky;top:0;height:100vh;height:100lvh;display:flex;flex-direction:column;overflow:hidden;padding:clamp(76px,10vh,92px) 0 calc(clamp(20px,4vh,40px) + 100lvh - 100svh)}
+.px-chips{flex:none;display:flex;gap:6px 22px;padding:0 clamp(22px,6vw,80px);overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.px-chips::-webkit-scrollbar{display:none}
+.px-chips button{flex:none;background:none;border:0;padding:4px 0;font:inherit;font-size:15px;color:var(--text3);border-bottom:1.5px solid transparent;white-space:nowrap;transition:color .25s,border-color .25s}
+.px-chips button:hover{color:var(--text)}
+.px-chips button.on{color:var(--text);border-color:var(--accent)}
+.px-main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:clamp(20px,4vw,70px);align-items:center;padding:0 clamp(22px,6vw,80px)}
+.px-wheel{position:relative;list-style:none;margin:0;padding:0;height:100%;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 24%,#000 76%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 24%,#000 76%,transparent 100%)}
+.px-wheel li{position:absolute;left:0;right:0;top:50%;padding:.08em 0;transform-origin:0 50%;will-change:transform,opacity}
+.px-wheel a{display:block;font-size:clamp(40px,5vw,80px);font-weight:500;letter-spacing:-.03em;line-height:1.02;color:var(--text);text-wrap:balance}
+.px-wheel li.on a:hover{color:var(--cta)}
+.px-card{display:flex;flex-direction:column;gap:14px;align-self:center;padding:clamp(20px,2.4vw,32px);background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border:1px solid rgba(8,8,8,.08)}
+.px-map{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;width:min(100%,196px)}
+.px-map button{aspect-ratio:1;padding:0;border:0;background:rgba(8,8,8,.09);transition:background .2s,transform .25s var(--ease)}
+.px-map button.past{background:rgba(8,8,8,.32)}
+.px-map button.on{background:var(--accent);transform:scale(1.25)}
+.px-count{margin:4px 0 0;font-size:15px;color:var(--text3);display:flex;flex-wrap:wrap;gap:2px 6px;align-items:baseline}
+.px-count b{font-size:24px;font-weight:500;letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums}
+.px-count span{flex-basis:100%;color:var(--text2)}
+.px-desc{margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.32;color:var(--text);min-height:4em}
+.px-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:10px 20px;margin-top:4px}
+.px-see{font-size:16px;color:var(--text);border-bottom:1px solid currentColor;padding-bottom:2px}
+.px-see:hover{color:var(--cta)}
+html body .px-ctas .btn-primary span::before{display:none}
+.px-after{margin-top:clamp(10px,2vw,24px);padding-bottom:clamp(50px,7vw,110px)}
+.px.still .px-sticky{position:static;height:auto;overflow:visible}
+.px.still .px-wheel{height:auto;-webkit-mask-image:none;mask-image:none}
+.px.still .px-wheel li{position:static}
+.px.still .px-card{display:none}
+@media (max-width:860px){
+  .px-sticky{padding-top:18px;padding-bottom:calc(18px + 100lvh - 100svh)}
+  .px-chips{padding:0 20px;gap:4px 18px}
+  .px-main{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:0 20px;min-height:0}
+  .px-wheel{flex:1;min-height:0;height:auto}
+  .px-wheel a{font-size:clamp(36px,10.4vw,46px)}
+  .px-card{flex:none;background:rgba(255,255,255,.9);-webkit-backdrop-filter:none;backdrop-filter:none;padding:16px;gap:10px}
+  .px-map{display:none}
+  .px-count{margin:0}
+  .px-count span{flex-basis:auto;margin-left:auto}
+  .px-desc{font-size:16px;min-height:4em}
+  html body .px-ctas .btn-primary{padding:15px 18px;flex:1;width:auto;text-align:center}
+  body.in-px #wa-fab{opacity:0;pointer-events:none}
+}
 </style>
 
 
@@ -1650,27 +1698,31 @@ html body .pc-all span::before{display:none}
       <p class="section-sub" data-i18n="pc_d" set:html={es('pc_d')}></p>
     </div>
   </div>
-  <div class="pc-rows" id="pc-rows">
-    {PC_ROWS.map((row) => (
-      <div class="pc-row"><div class="pc-track">
-        {row.map((x) => <a href={pHref(x.slug)} data-es={x.n.es} data-en={x.n.en}>{x.n.es}</a>)}
-      </div></div>
-    ))}
-  </div>
-  <div class="section-inner">
-    <div class="pc-cats">
-      {PHASES.map((p) => (
-        <details class="pc-cat">
-          <summary><span data-es={CATS[p.num].es} data-en={CATS[p.num].en}>{CATS[p.num].es}</span><small>{p.products.length}</small><i class="tm-x" aria-hidden="true"></i></summary>
-          <ul>
-            {p.products.map((x) => (
-              <li><a href={pHref(x.slug)}><b data-es={x.n.es} data-en={x.n.en}>{x.n.es}</b><span data-es={x.d.es} data-en={x.d.en}>{x.d.es}</span><em aria-hidden="true">→</em></a></li>
-            ))}
-          </ul>
-        </details>
-      ))}
+  <div class="px" id="px">
+    <div class="px-sticky">
+      <div class="px-chips" id="px-chips">
+        {PX_CATS.map((c) => <button type="button" data-cat={c.num} data-es={CATS[c.num].es} data-en={CATS[c.num].en}>{CATS[c.num].es}</button>)}
+      </div>
+      <div class="px-main">
+        <ol class="px-wheel" id="px-wheel">
+          {PX_ITEMS.map((x) => (
+            <li data-cat={x.cat} data-slug={x.slug} data-d-es={x.d.es} data-d-en={x.d.en}><a href={pHref(x.slug)} data-es={x.n.es} data-en={x.n.en}>{x.n.es}</a></li>
+          ))}
+        </ol>
+        <aside class="px-card" id="px-card">
+          <div class="px-map" id="px-map" aria-hidden="true"></div>
+          <p class="px-count"><b id="px-n">1</b> / {PX_ITEMS.length}<span id="px-cat"></span></p>
+          <p class="px-desc" id="px-desc">{PX_ITEMS[0].d.es}</p>
+          <div class="px-ctas">
+            <a class="btn-primary" id="px-wa" href={'https://wa.me/' + WA_NUM_SSR} target="_blank" rel="noopener"><span data-i18n="px_wa" set:html={es('px_wa')}></span></a>
+            <a class="px-see" id="px-see" href={pHref(PX_ITEMS[0].slug)} data-i18n="px_see" set:html={es('px_see')}></a>
+          </div>
+        </aside>
+      </div>
     </div>
-    <a class="btn-primary pc-all" href="/catalogo/?src=home-catalogo"><span data-i18n="pc_all" set:html={es('pc_all')}></span></a>
+  </div>
+  <div class="section-inner px-after">
+    <a class="pc-one" href="/catalogo/?src=home-catalogo" data-i18n="pc_all" set:html={es('pc_all')}></a>
   </div>
 </section>
 
@@ -2125,6 +2177,7 @@ function applyStatics(){
     if (v && typeof v[lang] === 'string') el.innerHTML = v[lang];
   });
   document.querySelectorAll('[data-es]').forEach((el) => { el.textContent = el.dataset[lang]; });
+  if (window.__pxLang) window.__pxLang();
   document.getElementById('lang-toggle').textContent = lang === 'es' ? 'EN' : 'ES';
   document.getElementById('mm-lang').firstChild.textContent = lang === 'es' ? 'English' : 'Español';
   document.getElementById('in-name').placeholder = UI.ph_name[lang];
@@ -2455,27 +2508,74 @@ function renderWork(){
   requestAnimationFrame(frame);
 })();
 
-// ═══ Catálogo: los nombres corren solos y con el scroll, en sentidos opuestos ═══
+// ═══ Catálogo: al bajar, los 47 productos pasan uno por uno; el del centro manda ═══
 (function(){
-  const rows = Array.from(document.querySelectorAll('.pc-track'));
-  if (!rows.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  rows.forEach((el) => { Array.from(el.children).forEach((a) => { const c = a.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.tabIndex = -1; el.appendChild(c); }); });
-  const st = rows.map((el, i) => ({ el, x: 0, half: 0, dir: i % 2 ? 1 : -1, k: 1 - i * .12 }));
-  const wrap = document.getElementById('pc-rows');
-  let on = false, last = performance.now(), lastY = scrollY, tick = 0;
-  new IntersectionObserver((es) => { on = es[0].isIntersecting; }, { rootMargin: '120px 0px' }).observe(wrap);
-  addEventListener('scroll', () => { const dy = scrollY - lastY; lastY = scrollY; if (on) st.forEach((t) => { t.x += t.dir * Math.abs(dy) * .62 * t.k; }); }, { passive: true });
-  function frame(now){
-    requestAnimationFrame(frame);
-    const dt = Math.min(.05, (now - last) / 1000); last = now;
-    if (!on) return;
-    if (tick++ % 90 === 0) st.forEach((t) => { t.half = t.el.scrollWidth / 2; });
-    st.forEach((t) => {
-      if (!t.half) return;
-      t.x += t.dir * 24 * t.k * dt;
-      t.x = ((t.x % t.half) - t.half) % t.half;
-      t.el.style.transform = 'translate3d(' + t.x.toFixed(1) + 'px,0,0)';
+  const sec = document.getElementById('px'), wheel = document.getElementById('px-wheel');
+  if (!sec || !wheel) return;
+  const items = Array.from(wheel.children), N = items.length;
+  const mapEl = document.getElementById('px-map'), nEl = document.getElementById('px-n'), catEl = document.getElementById('px-cat'), descEl = document.getElementById('px-desc'), waEl = document.getElementById('px-wa'), seeEl = document.getElementById('px-see');
+  const chips = Array.from(document.querySelectorAll('#px-chips button')), chipsWrap = document.getElementById('px-chips');
+  const firstOf = {}; items.forEach((li, i) => { if (firstOf[li.dataset.cat] === undefined) firstOf[li.dataset.cat] = i; });
+  const label = (num) => { const c = chips.find((b) => b.dataset.cat === num); return c ? c.textContent : ''; };
+  const cells = items.map((li, i) => { const b = document.createElement('button'); b.type = 'button'; b.tabIndex = -1; b.addEventListener('click', () => goTo(i)); mapEl.appendChild(b); return b; });
+  let pos = 0, target = 0, cur = -1, offs = [], visible = false;
+  function span(){ return sec.offsetHeight - LVH(); }
+  function goTo(i){ const top = sec.getBoundingClientRect().top + scrollY; scrollTo({ top: top + span() * (i / (N - 1)) + 1, behavior: 'smooth' }); }
+  function layout(){
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    sec.style.height = Math.round(LVH() * (1 + (N - 1) * 0.15)) + 'px';
+    measure();
+  }
+  function measure(){ let y = 0; offs = items.map((li) => { const h = li.offsetHeight, o = y + h / 2; y += h; return o; }); }
+  function info(i){
+    const li = items[i], slug = li.dataset.slug, lang2 = lang === 'en' ? 'En' : 'Es', name = li.firstElementChild.textContent;
+    nEl.textContent = i + 1;
+    catEl.textContent = label(li.dataset.cat);
+    descEl.textContent = li.dataset['d' + lang2];
+    waEl.href = wa((lang === 'es' ? 'Hola, me interesa solo este producto: "' + name + '". ¿Cómo empezamos?' : 'Hi, I am only interested in this product: "' + name + '". How do we start?') + origin('home/catalogo/' + slug));
+    seeEl.href = '/productos/' + slug + '/?src=home-catalogo';
+    cells.forEach((c, j) => c.className = j === i ? 'on' : j < i ? 'past' : '');
+    chips.forEach((b) => {
+      const on = b.dataset.cat === li.dataset.cat;
+      if (on && !b.classList.contains('on')) chipsWrap.scrollTo({ left: b.offsetLeft - 16, behavior: 'smooth' });
+      b.classList.toggle('on', on);
     });
+    items.forEach((x, j) => x.classList.toggle('on', j === i));
+  }
+  window.__pxLang = () => { measure(); cur = -1; };
+  chips.forEach((b) => b.addEventListener('click', () => goTo(firstOf[b.dataset.cat])));
+  // tocar un nombre que no está al centro lo trae al centro; el del centro abre su ficha
+  wheel.addEventListener('click', (e) => {
+    const a = e.target.closest('a'); if (!a) return;
+    const i = items.indexOf(a.parentElement);
+    if (i !== Math.round(pos)) { e.preventDefault(); goTo(i); }
+  });
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { sec.classList.add('still'); info(0); return; }
+  function read(){
+    const r = sec.getBoundingClientRect(), sp = span();
+    visible = r.bottom > -40 && r.top < innerHeight + 40;
+    if (sp > 0) target = Math.min(1, Math.max(0, -r.top / sp)) * (N - 1);
+    document.body.classList.toggle('in-px', r.top < 40 && r.bottom > LVH() * .6);
+  }
+  let lastW = innerWidth;
+  addEventListener('resize', () => { if (innerWidth !== lastW) { lastW = innerWidth; layout(); } }, { passive: true });
+  addEventListener('scroll', read, { passive: true });
+  layout(); read();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  function frame(){
+    requestAnimationFrame(frame);
+    if (!visible && cur >= 0) return;
+    pos += (target - pos) * 0.17;
+    const f = Math.min(N - 1, Math.max(0, pos)), a = Math.floor(f), t = f - a, center = offs[a] + ((offs[Math.min(N - 1, a + 1)] || offs[a]) - offs[a]) * t;
+    for (let i = 0; i < N; i++) {
+      const d = Math.abs(i - f), li = items[i];
+      if (d > 6) { if (li.__on !== false) { li.style.visibility = 'hidden'; li.__on = false; } continue; }
+      if (li.__on !== true) { li.style.visibility = ''; li.__on = true; }
+      const k = Math.min(d, 1);
+      li.style.transform = 'translate3d(0,' + (offs[i] - li.offsetHeight / 2 - center).toFixed(1) + 'px,0) scale(' + (1 - k * 0.3).toFixed(3) + ')';
+      li.style.opacity = Math.max(0, 1 - k * 0.72 - Math.max(d - 1, 0) * 0.09).toFixed(3);
+    }
+    const r = Math.round(f); if (r !== cur) { cur = r; info(r); }
   }
   requestAnimationFrame(frame);
 })();

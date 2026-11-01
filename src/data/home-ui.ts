@@ -43,6 +43,8 @@ export const UI: Record<string, { es: any; en: any }> = {
   pc_k:{es:'Catálogo',en:'Catalog'},
   pc_h:{es:'No son solo esos cuatro.<br><span class="serif">Son 47. Pide solo el que necesitas.</span>',en:'It is not just those four.<br><span class="serif">There are 47. Order only the one you need.</span>'},
   pc_d:{es:'Desde un jingle hasta tu declaración de impuestos. No tienes que contratar todo: puedes empezar por uno.',en:'From a jingle to your tax return. You do not have to hire everything: you can start with one.'},
+  px_wa:{es:'Quiero solo este →',en:'I only want this →'},
+  px_see:{es:'Ver detalles',en:'See details'},
   pc_all:{es:'Ver el catálogo completo →',en:'See the full catalog →'},
   pc_one:{es:'¿Solo necesitas una cosa? Ver los 47 productos →',en:'Only need one thing? See the 47 products →'},
   top_label:{es:'Precios',en:'Prices'},
