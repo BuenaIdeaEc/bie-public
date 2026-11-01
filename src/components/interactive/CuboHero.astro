@@ -44,7 +44,7 @@ const es = (k: string) => UI[k].es;
 /* velo blanco: ninguna pieza pasa por detrás del texto */
 .cubo-sticky::after{content:'';position:absolute;left:0;bottom:0;width:62%;height:58%;z-index:2;pointer-events:none;background:radial-gradient(90% 90% at 0% 100%,#fff 55%,rgba(255,255,255,0) 100%);opacity:calc(1 - var(--fin,0) * 3)}
 @media (orientation:portrait){.cubo-sticky::after{width:100%;height:36%;background:linear-gradient(180deg,rgba(255,255,255,0) 0,#fff 34%)}}
-#cubo-reveal{position:absolute;inset:0;--in:0;--out:0;visibility:hidden;pointer-events:none;background:#fff;color:var(--text);will-change:clip-path}
+#cubo-reveal{position:absolute;inset:0;--in:0;--out:0;visibility:hidden;pointer-events:none;background:#fff;color:var(--text)}
 #cubo-reveal .sv-in{height:100%;transform:none;opacity:1}
 #cubo-poster{position:absolute;inset:0;background:url('/images/marca/cubo-inicio.webp') center/cover no-repeat;transition:opacity .5s ease}
 #cubo-poster.off{opacity:0}
@@ -75,7 +75,9 @@ const reveal = document.getElementById('cubo-reveal'), panel = document.querySel
 if (reveal && panel && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const copy = panel.cloneNode(true) as HTMLElement;
   copy.querySelectorAll('a').forEach((a) => a.setAttribute('tabindex', '-1'));
-  copy.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; });
+  const imgs = Array.from(copy.querySelectorAll('img'));
+  imgs.forEach((i) => { i.dataset.src = i.getAttribute('src') || ''; i.removeAttribute('src'); i.loading = 'eager'; });
+  addEventListener('scroll', () => imgs.forEach((i) => { if (i.dataset.src) i.src = i.dataset.src; }), { passive: true, once: true });
   reveal.appendChild(copy);
 }
 import('../../lib/cubo3d').then((m) => m.init()).catch(() => { document.body.classList.remove('cubo-intro'); document.body.classList.add('past-cube'); });

@@ -1469,9 +1469,10 @@ html body .cubo-line[data-i="0"] .cubo-h{max-width:21ch}
 /* mundo rojo */
 html body #nicho{background:transparent}
 html body .nicho-sticky{background:none;color:var(--text);overflow:hidden}
-.nx-red{position:absolute;inset:0;background:#E53935;overflow:hidden;clip-path:inset(50%);will-change:clip-path}
-.nx-tunnel{position:absolute;left:50%;top:50%;width:0;height:0;will-change:transform}
+.nx-red{position:absolute;inset:0;background:#E53935;overflow:hidden;clip-path:inset(50%)}
+.nx-tunnel{position:absolute;left:50%;top:50%;width:0;height:0;display:none}
 .nx-tunnel i{position:absolute;left:0;top:0;width:100vmax;height:100vmax;margin:-50vmax 0 0 -50vmax;border:2px solid rgba(8,8,8,.18);background:rgba(90,0,0,.045);will-change:transform,opacity}
+.nx-on .nx-tunnel{display:block}
 html body .nicho-inner{position:relative;z-index:2;opacity:0;will-change:transform}
 html body .nicho-num{transform-origin:0 62%;will-change:transform,opacity}
 html body .nicho-bar{z-index:3;opacity:0}
@@ -1794,7 +1795,8 @@ html body #voces .voces-grid{transition:margin .65s var(--ease)}
 <script is:inline define:vars={{ TASTING_ALT }}>window.__TASTING_ALT = TASTING_ALT;</script>
 <script is:inline>
 // Alto estable de pantalla. innerHeight cambia al subir en el teléfono, cuando el navegador muestra su barra.
-const LVH = () => document.getElementById('lvh').offsetHeight || innerHeight;
+let __lvh = 0, __lvhW = 0;
+const LVH = () => { if (!__lvh || __lvhW !== innerWidth) { __lvhW = innerWidth; __lvh = document.getElementById('lvh').offsetHeight || innerHeight; } return __lvh; };
 // RAF híbrido (fallback a setTimeout cuando el entorno congela requestAnimationFrame)
 function RAF(cb){
   let called = false;
@@ -2471,14 +2473,15 @@ function renderWork(){
   addEventListener('resize', layout, { passive: true }); layout();
   if (reduce) { show(N - 1); numEl.textContent = fmt(ITEMS[N - 1].n); endEl.classList.add('on'); ctaEl.classList.add('on'); return; }
   const redEl = document.getElementById('nx-red'), tunnel = document.getElementById('nx-tunnel'), inner = sec.querySelector('.nicho-inner'), numWrap = numEl.parentElement, barWrap = sec.querySelector('.nicho-bar');
-  const squares = Array.from({ length: 10 }, () => tunnel.appendChild(document.createElement('i')));
-  let ent = 0, entT = 0, visible = false, kick = 0, hit = -1, lastClip = '', lastF = 0;
+  const squares = Array.from({ length: innerWidth < 768 ? 6 : 9 }, () => tunnel.appendChild(document.createElement('i')));
+  let ent = 0, entT = 0, visible = false, wasVisible = false, kick = 0, hit = -1, lastClip = '';
   function read(){
     const r = sec.getBoundingClientRect(), vh = LVH(), span = sec.offsetHeight - vh;
     if (span > 0) target = clamp(-r.top / span);
     // el cuadro rojo nace antes de fijarse la sección y crece hasta llenar la pantalla
     entT = clamp((vh - r.top) / (vh * 1.2));
     visible = r.bottom > 0 && r.top < innerHeight;
+    if (visible !== wasVisible) { wasVisible = visible; st.classList.toggle('nx-on', visible); }
     document.body.classList.toggle('in-nicho', r.top < vh * .1 && r.bottom > vh * .35);
   }
   addEventListener('scroll', read, { passive: true }); read();
@@ -2488,7 +2491,8 @@ function renderWork(){
     const o = sm(ent) * big, a = sm(clamp((p - 0.93) / 0.07)) * big;
     const ox0 = Math.max(0, w / 2 - o), ox1 = Math.min(w, w / 2 + o), oy0 = Math.max(0, h / 2 - o), oy1 = Math.min(h, h / 2 + o);
     let v;
-    if (a > 0.5) { // al final se abre un cuadro en el centro y se sale al otro lado
+    if (o >= big * 0.999 && a <= 0.5) v = 'none';
+    else if (a > 0.5) { // al final se abre un cuadro en el centro y se sale al otro lado
       const ix0 = Math.max(0, w / 2 - a), ix1 = Math.min(w, w / 2 + a), iy0 = Math.max(0, h / 2 - a), iy1 = Math.min(h, h / 2 + a);
       v = 'polygon(evenodd,' + [[ox0,oy0],[ox1,oy0],[ox1,oy1],[ox0,oy1],[ox0,oy0],[ix0,iy0],[ix1,iy0],[ix1,iy1],[ix0,iy1],[ix0,iy0]].map((q) => q[0].toFixed(1) + 'px ' + q[1].toFixed(1) + 'px').join(',') + ')';
     } else v = 'inset(' + oy0.toFixed(1) + 'px ' + (w - ox1).toFixed(1) + 'px ' + (h - oy1).toFixed(1) + 'px ' + ox0.toFixed(1) + 'px)';
@@ -2529,7 +2533,8 @@ function renderWork(){
   function frame(now){
     requestAnimationFrame(frame);
     prog += (target - prog) * 0.14; ent += (entT - ent) * 0.2;
-    if (visible || cur < 0) paint(now);
+    if (visible) paint(now);
+    else if (cur < 0) { cur = 0; show(0); numEl.textContent = fmt(ITEMS[0].n * .14); }
   }
   requestAnimationFrame(frame);
 })();
