@@ -159,7 +159,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   f_need:{es:'¿Qué necesitas?',en:'What do you need?'},
   f_msg:{es:'Cuéntanos de tu negocio (opcional)',en:'Tell us about your business (optional)'},
   f_send:{es:'Cotizar por WhatsApp',en:'Get a quote on WhatsApp'},
-  f_note:{es:'SE ABRE WHATSAPP CON TU MENSAJE LISTO · 098 825 3030',en:'WHATSAPP OPENS WITH YOUR MESSAGE READY · 098 825 3030'},
+  f_note:{es:'Se abre WhatsApp con tu mensaje listo · 098 825 3030',en:'WhatsApp opens with your message ready · 098 825 3030'},
   f_privacy:{es:'Al enviar, aceptas nuestro <a href="/privacidad/">aviso de privacidad</a>.',en:'By submitting, you accept our <a href="/privacidad/">privacy notice</a>.'},
   ph_name:{es:'tu nombre',en:'your name'}, ph_comp:{es:'tu negocio',en:'your business'},
   ph_msg:{es:'¿Algo más que debamos saber? A qué se dedica, qué quieres lograr… (opcional)',en:'Anything else we should know? What it does, what you want to achieve… (optional)'},
