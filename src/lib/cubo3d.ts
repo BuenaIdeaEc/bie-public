@@ -134,12 +134,12 @@ function frame(now: number) {
   prog += (target - prog) * (reduce ? 1 : 0.18);
   fin += (finT - fin) * 0.18;
   const p = prog, t = now * 0.001;
-  const portrait = camera.aspect < 1, dist = portrait ? 1.5 + (1 - camera.aspect) * 0.6 : 1;
+  const portrait = camera.aspect < 1, short = portrait && canvas.clientHeight < 720, dist = portrait ? (short ? 1.95 : 1.5) + (1 - camera.aspect) * 0.6 : 1;
 
   const cp = smooth(p);
   camera.position.set(THREE.MathUtils.lerp(0.4, 3.0, cp) * dist, THREE.MathUtils.lerp(2.4, 1.9, cp), THREE.MathUtils.lerp(14, 10.8, cp) * dist);
   group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 2.5, cp);
-  group.position.y = portrait ? THREE.MathUtils.lerp(2.6, 3.9 + (1 - camera.aspect) * 1.5, cp) : 0;
+  group.position.y = portrait ? THREE.MathUtils.lerp(2.6, (short ? 5.4 : 3.9) + (1 - camera.aspect) * 1.5, cp) : 0;
   group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
   group.rotation.x = THREE.MathUtils.lerp(0.06, 0, cp);
   // final: el cubo se centra y se cuadra, la cámara avanza hasta entrar por la cara roja

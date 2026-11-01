@@ -13,7 +13,7 @@ const es = (k: string) => UI[k].es as string;
 // con el idioma y el origen de trazabilidad correctos, esto es solo el respaldo sin JS.
 const WA_NUM_SSR = '593988253030';
 const waSSR = (msg: string) => `https://wa.me/${WA_NUM_SSR}?text=${encodeURIComponent(msg)}`;
-const WA_HERO_SSR = waSSR('Hola, quiero cotizar un producto de BIE. ¿Qué me recomiendan para mi negocio?\n\n— Origen: web/home/hero/es');
+const WA_HERO_SSR = waSSR('Hola, tengo un negocio. Vendo: \n\n— Origen: web/home/hero/es');
 const WA_MENU_SSR = waSSR('Hola, quiero cotizar un producto de BIE. ¿Qué me recomiendan para mi negocio?\n\n— Origen: web/home/menu/es');
 const WA_START_SSR = waSSR('Hola, no sé por dónde empezar. Les cuento mi negocio: \n\n— Origen: web/home/empezar/es');
 const WA_PK1_SSR = waSSR('Hola, me interesa la ruta "Que te encuentren" (página web, Google Maps, marca). Mi negocio es: \n\n— Origen: web/home/ruta-1/es');
@@ -60,11 +60,11 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <meta name="theme-color" content="#101012">
-<title>BIE — Business Intelligence Enhancer | Adaptación digital de empresas en Ecuador</title>
+<title>BIE | Página web, WhatsApp, marca y sistema para negocios en Ecuador</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Página web, asistente de WhatsApp, marca y sistema para negocios en Ecuador. Lo construimos por ti y lo mantenemos contigo. Tres rutas para empezar. Cotiza por WhatsApp.">
-<meta property="og:title" content="BIE — Business Intelligence Enhancer">
-<meta property="og:description" content="Dedica tu tiempo a lo que sabes hacer. Nosotros construimos todo el resto: sistemas, marca y tecnología trabajando juntos. Cotiza por WhatsApp.">
+<meta name="description" content="Página web, WhatsApp, marca, sistema y 43 productos más para negocios en Ecuador. Todo junto o solo lo que necesites. Páginas web desde USD 150.">
+<meta property="og:title" content="BIE | Todo tu negocio, o solo lo que necesites">
+<meta property="og:description" content="Página web, WhatsApp, marca, sistema y 43 productos más para negocios en Ecuador. Pide solo el que necesitas.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://businessintelligence.solutions">
 <meta property="og:image" content="https://businessintelligence.solutions/images/og/og-default.jpg">
@@ -1778,7 +1778,6 @@ html body .px-ctas .btn-primary span::before{display:none}
       <h2 class="section-h2" data-i18n="top_h2" set:html={es('top_h2')}></h2>
       <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
     </div>
-    <a class="top-start reveal d1" href={WA_START_SSR} target="_blank" rel="noopener"><span class="ts-px"></span><span data-i18n="top_start" set:html={es('top_start')}></span><span class="ts-arrow" aria-hidden="true">→</span></a>
     <div class="packs reveal d1">
       {([['pk1', WA_PK1_SSR, '/images/casos/escuela-heridas/web.webp', false], ['pk2', WA_PK2_SSR, 'whatsapp-business-commerce', true], ['pk3', WA_PK3_SSR, '/images/casos/luway/os.webp', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
         <a class={'pack' + (i === 1 ? ' pack-hot' : '')} href={href} target="_blank" rel="noopener">
@@ -2286,7 +2285,7 @@ function renderRail(){
   const d = document.getElementById('cat-diag');
   if (d) d.href = wa((lang === 'es' ? 'Hola, quiero un diagnóstico gratuito para mi empresa.' : 'Hi, I would like a free diagnosis for my company.') + origin('home/catalogo'));
   const hw = document.getElementById('hero-wa');
-  if (hw) hw.href = wa((lang === 'es' ? 'Hola, quiero cotizar un producto de BIE. ¿Qué me recomiendan para mi negocio?' : 'Hi, I want a quote for a BIE product. What do you recommend for my business?') + origin('home/hero'));
+  if (hw) hw.href = wa((lang === 'es' ? 'Hola, tengo un negocio. Vendo: ' : 'Hi, I run a business. I sell: ') + origin('home/hero'));
   const sw = document.getElementById('sim-wa');
   if (sw) sw.href = wa((lang === 'es' ? 'Hola, quiero cotizar. Les cuento mi negocio para saber qué necesito.' : 'Hi, I want a quote. Let me tell you about my business to know what I need.') + origin('home/asi-de-simple'));
   renderQuiz();
