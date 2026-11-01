@@ -1,4 +1,4 @@
-// Cubo de BIE en Three.js. Se carga después del primer pantallazo: la promesa y el botón no esperan al 3D.
+// Cubo de BIE en Three.js. Es el arranque de la página: se carga de inmediato sin frenar el primer cuadro.
 import * as THREE from 'three';
 
 export function init() {
@@ -9,30 +9,32 @@ const labelsEl = document.getElementById('cubo-labels') as HTMLElement;
 const flash = document.getElementById('cubo-flash') as HTMLElement;
 const lines = Array.from(document.querySelectorAll<HTMLElement>('.cubo-line'));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-// celulares y equipos modestos: sin sombras y menos resolución, para que la página no se trabe
-const modest = innerWidth < 768 || (navigator.hardwareConcurrency || 8) <= 4;
+// sin menú desde el primer cuadro; se muestra cuando el cubo se completa
+if (!reduce) document.body.classList.add('cubo-intro');
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+// en teléfonos y equipos modestos, menos resolución y sombra más simple
+const modest = innerWidth < 768 || (navigator.hardwareConcurrency || 8) <= 4;
 renderer.setPixelRatio(Math.min(devicePixelRatio, modest ? 1.5 : 2));
 renderer.setClearColor(0xffffff, 0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.shadowMap.enabled = !modest;
+renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xffffff, 14, 34);
+scene.fog = new THREE.Fog(0xffffff, 30, 74);
 const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
 
-scene.add(new THREE.AmbientLight(0xffffff, 1.25));
-scene.add(new THREE.HemisphereLight(0xffffff, 0xe4e4e2, 0.6));
-const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(-4, 6, 5); scene.add(key);
-key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.camera.near = 1; key.shadow.camera.far = 30;
+scene.add(new THREE.AmbientLight(0xffffff, 1.5));
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d8d4, 0.7));
+const key = new THREE.DirectionalLight(0xffffff, 1.3); key.position.set(-4, 6, 5); scene.add(key);
+key.castShadow = true; key.shadow.mapSize.set(modest ? 512 : 1024, modest ? 512 : 1024); key.shadow.camera.near = 1; key.shadow.camera.far = 30;
 key.shadow.camera.left = key.shadow.camera.bottom = -8; key.shadow.camera.right = key.shadow.camera.top = 8; key.shadow.bias = -0.0015;
-const redRim = new THREE.DirectionalLight(0xffffff, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
-const rim = new THREE.DirectionalLight(0xf2f5ff, 0.7); rim.position.set(5, 3, -6); scene.add(rim);
-const fill = new THREE.PointLight(0xffffff, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
+const redRim = new THREE.DirectionalLight(0xe53935, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
+const rim = new THREE.DirectionalLight(0xffffff, 0.45); rim.position.set(5, 3, -6); scene.add(rim);
+const fill = new THREE.PointLight(0xe53935, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
 // luz del núcleo: se enciende cuando el cubo se abre
-const core = new THREE.PointLight(0xffffff, 0, 7); core.position.set(0, 0, 0);
+const core = new THREE.PointLight(0xe53935, 0, 7); core.position.set(0, 0, 0);
 
 // cuadrícula 3x3x3; orden de construcción: capa inferior → media → superior; atrás → adelante; izquierda → derecha
 const S = 1, GAP = 0.045;
@@ -45,10 +47,9 @@ const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147
 
 const geo = new THREE.BoxGeometry(S, S, S);
 const edgesGeo = new THREE.EdgesGeometry(geo);
-const edgeMat = new THREE.LineBasicMaterial({ color: 0x080808, transparent: true, opacity: 0.22 });
-// piezas blancas; al cerrarse las juntas, las nueve caras delanteras forman el logo de BIE
-const white = () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.72, metalness: 0 });
-const whiteMat = white();
+const edgeMat = new THREE.LineBasicMaterial({ color: 0x080808, transparent: true, opacity: 0.3 });
+const dark = () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0 });
+const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0xf6f6f4);
 
 const group = new THREE.Group(); scene.add(group); group.add(core);
 const outEl = document.getElementById('cubo-out') as HTMLElement;
@@ -59,31 +60,15 @@ const copyEl = document.querySelector('.cubo-copy') as HTMLElement;
 // suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.22 }));
 floor.rotation.x = -Math.PI / 2; floor.position.y = -1.6; floor.receiveShadow = true; group.add(floor);
-type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, map?: THREE.Texture, label?: HTMLElement };
+type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
 const pieces: Piece[] = [];
-let logoReady = false, logoOn = false;
-// con el cubo cerrado el logo es una sola lámina, sin líneas entre piezas; al abrirse pasan a verse las nueve caras
-let logoPlane: THREE.Mesh | null = null;
-new THREE.TextureLoader().load('/images/marca/bie-cuadro.webp', (logo) => {
-  logo.colorSpace = THREE.SRGBColorSpace;
-  logo.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  for (const pc of pieces) if (pc.front) {
-    const t = logo.clone();
-    t.repeat.set(1 / 3, 1 / 3);
-    t.offset.set((pc.g.x + 1) / 3, (pc.g.y + 1) / 3);
-    t.needsUpdate = true;
-    pc.map = t;
-  }
-  logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), new THREE.MeshBasicMaterial({ map: logo, toneMapped: false, fog: false, transparent: true, depthTest: false }));
-  logoPlane.renderOrder = 10;
-  logoPlane.position.z = 1.504; logoPlane.visible = false; group.add(logoPlane);
-  logoReady = true;
-});
+const redFace = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), new THREE.MeshBasicMaterial({ color: 0xe53935, toneMapped: false, fog: false, transparent: true, depthTest: false }));
+redFace.position.z = 1.504; redFace.renderOrder = 10; redFace.visible = false; group.add(redFace);
 const WORDS: Record<number, string> = { 0: 'citas', 2: 'inventario', 4: 'redes', 6: 'cobros', 8: 'marca', 10: 'sistemas', 13: 'Instagram', 15: 'Facebook', 17: 'Meta', 20: 'WhatsApp', 23: 'web', 25: 'TikTok' };
 
-const N = grid.length, T_START = 0.1, T_END = 0.66, DUR = 0.11;
+const N = grid.length, T_START = 0.04, T_END = 0.66, DUR = 0.11;
 grid.forEach((g, i) => {
-  const mats = [whiteMat, whiteMat, whiteMat, whiteMat, g.z === 1 ? white() : whiteMat, whiteMat];
+  const mats = [dark(), dark(), dark(), dark(), dark(), dark()];
   const mesh = new THREE.Mesh(geo, mats);
   mesh.add(new THREE.LineSegments(edgesGeo, edgeMat));
   mesh.castShadow = true; mesh.receiveShadow = true;
@@ -104,10 +89,11 @@ const easeOutQuint = (u: number) => 1 - Math.pow(1 - u, 5);
 const smooth = (u: number) => u * u * (3 - 2 * u);
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 
+let drawn = false;
 let target = 0, prog = reduce ? 1 : 0, lastLine = -1, running = true;
 // final: tras la cara roja, el resto del recorrido abre el cubo y mete la cámara
 let finT = 0, fin = 0;
-const ASM = 0.68; // fracción del recorrido dedicada a armar el cubo
+const ASM = 0.6, HOLD = 0.74; // fracción del recorrido dedicada a armar el cubo
 const tmp = new THREE.Vector3();
 
 function layout() {
@@ -124,7 +110,8 @@ function readScroll() {
   if (!(span > 0)) return;
   const raw = clamp01(-r.top / span);
   target = clamp01(raw / ASM);
-  finT = reduce ? 0 : clamp01((raw - ASM) / (1 - ASM));
+  // entre ASM y HOLD el cubo rojo y la frase final se quedan quietos para leerse
+  finT = reduce ? 0 : clamp01((raw - HOLD) / (1 - HOLD));
   if (r.bottom <= 0 || reduce) { fin = 1; finT = 1; setFin(1); }
   if (!Number.isFinite(prog)) prog = target;
   // fuera de pantalla no se dibuja
@@ -132,6 +119,7 @@ function readScroll() {
 }
 addEventListener('scroll', readScroll, { passive: true }); readScroll();
 
+const li0 = (v: number) => (v < 0.22 ? 0 : v < 0.80 ? 1 : 2);
 function frame(now: number) {
   requestAnimationFrame(frame);
   if (!running && Math.abs(target - prog) < 0.001) return;
@@ -139,12 +127,12 @@ function frame(now: number) {
   prog += (target - prog) * (reduce ? 1 : 0.18);
   fin += (finT - fin) * 0.18;
   const p = prog, t = now * 0.001;
-  const portrait = camera.aspect < 1, dist = portrait ? 1.35 + (1 - camera.aspect) * 0.6 : 1;
+  const portrait = camera.aspect < 1, dist = portrait ? 1.5 + (1 - camera.aspect) * 0.6 : 1;
 
   const cp = smooth(p);
   camera.position.set(THREE.MathUtils.lerp(0.4, 3.0, cp) * dist, THREE.MathUtils.lerp(2.4, 1.9, cp), THREE.MathUtils.lerp(14, 10.8, cp) * dist);
-  group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 1.9, cp);
-  group.position.y = portrait ? THREE.MathUtils.lerp(0, 2.6 + (1 - camera.aspect) * 1.5, cp) : 0;
+  group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 2.5, cp);
+  group.position.y = portrait ? THREE.MathUtils.lerp(0, 3.9 + (1 - camera.aspect) * 1.5, cp) : 0;
   group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
   group.rotation.x = THREE.MathUtils.lerp(0.06, 0, cp);
   // final: el cubo se centra y se cuadra, la cámara avanza hasta entrar por la cara roja
@@ -163,26 +151,26 @@ function frame(now: number) {
   }
   core.intensity = f2 * 9;
   outEl.style.opacity = '0';
-  canvas.style.opacity = (clamp01((p - 0.03) / 0.05) * (1 - smooth(clamp01((fin - 0.8) / 0.2)))).toFixed(3);
+  if (drawn) canvas.style.opacity = (1 - smooth(clamp01((fin - 0.8) / 0.2))).toFixed(3);
   setFin(fin);
   copyEl.style.opacity = (1 - clamp01(fin * 5)).toFixed(3);
-  camera.lookAt(fin > 0.001 ? group.position.x * 0.8 * (1 - f1) : group.position.x * 0.8, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);
+  camera.lookAt(fin > 0.001 ? group.position.x * 0.3 * (1 - f1) : group.position.x * 0.3, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);
   redRim.intensity = 0.2 + cp * 0.6;
   floor.material.opacity = (0.06 + cp * 0.16) * (1 - f1);
 
   // 0.66 todo encajado → 0.66-0.74 las juntas se cierran → 0.76-0.90 flash blanco → cara roja
   const seam = 1 - smooth(clamp01((p - 0.66) / 0.08));
   const stepNow = S + GAP * seam;
-  edgeMat.opacity = 0.22 * seam;
+  edgeMat.opacity = 0.3 * seam;
   const fl = p < 0.76 ? 0 : p < 0.81 ? smooth((p - 0.76) / 0.05) : 1 - smooth(clamp01((p - 0.81) / 0.10));
   flash.style.opacity = fl.toFixed(3);
   const redAmt = clamp01((p - 0.80) / 0.04);
-  fill.intensity = redAmt * 0.5;
-  // el cambio a logo ocurre con el destello en su punto más alto
-  const wantLogo = redAmt > 0 && logoReady;
-  if (wantLogo !== logoOn) { logoOn = wantLogo; for (const pc of pieces) if (pc.front) { pc.front.map = logoOn ? pc.map || null : null; pc.front.needsUpdate = true; } }
-  if (logoPlane) logoPlane.visible = logoOn && fin < 0.22;
+  fill.intensity = redAmt * 0.8;
+  // con el cubo cerrado la cara es una sola lámina del rojo exacto, sin líneas entre piezas
+  redFace.visible = redAmt > 0 && fin < 0.22;
+  (redFace.material as THREE.MeshBasicMaterial).opacity = redAmt;
 
+  const onLine = lines[li0(p)], lineBox = onLine?.getBoundingClientRect(), titleBox = onLine?.querySelector('.cubo-h')?.getBoundingClientRect();
   for (const pc of pieces) {
     const u = clamp01((p - pc.t0) / (pc.t1 - pc.t0));
     const e = easeOutQuint(u);
@@ -196,6 +184,7 @@ function frame(now: number) {
     // gira libremente lejos del cubo y se alinea antes de tocar a sus vecinas
     const k = clamp01((s - 1.6) / 2.4);
     pc.mesh.rotation.set(pc.rot0.x * k + t * 0.25 * k, pc.rot0.y * k + t * 0.2 * k, pc.rot0.z * k);
+    if (pc.front) pc.front.color.copy(DARK).lerp(RED, redAmt);
     // apertura: cada capa se separa del eje en su plano; la delantera primero, la trasera al final
     if (fin > 0.001) {
       const layer = pc.g.z === 1 ? f2 : pc.g.z === 0 ? smooth(clamp01((fin - 0.45) / 0.45)) : smooth(clamp01((fin - 0.6) / 0.4));
@@ -211,15 +200,17 @@ function frame(now: number) {
       pc.mesh.getWorldPosition(tmp).project(camera);
       const x = (tmp.x * 0.5 + 0.5) * canvas.clientWidth, y = (-tmp.y * 0.5 + 0.5) * canvas.clientHeight;
       pc.label.style.transform = `translate(${x.toFixed(1)}px, ${(y - 26).toFixed(1)}px) translate(-50%,-50%)`;
-      pc.label.style.opacity = String(clamp01(1 - u * 1.6) * (tmp.z < 1 ? 1 : 0));
+      const overText = lineBox && titleBox && y > lineBox.top - 30 && x < titleBox.right + 70;
+      pc.label.style.opacity = String(overText ? 0 : clamp01(1 - u * 1.6) * (tmp.z < 1 ? 1 : 0));
     }
   }
 
-  // 0 promesa y botón · 1 el problema · 2 el armado · 3 cierre con botón
-  labelsEl.style.opacity = String(clamp01((p - 0.08) / 0.05));
-  const li = p < 0.07 ? 0 : p < 0.28 ? 1 : p < 0.80 ? 2 : 3;
+  // el menú aparece recién cuando el cubo está completo y el flash pasó
+  document.body.classList.toggle('cubo-intro', p < 0.84);
+  const li = p < 0.22 ? 0 : p < 0.80 ? 1 : 2;
   if (li !== lastLine) { lines.forEach((l, i) => l.classList.toggle('on', i === li)); lastLine = li; }
   renderer.render(scene, camera);
+  if (!drawn) { drawn = true; canvas.style.opacity = '1'; document.getElementById('cubo-poster')?.classList.add('off'); }
 }
 requestAnimationFrame(frame);
 }

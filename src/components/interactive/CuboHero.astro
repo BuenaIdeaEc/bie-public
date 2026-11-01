@@ -10,45 +10,26 @@ const es = (k: string) => UI[k].es;
 ---
 <section id="hero" class="cubo" aria-label="BIE: de las piezas sueltas de tu negocio a un solo sistema">
   <div class="cubo-sticky">
+    <div id="cubo-poster" aria-hidden="true"></div>
     <canvas id="cubo-canvas" aria-hidden="true" style="opacity:0"></canvas>
     <div id="cubo-flash" aria-hidden="true"></div>
     <div id="cubo-out" aria-hidden="true"></div>
     <div id="cubo-labels" aria-hidden="true"></div>
-    <div class="cubo-line cubo-first on" data-i="0">
-      <div class="cf-copy">
-        <h1 class="cubo-h cf-h" data-i18n="hero_f_h" set:html={es('hero_f_h')}></h1>
-        <p class="cf-sub" data-i18n="hero_f_sub" set:html={es('hero_f_sub')}></p>
-        <div class="cf-btns">
-          <a href={waHref} id="hero-wa" target="_blank" rel="noopener" class="btn-primary cf-cta"><span data-i18n="hero_f_cta" set:html={es('hero_f_cta')}></span></a>
-          <a href="#top" class="btn-ghost cf-price" data-i18n="hero_f_price" set:html={es('hero_f_price')}></a>
-        </div>
-        <p class="cf-micro" data-i18n="hero_f_micro" set:html={es('hero_f_micro')}></p>
-        <a class="cf-proof" href="#voces"><span class="cf-stars" aria-hidden="true">★★★★★</span> <span data-i18n="hero_f_proof" set:html={es('hero_f_proof')}></span></a>
-      </div>
-      <div class="cf-mark">
-        <div class="cc">
-          <span class="cc-f"><img src="/images/marca/bie-cuadro.webp" width="1000" height="1000" alt="Logo de BIE" fetchpriority="high"></span>
-          <span class="cc-r"></span>
-          <span class="cc-t"></span>
-        </div>
-        <span class="cc-floor" aria-hidden="true"></span>
-      </div>
-    </div>
     <div class="cubo-copy">
-      <div class="cubo-line" data-i="1">
+      <div class="cubo-line on" data-i="0">
         <span class="cubo-k" data-i18n="hero_kicker" set:html={es('hero_kicker')}></span>
         <p class="cubo-h" data-i18n="hero_c1_h" set:html={es('hero_c1_h')}></p>
       </div>
-      <div class="cubo-line" data-i="2">
+      <div class="cubo-line" data-i="1">
         <span class="cubo-k" data-i18n="hero_c2_k" set:html={es('hero_c2_k')}></span>
         <h2 class="cubo-h" data-i18n="hero_c2_h" set:html={es('hero_c2_h')}></h2>
       </div>
-      <div class="cubo-line" data-i="3">
+      <div class="cubo-line" data-i="2">
         <span class="cubo-k" data-i18n="hero_c3_k" set:html={es('hero_c3_k')}></span>
-        <h2 class="cubo-h" data-i18n="hero_c3_h" set:html={es('hero_c3_h')}></h2>
+        <h1 class="cubo-h" data-i18n="hero_c3_h" set:html={es('hero_c3_h')}></h1>
         <p class="cubo-sub" data-i18n="hero_sub" set:html={es('hero_sub')}></p>
         <div class="cubo-btns">
-          <a href={waHref} id="hero-wa2" target="_blank" rel="noopener" class="btn-primary"><span data-i18n="btn_diag_hero" set:html={es('btn_diag_hero')}></span></a>
+          <a href={waHref} id="hero-wa" target="_blank" rel="noopener" class="btn-primary"><span data-i18n="btn_diag_hero" set:html={es('btn_diag_hero')}></span></a>
           <a href="#top" class="btn-ghost" data-i18n="btn_work" set:html={es('btn_work')}></a>
         </div>
       </div>
@@ -57,10 +38,13 @@ const es = (k: string) => UI[k].es;
 </section>
 
 <style is:global>
-#hero.cubo{min-height:0;height:290vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
+#hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
 #hero.cubo::after{display:none}
-.cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:transparent}
-#cubo-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .9s ease}
+.cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:linear-gradient(180deg,#fff 0,#fff 66%,#f1f1ef 100%)}
+#cubo-poster{position:absolute;inset:0;background:url('/images/marca/cubo-inicio.webp') center/cover no-repeat;transition:opacity .5s ease}
+#cubo-poster.off{opacity:0}
+@media (orientation:portrait){#cubo-poster{background-image:url('/images/marca/cubo-inicio-v.webp')}}
+#cubo-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;transition:opacity .5s ease}
 #cubo-flash{position:fixed;inset:0;background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4);opacity:0;pointer-events:none;z-index:1000}
 #cubo-out{display:none}
 #cubo-labels{position:absolute;inset:0;pointer-events:none;z-index:2}
@@ -69,57 +53,18 @@ const es = (k: string) => UI[k].es;
 .cubo-copy{position:absolute;left:0;right:0;bottom:11vh;z-index:3;pointer-events:none}
 .cubo-line{position:absolute;left:clamp(22px,6vw,80px);right:clamp(22px,6vw,80px);bottom:0;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;will-change:opacity}
 .cubo-line.on{opacity:1;transform:none}
-.cubo-k{font-size:15px;color:var(--text3);display:block;margin-bottom:10px}
-.cubo-h{font-size:clamp(30px,5vw,60px);font-weight:700;letter-spacing:-.035em;line-height:1.02;max-width:16ch;margin:0;text-wrap:balance;color:var(--text)}
-.cubo-h em{font-style:normal;font-weight:inherit;color:var(--text3)}
+.cubo-k{font-size:clamp(15px,1.5vw,18px);color:var(--text3);display:block;margin-bottom:10px}
+.cubo-h{font-size:clamp(32px,5vw,64px);font-weight:400;letter-spacing:-.03em;line-height:1.02;max-width:16ch;margin:0;text-wrap:balance;color:var(--text)}
+.cubo-h em{font-style:normal;font-weight:inherit;color:var(--accent)}
 .cubo-sub{font-size:16px;color:var(--text2);max-width:52ch;line-height:1.6;margin:16px 0 0}
 .cubo-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;pointer-events:auto}
-@media (max-width:640px){ .cubo-btns{flex-direction:column;gap:10px} .cubo-btns .btn-primary,.cubo-btns .btn-ghost{text-align:center} }
 .cubo-line:not(.on),.cubo-line:not(.on) *{pointer-events:none!important}
-@media (min-width:861px){ .cubo-line[data-i="3"]{right:auto;max-width:27vw} .cubo-line[data-i="3"] .cubo-h{font-size:clamp(28px,3.2vw,46px)} }
-/* Primer pantallazo: promesa, botón y prueba antes de cualquier animación */
-.cubo-line.cubo-first{left:0;right:0;top:66px;bottom:0;z-index:3;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(28px,4vw,64px);align-items:center;padding:clamp(16px,3vh,36px) clamp(22px,6vw,80px) clamp(20px,4vh,44px);pointer-events:none}
-.cf-copy{pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(12px,2vh,20px);min-width:0}
-#hero.cubo h1.cf-h{font-size:clamp(40px,5.4vw,84px);font-weight:700;max-width:12ch;line-height:.98;letter-spacing:-.045em;margin:0;opacity:1;transform:none;transition:none}
-.cf-sub{margin:0;font-size:clamp(16px,1.35vw,20px);line-height:1.45;color:var(--text2);max-width:44ch;text-wrap:pretty}
-.cf-btns{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:4px}
-.cf-cta{padding:19px 30px!important}
-.cf-price{padding:16px 14px!important}
-.cf-micro{margin:0;font-size:13px;color:var(--text2)}
-.cf-proof{display:inline-flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:13px;color:var(--text2);border-top:1px solid var(--border);padding-top:clamp(10px,1.6vh,16px)}
-.cf-proof:hover{color:var(--text)}
-.cf-stars{color:var(--text);letter-spacing:.08em}
-.cf-mark{position:relative;justify-self:center;--s:min(33vw,calc(100dvh - 300px),470px);width:var(--s);height:var(--s);perspective:1500px}
-.cc{position:absolute;inset:0;transform-style:preserve-3d;animation:cc-sway 11s ease-in-out infinite alternate}
-@keyframes cc-sway{from{transform:rotateX(-9deg) rotateY(-30deg)}to{transform:rotateX(-6deg) rotateY(-14deg)}}
-.cc span{position:absolute;display:block;backface-visibility:hidden}
-.cc-f{inset:0;transform:translateZ(calc(var(--s)/2));background:#080808}
-.cc-f img{display:block;width:100%;height:100%}
-.cc-r{inset:0;transform:rotateY(90deg) translateZ(calc(var(--s)/2));background:#efefed;box-shadow:inset 0 0 0 1px rgba(8,8,8,.08)}
-.cc-t{inset:0;transform:rotateX(90deg) translateZ(calc(var(--s)/2));background:#fff;box-shadow:inset 0 0 0 1px rgba(8,8,8,.08)}
-.cc-floor{position:absolute;left:4%;right:-12%;bottom:-11%;height:13%;background:rgba(8,8,8,.2);filter:blur(22px)}
-@media (max-width:860px){
-  .cubo-line.cubo-first{top:58px;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:stretch;gap:14px;padding:14px 20px 16px}
-  #hero.cubo h1.cf-h{font-size:clamp(36px,10.6vw,50px);max-width:none}
-  .cf-sub{font-size:15.5px}
-  .cf-btns{width:100%}
-  .cf-cta{flex:1 1 100%;text-align:center}
-  .cf-price{flex:1 1 100%;text-align:center;padding:8px!important}
-  .cf-micro{font-size:11.5px;align-self:center;text-align:center;white-space:nowrap}
-  .cf-proof{display:none}
-  .cf-mark{--s:min(52vw,27dvh);align-self:center;margin-top:6px}
-}
-@media (max-height:700px) and (max-width:860px){ .cf-sub{display:none} }
-/* el cierre en celular: la barra fija ya trae el botón, así el texto no pisa el cubo */
-@media (max-width:860px){ .cubo-line[data-i="3"] .cubo-sub,.cubo-line[data-i="3"] .cubo-btns{display:none} .cubo-copy{bottom:13vh} }
-@media (prefers-reduced-motion: reduce){ .cubo-line{transition:none} .cc{animation:none;transform:rotateX(-8deg) rotateY(-24deg)} }
+#hero.cubo h1.cubo-h{opacity:1;transform:none;transition:none;margin:0;max-width:15ch;font-size:clamp(32px,4.3vw,60px);line-height:1.02;font-weight:400;letter-spacing:-.03em}
+@media (min-width:861px){ .cubo-line[data-i="2"] .cubo-sub{max-width:40ch} }
+@media (max-width:640px){ .cubo-copy{bottom:calc(32px + env(safe-area-inset-bottom))} .cubo-sub{font-size:15px;margin-top:10px} .cubo-btns{align-items:center;gap:6px;margin-top:16px} html body .cubo-btns .btn-primary{width:auto;flex:1 1 auto;padding:15px 16px;text-align:center} html body .cubo-btns .btn-ghost{width:auto;padding:15px 8px} }
+@media (prefers-reduced-motion: reduce){ .cubo-line{transition:none} }
 </style>
 
 <script>
-// el 3D llega en cuanto el visitante baja; si no baja, cuando el navegador queda libre
-let booted = false;
-const boot = () => { if (booted) return; booted = true; import('../../lib/cubo3d').then((m) => m.init()); };
-addEventListener('scroll', boot, { passive: true, once: true });
-setTimeout(() => ('requestIdleCallback' in window ? requestIdleCallback(boot) : boot()), 6000);
-
+import('../../lib/cubo3d').then((m) => m.init()).catch(() => document.body.classList.remove('cubo-intro'));
 </script>
