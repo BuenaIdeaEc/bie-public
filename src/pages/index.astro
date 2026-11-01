@@ -48,9 +48,10 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://businessintelligence.solutions">
 <script type="application/ld+json" is:inline set:html={JSON.stringify({"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"@id":"https://businessintelligence.solutions/#org","name":"BIE — Business Intelligence Enhancer","alternateName":"BIE","legalName":"Business Intelligence Enhancer","url":"https://businessintelligence.solutions","logo":"https://businessintelligence.solutions/icons/logo.svg","image":"https://businessintelligence.solutions/images/og/og-default.jpg","telephone":"+593988253030","taxID":"0993404878001","vatID":"0993404878001","address":{"@type":"PostalAddress","addressCountry":"EC"},"areaServed":{"@type":"Country","name":"Ecuador"},"description":"Página web, asistente de WhatsApp, marca y sistema para negocios en Ecuador. Lo construimos por ti y lo mantenemos contigo. Tres rutas para empezar: que te encuentren, que te compren, que funcione solo.","knowsLanguage":["es","en"],"priceRange":"USD 150 - USD 2000","currenciesAccepted":"USD","contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+593988253030","url":"https://wa.me/593988253030","availableLanguage":["es","en"]}],"sameAs":["https://instagram.com/businessintelligence.ec"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Rutas de entrada","itemListElement":[{"@type":"Offer","name":"Que te encuentren","description":"Página web, perfil de Google Maps e identidad de marca","price":"275","priceCurrency":"USD","url":"https://businessintelligence.solutions/#top"},{"@type":"Offer","name":"Que te compren","description":"WhatsApp Business con catálogo, asistente inteligente 24/7 y gestión de redes","price":"247","priceCurrency":"USD","url":"https://businessintelligence.solutions/#top"},{"@type":"Offer","name":"Que funcione solo","description":"Automatizaciones, CRM con IA y sistema operativo de tu empresa","price":"250","priceCurrency":"USD","url":"https://businessintelligence.solutions/#top"}]}})}></script>
-<link rel="preload" href="/fonts/texgyreheros-regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 
 <style is:global>
+@font-face{font-family:'Figtree';src:url('/fonts/figtree-latin-wght-normal.woff2') format('woff2');font-weight:300 900;font-style:normal;font-display:swap}
 @font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-regular.woff2') format('woff2'),url('/fonts/texgyreheros-regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-bold.woff2') format('woff2'),url('/fonts/texgyreheros-bold.otf') format('opentype');font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:'TeX Gyre Heros';src:url('/fonts/texgyreheros-italic.woff2') format('woff2'),url('/fonts/texgyreheros-italic.otf') format('opentype');font-weight:400;font-style:italic;font-display:swap}
@@ -69,7 +70,7 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
   --accent:#E53935;--accent-dark:#c62828;--accent-pale:#f4f4f2;--accent-glow:rgba(8,8,8,.08);
   --black:#fff;
   --glass-blur:blur(18px) saturate(1.4);--glass-line:rgba(8,8,8,.1);
-  --font:'TeX Gyre Heros',Helvetica,Arial,system-ui,sans-serif;
+  --font:'Figtree','Helvetica Neue',Arial,system-ui,sans-serif;
   --mono:'Office Code Pro','JetBrains Mono',monospace;
   --r-lg:0px;--r-md:0px;--r-sm:0px;
   --sh-sm:none;
@@ -1366,6 +1367,52 @@ html body .footer-bottom{border-top:0}
   html body .wa-cube{scale:.62}
   html body .cubo-btns .btn-primary{padding:16px 18px}
 }
+/* === Letra (2026-11-01): Figtree, más ancha; espaciado normal; títulos en peso medio === */
+html body,html body button,html body input,html body select,html body textarea{font-family:var(--font)}
+html body .section-h2,html body .kin-h2,html body .cubo-h,html body #hero.cubo h1.cubo-h,html body .est-left .section-h2,html body .gx-names button,html body .pack-n,html body .pack-p b,html body .est-price b,html body .qz-name,html body .nicho-num,html body .top-more summary,html body .qz-opt,html body .qz-opt:hover,html body .qz-opt.on,html body .kin-step h3,html body .nicho-line{font-weight:500;letter-spacing:-.022em}
+html body .section-h2,html body .kin-h2{font-size:clamp(36px,5.2vw,80px);line-height:1.02;max-width:18ch}
+html body .est-left .section-h2{font-size:clamp(34px,4.4vw,66px)}
+html body .cubo-h{font-size:clamp(33px,3.8vw,58px);line-height:1.04}
+html body #hero.cubo h1.cubo-h{font-size:clamp(31px,3.5vw,52px);line-height:1.06;max-width:18ch}
+html body .nicho-num{letter-spacing:-.04em}
+html body .nicho-line{font-size:clamp(24px,3vw,44px);line-height:1.1}
+html body .voz-q{letter-spacing:-.018em}
+html body .gx-names button{font-size:clamp(26px,3vw,44px);line-height:1.12}
+html body .pack-n{font-size:clamp(28px,2.1vw,32px)}
+html body .pack-p b{font-size:clamp(28px,2.4vw,36px)}
+html body .qz-opt,html body .qz-opt:hover,html body .qz-opt.on{font-size:clamp(21px,2.5vw,36px);line-height:1.15}
+html body .kin-step h3{font-size:clamp(22px,2.9vw,40px)}
+html body .ml-line{letter-spacing:-.02em}
+html body .btn-primary,html body .form-submit,html body .sim-cta,html body .nav-cta{font-weight:500;letter-spacing:0}
+html body .sb-in b{letter-spacing:0}
+@media (min-width:861px){html body #hero.cubo h1.cubo-h{max-width:13ch}}
+/* comentarios: uno a la vez */
+html body #voces{height:236vh;padding:0;overflow:visible;position:relative}
+.voces-sticky{position:sticky;top:0;height:100vh;height:100dvh;display:flex;align-items:center;overflow:hidden}
+.voces-sticky .section-inner{width:100%}
+html body #voces .section-h2{font-size:clamp(26px,3vw,44px);max-width:none}
+html body #voces .section-h2 .serif{color:var(--text3)}
+html body #voces .voces-grid{display:grid;margin-top:clamp(26px,4vh,48px)}
+html body #voces .voz,html body #voces .voz.con-frase{grid-area:1/1;display:flex;flex-direction:column;gap:18px;padding:0;border:0;opacity:0;transform:translateY(26px);transition:opacity .5s ease,transform .7s var(--ease);pointer-events:none}
+html body #voces .voz.on{opacity:1;transform:none;pointer-events:auto}
+html body #voces .voz-q{font-size:clamp(25px,3.3vw,48px);line-height:1.18;max-width:30ch;font-weight:500}
+html body #voces .voz-who{order:0}
+.voces-bar{margin-top:clamp(24px,4vh,44px)}
+@media (max-width:860px){
+  html body .section-h2,html body .kin-h2{font-size:clamp(33px,9.2vw,44px)}
+  html body .cubo-h{font-size:clamp(31px,8.6vw,40px)}
+  html body #hero.cubo h1.cubo-h{font-size:clamp(29px,8vw,36px);max-width:none}
+  html body #voces .section-h2{font-size:26px}
+  html body #voces .voz-q{font-size:clamp(23px,6.2vw,28px);line-height:1.22}
+  html body .gx-names button{font-size:22px}
+  html body #voces{height:250vh}
+}
+@media (prefers-reduced-motion: reduce){
+  html body #voces{height:auto;padding:80px 0}
+  .voces-sticky{position:static;height:auto;display:block}
+  html body #voces .voz,html body #voces .voz.con-frase{grid-area:auto;opacity:1;transform:none;margin-bottom:34px}
+  .voces-bar{display:none}
+}
 </style>
 
 
@@ -1457,7 +1504,7 @@ html body .footer-bottom{border-top:0}
 
 <!-- COMENTARIOS DE CLIENTES (frases solo cuando el cliente las dio; nunca inventadas) -->
 <section id="voces">
-  <div class="section-inner">
+  <div class="voces-sticky"><div class="section-inner">
     <div class="reveal">
       <p class="section-label">Comentarios</p>
       <h2 class="section-h2">Lo que dicen <span class="serif">nuestros clientes.</span></h2>
@@ -1473,7 +1520,8 @@ html body .footer-bottom{border-top:0}
         </article>
       ))}
     </div>
-  </div>
+    <div class="gx-bar voces-bar" aria-hidden="true"><i id="voces-bar"></i></div>
+  </div></div>
 </section>
 
 <!-- ESTE MES EN BIE: destacado mensual (datos en src/data/este-mes.ts) -->
@@ -2045,7 +2093,7 @@ const GX_INFO = {
   'Luway': { res: 'res2' },
   'Óscar Caicho': { res: 'res3', url: 'https://www.escueladeheridasguayaquil.com', link: 'escueladeheridasguayaquil.com' },
 };
-const gx = { pos: 0, target: 0, tiles: [], slides: [], touched: false };
+const gx = { pos: 0, target: 0, tiles: [], slides: [], pauseUntil: 0 };
 function renderWork(){
   const stage = document.getElementById('gx-stage'), names = document.getElementById('gx-names');
   if (!stage) return;
@@ -2056,7 +2104,7 @@ function renderWork(){
   names.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => {
     const first = gx.slides.findIndex((x) => x.ci === +b.dataset.ci), N = gx.slides.length;
     let d = ((first - gx.target) % N + N) % N; if (d > N / 2) d -= N;
-    gx.target += d; gx.touched = true;
+    gx.target += d; gx.pauseUntil = performance.now() + 4000;
   }));
   gx.last = -1;
   if (window.__gxMeasure) window.__gxMeasure();
@@ -2066,11 +2114,14 @@ function renderWork(){
   if (!row) return;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const barEl = document.getElementById('gx-bar'), resEl = document.getElementById('gx-res'), linkEl = document.getElementById('gx-link'), namesEl = document.getElementById('gx-names');
-  let tileW = 300, step = 300, drag = null, moved = false, inView = false, hover = false, lastT = performance.now(), nextAuto = 0, wheelT = 0;
+  let tileW = 300, step = 300, drag = null, moved = false, inView = false, hover = false, lastT = performance.now(), wheelT = 0;
   function measure(){ const t = gx.tiles[0]; if (!t) return; tileW = t.offsetWidth; step = tileW * (innerWidth > 860 ? .9 : .96); }
   window.__gxMeasure = measure; addEventListener('resize', measure, { passive: true });
-  new IntersectionObserver((es) => { inView = es[0].isIntersecting; nextAuto = performance.now() + 2600; }, { threshold: .35 }).observe(row);
-  const touch = () => { gx.touched = true; };
+  new IntersectionObserver((es) => { inView = es[0].isIntersecting; }, { threshold: .05 }).observe(row);
+  const touch = () => { gx.pauseUntil = performance.now() + 3000; };
+  // bajar o subir la página también la mueve, aunque alguien la haya tocado antes
+  let lastY = scrollY;
+  addEventListener('scroll', () => { const dy = scrollY - lastY; lastY = scrollY; if (!reduce && inView && !drag) gx.target += dy / (innerHeight * 0.42); }, { passive: true });
   row.addEventListener('dragstart', (e) => e.preventDefault());
   row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
   row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') hover = false; });
@@ -2086,7 +2137,7 @@ function renderWork(){
   const end = (e) => {
     if (!drag || e.pointerId !== drag.id) return;
     const was = drag.on, v = drag.v; drag = null; row.classList.remove('dragging');
-    if (was) gx.target = Math.round(gx.pos - Math.max(-1, Math.min(1, v * 1.1)));
+    if (was) { gx.target = Math.round(gx.pos - Math.max(-1, Math.min(1, v * 1.1))); touch(); }
   };
   addEventListener('pointerup', end, { passive: true }); addEventListener('pointercancel', end, { passive: true });
   // tocar una pieza de los lados la trae al centro
@@ -2118,7 +2169,7 @@ function renderWork(){
     const dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
     const N = gx.tiles.length; if (!N) return;
     if (!tileW || tileW === 300) measure();
-    if (!reduce && inView && !gx.touched && !hover && !drag && now > nextAuto) { gx.target = Math.round(gx.target) + 1; nextAuto = now + 3600; }
+    if (!reduce && inView && !hover && !drag && now > gx.pauseUntil) gx.target += 0.16 * dt;
     if (!drag) gx.pos += (gx.target - gx.pos) * (reduce ? 1 : 1 - Math.exp(-dt * 5.5));
     if (!inView && gx.last >= 0) return;
     for (let i = 0; i < N; i++) {
@@ -2137,6 +2188,20 @@ function renderWork(){
     if (cur !== gx.last || gx.lastLang !== lang) { gx.last = cur; info(cur); }
   }
   requestAnimationFrame(frame);
+})();
+
+// ═══ Comentarios: uno a la vez; cada tramo de scroll trae el siguiente ═══
+(function(){
+  const sec = document.getElementById('voces'), items = Array.from(document.querySelectorAll('#voces .voz')), bar = document.getElementById('voces-bar');
+  if (!sec || !items.length) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach((v) => v.classList.add('on')); return; }
+  let cur = -1;
+  function read(){
+    const r = sec.getBoundingClientRect(), span = sec.offsetHeight - innerHeight;
+    const p = span > 0 ? Math.min(.9999, Math.max(0, -r.top / span)) : 0, i = Math.floor(p * items.length);
+    if (i !== cur) { cur = i; items.forEach((v, j) => v.classList.toggle('on', j === i)); if (bar) bar.style.width = ((i + 1) / items.length * 100) + '%'; }
+  }
+  addEventListener('scroll', read, { passive: true }); addEventListener('resize', read, { passive: true }); read();
 })();
 
 // ═══ "Así de simple": tipografía en movimiento dirigida por el scroll ═══

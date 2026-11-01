@@ -77,7 +77,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   work_label:{es:'Clientes',en:'Clients'},
   trust_label:{es:'Empresas reales que confían en BIE',en:'Real companies that trust BIE'},
   work_h2:{es:'Esto hicimos para nuestros clientes.',en:'This is what we made for our clients.'},
-  work_sub:{es:'Desliza para verlo.',en:'Swipe to see it.'},
+  work_sub:{es:'Negocios reales de Ecuador.',en:'Real businesses in Ecuador.'},
   ba_title:{es:'Así se ve el cambio.',en:'This is what change looks like.'},
   ba_note:{es:'Arrastra para comparar · capturas reales próximamente',en:'Drag to compare · real screenshots coming soon'},
   ba_b1:{es:'Invisible.',en:'Invisible.'}, ba_b2:{es:'Sin marca · sin sistema · sin datos',en:'No brand · no system · no data'},
