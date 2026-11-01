@@ -1,0 +1,208 @@
+// Cubo de BIE en Three.js. Se carga después del primer pantallazo: la promesa y el botón no esperan al 3D.
+import * as THREE from 'three';
+
+export function init() {
+
+const canvas = document.getElementById('cubo-canvas') as HTMLCanvasElement;
+const stage = document.getElementById('hero') as HTMLElement;
+const labelsEl = document.getElementById('cubo-labels') as HTMLElement;
+const flash = document.getElementById('cubo-flash') as HTMLElement;
+const lines = Array.from(document.querySelectorAll<HTMLElement>('.cubo-line'));
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// celulares y equipos modestos: sin sombras y menos resolución, para que la página no se trabe
+const modest = innerWidth < 768 || (navigator.hardwareConcurrency || 8) <= 4;
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, modest ? 1.5 : 2));
+renderer.setClearColor(0xf6f4f8, 0);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.shadowMap.enabled = !modest;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xf6f4f8, 14, 34);
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
+
+scene.add(new THREE.AmbientLight(0xffffff, 1.35));
+scene.add(new THREE.HemisphereLight(0xffffff, 0xe8e2f0, 0.45));
+const key = new THREE.DirectionalLight(0xffffff, 0.95); key.position.set(-4, 6, 5); scene.add(key);
+key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.camera.near = 1; key.shadow.camera.far = 30;
+key.shadow.camera.left = key.shadow.camera.bottom = -8; key.shadow.camera.right = key.shadow.camera.top = 8; key.shadow.bias = -0.0015;
+const redRim = new THREE.DirectionalLight(0xff3b2f, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
+const rim = new THREE.DirectionalLight(0xf2f5ff, 0.7); rim.position.set(5, 3, -6); scene.add(rim);
+const fill = new THREE.PointLight(0xff3b2f, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
+// luz del núcleo: se enciende cuando el cubo se abre
+const core = new THREE.PointLight(0xff3b2f, 0, 7); core.position.set(0, 0, 0);
+
+// cuadrícula 3x3x3; orden de construcción: capa inferior → media → superior; atrás → adelante; izquierda → derecha
+const S = 1, GAP = 0.045;
+const grid: {x:number,y:number,z:number}[] = [];
+for (const y of [-1, 0, 1]) for (const z of [-1, 0, 1]) for (const x of [-1, 0, 1]) grid.push({ x, y, z });
+
+// azar determinista: el mismo caos en cada visita
+let seed = 7;
+const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+
+const FOIL_FRONT = 0xfdfcff;
+const geo = new THREE.BoxGeometry(S, S, S);
+const edgesGeo = new THREE.EdgesGeometry(geo);
+const edgeMat = new THREE.LineBasicMaterial({ color: 0x1a0f24, transparent: true, opacity: 0.22 });
+// perla tornasol: cada cara de la pieza refleja un color distinto de la paleta (+x, -x, +y, -y, +z, -z)
+const FOIL = [0xb9f5ec, 0xd5ccff, 0xffffff, 0xffc9e3, 0xfdfcff, 0xeaffa8];
+const pearl = (c: number) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, metalness: 0 });
+const foilMats = FOIL.map(pearl);
+const RED = new THREE.Color(0xff3b2f), DARK = new THREE.Color(FOIL_FRONT);
+
+const group = new THREE.Group(); scene.add(group); group.add(core);
+const outEl = document.getElementById('cubo-out') as HTMLElement;
+const stickyEl = stage.querySelector('.cubo-sticky') as HTMLElement;
+const setFin = (v: number) => document.body.style.setProperty('--fin', v.toFixed(3));
+setFin(reduce ? 1 : 0);
+const copyEl = document.querySelector('.cubo-copy') as HTMLElement;
+// suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.22 }));
+floor.rotation.x = -Math.PI / 2; floor.position.y = -1.6; floor.receiveShadow = true; group.add(floor);
+type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
+const pieces: Piece[] = [];
+const WORDS: Record<number, string> = { 0: 'citas', 2: 'inventario', 4: 'redes', 6: 'cobros', 8: 'marca', 10: 'sistemas', 13: 'Instagram', 15: 'Facebook', 17: 'Meta', 20: 'WhatsApp', 23: 'web', 25: 'TikTok' };
+
+const N = grid.length, T_START = 0.1, T_END = 0.66, DUR = 0.11;
+grid.forEach((g, i) => {
+  const mats = [...foilMats];
+  if (g.z === 1) mats[4] = pearl(FOIL[4]);
+  const mesh = new THREE.Mesh(geo, mats);
+  mesh.add(new THREE.LineSegments(edgesGeo, edgeMat));
+  mesh.castShadow = true; mesh.receiveShadow = true;
+  group.add(mesh);
+  // Cada pieza viaja por el rayo que une el centro con su sitio final: las posiciones de salida son
+  // el cubo final "explotado" (escala s0 > 1). Un cubo escalado nunca se solapa consigo mismo, así que
+  // las piezas no se cruzan ni se atraviesan mientras llegan; la central es el núcleo y espera en su sitio.
+  const s0 = 3.6 + rnd() * 3.2; rnd(); rnd();
+  const start = new THREE.Vector3(g.x * s0, g.y * s0, g.z * s0);
+  const t0 = T_START + (i / (N - 1)) * (T_END - T_START - DUR);
+  const p: Piece = { mesh, start, s0, target: new THREE.Vector3(), g, rot0: new THREE.Euler(rnd() * 2, rnd() * 2, rnd() * 2), t0, t1: t0 + DUR, front: g.z === 1 ? mats[4] : null };
+  if (WORDS[i]) { const el = document.createElement('div'); el.className = 'cubo-lbl'; el.textContent = WORDS[i]; labelsEl.appendChild(el); p.label = el; }
+  pieces.push(p);
+});
+
+// la pieza frena al llegar, sin pasarse (pasarse la metería dentro de sus vecinas)
+const easeOutQuint = (u: number) => 1 - Math.pow(1 - u, 5);
+const smooth = (u: number) => u * u * (3 - 2 * u);
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+
+let target = 0, prog = reduce ? 1 : 0, lastLine = -1, running = true;
+// final: tras la cara roja, el resto del recorrido abre el cubo y mete la cámara
+let finT = 0, fin = 0;
+const ASM = 0.68; // fracción del recorrido dedicada a armar el cubo
+const tmp = new THREE.Vector3();
+
+function layout() {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (!w || !h) return;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', layout, { passive: true }); layout();
+
+function readScroll() {
+  const r = stage.getBoundingClientRect();
+  const span = stage.offsetHeight - innerHeight;
+  if (!(span > 0)) return;
+  const raw = clamp01(-r.top / span);
+  target = clamp01(raw / ASM);
+  finT = reduce ? 0 : clamp01((raw - ASM) / (1 - ASM));
+  if (r.bottom <= 0 || reduce) { fin = 1; finT = 1; setFin(1); }
+  if (!Number.isFinite(prog)) prog = target;
+  // fuera de pantalla no se dibuja
+  running = r.bottom > 0 && r.top < innerHeight;
+}
+addEventListener('scroll', readScroll, { passive: true }); readScroll();
+
+function frame(now: number) {
+  requestAnimationFrame(frame);
+  if (!running && Math.abs(target - prog) < 0.001) return;
+  if (!Number.isFinite(prog)) prog = target;
+  prog += (target - prog) * (reduce ? 1 : 0.18);
+  fin += (finT - fin) * 0.18;
+  const p = prog, t = now * 0.001;
+  const portrait = camera.aspect < 1, dist = portrait ? 1.35 + (1 - camera.aspect) * 0.6 : 1;
+
+  const cp = smooth(p);
+  camera.position.set(THREE.MathUtils.lerp(0.4, 3.0, cp) * dist, THREE.MathUtils.lerp(2.4, 1.9, cp), THREE.MathUtils.lerp(14, 10.8, cp) * dist);
+  group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 1.9, cp);
+  group.position.y = portrait ? THREE.MathUtils.lerp(0, 2.6 + (1 - camera.aspect) * 1.5, cp) : 0;
+  group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
+  group.rotation.x = THREE.MathUtils.lerp(0.06, 0, cp);
+  // final: el cubo se centra y se cuadra, la cámara avanza hasta entrar por la cara roja
+  const f1 = smooth(clamp01(fin / 0.45));           // centrar y encuadrar
+  const f2 = smooth(clamp01((fin - 0.25) / 0.55));   // abrir
+  const f3 = smooth(clamp01((fin - 0.55) / 0.45));   // entrar
+  if (fin > 0.001) {
+    group.position.x = THREE.MathUtils.lerp(group.position.x, 0, f1);
+    group.position.y = THREE.MathUtils.lerp(group.position.y, 0, f1);
+    group.rotation.y = THREE.MathUtils.lerp(group.rotation.y, 0, f1);
+    group.rotation.x = THREE.MathUtils.lerp(group.rotation.x, 0, f1);
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, 0, f1);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, 0, f1);
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, 7.5 * dist, f1);
+    camera.position.z = THREE.MathUtils.lerp(camera.position.z, 0.9, f3);
+  }
+  core.intensity = f2 * 9;
+  outEl.style.opacity = '0';
+  canvas.style.opacity = (clamp01((p - 0.03) / 0.05) * (1 - smooth(clamp01((fin - 0.8) / 0.2)))).toFixed(3);
+  setFin(fin);
+  copyEl.style.opacity = (1 - clamp01(fin * 5)).toFixed(3);
+  camera.lookAt(fin > 0.001 ? group.position.x * 0.8 * (1 - f1) : group.position.x * 0.8, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);
+  redRim.intensity = 0.2 + cp * 0.6;
+  floor.material.opacity = (0.06 + cp * 0.16) * (1 - f1);
+
+  // 0.66 todo encajado → 0.66-0.74 las juntas se cierran → 0.76-0.90 flash blanco → cara roja
+  const seam = 1 - smooth(clamp01((p - 0.66) / 0.08));
+  const stepNow = S + GAP * seam;
+  edgeMat.opacity = 0.22 * seam;
+  const fl = p < 0.76 ? 0 : p < 0.81 ? smooth((p - 0.76) / 0.05) : 1 - smooth(clamp01((p - 0.81) / 0.10));
+  flash.style.opacity = fl.toFixed(3);
+  const redAmt = clamp01((p - 0.80) / 0.04);
+  fill.intensity = redAmt * 6;
+
+  for (const pc of pieces) {
+    const u = clamp01((p - pc.t0) / (pc.t1 - pc.t0));
+    const e = easeOutQuint(u);
+    const s = 1 + (pc.s0 - 1) * (1 - e) * (portrait ? 0.7 : 1);
+    pc.target.set(pc.g.x * stepNow, pc.g.y * stepNow, pc.g.z * stepNow);
+    pc.mesh.position.copy(pc.target).multiplyScalar(s);
+    if (u === 0 && !reduce) {
+      pc.mesh.position.x += Math.sin(t * 0.6 + pc.t0 * 40) * 0.12;
+      pc.mesh.position.y += Math.cos(t * 0.5 + pc.t0 * 30) * 0.12;
+    }
+    // gira libremente lejos del cubo y se alinea antes de tocar a sus vecinas
+    const k = clamp01((s - 1.6) / 2.4);
+    pc.mesh.rotation.set(pc.rot0.x * k + t * 0.25 * k, pc.rot0.y * k + t * 0.2 * k, pc.rot0.z * k);
+    if (pc.front) pc.front.color.copy(DARK).lerp(RED, redAmt);
+    // apertura: cada capa se separa del eje en su plano; la delantera primero, la trasera al final
+    if (fin > 0.001) {
+      const layer = pc.g.z === 1 ? f2 : pc.g.z === 0 ? smooth(clamp01((fin - 0.45) / 0.45)) : smooth(clamp01((fin - 0.6) / 0.4));
+      const amp = (pc.g.z === 1 ? 3.2 : pc.g.z === 0 ? 2.4 : 1.8) * stepNow * layer;
+      let dx = pc.g.x, dy = pc.g.y;
+      if (dx === 0 && dy === 0) { dy = -1; }
+      const n = Math.hypot(dx, dy);
+      pc.mesh.position.x += (dx / n) * amp;
+      pc.mesh.position.y += (dy / n) * amp;
+      pc.mesh.rotation.z += (pc.g.x - pc.g.y) * 0.18 * layer;
+    }
+    if (pc.label) {
+      pc.mesh.getWorldPosition(tmp).project(camera);
+      const x = (tmp.x * 0.5 + 0.5) * canvas.clientWidth, y = (-tmp.y * 0.5 + 0.5) * canvas.clientHeight;
+      pc.label.style.transform = `translate(${x.toFixed(1)}px, ${(y - 26).toFixed(1)}px) translate(-50%,-50%)`;
+      pc.label.style.opacity = String(clamp01(1 - u * 1.6) * (tmp.z < 1 ? 1 : 0));
+    }
+  }
+
+  // 0 promesa y botón · 1 el problema · 2 el armado · 3 cierre con botón
+  labelsEl.style.opacity = String(clamp01((p - 0.08) / 0.05));
+  const li = p < 0.07 ? 0 : p < 0.28 ? 1 : p < 0.80 ? 2 : 3;
+  if (li !== lastLine) { lines.forEach((l, i) => l.classList.toggle('on', i === li)); lastLine = li; }
+  renderer.render(scene, camera);
+}
+requestAnimationFrame(frame);
+}
