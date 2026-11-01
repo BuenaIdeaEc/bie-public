@@ -80,7 +80,8 @@ grid.forEach((g, i) => {
   const start = new THREE.Vector3(g.x * s0, g.y * s0, g.z * s0);
   const t0 = T_START + (i / (N - 1)) * (T_END - T_START - DUR);
   const p: Piece = { mesh, start, s0, target: new THREE.Vector3(), g, rot0: new THREE.Euler(rnd() * 2, rnd() * 2, rnd() * 2), t0, t1: t0 + DUR, front: g.z === 1 ? mats[4] : null };
-  if (WORDS[i]) { const el = document.createElement('div'); el.className = 'cubo-lbl'; el.textContent = WORDS[i]; labelsEl.appendChild(el); p.label = el; }
+  // en vertical hay menos espacio: menos etiquetas, para que no se junten
+  if (WORDS[i] && !(innerWidth < innerHeight && (i === 10 || i === 25 || i === 15))) { const el = document.createElement('div'); el.className = 'cubo-lbl'; el.textContent = WORDS[i]; labelsEl.appendChild(el); p.label = el; }
   pieces.push(p);
 });
 
