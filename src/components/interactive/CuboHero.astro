@@ -30,7 +30,7 @@ const SCENES = [['asistente-inteligente-whatsapp', 'hero_f_s1'], ['identidad-de-
       <div class="cf-window">
         {SCENES.map(([slug, key], i) => (
           <figure class={'cf-scene' + (i === 0 ? ' on' : '')}>
-            <video src={'/videos/productos/' + slug + '.mp4'} poster={'/images/productos/' + slug + '.webp'} muted loop playsinline autoplay={i === 0} preload={i === 0 ? 'auto' : 'none'} aria-hidden="true" width="900" height="900"></video>
+            <video data-src={'/videos/productos/' + slug + '.mp4'} poster={i === 0 ? '/images/productos/' + slug + '.webp' : undefined} data-poster={'/images/productos/' + slug + '.webp'} muted loop playsinline preload="none" aria-hidden="true" width="900" height="900"></video>
             <figcaption><span data-i18n={key} set:html={es(key)}></span><small data-i18n="hero_f_ill" set:html={es('hero_f_ill')}></small></figcaption>
           </figure>
         ))}
@@ -117,21 +117,33 @@ const SCENES = [['asistente-inteligente-whatsapp', 'hero_f_s1'], ['identidad-de-
 </style>
 
 <script>
-// el 3D llega en cuanto el visitante baja, o cuando el navegador queda libre
+// el 3D llega en cuanto el visitante baja; si no baja, cuando el navegador queda libre
 let booted = false;
 const boot = () => { if (booted) return; booted = true; import('../../lib/cubo3d').then((m) => m.init()); };
 addEventListener('scroll', boot, { passive: true, once: true });
-if ('requestIdleCallback' in window) requestIdleCallback(boot, { timeout: 3500 }); else setTimeout(boot, 2500);
+setTimeout(() => ('requestIdleCallback' in window ? requestIdleCallback(boot) : boot()), 6000);
 
-// primer pantallazo: tres escenas que se turnan, solo mientras se ven
+// primer pantallazo: tres escenas que se turnan. Primero la foto; los videos llegan cuando la página ya cargó
 const scenes = Array.from(document.querySelectorAll<HTMLElement>('.cf-scene'));
 const first = document.querySelector<HTMLElement>('.cubo-first');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prepare = (i: number) => {
+  const v = scenes[i]?.querySelector('video');
+  if (!v || !v.dataset.src) return;
+  v.poster = v.dataset.poster || ''; v.src = v.dataset.src; delete v.dataset.src; v.preload = 'auto'; v.load();
+};
+const whenLoaded = (fn: () => void) => { if (document.readyState === 'complete') setTimeout(fn, 400); else addEventListener('load', () => setTimeout(fn, 400), { once: true }); };
 let cur = 0;
-if (scenes.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) setInterval(() => {
-  if (document.hidden || !first?.classList.contains('on')) return;
-  const next = (cur + 1) % scenes.length;
-  const v = scenes[next].querySelector('video');
-  if (v) { v.preload = 'auto'; v.currentTime = 0; v.play().catch(() => {}); }
-  scenes[cur].classList.remove('on'); scenes[next].classList.add('on'); cur = next;
-}, 5200);
+if (!still && scenes.length) whenLoaded(() => {
+  prepare(0); scenes[0].querySelector('video')?.play().catch(() => {});
+  setTimeout(() => prepare(1), 2500);
+  setInterval(() => {
+    if (document.hidden || !first?.classList.contains('on')) return;
+    const next = (cur + 1) % scenes.length, v = scenes[next].querySelector('video');
+    if (!v || v.readyState < 2) { prepare(next); return; } // aún no llega: se queda en la escena actual
+    v.currentTime = 0; v.play().catch(() => {});
+    scenes[cur].classList.remove('on'); scenes[next].classList.add('on'); cur = next;
+    prepare((next + 1) % scenes.length);
+  }, 5200);
+});
 </script>

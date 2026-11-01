@@ -50,6 +50,7 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://businessintelligence.solutions">
 <script type="application/ld+json" is:inline set:html={JSON.stringify({"@context":"https://schema.org","@type":["Organization","ProfessionalService"],"@id":"https://businessintelligence.solutions/#org","name":"BIE — Business Intelligence Enhancer","alternateName":"BIE","legalName":"Business Intelligence Enhancer","url":"https://businessintelligence.solutions","logo":"https://businessintelligence.solutions/icons/logo.svg","image":"https://businessintelligence.solutions/images/og/og-default.jpg","telephone":"+593988253030","taxID":"0993404878001","vatID":"0993404878001","address":{"@type":"PostalAddress","addressCountry":"EC"},"areaServed":{"@type":"Country","name":"Ecuador"},"description":"Página web, asistente de WhatsApp, marca y sistema para negocios en Ecuador. Lo construimos por ti y lo mantenemos contigo. Tres rutas para empezar: que te encuentren, que te compren, que funcione solo.","knowsLanguage":["es","en"],"priceRange":"USD 150 - USD 2000","currenciesAccepted":"USD","contactPoint":[{"@type":"ContactPoint","contactType":"sales","telephone":"+593988253030","url":"https://wa.me/593988253030","availableLanguage":["es","en"]}],"sameAs":["https://instagram.com/businessintelligence.ec"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Rutas de entrada","itemListElement":[{"@type":"Offer","name":"Que te encuentren","description":"Página web, perfil de Google Maps e identidad de marca","price":"275","priceCurrency":"USD","url":"https://businessintelligence.solutions/#top"},{"@type":"Offer","name":"Que te compren","description":"WhatsApp Business con catálogo, asistente inteligente 24/7 y gestión de redes","price":"247","priceCurrency":"USD","url":"https://businessintelligence.solutions/#top"},{"@type":"Offer","name":"Que funcione solo","description":"Automatizaciones, CRM con IA y sistema operativo de tu empresa","price":"250","priceCurrency":"USD","url":"https://businessintelligence.solutions/#top"}]}})}></script>
+<link rel="preload" href="/images/productos/asistente-inteligente-whatsapp.webp" as="image" fetchpriority="high">
 <link rel="preload" href="/fonts/texgyreheros-regular.woff2" as="font" type="font/woff2" crossorigin>
 
 <style is:global>
@@ -1335,7 +1336,7 @@ html body .pack-hot{border-color:transparent}
     <div class="packs reveal d1">
       {([['pk1', WA_PK1_SSR, 'pagina-web', true], ['pk2', WA_PK2_SSR, 'whatsapp-business-commerce', true], ['pk3', WA_PK3_SSR, 'crm-ia', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
         <a class={'pack' + (i === 1 ? ' pack-hot' : '')} href={href} target="_blank" rel="noopener">
-          <span class="pack-media">{vid ? <video src={'/videos/productos/' + media + '.mp4'} poster={'/images/productos/' + media + '.webp'} muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video> : <img src={'/images/productos/' + media + '.webp'} alt="" width="900" height="900" loading="lazy" decoding="async" />}{i === 1 && <span class="pack-tag" data-i18n="pk_tag2" set:html={es('pk_tag2')}></span>}</span>
+          <span class="pack-media">{vid ? <video data-src={'/videos/productos/' + media + '.mp4'} data-poster={'/images/productos/' + media + '.webp'} muted loop playsinline preload="none" aria-hidden="true"></video> : <img src={'/images/productos/' + media + '.webp'} alt="" width="900" height="900" loading="lazy" decoding="async" />}{i === 1 && <span class="pack-tag" data-i18n="pk_tag2" set:html={es('pk_tag2')}></span>}</span>
           <span class="pack-k"><span data-i18n="pk_k" set:html={es('pk_k')}></span> 0{i + 1}</span>
           <h3 class="pack-n" data-i18n={k + '_n'} set:html={es(k + '_n')}></h3>
           <p class="pack-d" data-i18n={k + '_d'} set:html={es(k + '_d')}></p>
@@ -1783,18 +1784,28 @@ const TOP = [
   { href:'/productos/link-hub/?src=home-mas-pedidos', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
 ];
 function watchTileVideos(){
-  const vids = document.querySelectorAll('.top-tile video.tt-img');
-  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const vids = document.querySelectorAll('.top-tile video.tt-img, .pack-media video');
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const load = (v) => { if (v.dataset.poster) { v.poster = v.dataset.poster; delete v.dataset.poster; } if (!still && v.dataset.src) { v.src = v.dataset.src; delete v.dataset.src; } };
+  if (!('IntersectionObserver' in window)) { vids.forEach(load); return; }
+  const near = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { load(e.target); near.unobserve(e.target); } }), { rootMargin: '700px 0px' });
+  vids.forEach((v) => near.observe(v));
+  if (still) return;
   const io = new IntersectionObserver((es) => es.forEach((e) => {
     const v = e.target;
-    if (e.intersectionRatio >= .35) { if (v.paused) v.play().catch(() => {}); }
+    if (e.intersectionRatio >= .35) { if (v.paused && (v.src || v.currentSrc)) v.play().catch(() => {}); }
     else if (!v.paused) v.pause();
   }), { threshold: [0, .35, .7] });
   vids.forEach((v) => io.observe(v));
 }
+// solo estos cuatro productos tienen video; el resto usa su foto
+const TILE_VIDEOS = ['identidad-de-marca', 'pagina-web', 'asistente-inteligente-whatsapp', 'whatsapp-business-commerce'];
+const TILE_MEDIA = (slug) => TILE_VIDEOS.includes(slug)
+  ? `<video class="tt-img" data-src="/videos/productos/${slug}.mp4" data-poster="/images/productos/${slug}.webp" muted loop playsinline preload="none" aria-hidden="true"></video>`
+  : `<img class="tt-img" src="/images/productos/${slug}.webp" alt="" loading="lazy" decoding="async">`;
 function renderTop(){
   document.getElementById('top-grid').innerHTML = TOP.map((x, i) =>
-    `<a class="top-tile has-img" href="${x.href}"><video class="tt-img" src="/videos/productos/${x.href.split('/')[2]}.mp4" poster="/images/productos/${x.href.split('/')[2]}.webp" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
+    `<a class="top-tile has-img" href="${x.href}">${TILE_MEDIA(x.href.split('/')[2])}<span class="tt-px"></span><span class="tt-num">0${i + 1}</span><span class="tt-name">${t(x.n)}</span><span class="tt-hook">${t(x.hook)}</span><span class="tt-arrow">→</span></a>`).join('');
   watchTileVideos();
 }
 
@@ -2560,12 +2571,10 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // ═══ Init ═══
 document.getElementById('nav').classList.add('dark-zone');
-applyStatics();
-renderH1();
-renderMarquee();
-renderRail();
-renderWork();
-renderTop();
+let __ready = false;
+const __start = () => { if (__ready) return; __ready = true; applyStatics(); renderH1(); renderMarquee(); renderRail(); renderWork(); renderTop(); };
+requestAnimationFrame(() => setTimeout(__start, 0));
+setTimeout(__start, 800);
 </script>
 
 <script src="/track.js" defer></script>
