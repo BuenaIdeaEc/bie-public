@@ -14,25 +14,25 @@ const modest = innerWidth < 768 || (navigator.hardwareConcurrency || 8) <= 4;
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(devicePixelRatio, modest ? 1.5 : 2));
-renderer.setClearColor(0xf6f4f8, 0);
+renderer.setClearColor(0xffffff, 0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.shadowMap.enabled = !modest;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0xf6f4f8, 14, 34);
+scene.fog = new THREE.Fog(0xffffff, 14, 34);
 const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
 
-scene.add(new THREE.AmbientLight(0xffffff, 1.35));
-scene.add(new THREE.HemisphereLight(0xffffff, 0xe8e2f0, 0.45));
-const key = new THREE.DirectionalLight(0xffffff, 0.95); key.position.set(-4, 6, 5); scene.add(key);
+scene.add(new THREE.AmbientLight(0xffffff, 1.25));
+scene.add(new THREE.HemisphereLight(0xffffff, 0xe4e4e2, 0.6));
+const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(-4, 6, 5); scene.add(key);
 key.castShadow = true; key.shadow.mapSize.set(1024, 1024); key.shadow.camera.near = 1; key.shadow.camera.far = 30;
 key.shadow.camera.left = key.shadow.camera.bottom = -8; key.shadow.camera.right = key.shadow.camera.top = 8; key.shadow.bias = -0.0015;
-const redRim = new THREE.DirectionalLight(0xff3b2f, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
+const redRim = new THREE.DirectionalLight(0xffffff, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
 const rim = new THREE.DirectionalLight(0xf2f5ff, 0.7); rim.position.set(5, 3, -6); scene.add(rim);
-const fill = new THREE.PointLight(0xff3b2f, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
+const fill = new THREE.PointLight(0xffffff, 0, 12); fill.position.set(0, -1, 4); scene.add(fill);
 // luz del núcleo: se enciende cuando el cubo se abre
-const core = new THREE.PointLight(0xff3b2f, 0, 7); core.position.set(0, 0, 0);
+const core = new THREE.PointLight(0xffffff, 0, 7); core.position.set(0, 0, 0);
 
 // cuadrícula 3x3x3; orden de construcción: capa inferior → media → superior; atrás → adelante; izquierda → derecha
 const S = 1, GAP = 0.045;
@@ -43,15 +43,12 @@ for (const y of [-1, 0, 1]) for (const z of [-1, 0, 1]) for (const x of [-1, 0, 
 let seed = 7;
 const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
 
-const FOIL_FRONT = 0xfdfcff;
 const geo = new THREE.BoxGeometry(S, S, S);
 const edgesGeo = new THREE.EdgesGeometry(geo);
-const edgeMat = new THREE.LineBasicMaterial({ color: 0x1a0f24, transparent: true, opacity: 0.22 });
-// perla tornasol: cada cara de la pieza refleja un color distinto de la paleta (+x, -x, +y, -y, +z, -z)
-const FOIL = [0xb9f5ec, 0xd5ccff, 0xffffff, 0xffc9e3, 0xfdfcff, 0xeaffa8];
-const pearl = (c: number) => new THREE.MeshStandardMaterial({ color: c, roughness: 0.6, metalness: 0 });
-const foilMats = FOIL.map(pearl);
-const RED = new THREE.Color(0xff3b2f), DARK = new THREE.Color(FOIL_FRONT);
+const edgeMat = new THREE.LineBasicMaterial({ color: 0x080808, transparent: true, opacity: 0.22 });
+// piezas blancas; al cerrarse las juntas, las nueve caras delanteras forman el logo de BIE
+const white = () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.72, metalness: 0 });
+const whiteMat = white();
 
 const group = new THREE.Group(); scene.add(group); group.add(core);
 const outEl = document.getElementById('cubo-out') as HTMLElement;
@@ -62,14 +59,30 @@ const copyEl = document.querySelector('.cubo-copy') as HTMLElement;
 // suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.22 }));
 floor.rotation.x = -Math.PI / 2; floor.position.y = -1.6; floor.receiveShadow = true; group.add(floor);
-type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
+type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, map?: THREE.Texture, label?: HTMLElement };
 const pieces: Piece[] = [];
+let logoReady = false, logoOn = false;
+// con el cubo cerrado el logo es una sola lámina, sin líneas entre piezas; al abrirse pasan a verse las nueve caras
+let logoPlane: THREE.Mesh | null = null;
+new THREE.TextureLoader().load('/images/marca/bie-cuadro.webp', (logo) => {
+  logo.colorSpace = THREE.SRGBColorSpace;
+  logo.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  for (const pc of pieces) if (pc.front) {
+    const t = logo.clone();
+    t.repeat.set(1 / 3, 1 / 3);
+    t.offset.set((pc.g.x + 1) / 3, (pc.g.y + 1) / 3);
+    t.needsUpdate = true;
+    pc.map = t;
+  }
+  logoPlane = new THREE.Mesh(new THREE.PlaneGeometry(3, 3), new THREE.MeshBasicMaterial({ map: logo, toneMapped: false, fog: false }));
+  logoPlane.position.z = 1.504; logoPlane.visible = false; group.add(logoPlane);
+  logoReady = true;
+});
 const WORDS: Record<number, string> = { 0: 'citas', 2: 'inventario', 4: 'redes', 6: 'cobros', 8: 'marca', 10: 'sistemas', 13: 'Instagram', 15: 'Facebook', 17: 'Meta', 20: 'WhatsApp', 23: 'web', 25: 'TikTok' };
 
 const N = grid.length, T_START = 0.1, T_END = 0.66, DUR = 0.11;
 grid.forEach((g, i) => {
-  const mats = [...foilMats];
-  if (g.z === 1) mats[4] = pearl(FOIL[4]);
+  const mats = [whiteMat, whiteMat, whiteMat, whiteMat, g.z === 1 ? white() : whiteMat, whiteMat];
   const mesh = new THREE.Mesh(geo, mats);
   mesh.add(new THREE.LineSegments(edgesGeo, edgeMat));
   mesh.castShadow = true; mesh.receiveShadow = true;
@@ -163,7 +176,11 @@ function frame(now: number) {
   const fl = p < 0.76 ? 0 : p < 0.81 ? smooth((p - 0.76) / 0.05) : 1 - smooth(clamp01((p - 0.81) / 0.10));
   flash.style.opacity = fl.toFixed(3);
   const redAmt = clamp01((p - 0.80) / 0.04);
-  fill.intensity = redAmt * 6;
+  fill.intensity = redAmt * 0.5;
+  // el cambio a logo ocurre con el destello en su punto más alto
+  const wantLogo = redAmt > 0 && logoReady;
+  if (wantLogo !== logoOn) { logoOn = wantLogo; for (const pc of pieces) if (pc.front) { pc.front.map = logoOn ? pc.map || null : null; pc.front.needsUpdate = true; } }
+  if (logoPlane) logoPlane.visible = logoOn && fin < 0.22;
 
   for (const pc of pieces) {
     const u = clamp01((p - pc.t0) / (pc.t1 - pc.t0));
@@ -178,7 +195,6 @@ function frame(now: number) {
     // gira libremente lejos del cubo y se alinea antes de tocar a sus vecinas
     const k = clamp01((s - 1.6) / 2.4);
     pc.mesh.rotation.set(pc.rot0.x * k + t * 0.25 * k, pc.rot0.y * k + t * 0.2 * k, pc.rot0.z * k);
-    if (pc.front) pc.front.color.copy(DARK).lerp(RED, redAmt);
     // apertura: cada capa se separa del eje en su plano; la delantera primero, la trasera al final
     if (fin > 0.001) {
       const layer = pc.g.z === 1 ? f2 : pc.g.z === 0 ? smooth(clamp01((fin - 0.45) / 0.45)) : smooth(clamp01((fin - 0.6) / 0.4));

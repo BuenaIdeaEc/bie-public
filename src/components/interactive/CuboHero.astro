@@ -7,8 +7,6 @@ import { UI } from '../../data/home-ui';
 interface Props { waHref: string }
 const { waHref } = Astro.props;
 const es = (k: string) => UI[k].es;
-// Videos de Higgsfield (personas generadas con IA): se rotulan como escena ilustrativa, no son clientes.
-const SCENES = [['asistente-inteligente-whatsapp', 'hero_f_s1'], ['identidad-de-marca', 'hero_f_s2'], ['whatsapp-business-commerce', 'hero_f_s3']];
 ---
 <section id="hero" class="cubo" aria-label="BIE: de las piezas sueltas de tu negocio a un solo sistema">
   <div class="cubo-sticky">
@@ -27,13 +25,13 @@ const SCENES = [['asistente-inteligente-whatsapp', 'hero_f_s1'], ['identidad-de-
         <p class="cf-micro" data-i18n="hero_f_micro" set:html={es('hero_f_micro')}></p>
         <a class="cf-proof" href="#voces"><span class="cf-stars" aria-hidden="true">★★★★★</span> <span data-i18n="hero_f_proof" set:html={es('hero_f_proof')}></span></a>
       </div>
-      <div class="cf-window">
-        {SCENES.map(([slug, key], i) => (
-          <figure class={'cf-scene' + (i === 0 ? ' on' : '')}>
-            <video data-src={'/videos/productos/' + slug + '.mp4'} poster={i === 0 ? '/images/productos/' + slug + '.webp' : undefined} data-poster={'/images/productos/' + slug + '.webp'} muted loop playsinline preload="none" aria-hidden="true" width="900" height="900"></video>
-            <figcaption><span data-i18n={key} set:html={es(key)}></span><small data-i18n="hero_f_ill" set:html={es('hero_f_ill')}></small></figcaption>
-          </figure>
-        ))}
+      <div class="cf-mark">
+        <div class="cc">
+          <span class="cc-f"><img src="/images/marca/bie-cuadro.webp" width="1000" height="1000" alt="Logo de BIE" fetchpriority="high"></span>
+          <span class="cc-r"></span>
+          <span class="cc-t"></span>
+        </div>
+        <span class="cc-floor" aria-hidden="true"></span>
       </div>
     </div>
     <div class="cubo-copy">
@@ -71,17 +69,18 @@ const SCENES = [['asistente-inteligente-whatsapp', 'hero_f_s1'], ['identidad-de-
 .cubo-copy{position:absolute;left:0;right:0;bottom:11vh;z-index:3;pointer-events:none}
 .cubo-line{position:absolute;left:clamp(22px,6vw,80px);right:clamp(22px,6vw,80px);bottom:0;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;will-change:opacity}
 .cubo-line.on{opacity:1;transform:none}
-.cubo-k{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-size:clamp(18px,2.2vw,24px);color:var(--text3);display:block;margin-bottom:8px}
-.cubo-h{font-size:clamp(30px,5vw,60px);font-weight:400;letter-spacing:-.02em;line-height:1.02;max-width:16ch;margin:0;text-wrap:balance;color:var(--text)}
-.cubo-h em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;padding-right:.06em;background:var(--foil-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cubo-k{font-size:15px;color:var(--text3);display:block;margin-bottom:10px}
+.cubo-h{font-size:clamp(30px,5vw,60px);font-weight:700;letter-spacing:-.035em;line-height:1.02;max-width:16ch;margin:0;text-wrap:balance;color:var(--text)}
+.cubo-h em{font-style:normal;font-weight:inherit;color:var(--text3)}
 .cubo-sub{font-size:16px;color:var(--text2);max-width:52ch;line-height:1.6;margin:16px 0 0}
 .cubo-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;pointer-events:auto}
 @media (max-width:640px){ .cubo-btns{flex-direction:column;gap:10px} .cubo-btns .btn-primary,.cubo-btns .btn-ghost{text-align:center} }
 .cubo-line:not(.on),.cubo-line:not(.on) *{pointer-events:none!important}
+@media (min-width:861px){ .cubo-line[data-i="3"]{right:auto;max-width:36vw} .cubo-line[data-i="3"] .cubo-h{font-size:clamp(30px,3.7vw,54px)} }
 /* Primer pantallazo: promesa, botón y prueba antes de cualquier animación */
 .cubo-line.cubo-first{left:0;right:0;top:66px;bottom:0;z-index:3;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:clamp(28px,4vw,64px);align-items:center;padding:clamp(16px,3vh,36px) clamp(22px,6vw,80px) clamp(20px,4vh,44px);pointer-events:none}
 .cf-copy{pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(12px,2vh,20px);min-width:0}
-#hero.cubo h1.cf-h{font-size:clamp(38px,5.1vw,78px);max-width:13ch;line-height:1;letter-spacing:-.03em;margin:0;opacity:1;transform:none;transition:none}
+#hero.cubo h1.cf-h{font-size:clamp(40px,5.4vw,84px);font-weight:700;max-width:12ch;line-height:.98;letter-spacing:-.045em;margin:0;opacity:1;transform:none;transition:none}
 .cf-sub{margin:0;font-size:clamp(16px,1.35vw,20px);line-height:1.45;color:var(--text2);max-width:44ch;text-wrap:pretty}
 .cf-btns{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:4px}
 .cf-cta{padding:19px 30px!important}
@@ -89,31 +88,31 @@ const SCENES = [['asistente-inteligente-whatsapp', 'hero_f_s1'], ['identidad-de-
 .cf-micro{margin:0;font-size:13px;color:var(--text2)}
 .cf-proof{display:inline-flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:13px;color:var(--text2);border-top:1px solid var(--border);padding-top:clamp(10px,1.6vh,16px)}
 .cf-proof:hover{color:var(--text)}
-.cf-stars{color:var(--accent-dark);letter-spacing:.08em}
-.cf-window{position:relative;pointer-events:auto;justify-self:end;width:100%;max-width:min(100%,calc(100dvh - 150px));aspect-ratio:1;overflow:hidden;background:var(--band);box-shadow:0 34px 70px -40px rgba(26,15,36,.55)}
-.cf-window::after{content:'';position:absolute;inset:0;padding:1.5px;background:var(--foil);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none}
-.cf-scene{position:absolute;inset:0;margin:0;opacity:0;transition:opacity .9s ease}
-.cf-scene.on{opacity:1}
-.cf-scene video{width:100%;height:100%;object-fit:cover;display:block}
-.cf-scene figcaption{position:absolute;left:12px;right:12px;bottom:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:12px 14px;font-size:15px;line-height:1.25;letter-spacing:-.01em;color:var(--text);background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(14px) saturate(1.5);backdrop-filter:blur(14px) saturate(1.5)}
-.cf-scene small{flex-shrink:0;font-size:11px;color:var(--text2)}
+.cf-stars{color:var(--text);letter-spacing:.08em}
+.cf-mark{position:relative;justify-self:center;--s:min(33vw,calc(100dvh - 300px),470px);width:var(--s);height:var(--s);perspective:1500px}
+.cc{position:absolute;inset:0;transform-style:preserve-3d;animation:cc-sway 11s ease-in-out infinite alternate}
+@keyframes cc-sway{from{transform:rotateX(-9deg) rotateY(-30deg)}to{transform:rotateX(-6deg) rotateY(-14deg)}}
+.cc span{position:absolute;display:block;backface-visibility:hidden}
+.cc-f{inset:0;transform:translateZ(calc(var(--s)/2));background:#080808}
+.cc-f img{display:block;width:100%;height:100%}
+.cc-r{inset:0;transform:rotateY(90deg) translateZ(calc(var(--s)/2));background:#efefed;box-shadow:inset 0 0 0 1px rgba(8,8,8,.08)}
+.cc-t{inset:0;transform:rotateX(90deg) translateZ(calc(var(--s)/2));background:#fff;box-shadow:inset 0 0 0 1px rgba(8,8,8,.08)}
+.cc-floor{position:absolute;left:4%;right:-12%;bottom:-11%;height:13%;background:rgba(8,8,8,.2);filter:blur(22px)}
 @media (max-width:860px){
   .cubo-line.cubo-first{top:58px;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);align-items:stretch;gap:14px;padding:14px 20px 16px}
-  #hero.cubo h1.cf-h{font-size:clamp(33px,9.6vw,46px);max-width:none}
+  #hero.cubo h1.cf-h{font-size:clamp(36px,10.6vw,50px);max-width:none}
   .cf-sub{font-size:15.5px}
   .cf-btns{width:100%}
   .cf-cta{flex:1 1 100%;text-align:center}
   .cf-price{flex:1 1 100%;text-align:center;padding:8px!important}
   .cf-micro{font-size:11.5px;align-self:center;text-align:center;white-space:nowrap}
   .cf-proof{display:none}
-  .cf-window{aspect-ratio:auto;max-width:none;min-height:0;justify-self:stretch}
-  .cf-scene video{object-position:50% 25%}
-  .cf-scene figcaption{left:8px;right:8px;bottom:8px;padding:9px 11px;font-size:13px}
+  .cf-mark{--s:min(52vw,27dvh);align-self:center;margin-top:6px}
 }
 @media (max-height:700px) and (max-width:860px){ .cf-sub{display:none} }
 /* el cierre en celular: la barra fija ya trae el botón, así el texto no pisa el cubo */
 @media (max-width:860px){ .cubo-line[data-i="3"] .cubo-sub,.cubo-line[data-i="3"] .cubo-btns{display:none} .cubo-copy{bottom:13vh} }
-@media (prefers-reduced-motion: reduce){ .cubo-line{transition:none} }
+@media (prefers-reduced-motion: reduce){ .cubo-line{transition:none} .cc{animation:none;transform:rotateX(-8deg) rotateY(-24deg)} }
 </style>
 
 <script>
@@ -123,27 +122,4 @@ const boot = () => { if (booted) return; booted = true; import('../../lib/cubo3d
 addEventListener('scroll', boot, { passive: true, once: true });
 setTimeout(() => ('requestIdleCallback' in window ? requestIdleCallback(boot) : boot()), 6000);
 
-// primer pantallazo: tres escenas que se turnan. Primero la foto; los videos llegan cuando la página ya cargó
-const scenes = Array.from(document.querySelectorAll<HTMLElement>('.cf-scene'));
-const first = document.querySelector<HTMLElement>('.cubo-first');
-const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const prepare = (i: number) => {
-  const v = scenes[i]?.querySelector('video');
-  if (!v || !v.dataset.src) return;
-  v.poster = v.dataset.poster || ''; v.src = v.dataset.src; delete v.dataset.src; v.preload = 'auto'; v.load();
-};
-const whenLoaded = (fn: () => void) => { if (document.readyState === 'complete') setTimeout(fn, 400); else addEventListener('load', () => setTimeout(fn, 400), { once: true }); };
-let cur = 0;
-if (!still && scenes.length) whenLoaded(() => {
-  prepare(0); scenes[0].querySelector('video')?.play().catch(() => {});
-  setTimeout(() => prepare(1), 2500);
-  setInterval(() => {
-    if (document.hidden || !first?.classList.contains('on')) return;
-    const next = (cur + 1) % scenes.length, v = scenes[next].querySelector('video');
-    if (!v || v.readyState < 2) { prepare(next); return; } // aún no llega: se queda en la escena actual
-    v.currentTime = 0; v.play().catch(() => {});
-    scenes[cur].classList.remove('on'); scenes[next].classList.add('on'); cur = next;
-    prepare((next + 1) % scenes.length);
-  }, 5200);
-});
 </script>
