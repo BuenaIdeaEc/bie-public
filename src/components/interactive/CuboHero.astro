@@ -11,6 +11,7 @@ const es = (k: string) => UI[k].es;
 <section id="hero" class="cubo" aria-label="BIE: de las piezas sueltas de tu negocio a un solo sistema">
   <div class="cubo-sticky">
     <div id="cubo-poster" aria-hidden="true"></div>
+    <div id="cubo-reveal" aria-hidden="true"></div>
     <canvas id="cubo-canvas" aria-hidden="true" style="opacity:0"></canvas>
     <div id="cubo-flash" aria-hidden="true"></div>
     <div id="cubo-out" aria-hidden="true"></div>
@@ -37,12 +38,14 @@ const es = (k: string) => UI[k].es;
 </section>
 
 <style is:global>
-#hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
+#hero.cubo{min-height:0;height:390vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
 #hero.cubo::after{display:none}
 .cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:#fff}
 /* velo blanco: ninguna pieza pasa por detrás del texto */
 .cubo-sticky::after{content:'';position:absolute;left:0;bottom:0;width:62%;height:58%;z-index:2;pointer-events:none;background:radial-gradient(90% 90% at 0% 100%,#fff 55%,rgba(255,255,255,0) 100%);opacity:calc(1 - var(--fin,0) * 3)}
 @media (orientation:portrait){.cubo-sticky::after{width:100%;height:36%;background:linear-gradient(180deg,rgba(255,255,255,0) 0,#fff 34%)}}
+#cubo-reveal{position:absolute;inset:0;--in:0;--out:0;visibility:hidden;pointer-events:none;background:#fff;color:var(--text);will-change:clip-path}
+#cubo-reveal .sv-in{height:100%;transform:none;opacity:1}
 #cubo-poster{position:absolute;inset:0;background:url('/images/marca/cubo-inicio.webp') center/cover no-repeat;transition:opacity .5s ease}
 #cubo-poster.off{opacity:0}
 @media (orientation:portrait){#cubo-poster{background-image:url('/images/marca/cubo-inicio-v.webp')}}
@@ -67,5 +70,13 @@ const es = (k: string) => UI[k].es;
 </style>
 
 <script>
-import('../../lib/cubo3d').then((m) => m.init()).catch(() => document.body.classList.remove('cubo-intro'));
+// dentro del cubo va una copia del primer panel: es lo que se ve al abrirse
+const reveal = document.getElementById('cubo-reveal'), panel = document.querySelector('.sv-p .sv-in');
+if (reveal && panel && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const copy = panel.cloneNode(true) as HTMLElement;
+  copy.querySelectorAll('a').forEach((a) => a.setAttribute('tabindex', '-1'));
+  copy.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; });
+  reveal.appendChild(copy);
+}
+import('../../lib/cubo3d').then((m) => m.init()).catch(() => { document.body.classList.remove('cubo-intro'); document.body.classList.add('past-cube'); });
 </script>

@@ -53,6 +53,8 @@ const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0xf6f6f4);
 
 const group = new THREE.Group(); scene.add(group); group.add(core);
 const outEl = document.getElementById('cubo-out') as HTMLElement;
+const revealEl = document.getElementById('cubo-reveal') as HTMLElement | null;
+let lastRp = -1;
 const stickyEl = stage.querySelector('.cubo-sticky') as HTMLElement;
 const setFin = (v: number) => document.body.style.setProperty('--fin', v.toFixed(3));
 setFin(reduce ? 1 : 0);
@@ -97,9 +99,11 @@ let finT = 0, fin = 0;
 const ASM = 0.6, HOLD = 0.74; // fracción del recorrido dedicada a armar el cubo
 const tmp = new THREE.Vector3();
 
+let lastW = 0, lastH = 0;
 function layout() {
   const w = canvas.clientWidth, h = canvas.clientHeight;
-  if (!w || !h) return;
+  if (!w || !h || (w === lastW && h === lastH)) return;
+  lastW = w; lastH = h;
   renderer.setSize(w, h, false);
   camera.aspect = w / h; camera.updateProjectionMatrix();
 }
@@ -107,9 +111,11 @@ addEventListener('resize', layout, { passive: true }); layout();
 
 function readScroll() {
   const r = stage.getBoundingClientRect();
-  const span = stage.offsetHeight - innerHeight;
+  const span = stage.offsetHeight - stickyEl.offsetHeight;
   if (!(span > 0)) return;
   const raw = clamp01(-r.top / span);
+  // al terminar, el panel real toma el lugar de la copia que se abrió dentro del cubo
+  document.body.classList.toggle('past-cube', raw >= 0.9985);
   target = clamp01(raw / ASM);
   // entre ASM y HOLD el cubo rojo y la frase final se quedan quietos para leerse
   finT = reduce ? 0 : clamp01((raw - HOLD) / (1 - HOLD));
@@ -150,7 +156,17 @@ function frame(now: number) {
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 7.5 * dist, f1);
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, 0.9, f3);
   }
-  core.intensity = f2 * 9;
+  core.intensity = f2 * 4;
+  const rp = smooth(clamp01((fin - 0.1) / 0.72));
+  if (rp !== lastRp) {
+    lastRp = rp;
+    if (revealEl) {
+      const W = stickyEl.clientWidth, H = stickyEl.clientHeight, half = rp * Math.max(W, H) * 0.52;
+      revealEl.style.visibility = rp > 0 ? 'visible' : 'hidden';
+      revealEl.style.clipPath = 'inset(' + Math.max(0, H / 2 - half).toFixed(1) + 'px ' + Math.max(0, W / 2 - half).toFixed(1) + 'px)';
+      revealEl.style.setProperty('--in', rp.toFixed(3));
+    }
+  }
   outEl.style.opacity = '0';
   if (drawn) canvas.style.opacity = (1 - smooth(clamp01((fin - 0.8) / 0.2))).toFixed(3);
   setFin(fin);
