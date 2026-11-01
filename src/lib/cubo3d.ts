@@ -25,9 +25,9 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0xffffff, 30, 74);
 const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 60);
 
-scene.add(new THREE.AmbientLight(0xffffff, 1.5));
-scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d8d4, 0.7));
-const key = new THREE.DirectionalLight(0xffffff, 1.3); key.position.set(-4, 6, 5); scene.add(key);
+scene.add(new THREE.AmbientLight(0xffffff, 1.85));
+scene.add(new THREE.HemisphereLight(0xffffff, 0xe4e4e2, 0.55));
+const key = new THREE.DirectionalLight(0xffffff, 1.0); key.position.set(-4, 6, 5); scene.add(key);
 key.castShadow = true; key.shadow.mapSize.set(modest ? 512 : 1024, modest ? 512 : 1024); key.shadow.camera.near = 1; key.shadow.camera.far = 30;
 key.shadow.camera.left = key.shadow.camera.bottom = -8; key.shadow.camera.right = key.shadow.camera.top = 8; key.shadow.bias = -0.0015;
 const redRim = new THREE.DirectionalLight(0xe53935, 0); redRim.position.set(-6, -1, -4); scene.add(redRim);
@@ -47,7 +47,7 @@ const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147
 
 const geo = new THREE.BoxGeometry(S, S, S);
 const edgesGeo = new THREE.EdgesGeometry(geo);
-const edgeMat = new THREE.LineBasicMaterial({ color: 0x080808, transparent: true, opacity: 0.3 });
+const edgeMat = new THREE.LineBasicMaterial({ color: 0x080808, transparent: true, opacity: 0.1 });
 const dark = () => new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7, metalness: 0 });
 const RED = new THREE.Color(0xe53935), DARK = new THREE.Color(0xf6f6f4);
 
@@ -58,7 +58,7 @@ const setFin = (v: number) => document.body.style.setProperty('--fin', v.toFixed
 setFin(reduce ? 1 : 0);
 const copyEl = document.querySelector('.cubo-copy') as HTMLElement;
 // suelo invisible que solo recibe sombra: ancla el cubo al espacio cuando se arma
-const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.22 }));
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.ShadowMaterial({ opacity: 0.12 }));
 floor.rotation.x = -Math.PI / 2; floor.position.y = -1.6; floor.receiveShadow = true; group.add(floor);
 type Piece = { mesh: THREE.Mesh, start: THREE.Vector3, s0: number, target: THREE.Vector3, g: {x:number,y:number,z:number}, rot0: THREE.Euler, t0: number, t1: number, front: THREE.MeshStandardMaterial | null, label?: HTMLElement };
 const pieces: Piece[] = [];
@@ -132,7 +132,7 @@ function frame(now: number) {
   const cp = smooth(p);
   camera.position.set(THREE.MathUtils.lerp(0.4, 3.0, cp) * dist, THREE.MathUtils.lerp(2.4, 1.9, cp), THREE.MathUtils.lerp(14, 10.8, cp) * dist);
   group.position.x = portrait ? 0 : THREE.MathUtils.lerp(0, 2.5, cp);
-  group.position.y = portrait ? THREE.MathUtils.lerp(0, 3.9 + (1 - camera.aspect) * 1.5, cp) : 0;
+  group.position.y = portrait ? THREE.MathUtils.lerp(2.6, 3.9 + (1 - camera.aspect) * 1.5, cp) : 0;
   group.rotation.y = THREE.MathUtils.lerp(0.35, -0.25, cp);
   group.rotation.x = THREE.MathUtils.lerp(0.06, 0, cp);
   // final: el cubo se centra y se cuadra, la cámara avanza hasta entrar por la cara roja
@@ -156,12 +156,12 @@ function frame(now: number) {
   copyEl.style.opacity = (1 - clamp01(fin * 5)).toFixed(3);
   camera.lookAt(fin > 0.001 ? group.position.x * 0.3 * (1 - f1) : group.position.x * 0.3, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);
   redRim.intensity = 0.2 + cp * 0.6;
-  floor.material.opacity = (0.06 + cp * 0.16) * (1 - f1);
+  floor.material.opacity = (0.05 + cp * 0.1) * (1 - f1);
 
   // 0.66 todo encajado → 0.66-0.74 las juntas se cierran → 0.76-0.90 flash blanco → cara roja
   const seam = 1 - smooth(clamp01((p - 0.66) / 0.08));
   const stepNow = S + GAP * seam;
-  edgeMat.opacity = 0.3 * seam;
+  edgeMat.opacity = 0.1 * seam;
   const fl = p < 0.76 ? 0 : p < 0.81 ? smooth((p - 0.76) / 0.05) : 1 - smooth(clamp01((p - 0.81) / 0.10));
   flash.style.opacity = fl.toFixed(3);
   const redAmt = clamp01((p - 0.80) / 0.04);

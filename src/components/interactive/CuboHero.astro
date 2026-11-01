@@ -25,7 +25,6 @@ const es = (k: string) => UI[k].es;
         <h2 class="cubo-h" data-i18n="hero_c2_h" set:html={es('hero_c2_h')}></h2>
       </div>
       <div class="cubo-line" data-i="2">
-        <span class="cubo-k" data-i18n="hero_c3_k" set:html={es('hero_c3_k')}></span>
         <h1 class="cubo-h" data-i18n="hero_c3_h" set:html={es('hero_c3_h')}></h1>
         <p class="cubo-sub" data-i18n="hero_sub" set:html={es('hero_sub')}></p>
         <div class="cubo-btns">
@@ -40,7 +39,10 @@ const es = (k: string) => UI[k].es;
 <style is:global>
 #hero.cubo{min-height:0;height:360vh;display:block;padding:0;perspective:none;overflow:visible;background:var(--black)}
 #hero.cubo::after{display:none}
-.cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:linear-gradient(180deg,#fff 0,#fff 66%,#f1f1ef 100%)}
+.cubo-sticky{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:#fff}
+/* velo blanco: ninguna pieza pasa por detrás del texto */
+.cubo-sticky::after{content:'';position:absolute;left:0;bottom:0;width:62%;height:58%;z-index:2;pointer-events:none;background:radial-gradient(90% 90% at 0% 100%,#fff 55%,rgba(255,255,255,0) 100%);opacity:calc(1 - var(--fin,0) * 3)}
+@media (orientation:portrait){.cubo-sticky::after{width:100%;height:36%;background:linear-gradient(180deg,rgba(255,255,255,0) 0,#fff 34%)}}
 #cubo-poster{position:absolute;inset:0;background:url('/images/marca/cubo-inicio.webp') center/cover no-repeat;transition:opacity .5s ease}
 #cubo-poster.off{opacity:0}
 @media (orientation:portrait){#cubo-poster{background-image:url('/images/marca/cubo-inicio-v.webp')}}
@@ -48,18 +50,17 @@ const es = (k: string) => UI[k].es;
 #cubo-flash{position:fixed;inset:0;background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(26px) saturate(1.4);backdrop-filter:blur(26px) saturate(1.4);opacity:0;pointer-events:none;z-index:1000}
 #cubo-out{display:none}
 #cubo-labels{position:absolute;inset:0;pointer-events:none;z-index:2}
-.cubo-lbl{position:absolute;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(16,16,18,.62);white-space:nowrap;will-change:transform,opacity}
-.cubo-lbl::before{content:'';display:inline-block;width:5px;height:5px;background:var(--accent);margin-right:8px;vertical-align:middle}
+.cubo-lbl{position:absolute;transform:translate(-50%,-50%);font-size:13px;color:rgba(8,8,8,.42);white-space:nowrap;will-change:transform,opacity}
 .cubo-copy{position:absolute;left:0;right:0;bottom:11vh;z-index:3;pointer-events:none}
 .cubo-line{position:absolute;left:clamp(22px,6vw,80px);right:clamp(22px,6vw,80px);bottom:0;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;will-change:opacity}
 .cubo-line.on{opacity:1;transform:none}
 .cubo-k{font-size:clamp(15px,1.5vw,18px);color:var(--text3);display:block;margin-bottom:10px}
-.cubo-h{font-size:clamp(32px,5vw,64px);font-weight:400;letter-spacing:-.03em;line-height:1.02;max-width:16ch;margin:0;text-wrap:balance;color:var(--text)}
+.cubo-h{font-size:clamp(35px,5.6vw,76px);font-weight:400;letter-spacing:-.04em;line-height:1;max-width:15ch;margin:0;text-wrap:balance;color:var(--text)}
 .cubo-h em{font-style:normal;font-weight:inherit;color:var(--accent)}
-.cubo-sub{font-size:16px;color:var(--text2);max-width:52ch;line-height:1.6;margin:16px 0 0}
+.cubo-sub{font-size:clamp(16px,1.3vw,19px);color:var(--text2);max-width:40ch;line-height:1.4;margin:14px 0 0}
 .cubo-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;pointer-events:auto}
 .cubo-line:not(.on),.cubo-line:not(.on) *{pointer-events:none!important}
-#hero.cubo h1.cubo-h{opacity:1;transform:none;transition:none;margin:0;max-width:15ch;font-size:clamp(32px,4.3vw,60px);line-height:1.02;font-weight:400;letter-spacing:-.03em}
+#hero.cubo h1.cubo-h{opacity:1;transform:none;transition:none;margin:0;max-width:17ch;font-size:clamp(33px,3.9vw,58px);line-height:1.02;font-weight:400;letter-spacing:-.04em}
 @media (min-width:861px){ .cubo-line[data-i="2"] .cubo-sub{max-width:40ch} }
 @media (max-width:640px){ .cubo-copy{bottom:calc(32px + env(safe-area-inset-bottom))} .cubo-sub{font-size:15px;margin-top:10px} .cubo-btns{align-items:center;gap:6px;margin-top:16px} html body .cubo-btns .btn-primary{width:auto;flex:1 1 auto;padding:15px 16px;text-align:center} html body .cubo-btns .btn-ghost{width:auto;padding:15px 8px} }
 @media (prefers-reduced-motion: reduce){ .cubo-line{transition:none} }
