@@ -1444,3 +1444,9 @@ setTimeout(__start, 800);
   window.__tyApply = aplica;
   aplica();
 })();
+
+// El formulario ya es el contacto: el cubo flotante no debe pisar su botón.
+(function(){
+  const form = document.getElementById('contact');
+  if (form) new IntersectionObserver(([e]) => document.body.classList.toggle('in-contact', e.isIntersecting), { threshold: 0.15 }).observe(form);
+})();
