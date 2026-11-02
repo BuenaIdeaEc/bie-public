@@ -76,9 +76,21 @@ if (reveal && panel && !matchMedia('(prefers-reduced-motion: reduce)').matches) 
   const copy = panel.cloneNode(true) as HTMLElement;
   copy.querySelectorAll('a').forEach((a) => a.setAttribute('tabindex', '-1'));
   const imgs = Array.from(copy.querySelectorAll('img'));
-  imgs.forEach((i) => { i.dataset.src = i.getAttribute('src') || ''; i.removeAttribute('src'); i.loading = 'eager'; });
+  imgs.forEach((i) => { i.dataset.src = i.getAttribute('src') || ''; i.removeAttribute('srcset'); i.removeAttribute('src'); i.loading = 'eager'; });
   addEventListener('scroll', () => imgs.forEach((i) => { if (i.dataset.src) i.src = i.dataset.src; }), { passive: true, once: true });
   reveal.appendChild(copy);
 }
-import('../../lib/cubo3d').then((m) => m.init()).catch(() => { document.body.classList.remove('cubo-intro'); document.body.classList.add('past-cube'); });
+let armado = false;
+const armar = () => {
+  if (armado) return;
+  armado = true;
+  import('../../lib/cubo3d').then((m) => m.init()).catch(() => { document.body.classList.remove('cubo-intro'); document.body.classList.add('past-cube'); });
+};
+// el póster ya muestra el primer cuadro: el cubo llega al primer gesto o cuando la página descansa
+const esperar = () => {
+  ['scroll', 'touchstart', 'pointerdown', 'keydown'].forEach((e) => addEventListener(e, armar, { once: true, passive: true }));
+  const luego = () => setTimeout(armar, 900);
+  if (document.readyState === 'complete') luego(); else addEventListener('load', luego, { once: true });
+};
+if (document.readyState === 'loading') addEventListener('DOMContentLoaded', esperar, { once: true }); else esperar();
 </script>
