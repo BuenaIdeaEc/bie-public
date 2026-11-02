@@ -1073,8 +1073,19 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReel();
     b.classList.add('on');
     setTimeout(() => b.classList.remove('on'), 4200);
   }
-  setTimeout(show, 5000);
-  setInterval(show, 14000);
+  // Una sola vez y solo si la persona se detuvo: repetirla cada 14 s interrumpía la lectura.
+  let quieto = 0;
+  const espera = () => {
+    clearTimeout(quieto);
+    quieto = setTimeout(() => {
+      const foco = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+      if (foco || !document.body.classList.contains('past-hero')) return espera();
+      removeEventListener('scroll', espera);
+      show();
+    }, 25000);
+  };
+  addEventListener('scroll', espera, { passive: true });
+  espera();
   b.addEventListener('click', () => { b.classList.remove('on'); waFab.click(); });
 })();
 
