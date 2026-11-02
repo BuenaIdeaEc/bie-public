@@ -1658,6 +1658,8 @@ html body #tuyo .ty-foot{margin-top:clamp(26px,3vw,44px)}
   .ty-s{height:clamp(240px,29vh,320px)}
 }
 html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-events:none}
+.top-gar{margin:clamp(24px,3vw,40px) 0 0;max-width:30ch;font-size:clamp(23px,2.5vw,36px);font-weight:400;line-height:1.14;letter-spacing:-.03em;color:var(--text);text-wrap:balance}
+.top-gar+.pc-one{margin-top:clamp(20px,2.4vw,30px)}
 </style>
 
 
@@ -1917,6 +1919,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         </a>
       ))}
     </div>
+    <p class="top-gar" data-i18n="top_gar" set:html={es('top_gar')}></p>
     <a class="pc-one" href="#productos" data-i18n="pc_one" set:html={es('pc_one')}></a>
   </div>
 </section>

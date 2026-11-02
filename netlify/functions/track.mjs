@@ -10,11 +10,11 @@
 //   SUPABASE_SERVICE_ROLE_KEY  — supabase.com/dashboard/project/husiywjndpravokplvqm/settings/api
 //
 // Contrato de event_type (migrations 0022/0023/0025 de bie-erp): product_view, cta_click,
-// contact_click, form_start, form_submit, quiz_step, quiz_complete, page_view.
+// contact_click, form_start, form_submit, quiz_step, quiz_complete, page_view, section_reach (0088).
 
 const VALID_EVENTS = new Set([
   'product_view', 'cta_click', 'contact_click', 'form_start', 'form_submit',
-  'quiz_step', 'quiz_complete', 'page_view',
+  'quiz_step', 'quiz_complete', 'page_view', 'section_reach',
 ]);
 
 const insert = async (table, row) => {

@@ -72,6 +72,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   pk3_d:{es:'Si vendes bien, pero todo lo llevas a mano.',en:'If you sell well, but do everything by hand.'},
   pk3_l:{es:['Tareas que se hacen solas','Registro de todos tus clientes','Un sistema para manejar tu negocio'],en:['Tasks that run on their own','A record of all your customers','A system to run your business']},
   pk3_p:{es:'USD 250',en:'USD 250'},
+  top_gar:{es:'Si la primera propuesta de marca no te convence, la rehacemos sin costo.',en:'If the first brand proposal does not convince you, we redo it at no cost.'},
   top_pick:{es:'Ver los productos uno por uno',en:'See the products one by one'},
   est_label:{es:'Acompañamiento mensual',en:'Monthly support'},
   est_h2:{es:'¿Y si algo falla después?<br><span class="serif">Nos escribes. Seguimos contigo cada mes.</span>',en:'What if something breaks later?<br><span class="serif">You write to us. We stay with you every month.</span>'},

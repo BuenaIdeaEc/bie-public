@@ -1436,7 +1436,7 @@ setTimeout(__start, 800);
     nombre = input.value.slice(0, 40);
     try { sessionStorage.setItem(KEY, nombre); } catch (e) {}
     // Solo se cuenta que alguien escribió; el nombre nunca se envía.
-    if (!contado && limpio()) { contado = true; if (window.bieTrack) window.bieTrack('quiz_step', { meta: { step: 'tuyo' } }); }
+    if (!contado && limpio()) { contado = true; if (window.bieTrack) window.bieTrack('quiz_step', { meta: { step: 'tuyo', host: location.hostname } }); }
     aplica();
   });
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
@@ -1449,4 +1449,21 @@ setTimeout(__start, 800);
 (function(){
   const form = document.getElementById('contact');
   if (form) new IntersectionObserver(([e]) => document.body.classList.toggle('in-contact', e.isIntersecting), { threshold: 0.15 }).observe(form);
+})();
+
+// ═══ Hasta dónde llega cada visita ═══
+// Un solo evento al salir de la página: una llamada por sección gastaría funciones de Netlify sin necesidad.
+(function(){
+  const ORDEN = ['hero', 'hacemos', 'tuyo', 'productos', 'work', 'voces', 'top', 'catalog', 'simple', 'estrella', 'nicho', 'contact'];
+  const vistas = new Set(['hero']);
+  let enviadas = 0;
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) vistas.add(e.target.id); }), { rootMargin: '-50% 0px -50% 0px' });
+  ORDEN.forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+  const envia = () => {
+    if (vistas.size <= enviadas || !window.bieTrack) return;
+    enviadas = vistas.size;
+    window.bieTrack('section_reach', { meta: { secciones: ORDEN.filter((id) => vistas.has(id)), host: location.hostname } });
+  };
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') envia(); });
+  addEventListener('pagehide', envia);
 })();
