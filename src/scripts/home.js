@@ -611,7 +611,9 @@ function renderWork(){
     cells.forEach((c, j) => c.className = j === i ? 'on' : j < i ? 'past' : '');
     chips.forEach((b) => {
       const on = b.dataset.cat === li.dataset.cat;
-      if (on && !b.classList.contains('on')) chipsWrap.scrollTo({ left: b.offsetLeft - 16, behavior: 'smooth' });
+      // fuera de pantalla no se mueve: un desplazamiento al arrancar hacía que Chrome dejara de medir el contenido principal
+      const vista = sec.getBoundingClientRect();
+      if (on && !b.classList.contains('on') && vista.top < innerHeight && vista.bottom > 0) chipsWrap.scrollTo({ left: b.offsetLeft - 16, behavior: 'smooth' });
       b.classList.toggle('on', on);
     });
     items.forEach((x, j) => x.classList.toggle('on', j === i));
