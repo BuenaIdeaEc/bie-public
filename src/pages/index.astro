@@ -2,7 +2,7 @@
 import { UI } from '../data/home-ui';
 import { PHASES } from '../data/catalogo';
 import EsteMes from '../components/ui/EsteMes.astro';
-import { ESTE_MES } from '../data/este-mes';
+import { ESTE_MES, textoFranja } from '../data/este-mes';
 import CuboHero from '../components/interactive/CuboHero.astro';
 import homeJs from '../scripts/home.js?url';
 import { TASTING_ALT } from '../data/tasting-alt';
@@ -52,6 +52,12 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<script is:inline define:vars={{ promoHasta: ESTE_MES.promo.vigenteHasta }}>
+(function () {
+  var on = Date.now() <= Date.parse(promoHasta + 'T23:59:59.999-05:00');
+  document.documentElement.classList.toggle('promo-web-on', on);
+})();
+</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <meta name="theme-color" content="#101012">
@@ -138,6 +144,19 @@ button{cursor:pointer}
 .nav-cta:hover::before{transform:none}
 .nav-cta span{position:relative;z-index:1}
 #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:200;width:0}
+:root{--promo-h:36px}
+#promo-franja{position:fixed;top:0;left:0;right:0;z-index:110;display:none;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;min-height:var(--promo-h);padding:8px 44px;background:var(--bg);color:var(--text);border-bottom:1px solid var(--border);font-size:13px;line-height:1.3;text-align:center;transition:opacity .5s ease,transform .5s ease}
+html.promo-web-on #promo-franja{display:flex}
+html.promo-web-on #nav{top:var(--promo-h)}
+.pf-k{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-dark);white-space:nowrap}
+.pf-t{color:var(--text2)}
+.pf-go{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);border-bottom:1px solid var(--bone);padding-bottom:1px;white-space:nowrap}
+#promo-franja:hover .pf-go{color:var(--accent);border-color:var(--accent)}
+@media (max-width:860px){
+  #promo-franja{padding:8px 56px 8px 16px;justify-content:flex-start;text-align:left;gap:8px 12px}
+  html.promo-web-on{--promo-h:44px}
+  html.promo-web-on body #nav,html.promo-web-on body #nav.dark-zone,html.promo-web-on body #nav.scrolled{top:calc(12px + var(--promo-h))}
+}
 
 /* Hamburger + mobile menu */
 #burger{display:none;background:none;border:none;width:44px;height:44px;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
@@ -681,6 +700,8 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 #nav,#progress{transition:opacity .5s ease,transform .5s ease}
 body.cubo-intro #nav{opacity:0;transform:translateY(-10px);pointer-events:none}
 body.cubo-intro #progress{opacity:0}
+body.cubo-intro #promo-franja{opacity:0;transform:translateY(-10px);pointer-events:none}
+@media (prefers-reduced-motion: reduce){body.cubo-intro #promo-franja{opacity:1;transform:none;pointer-events:auto}}
 @media (prefers-reduced-motion: reduce){body.cubo-intro #nav{opacity:1;transform:none;pointer-events:auto}}
 .g-slide.real>*{animation:none}
 .g-slide .g-photo{width:100%;height:100%;max-width:100%;object-fit:cover}
@@ -1708,6 +1729,11 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
   <div class="reel-hint" id="reel-hint"></div>
 </div>
 
+<a id="promo-franja" href="#este-mes">
+  <span class="pf-k">{ESTE_MES.promo.etiquetaFranja}</span>
+  <span class="pf-t">{textoFranja(ESTE_MES)}</span>
+  <span class="pf-go">Ver oferta</span>
+</a>
 <nav id="nav">
   <a class="nav-logo" href="/" aria-label="BIE, inicio"><img src="/images/marca/bie-cuadro-96.webp" width="40" height="40" alt="BIE"></a>
   <div class="nav-links">

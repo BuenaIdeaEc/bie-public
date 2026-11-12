@@ -1,26 +1,60 @@
 ---
 import type { EsteMes } from '../../data/este-mes';
+import { formatFechaCorta } from '../../data/este-mes';
 interface Props { data: EsteMes }
 const { data } = Astro.props;
+const hasta = formatFechaCorta(data.promo.vigenteHasta);
 ---
 <section id="este-mes" class="em" aria-labelledby="em-title">
   <div class="em-inner">
     <div class="em-card">
-      <a class="em-shot" href={data.href} aria-label="Ver la oferta de página web"><img src="/images/demo/web-1440.webp" alt="Página web de ejemplo creada por BIE para una panadería: portada, productos y pedido por WhatsApp" width="1600" height="1000" loading="lazy" decoding="async"></a>
+      <a class="em-shot" href={data.href} aria-label="Ver la oferta de web profesional"><img src="/images/demo/web-1440.webp" alt="Página web de ejemplo creada por BIE para una panadería: portada, productos y pedido por WhatsApp" width="1600" height="1000" loading="lazy" decoding="async"></a>
       <div class="em-copy">
-        <p class="em-label">{data.etiqueta} <span class="em-code">{data.codigo}</span></p>
+        <p class="em-label">
+          <span class="em-label-promo">{data.etiquetaPromo}</span>
+          <span class="em-label-base">{data.etiqueta}</span>
+          <span class="em-code">{data.codigo}</span>
+        </p>
         <h2 id="em-title" class="em-title">{data.titulo}</h2>
         <p class="em-text">{data.texto}</p>
+        <p class="em-growth">{data.lineaCrecimiento}</p>
         <ul class="em-cond">
           {data.condiciones.map((c) => <li>{c}</li>)}
         </ul>
       </div>
       <div class="em-buy">
-        <div class="em-prices">
+        <div class="em-prices em-prices-regular">
           {data.precios.map((p, i) => (
             <>
               {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
-              <div class="em-price"><b>{p.valor}</b><span>{p.nota}</span></div>
+              <div class="em-price">
+                <b><s>{p.valor}</s></b>
+                <span>{p.nota}</span>
+                <em class="em-reg">{data.promo.etiquetaRegular}</em>
+              </div>
+            </>
+          ))}
+        </div>
+        <div class="em-prices em-prices-promo">
+          {data.promo.precios.map((p, i) => (
+            <>
+              {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
+              <div class="em-price">
+                <b>{p.valor}</b>
+                <span>{p.nota}</span>
+              </div>
+            </>
+          ))}
+        </div>
+        <p class="em-until">{data.promo.etiquetaHasta} {hasta}</p>
+        <div class="em-prices em-prices-alone">
+          {data.precios.map((p, i) => (
+            <>
+              {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
+              <div class="em-price">
+                <b>{p.valor}</b>
+                <span>{p.nota}</span>
+              </div>
             </>
           ))}
         </div>
@@ -33,24 +67,36 @@ const { data } = Astro.props;
 <style>
   .em{padding:70px 0 20px;border-top:1px solid var(--border)}
   .em-inner{max-width:1150px;margin:0 auto;padding:0 44px}
-  .em-shot{grid-column:1 / -1;display:block;border:1px solid var(--line);overflow:hidden;aspect-ratio:16/10;max-width:100%}
+  .em-shot{grid-column:1 / -1;display:block;border:1px solid var(--line, var(--border));overflow:hidden;aspect-ratio:16/10;max-width:100%}
   .em-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .9s var(--ease)}
   .em-shot:hover img{transform:scale(1.02)}
   .em-card{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;border:1px solid var(--border);background:var(--surface);padding:36px}
   .em-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dark)}
   .em-code{color:var(--text3);margin-left:10px}
+  .em-label-base{display:none}
   .em-title{font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:-.015em;line-height:1.15;margin-top:12px;text-wrap:balance}
   .em-text{font-size:16px;line-height:1.6;color:var(--text2);margin-top:12px;max-width:52ch}
+  .em-growth{font-size:16px;line-height:1.6;color:var(--text);margin-top:12px;max-width:52ch}
   .em-cond{margin-top:18px;padding-left:18px;display:grid;gap:8px}
   .em-cond li{font-size:14px;line-height:1.55;color:var(--text3);max-width:56ch}
-  .em-buy{display:flex;flex-direction:column;justify-content:center;gap:24px}
-  .em-prices{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+  .em-buy{display:flex;flex-direction:column;justify-content:center;gap:18px}
+  .em-prices{display:flex;flex-wrap:wrap;align-items:flex-start;gap:14px 22px}
   .em-price b{display:block;font-size:clamp(26px,3vw,34px);font-weight:400;letter-spacing:-.02em;color:var(--text)}
+  .em-price s{color:var(--text3);text-decoration:line-through;text-decoration-thickness:1px}
   .em-price span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:4px;max-width:22ch}
-  .em-plus{font-size:24px;color:var(--text3)}
+  .em-reg{display:block;font-family:var(--mono);font-size:10px;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-top:4px}
+  .em-plus{font-size:24px;color:var(--text3);align-self:center}
+  .em-until{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dark);margin:0}
+  .em-prices-alone{display:none}
   .em-btn{align-self:flex-start;display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;transition:background .4s,border-color .4s,color .4s}
   .em-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
   .em-btn:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
+  :global(html:not(.promo-web-on)) .em-label-promo,
+  :global(html:not(.promo-web-on)) .em-prices-regular,
+  :global(html:not(.promo-web-on)) .em-prices-promo,
+  :global(html:not(.promo-web-on)) .em-until{display:none}
+  :global(html:not(.promo-web-on)) .em-label-base{display:inline}
+  :global(html:not(.promo-web-on)) .em-prices-alone{display:flex}
   @media(max-width:860px){
     .em{padding:48px 0 10px}
     .em-inner{padding:0 22px}
