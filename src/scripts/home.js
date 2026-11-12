@@ -1331,8 +1331,13 @@ setTimeout(__start, 800);
   const input = document.getElementById('ty-in'), sec = document.getElementById('tuyo');
   if (!input || !sec) return;
   const row = document.getElementById('ty-row'), btn = document.getElementById('ty-wa'), btnN = document.getElementById('ty-wa-n');
+  const track = document.getElementById('ty-track');
   const titulo = document.querySelector('#contact .section-h2'), empresa = document.getElementById('in-comp');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Duplicate cards inside the track for seamless marquee loop
+  if (track && !reduce) {
+    Array.from(track.children).forEach(el => { const c = el.cloneNode(true); c.setAttribute('aria-hidden', 'true'); if (c.tagName === 'A') c.setAttribute('tabindex', '-1'); track.appendChild(c); });
+  }
   const KEY = 'bie_tuyo', DEMO = ['Panadería Rosita', 'Consultorio Sonríe', 'Ferretería El Clavo', 'Moda Amaru'];
   let nombre = '';
   try { nombre = (sessionStorage.getItem(KEY) || '').slice(0, 40); } catch (e) {}
@@ -1350,7 +1355,7 @@ setTimeout(__start, 800);
       s.querySelectorAll('[data-ty-dom]').forEach((el) => { el.textContent = d + '.ec'; });
       s.querySelectorAll('[data-ty-at]').forEach((el) => { el.textContent = d; });
       s.querySelectorAll('[data-ty-ini]').forEach((el) => { el.textContent = v.charAt(0).toUpperCase(); });
-      s.querySelector('.ty-marca').style.setProperty('--ty-f', f + 'px');
+      s.querySelectorAll('.ty-marca').forEach(m => m.style.setProperty('--ty-f', f + 'px'));
     });
   }
   function aplica(){
@@ -1397,15 +1402,12 @@ setTimeout(__start, 800);
     else aplica();
   }
 
-  // En teléfono las tarjetas pasan solas hasta que la persona las toca.
-  const cards = Array.from(row.children);
-  let auto = !reduce, ai = 0, autoT = 0;
-  const avanza = () => {
-    if (!auto || row.scrollWidth <= row.clientWidth + 4) return;
-    ai = (ai + 1) % cards.length;
-    row.scrollTo({ left: cards[ai].offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
-  };
-  ['touchstart', 'pointerdown', 'wheel'].forEach((e) => row.addEventListener(e, () => { auto = false; }, { passive: true, once: true }));
+  // El marquee CSS reemplaza el auto-avance; solo pausamos al tocar.
+  let auto = false, ai = 0, autoT = 0;
+  const avanza = () => {};
+  let touchT;
+  row.addEventListener('touchstart', () => { clearTimeout(touchT); row.classList.add('ty-paused'); }, { passive: true });
+  row.addEventListener('touchend', () => { touchT = setTimeout(() => row.classList.remove('ty-paused'), 1200); }, { passive: true });
 
   let visible = false;
   new IntersectionObserver(([e]) => {

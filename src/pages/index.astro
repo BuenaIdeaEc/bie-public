@@ -1612,8 +1612,12 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-in::placeholder{color:#8a8a87;opacity:1}
 .ty-in:focus{border-bottom-width:2px;padding-bottom:9px}
 .ty-sub{margin:14px 0 0;font-size:clamp(16px,1.4vw,20px);color:var(--text2)}
-.ty-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:min(100%,1500px);margin:clamp(26px,3.4vw,50px) auto 0;padding:0 clamp(22px,6vw,80px)}
-.ty-c{min-width:0}
+.ty-row{overflow:hidden;width:100%;margin:clamp(26px,3.4vw,50px) auto 0;padding:0}
+.ty-track{display:flex;gap:14px;width:max-content;animation:ty-scroll 48s linear infinite;will-change:transform}
+@keyframes ty-scroll{to{transform:translateX(-50%)}}
+.ty-row:hover .ty-track,.ty-row:focus-within .ty-track,.ty-row.ty-paused .ty-track{animation-play-state:paused}
+#cubo-reveal .ty-track{animation-play-state:paused}
+.ty-c{flex:0 0 clamp(260px,20vw,340px);min-width:0}
 .ty-s{height:clamp(280px,25vw,360px);border:1px solid rgba(8,8,8,.14);background:#fff;overflow:hidden;display:flex;flex-direction:column;--ty-f:24px}
 .ty-t{margin:14px 0 0;font-size:17px;font-weight:500;letter-spacing:-.015em;color:var(--text)}
 .ty-d{margin:3px 0 0;font-size:15px;line-height:1.35;color:var(--text2)}
@@ -1647,10 +1651,14 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-sis em{font-style:normal;font-size:13px;color:var(--text3)}
 .ty-sis em.rev{color:var(--accent-dark)}
 @media (max-width:1040px){
-  .ty-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 22px;scroll-padding:0 22px}
-  .ty-row::-webkit-scrollbar{display:none}
-  .ty-c{flex:0 0 min(78vw,360px);scroll-snap-align:start}
+  .ty-c{flex:0 0 min(78vw,360px)}
   .ty-s{height:clamp(240px,34lvh,320px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .ty-track{animation:none!important;will-change:auto}
+  .ty-row{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;padding:0 clamp(22px,6vw,80px)}
+  .ty-row::-webkit-scrollbar{display:none}
+  .ty-c{scroll-snap-align:start}
 }
 @media (max-width:640px){
   html body .tuyo{padding-top:72px}
@@ -1677,7 +1685,6 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
 .ty-c:focus-visible{outline:2px solid var(--text);outline-offset:4px}
 .ty-c:focus-visible .ty-t::after{opacity:1}
 @media (min-width:861px){
-  .ty-row{row-gap:clamp(16px,2vw,26px)}
   .ty-s{height:clamp(220px,17vw,290px)}
   html body .tuyo .ty-q{max-width:none}
 }
@@ -1826,6 +1833,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
     <p class="ty-sub" data-i18n="ty_sub" set:html={es('ty_sub')}></p>
   </div>
   <div class="ty-row" id="ty-row">
+  <div class="ty-track" id="ty-track">
     <a class="ty-c" href={tyHref('identidad-de-marca')}>
       <div class="ty-s ty-marca" aria-hidden="true">
         <b class="ty-m1" data-ty>Tu negocio</b>
@@ -1912,6 +1920,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
       <h3 class="ty-t" data-i18n="ty_c4_k" set:html={es('ty_c4_k')}></h3>
       <p class="ty-d" data-i18n="ty_c4" set:html={es('ty_c4')}></p>
     </a>
+  </div>
   </div>
   <div class="section-inner ty-foot">
     <a class="btn-primary" id="ty-wa" href={'https://wa.me/' + WA_NUM_SSR} target="_blank" rel="noopener"><span data-i18n="ty_btn" set:html={es('ty_btn')}></span> <span id="ty-wa-n">mi negocio</span></a>
