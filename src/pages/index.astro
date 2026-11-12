@@ -165,12 +165,14 @@ html.promo-web-on #nav{top:var(--promo-h)}
 #promo-franja:hover .pf-go{background:#b92220;color:#fff}
 @media (max-width:860px){
   :root,html.promo-web-on{--promo-h:64px}
-  #promo-franja{padding:8px 58px 8px 14px;justify-content:flex-start;text-align:left;gap:6px 12px;flex-wrap:wrap;font-size:13px}
-  .pf-name{font-size:15px}
-  .pf-new{font-size:16px}
-  .pf-until{display:none}
-  .pf-go{padding:7px 12px}
-  html.promo-web-on body #nav,html.promo-web-on body #nav.dark-zone,html.promo-web-on body #nav.scrolled{top:calc(12px + var(--promo-h))}
+  #promo-franja{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name go" "prices go";align-items:center;column-gap:10px;row-gap:1px;padding:8px 56px 8px 14px;justify-content:stretch;text-align:left;gap:unset;flex-wrap:unset;font-size:13px;height:var(--promo-h);box-sizing:border-box}
+  .pf-k,.pf-until,.pf-m{display:none}
+  .pf-name{grid-area:name;font-size:14px;letter-spacing:-.02em}
+  .pf-prices{grid-area:prices;gap:8px}
+  .pf-old{font-size:13px}
+  .pf-new{font-size:17px}
+  .pf-go{grid-area:go;padding:8px 13px;font-size:13px}
+  html.promo-web-on body #nav,html.promo-web-on body #nav.dark-zone,html.promo-web-on body #nav.scrolled{top:calc(8px + var(--promo-h))}
 }
 @media (prefers-reduced-motion: reduce){
   #promo-franja::after,.pf-old::after,.pf-new{animation:none}
@@ -1753,8 +1755,8 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
   <span class="pf-k">{ESTE_MES.promo.etiquetaFranja}</span>
   <span class="pf-name">Web profesional</span>
   <span class="pf-prices">
-    <s class="pf-old">{formatearDinero(PRECIOS_WEB.creacionRegular)} + {formatearDinero(PRECIOS_WEB.mesRegular)}/mes</s>
-    <b class="pf-new">{formatearDinero(PRECIOS_WEB.creacionPromo)} + {formatearDinero(PRECIOS_WEB.mesPromo)}/mes</b>
+    <s class="pf-old"><span class="pf-c">{formatearDinero(PRECIOS_WEB.creacionRegular)}</span><span class="pf-m"> + {formatearDinero(PRECIOS_WEB.mesRegular)}/mes</span></s>
+    <b class="pf-new"><span class="pf-c">{formatearDinero(PRECIOS_WEB.creacionPromo)}</span><span class="pf-m"> + {formatearDinero(PRECIOS_WEB.mesPromo)}/mes</span></b>
   </span>
   <span class="pf-until">Hasta el {formatFechaCorta(ESTE_MES.promo.vigenteHasta)}</span>
   <span class="pf-go">Ver oferta</span>
