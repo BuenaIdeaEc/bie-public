@@ -1,6 +1,7 @@
-// Destacado mensual de la home. Para cambiar precios, vigencia o copy, se edita solo este archivo.
+// Destacado mensual de la home. Para cambiar precios, vigencia, copy o ejemplos, se edita solo este archivo.
 // Fuente de las condiciones del A-12: 03-LINEA-A/propuestas/OFERTA_web_inicial.md v1.2.
 // La promoción se oculta sola al terminar el día vigenciaHasta, hora de Ecuador (UTC-5).
+// Los ejemplos son sitios reales de BIE en producción. No usar demos ni previews.
 
 export const PRECIOS_WEB = {
   moneda: 'USD',
@@ -22,6 +23,13 @@ export interface PromoWeb {
   precios: PrecioItem[];
 }
 
+export interface EjemploReal {
+  nombre: string;
+  url: string;
+  imagen?: string;
+  alt?: string;
+}
+
 export interface EsteMes {
   etiqueta: string;
   etiquetaPromo: string;
@@ -29,7 +37,9 @@ export interface EsteMes {
   titulo: string;
   texto: string;
   lineaCrecimiento: string;
-  condiciones: string[];
+  alcance: string;
+  etiquetaEjemplos: string;
+  ejemplos: EjemploReal[];
   precios: PrecioItem[];
   promo: PromoWeb;
   href: string;
@@ -58,22 +68,48 @@ export function textoFranja(data: EsteMes): string {
   return 'Web profesional: ' + montos + ', hasta el ' + formatFechaCorta(data.promo.vigenteHasta);
 }
 
+export function hostVisible(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
+
 function precio(valor: string, nota: string): PrecioItem {
   return { valor, nota };
 }
+
+/** Sitios oficiales en producción, comprobados. Sin previews ni demos. */
+export const EJEMPLOS_WEB: EjemploReal[] = [
+  {
+    nombre: 'Tasting Ecuador',
+    url: 'https://tasting-ecuador.com',
+    imagen: '/images/casos/tasting/web.webp',
+    alt: 'Página de inicio de tasting-ecuador.com, trabajo de BIE',
+  },
+  {
+    nombre: 'Oscar Caicho Heridas',
+    url: 'https://oscarcaichoheridas.com',
+  },
+  {
+    nombre: 'Escuela de Heridas',
+    url: 'https://escueladeheridasguayaquil.com',
+    imagen: '/images/casos/escuela-heridas/web.webp',
+    alt: 'Página de inicio de escueladeheridasguayaquil.com, trabajo de BIE',
+  },
+];
 
 export const ESTE_MES: EsteMes = {
   etiqueta: 'Este mes en BIE',
   etiquetaPromo: 'Oferta de entrada',
   codigo: 'A-12 · Web profesional',
-  titulo: 'Web profesional, con acompañamiento para seguir mejorando.',
-  texto: 'Creamos la web de tu negocio y cada mes revisamos qué mejorar para que contactarte sea más fácil.',
+  titulo: 'Web profesional',
+  texto: 'Una página de hasta cinco secciones, primera versión en 7 días hábiles, con acompañamiento mensual.',
   lineaCrecimiento: 'Desde la web básica, el sitio crece con evoluciones que se le presentan al cliente poco a poco.',
-  condiciones: [
-    'Primera versión en 7 días hábiles, contados desde el anticipo, el brief y los materiales completos.',
-    'Sin permanencia mínima: puedes cancelar antes del siguiente período.',
-    'Una página de hasta 5 secciones. No incluye tienda, reservas ni dominio propio.',
-  ],
+  alcance: 'Sin permanencia mínima. No incluye tienda, reservas ni dominio propio.',
+  etiquetaEjemplos: 'Trabajo real de BIE',
+  ejemplos: EJEMPLOS_WEB,
   precios: [
     precio(formatearDinero(PRECIOS_WEB.creacionRegular), 'creación'),
     precio(formatearDinero(PRECIOS_WEB.mesRegular) + ' / mes', 'acompañamiento, desde la publicación'),
