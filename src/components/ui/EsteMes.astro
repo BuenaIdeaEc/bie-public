@@ -5,26 +5,22 @@ interface Props { data: EsteMes }
 const { data } = Astro.props;
 const hasta = formatFechaCorta(data.promo.vigenteHasta);
 ---
-<section id="este-mes" class="em" aria-labelledby="em-title">
-  <div class="em-inner">
-    <div class="em-card">
-      <div class="em-offer">
-        <p class="em-label">
-          <span class="em-label-promo">{data.etiquetaPromo}</span>
-          <span class="em-label-base">{data.etiqueta}</span>
-          <span class="em-code">{data.codigo}</span>
-        </p>
+<section id="este-mes" class="em" data-promo-story="web-90-immersive" aria-labelledby="em-title">
+  <div class="em-track">
+    <div class="em-pin">
+      <div class="em-copy">
+        <p class="em-k"><span class="em-k-promo">{data.etiquetaPromo}</span><span class="em-k-base">{data.etiqueta}</span></p>
         <h2 id="em-title" class="em-title">{data.titulo}</h2>
-        <p class="em-text">{data.texto}</p>
+        <p class="em-lead">{data.texto}</p>
 
-        <div class="em-buy">
+        <div class="em-priceblock">
           <div class="em-prices em-prices-regular">
             {data.precios.map((p, i) => (
               <>
                 {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
-                <div class="em-price">
-                  <b><s>{p.valor}</s></b>
-                  <span>{p.nota}</span>
+                <div class="em-amt">
+                  <b class="em-strike"><span>{p.valor}</span></b>
+                  <span class="em-nota">{p.nota}</span>
                   <em class="em-reg">{data.promo.etiquetaRegular}</em>
                 </div>
               </>
@@ -34,9 +30,9 @@ const hasta = formatFechaCorta(data.promo.vigenteHasta);
             {data.promo.precios.map((p, i) => (
               <>
                 {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
-                <div class="em-price">
+                <div class="em-amt em-amt-now">
                   <b>{p.valor}</b>
-                  <span>{p.nota}</span>
+                  <span class="em-nota">{p.nota}</span>
                 </div>
               </>
             ))}
@@ -46,9 +42,9 @@ const hasta = formatFechaCorta(data.promo.vigenteHasta);
             {data.precios.map((p, i) => (
               <>
                 {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
-                <div class="em-price">
+                <div class="em-amt">
                   <b>{p.valor}</b>
-                  <span>{p.nota}</span>
+                  <span class="em-nota">{p.nota}</span>
                 </div>
               </>
             ))}
@@ -56,86 +52,229 @@ const hasta = formatFechaCorta(data.promo.vigenteHasta);
         </div>
 
         <p class="em-growth">{data.lineaCrecimiento}</p>
-        <p class="em-alcance">{data.alcance}</p>
-        <a class="em-btn" href={data.href}>{data.cta} <span aria-hidden="true">→</span></a>
+        <ol class="em-evo" aria-hidden="true">
+          {data.evoPasos.map((paso) => <li>{paso}</li>)}
+        </ol>
+        <a class="em-cta" href={data.href}>{data.cta}</a>
       </div>
 
-      <div class="em-examples">
-        <p class="em-examples-k">{data.etiquetaEjemplos}</p>
-        <ul class="em-ex-list">
-          {data.ejemplos.map((ej) => (
-            <li>
-              <a class:list={['em-ex', !ej.imagen && 'em-ex-card']} href={ej.url} target="_blank" rel="noopener">
-                {ej.imagen ? (
-                  <img src={ej.imagen} alt={ej.alt ?? ('Página web de ' + ej.nombre + ', trabajo de BIE')} width="800" height="500" loading="lazy" decoding="async">
-                ) : (
-                  <span class="em-ex-blank">
-                    <span class="em-ex-name">{ej.nombre}</span>
-                  </span>
-                )}
-                <span class="em-ex-meta">
-                  <span class="em-ex-name">{ej.nombre}</span>
-                  <span class="em-ex-url">{hostVisible(ej.url)}</span>
+      <div class="em-visual">
+        <p class="em-visual-k">{data.etiquetaEjemplos}</p>
+        <div class="em-carousel" data-em-carousel>
+          <div class="em-viewport">
+            {data.ejemplos.map((ej, i) => (
+              <a
+                class:list={['em-slide', i === 0 && 'is-on']}
+                href={ej.url}
+                target="_blank"
+                rel="noopener"
+                data-i={i}
+                aria-label={ej.nombre + ' (' + hostVisible(ej.url) + '), se abre en otra pestaña'}
+              >
+                <span class="em-chrome"><span class="em-dots" aria-hidden="true"></span><span class="em-url">{hostVisible(ej.url)}</span></span>
+                <img
+                  src={ej.imagenCorta}
+                  srcset={ej.imagenCorta + ' 800w, ' + ej.imagen + ' 1440w'}
+                  sizes="(max-width: 860px) 92vw, 46vw"
+                  alt={ej.alt}
+                  width="1440"
+                  height="900"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="em-caption">
+                  <span class="em-cap-name">{ej.nombre}</span>
+                  <span class="em-cap-url">{hostVisible(ej.url)}</span>
                 </span>
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </div>
+          <div class="em-dots-nav" role="tablist" aria-label="Casos de web profesional">
+            {data.ejemplos.map((ej, i) => (
+              <button type="button" class:list={['em-dot', i === 0 && 'is-on']} data-go={i} aria-label={'Ver ' + ej.nombre}></button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .em{padding:72px 0 28px;border-top:1px solid var(--border)}
-  .em-inner{max-width:1150px;margin:0 auto;padding:0 44px}
-  .em-card{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px 56px;align-items:start;border:1px solid var(--border);background:var(--surface);padding:40px 40px 36px}
-  .em-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dark);margin:0}
-  .em-code{color:var(--text3);margin-left:10px}
-  .em-label-base{display:none}
-  .em-title{font-size:clamp(28px,3.2vw,42px);font-weight:400;letter-spacing:-.03em;line-height:1.08;margin:14px 0 0;text-wrap:balance;color:var(--text)}
-  .em-text{font-size:17px;line-height:1.5;color:var(--text2);margin:14px 0 0;max-width:42ch}
-  .em-buy{display:flex;flex-direction:column;gap:14px;margin-top:28px;padding-top:22px;border-top:1px solid var(--border)}
-  .em-prices{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px 20px}
-  .em-price b{display:block;font-size:clamp(26px,3vw,36px);font-weight:400;letter-spacing:-.02em;color:var(--text)}
-  .em-price s{color:#6a6a68;text-decoration:line-through;text-decoration-thickness:1px}
-  .em-price span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:5px;max-width:24ch}
-  .em-reg{display:block;font-family:var(--mono);font-size:10px;font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-top:4px}
-  .em-plus{font-size:22px;color:var(--text3);align-self:center}
-  .em-until{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-dark);margin:2px 0 0}
+  .em{--em-ease:cubic-bezier(.16,1,.3,1);background:#fff;color:var(--text)}
+  .em-track{position:relative}
+  .em-pin{display:grid;grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr);gap:clamp(32px,5vw,80px);align-items:center;padding:clamp(72px,10vw,140px) clamp(22px,6vw,80px) clamp(56px,7vw,110px);max-width:1280px;margin:0 auto}
+  .em-k{font-size:15px;color:var(--text3);margin:0 0 14px;letter-spacing:.02em}
+  .em-k-base{display:none}
+  .em-title{font-size:clamp(44px,7vw,96px);font-weight:400;letter-spacing:-.045em;line-height:.96;margin:0;max-width:10ch;text-wrap:balance}
+  .em-lead{font-size:clamp(18px,1.8vw,24px);line-height:1.35;color:var(--text2);margin:18px 0 0;max-width:22ch}
+  .em-priceblock{margin-top:36px}
+  .em-prices{display:flex;flex-wrap:wrap;align-items:flex-end;gap:8px 18px}
+  .em-prices-promo{margin-top:18px}
+  .em-plus{font-size:22px;color:var(--text3);padding-bottom:22px}
+  .em-amt b{display:block;font-size:clamp(28px,3.4vw,48px);font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--text)}
+  .em-nota,.em-reg{display:block;margin-top:6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);font-style:normal}
+  .em-strike{position:relative;display:inline-block}
+  .em-strike span{color:#7a7a76}
+  .em-strike::after{content:'';position:absolute;left:0;top:48%;height:2px;width:100%;background:var(--cta,#d92d2a);transform:scaleX(0);transform-origin:left center;pointer-events:none}
+  .em[data-stage] .em-strike::after{transform:scaleX(1);transition:transform .8s var(--em-ease)}
+  .em-until{margin:16px 0 0;font-size:14px;color:var(--text3)}
   .em-prices-alone{display:none}
-  .em-growth{font-size:16px;line-height:1.55;color:var(--text);margin:22px 0 0;max-width:46ch}
-  .em-alcance{font-size:14px;line-height:1.5;color:var(--text3);margin:10px 0 0;max-width:46ch}
-  .em-btn{align-self:flex-start;display:inline-block;margin-top:22px;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;transition:background .4s,border-color .4s,color .4s}
-  .em-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-  .em-btn:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
-  .em-examples{min-width:0}
-  .em-examples-k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin:0 0 14px}
-  .em-ex-list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-  .em-ex{display:grid;grid-template-columns:1fr;gap:8px;color:inherit;min-width:0}
-  .em-ex img,.em-ex-blank{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top;border:1px solid var(--border);background:var(--band)}
-  .em-ex-blank{display:flex;align-items:center;justify-content:center;padding:20px;text-align:center}
-  .em-ex-blank .em-ex-name{font-size:clamp(18px,2vw,22px);letter-spacing:-.02em;color:var(--text);text-wrap:balance}
-  .em-ex-meta{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px;padding:0 1px}
-  .em-ex-meta .em-ex-name{font-size:14px;color:var(--text)}
-  .em-ex-url{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--text3)}
-  .em-ex:hover img,.em-ex:hover .em-ex-blank{border-color:var(--text)}
-  .em-ex:hover .em-ex-url{color:var(--accent-dark)}
-  .em-ex:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
-  :global(html:not(.promo-web-on)) .em-label-promo,
+  .em-growth{font-size:clamp(16px,1.5vw,20px);line-height:1.45;color:var(--text);margin:36px 0 0;max-width:28ch}
+  .em-evo{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+  .em-evo li{font-size:13px;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;opacity:.4;transition:opacity .5s var(--em-ease),color .5s}
+  .em-evo li.is-on{opacity:1;color:var(--text)}
+  .em-cta{display:inline-block;margin-top:32px;background:var(--cta,#d92d2a);color:#fff;font-size:16px;font-weight:400;letter-spacing:-.01em;padding:18px 28px;border:0;transition:background .25s}
+  .em-cta:hover{background:#b92220;color:#fff}
+  .em-cta:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+  .em-visual-k{font-size:13px;color:var(--text3);margin:0 0 14px}
+  .em-carousel{position:relative}
+  .em-viewport{position:relative;aspect-ratio:16/10;overflow:hidden}
+  .em-slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;transform:translateX(18px);transition:opacity 1s var(--em-ease),transform 1.15s var(--em-ease);pointer-events:none;color:inherit}
+  .em-slide.is-on{opacity:1;transform:none;pointer-events:auto;z-index:1}
+  .em-chrome{display:flex;align-items:center;gap:10px;height:36px;padding:0 14px;background:#f4f4f2;border:1px solid rgba(8,8,8,.08);border-bottom:0;flex:0 0 auto}
+  .em-dots{width:10px;height:10px;border-radius:0;box-shadow:0 0 0 1px rgba(8,8,8,.2), 16px 0 0 1px rgba(8,8,8,.2), 32px 0 0 1px rgba(8,8,8,.2);margin-right:28px}
+  .em-url{font-size:12px;color:var(--text3);letter-spacing:.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .em-slide img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border:1px solid rgba(8,8,8,.08);border-top:0;background:#f4f4f2;transform:scale(1.02);transition:transform 8s linear}
+  .em-slide.is-on img{transform:scale(1.08) translateY(-2%)}
+  .em-caption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:12px;flex-shrink:0}
+  .em-cap-name{font-size:16px;color:var(--text)}
+  .em-cap-url{font-size:13px;color:var(--text3)}
+  .em-dots-nav{display:flex;gap:8px;margin-top:16px}
+  .em-dot{width:22px;height:3px;padding:0;border:0;background:rgba(8,8,8,.18);cursor:pointer}
+  .em-dot.is-on{background:var(--text)}
+  .em-dot:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+  :global(html:not(.promo-web-on)) .em-k-promo,
   :global(html:not(.promo-web-on)) .em-prices-regular,
   :global(html:not(.promo-web-on)) .em-prices-promo,
   :global(html:not(.promo-web-on)) .em-until{display:none}
-  :global(html:not(.promo-web-on)) .em-label-base{display:inline}
+  :global(html:not(.promo-web-on)) .em-k-base{display:inline}
   :global(html:not(.promo-web-on)) .em-prices-alone{display:flex}
-  @media(max-width:860px){
-    .em{padding:48px 0 16px}
-    .em-inner{padding:0 22px}
-    .em-card{grid-template-columns:1fr;gap:28px;padding:24px 20px 22px}
-    .em-examples{order:-1}
-    .em-title{font-size:clamp(26px,8vw,34px)}
-    .em-text{font-size:16px}
-    .em-buy{margin-top:22px;padding-top:18px}
-    .em-btn{width:100%;text-align:center}
+
+  @media (min-width:861px){
+    .em-track{height:420vh}
+    .em-pin{position:sticky;top:0;min-height:100svh;box-sizing:border-box;padding-top:calc(80px + var(--promo-h, 0px))}
+    .em-copy .em-priceblock,
+    .em-copy .em-growth,
+    .em-copy .em-evo,
+    .em-copy .em-cta,
+    .em-visual{opacity:0;transform:translateY(24px);transition:opacity .7s var(--em-ease),transform .8s var(--em-ease)}
+    .em[data-stage="price"] .em-priceblock,
+    .em[data-stage="until"] .em-priceblock,
+    .em[data-stage="cases"] .em-priceblock,
+    .em[data-stage="evo"] .em-priceblock,
+    .em[data-stage="cta"] .em-priceblock,
+    .em[data-stage="until"] .em-until,
+    .em[data-stage="cases"] .em-visual,
+    .em[data-stage="evo"] .em-visual,
+    .em[data-stage="cta"] .em-visual,
+    .em[data-stage="evo"] .em-growth,
+    .em[data-stage="evo"] .em-evo,
+    .em[data-stage="cta"] .em-growth,
+    .em[data-stage="cta"] .em-evo,
+    .em[data-stage="cta"] .em-cta{opacity:1;transform:none}
+    .em[data-stage="until"] .em-until{opacity:1}
+  }
+
+  @media (max-width:860px){
+    .em-track{height:auto}
+    .em-pin{grid-template-columns:1fr;gap:32px;padding:64px 22px 56px;min-height:0}
+    .em-visual{order:-1}
+    .em-title{font-size:clamp(36px,11vw,56px)}
+    .em-cta{width:100%;text-align:center}
+    .em-plus{padding-bottom:18px}
+    .em-growth{margin-top:28px}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .em-track{height:auto}
+    .em-pin{position:static;min-height:0}
+    .em-copy .em-priceblock,
+    .em-copy .em-growth,
+    .em-copy .em-evo,
+    .em-copy .em-cta,
+    .em-visual,
+    .em-slide,
+    .em-slide img,
+    .em-strike::after{opacity:1;transform:none;transition:none;animation:none}
+    .em-evo li{opacity:1;color:var(--text)}
   }
 </style>
+
+<script>
+  const root = document.getElementById('este-mes');
+  if (root) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const carousel = root.querySelector('[data-em-carousel]');
+    const slides = carousel ? Array.from(carousel.querySelectorAll('.em-slide')) : [];
+    const dots = carousel ? Array.from(carousel.querySelectorAll('.em-dot')) : [];
+    let i = 0, timer = 0, paused = false, startX = 0;
+
+    const go = (n) => {
+      if (!slides.length) return;
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-on', k === i));
+      dots.forEach((d, k) => d.classList.toggle('is-on', k === i));
+    };
+    const stop = () => { paused = true; if (timer) { clearInterval(timer); timer = 0; } };
+    const play = () => {
+      if (reduce || !slides.length || document.hidden) return;
+      paused = false;
+      if (timer) clearInterval(timer);
+      timer = window.setInterval(() => go(i + 1), 6500);
+    };
+    dots.forEach((d) => d.addEventListener('click', () => { go(Number(d.getAttribute('data-go'))); play(); }));
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', play);
+      carousel.addEventListener('focusin', stop);
+      carousel.addEventListener('focusout', play);
+      carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
+      carousel.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+        play();
+      }, { passive: true });
+    }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else play(); });
+    if (!reduce) play();
+
+    const pin = root.querySelector('.em-pin');
+    const evo = Array.from(root.querySelectorAll('.em-evo li'));
+    const setStage = (name) => { if (root.getAttribute('data-stage') !== name) root.setAttribute('data-stage', name); };
+    const paint = () => {
+      if (reduce || window.matchMedia('(max-width: 860px)').matches) {
+        root.style.height = '';
+        setStage('cta');
+        evo.forEach((li) => li.classList.add('is-on'));
+        return;
+      }
+      const r = root.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const span = root.offsetHeight - vh;
+      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+      let name = 'offer';
+      if (p > 0.14) name = 'price';
+      if (p > 0.28) name = 'until';
+      if (p > 0.40) name = 'cases';
+      if (p > 0.66) name = 'evo';
+      if (p > 0.82) name = 'cta';
+      setStage(name);
+      const ev = (p - 0.66) / 0.16;
+      evo.forEach((li, k) => li.classList.toggle('is-on', ev > k / Math.max(1, evo.length)));
+    };
+    if (!reduce) {
+      let last = -1;
+      const loop = () => {
+        requestAnimationFrame(loop);
+        const t = Math.round((root.getBoundingClientRect().top + root.offsetHeight) * 0.2);
+        if (t !== last) { last = t; paint(); }
+      };
+      requestAnimationFrame(loop);
+      window.addEventListener('resize', paint, { passive: true });
+    } else {
+      setStage('cta');
+      evo.forEach((li) => li.classList.add('is-on'));
+    }
+  }
+</script>

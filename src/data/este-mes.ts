@@ -1,7 +1,6 @@
 // Destacado mensual de la home. Para cambiar precios, vigencia, copy o ejemplos, se edita solo este archivo.
-// Fuente de las condiciones del A-12: 03-LINEA-A/propuestas/OFERTA_web_inicial.md v1.2.
 // La promoción se oculta sola al terminar el día vigenciaHasta, hora de Ecuador (UTC-5).
-// Los ejemplos son sitios reales de BIE en producción. No usar demos ni previews.
+// Los ejemplos son sitios reales de BIE en producción. No usar demos, previews ni casos que EGO no apruebe.
 
 export const PRECIOS_WEB = {
   moneda: 'USD',
@@ -26,8 +25,9 @@ export interface PromoWeb {
 export interface EjemploReal {
   nombre: string;
   url: string;
-  imagen?: string;
-  alt?: string;
+  imagen: string;
+  imagenCorta: string;
+  alt: string;
 }
 
 export interface EsteMes {
@@ -37,7 +37,7 @@ export interface EsteMes {
   titulo: string;
   texto: string;
   lineaCrecimiento: string;
-  alcance: string;
+  evoPasos: string[];
   etiquetaEjemplos: string;
   ejemplos: EjemploReal[];
   precios: PrecioItem[];
@@ -63,11 +63,6 @@ export function promoVigente(hasta: string = PRECIOS_WEB.vigenciaHasta, ahora: D
   return ahora.getTime() <= fin;
 }
 
-export function textoFranja(data: EsteMes): string {
-  const montos = data.promo.precios.map((x) => x.valor).join(' + ');
-  return 'Web profesional: ' + montos + ', hasta el ' + formatFechaCorta(data.promo.vigenteHasta);
-}
-
 export function hostVisible(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, '');
@@ -80,22 +75,20 @@ function precio(valor: string, nota: string): PrecioItem {
   return { valor, nota };
 }
 
-/** Sitios oficiales en producción, comprobados. Sin previews ni demos. */
+/** Solo casos aprobados por EGO para esta oferta. Sitios oficiales en producción. */
 export const EJEMPLOS_WEB: EjemploReal[] = [
   {
     nombre: 'Tasting Ecuador',
     url: 'https://tasting-ecuador.com',
-    imagen: '/images/casos/tasting/web.webp',
+    imagen: '/images/casos/tasting/web-tall.webp',
+    imagenCorta: '/images/casos/tasting/web-tall-800.webp',
     alt: 'Página de inicio de tasting-ecuador.com, trabajo de BIE',
-  },
-  {
-    nombre: 'Oscar Caicho Heridas',
-    url: 'https://oscarcaichoheridas.com',
   },
   {
     nombre: 'Escuela de Heridas',
     url: 'https://escueladeheridasguayaquil.com',
-    imagen: '/images/casos/escuela-heridas/web.webp',
+    imagen: '/images/casos/escuela-heridas/web-tall.webp',
+    imagenCorta: '/images/casos/escuela-heridas/web-tall-800.webp',
     alt: 'Página de inicio de escueladeheridasguayaquil.com, trabajo de BIE',
   },
 ];
@@ -105,9 +98,9 @@ export const ESTE_MES: EsteMes = {
   etiquetaPromo: 'Oferta de entrada',
   codigo: 'A-12 · Web profesional',
   titulo: 'Web profesional',
-  texto: 'Una página de hasta cinco secciones, primera versión en 7 días hábiles, con acompañamiento mensual.',
+  texto: 'Una web que trabaja como vendedor, no como folleto.',
   lineaCrecimiento: 'Desde la web básica, el sitio crece con evoluciones que se le presentan al cliente poco a poco.',
-  alcance: 'Sin permanencia mínima. No incluye tienda, reservas ni dominio propio.',
+  evoPasos: ['Web básica', 'Acompañamiento', 'Evoluciones, poco a poco'],
   etiquetaEjemplos: 'Trabajo real de BIE',
   ejemplos: EJEMPLOS_WEB,
   precios: [
