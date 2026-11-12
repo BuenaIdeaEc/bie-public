@@ -165,13 +165,13 @@ html.promo-web-on #nav{top:var(--promo-h)}
 #promo-franja:hover .pf-go{background:#b92220;color:#fff}
 @media (max-width:860px){
   :root,html.promo-web-on{--promo-h:64px}
-  #promo-franja{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name go" "prices go";align-items:center;column-gap:10px;row-gap:1px;padding:8px 56px 8px 14px;justify-content:stretch;text-align:left;gap:unset;flex-wrap:unset;font-size:13px;height:var(--promo-h);box-sizing:border-box}
+  html.promo-web-on #promo-franja{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name go" "prices go";align-items:center;column-gap:12px;row-gap:0;padding:8px 56px 8px 14px;justify-content:stretch;text-align:left;gap:unset;flex-wrap:unset;font-size:13px;height:var(--promo-h);box-sizing:border-box}
   .pf-k,.pf-until,.pf-m{display:none}
   .pf-name{grid-area:name;font-size:14px;letter-spacing:-.02em}
   .pf-prices{grid-area:prices;gap:8px}
   .pf-old{font-size:13px}
   .pf-new{font-size:17px}
-  .pf-go{grid-area:go;padding:8px 13px;font-size:13px}
+  .pf-go{grid-area:go;padding:8px 13px;font-size:13px;justify-self:end}
   html.promo-web-on body #nav,html.promo-web-on body #nav.dark-zone,html.promo-web-on body #nav.scrolled{top:calc(8px + var(--promo-h))}
 }
 @media (prefers-reduced-motion: reduce){
