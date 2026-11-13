@@ -1611,7 +1611,6 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-in{display:block;width:100%;margin:clamp(14px,2vw,26px) 0 0;padding:0 0 10px;border:0;border-bottom:1px solid var(--text);border-radius:0;background:transparent;outline:0;font-family:var(--font);font-size:clamp(30px,5vw,68px);font-weight:400;letter-spacing:-.035em;line-height:1.1;color:var(--accent);caret-color:var(--accent);scroll-margin-top:28px;-webkit-appearance:none;appearance:none}
 .ty-in::placeholder{color:#8a8a87;opacity:1}
 .ty-in:focus{border-bottom-width:2px;padding-bottom:9px}
-.ty-sub{margin:14px 0 0;font-size:clamp(16px,1.4vw,20px);color:var(--text2)}
 .ty-row{overflow:hidden;width:100%;margin:clamp(26px,3.4vw,50px) auto 0;padding:0}
 .ty-track{display:flex;gap:14px;width:max-content;animation:ty-scroll 48s linear infinite;will-change:transform}
 @keyframes ty-scroll{to{transform:translateX(-50%)}}
@@ -1698,6 +1697,43 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
 .ty-k1 small{font-size:10.5px;line-height:1.35;color:var(--text3)}
 /* en Google: con poco alto, el buscador y el resultado no se encogen; se esconden las líneas de abajo */
 .ty-web .ty-bus,.ty-web .ty-res{flex:none}
+/* === Tu negocio v2 (2026-11-13): una sola frase, la palabra cambia y los ejemplos llegan al escribir === */
+html body .tuyo{min-height:100vh;min-height:100lvh;padding-top:clamp(110px,22vh,230px)}
+html body .tuyo .ty-q{white-space:nowrap;font-size:clamp(30px,3.7vw,58px);line-height:1.08;letter-spacing:-.03em;max-width:none}
+.ty-w{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.08em;margin-bottom:-.08em;color:var(--accent)}
+.ty-wi{display:inline-block;transition:transform .42s cubic-bezier(.65,0,.35,1),opacity .42s cubic-bezier(.65,0,.35,1)}
+.ty-wi.ty-out{transform:translateY(-105%);opacity:0}
+.ty-wi.ty-pre{transform:translateY(105%);opacity:0;transition:none}
+.ty-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+html body .tuyo .ty-in{font-size:clamp(28px,3.2vw,48px);margin-top:clamp(18px,2.4vw,34px)}
+.ty-ex{display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .8s cubic-bezier(.65,0,.35,1),opacity .6s ease .1s,visibility 0s .8s}
+.ty-ex-in{min-height:0;overflow:hidden}
+.tuyo.ty-on .ty-ex{grid-template-rows:1fr;opacity:1;visibility:inherit;transition:grid-template-rows .8s cubic-bezier(.65,0,.35,1),opacity .6s ease .1s,visibility 0s}
+.tuyo:not(.ty-on) .ty-track{animation-play-state:paused}
+.ty-t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html body .tuyo .ty-note{flex:1 1 auto;white-space:nowrap}
+@media (max-width:860px){
+  html body .tuyo{min-height:100svh;padding-top:clamp(84px,17svh,150px)}
+  html body .tuyo .ty-q{font-size:clamp(25px,7.3vw,44px)}
+  .ty-w{display:block;width:max-content}
+  html body .tuyo .ty-note{white-space:normal}
+  html body .tuyo .ty-q{scroll-margin-top:84px}
+}
+@media (prefers-reduced-motion:reduce){.ty-ex,.tuyo.ty-on .ty-ex,.ty-wi{transition:none}}
+/* === Reseñas de Google en «Comentarios» (2026-11-13): con el formato de Google y leídas de la ficha real === */
+.g-sum{margin:14px 0 0;font-size:15px;line-height:1.4;color:var(--text2)}
+.g-sum b{font-weight:600;color:var(--text)}
+.g-sum a{color:var(--text);border-bottom:1px solid rgba(8,8,8,.3)}
+.g-st{color:#FBBC04;letter-spacing:.08em}
+.g-who{display:flex;align-items:center;gap:12px;min-width:0}
+.g-av{flex:none;width:44px;height:44px;border-radius:50%;overflow:hidden;background:#e8eaed;display:grid;place-items:center;font-size:18px;font-weight:600;color:#3c4043}
+.g-av img{width:100%;height:100%;object-fit:cover;display:block}
+.g-id{display:flex;flex-direction:column;gap:2px;min-width:0}
+.g-id .voz-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g-meta{font-size:14px;color:var(--text3);white-space:nowrap}
+html body #voces .g-q{max-width:34ch}
+.g-src{align-self:flex-start;font-size:13.5px;color:var(--text3);border-bottom:1px solid rgba(8,8,8,.2)}
+.g-src:hover{color:var(--text)}
 /* Google Maps */
 .ty-mapa{position:relative;flex:1;min-height:0;background-color:#ecece8;background-image:
   linear-gradient(90deg,transparent 44%,#fff 44%,#fff 48%,transparent 48%),
@@ -1825,13 +1861,13 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
 <div id="marquee"><div class="marquee-track" id="mq-track"></div></div>
 
 <!-- TU NEGOCIO: lo primero después del cubo. El visitante escribe su nombre y lo ve en ocho productos reales del catálogo -->
-<section id="tuyo" class="tuyo" aria-label="Lo que hacemos, con el nombre de tu negocio">
+<section id="tuyo" class="tuyo" aria-label="Escribe el nombre de tu negocio">
   <div class="section-inner">
-    <p class="section-label" data-i18n="ty_k" set:html={es('ty_k')}></p>
-    <label class="section-h2 ty-q" for="ty-in" data-i18n="ty_q" set:html={es('ty_q')}></label>
+    <label class="section-h2 ty-q" for="ty-in"><span data-i18n="ty_q1" set:html={es('ty_q1')}></span> <span class="ty-w" aria-hidden="true"><span class="ty-wi">negocio.</span></span><span class="ty-sr" data-i18n="ty_q_sr" set:html={es('ty_q_sr')}></span></label>
     <input class="ty-in" id="ty-in" type="text" maxlength="40" autocomplete="organization" autocapitalize="words" enterkeyhint="done" spellcheck="false" placeholder={es('ty_ph')} />
-    <p class="ty-sub" data-i18n="ty_sub" set:html={es('ty_sub')}></p>
   </div>
+  <!-- los ejemplos aparecen recién cuando la persona escribe su nombre -->
+  <div class="ty-ex"><div class="ty-ex-in">
   <div class="ty-row" id="ty-row">
   <div class="ty-track" id="ty-track">
     <a class="ty-c" href={tyHref('identidad-de-marca')}>
@@ -1841,7 +1877,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         <b class="ty-m3" data-ty>Tu negocio</b>
       </div>
       <h3 class="ty-t" data-i18n="ty_c1_k" set:html={es('ty_c1_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c1" set:html={es('ty_c1')}></p>
     </a>
     <a class="ty-c" href={tyHref('identidad-de-marca')}>
       <div class="ty-s ty-card" aria-hidden="true">
@@ -1849,7 +1884,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         <div class="ty-k1"><b data-ty>Tu negocio</b><small><span data-ty-dom>tunegocio.ec</span><br><span data-i18n="ty_k_tel" set:html={es('ty_k_tel')}></span></small></div>
       </div>
       <h3 class="ty-t" data-i18n="ty_c5_k" set:html={es('ty_c5_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c5" set:html={es('ty_c5')}></p>
     </a>
     <a class="ty-c" href={tyHref('pagina-web')}>
       <div class="ty-s ty-web" aria-hidden="true">
@@ -1862,7 +1896,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         <i></i><i></i><i></i><i></i>
       </div>
       <h3 class="ty-t" data-i18n="ty_c2_k" set:html={es('ty_c2_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c2" set:html={es('ty_c2')}></p>
     </a>
     <a class="ty-c" href={tyHref('perfil-google-maps')}>
       <div class="ty-s ty-map" aria-hidden="true">
@@ -1874,7 +1907,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         </div>
       </div>
       <h3 class="ty-t" data-i18n="ty_c6_k" set:html={es('ty_c6_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c6" set:html={es('ty_c6')}></p>
     </a>
     <a class="ty-c" href={tyHref('gestion-redes-sociales')}>
       <div class="ty-s ty-ig" aria-hidden="true">
@@ -1882,7 +1914,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         <div class="ty-grid"><span class="g1" data-ty>Tu negocio</span><span class="g2"></span><span class="g3" data-ty>Tu negocio</span><span class="g4"></span><span class="g5" data-ty>Tu negocio</span><span class="g6"></span></div>
       </div>
       <h3 class="ty-t" data-i18n="ty_c7_k" set:html={es('ty_c7_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c7" set:html={es('ty_c7')}></p>
     </a>
     <a class="ty-c" href={tyHref('asistente-inteligente-whatsapp')}>
       <div class="ty-s ty-chat" aria-hidden="true">
@@ -1891,7 +1922,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         <p class="ty-out-m"><span data-i18n="ty_m_a" set:html={es('ty_m_a')}></span> <b data-ty>Tu negocio</b>. <span data-i18n="ty_m_b" set:html={es('ty_m_b')}></span><time>23:07</time></p>
       </div>
       <h3 class="ty-t" data-i18n="ty_c3_k" set:html={es('ty_c3_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c3" set:html={es('ty_c3')}></p>
     </a>
     <a class="ty-c" href={tyHref('facturacion-electronica')}>
       <div class="ty-s ty-fac" aria-hidden="true">
@@ -1905,7 +1935,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         <em data-i18n="ty_f_ok" set:html={es('ty_f_ok')}></em>
       </div>
       <h3 class="ty-t" data-i18n="ty_c8_k" set:html={es('ty_c8_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c8" set:html={es('ty_c8')}></p>
     </a>
     <a class="ty-c" href={tyHref('sistema-operativo')}>
       <div class="ty-s ty-sis" aria-hidden="true">
@@ -1918,7 +1947,6 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
         </ul>
       </div>
       <h3 class="ty-t" data-i18n="ty_c4_k" set:html={es('ty_c4_k')}></h3>
-      <p class="ty-d" data-i18n="ty_c4" set:html={es('ty_c4')}></p>
     </a>
   </div>
   </div>
@@ -1926,6 +1954,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
     <a class="btn-primary" id="ty-wa" href={'https://wa.me/' + WA_NUM_SSR} target="_blank" rel="noopener"><span data-i18n="ty_btn" set:html={es('ty_btn')}></span> <span id="ty-wa-n">mi negocio</span></a>
     <p class="ty-note" data-i18n="ty_note" set:html={es('ty_note')}></p>
   </div>
+  </div></div>
 </section>
 
 
@@ -1990,6 +2019,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
     <div class="reveal voces-head" id="voces-head">
       <p class="section-label">Comentarios</p>
       <h2 class="section-h2">Lo que dicen <span class="serif">nuestros clientes.</span></h2>
+      <p class="g-sum" id="g-sum" hidden></p>
     </div>
     <div class="voces-grid reveal d2">
       {TESTIMONIOS.map((t, i) => (
@@ -2019,7 +2049,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
       <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
     </div>
     <div class="packs reveal d1">
-      {([['pk1', WA_PK1_SSR, '/images/casos/escuela-heridas/web.webp', false], ['pk2', WA_PK2_SSR, 'whatsapp-business-commerce', true], ['pk3', WA_PK3_SSR, '/images/casos/luway/os.webp', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
+      {([['pk1', WA_PK1_SSR, '/images/casos/oscar-caicho/web-sq.webp', false], ['pk2', WA_PK2_SSR, '/images/casos/tasting/tienda.webp', false], ['pk3', WA_PK3_SSR, '/images/casos/luway/os-app.webp', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
         <a class={'pack' + (i === 1 ? ' pack-hot' : '')} href={href} target="_blank" rel="noopener">
           <span class="pack-media">{vid ? <video data-src={'/videos/productos/' + media + '.mp4'} data-poster={'/images/productos/' + media + '.webp'} muted loop playsinline preload="none" aria-hidden="true"></video> : <img src={media} alt="" width="1600" height="1600" loading="lazy" decoding="async" />}{i === 1 && <span class="pack-tag" data-i18n="pk_tag2" set:html={es('pk_tag2')}></span>}</span>
           <div class="pack-body">

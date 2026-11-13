@@ -635,17 +635,66 @@ function renderWork(){
 })();
 
 // ═══ Comentarios: uno a la vez; cada tramo de scroll trae el siguiente ═══
+// Primero van las reseñas reales de la ficha de BIE en Google (/api/resenas); si no llegan, quedan los comentarios de siempre.
 (function(){
-  const sec = document.getElementById('voces'), items = Array.from(document.querySelectorAll('#voces .voz')), bar = document.getElementById('voces-bar'), head = document.getElementById('voces-head');
-  if (!sec || !items.length) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { items.forEach((v) => v.classList.add('on')); return; }
-  let cur = -1;
+  const sec = document.getElementById('voces'), grid = sec && sec.querySelector('.voces-grid'), bar = document.getElementById('voces-bar'), head = document.getElementById('voces-head');
+  if (!sec || !grid) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let items = [], cur = -1;
+  function arma(){
+    items = Array.from(grid.querySelectorAll('.voz'));
+    cur = -1;
+    if (reduce) { items.forEach((v) => v.classList.add('on')); return; }
+    // cada comentario ocupa su tramo de scroll (antes: 236vh para tres)
+    sec.style.height = (100 + (innerWidth <= 860 ? 50 : 46) * items.length) + 'vh';
+    read();
+  }
   function read(){
+    if (reduce || !items.length) return;
     const r = sec.getBoundingClientRect(), span = sec.offsetHeight - LVH();
     const p = span > 0 ? Math.min(.9999, Math.max(0, -r.top / span)) : 0, i = Math.floor(p * items.length);
     if (i !== cur) { cur = i; items.forEach((v, j) => v.classList.toggle('on', j === i)); head.classList.toggle('out', i > 0); if (bar) bar.style.width = ((i + 1) / items.length * 100) + '%'; }
   }
-  addEventListener('scroll', read, { passive: true }); addEventListener('resize', read, { passive: true }); read();
+  addEventListener('scroll', read, { passive: true }); addEventListener('resize', read, { passive: true }); arma();
+
+  const corta = (t) => t.length <= 240 ? t : t.slice(0, 240).replace(/\s+\S*$/, '') + '…';
+  const estrellas = (n) => '★'.repeat(n) + '☆'.repeat(5 - n);
+  function pintaGoogle(d){
+    const frag = document.createDocumentFragment();
+    d.reviews.slice(0, 5).forEach((v) => {
+      const a = document.createElement('article');
+      a.className = 'voz voz-g con-frase';
+      a.innerHTML = '<div class="g-who"><span class="g-av"></span><span class="g-id"><b class="voz-name"></b><span class="g-meta"><span class="g-st"></span> <span class="g-when"></span></span></span></div><blockquote class="voz-q g-q"></blockquote><a class="g-src" target="_blank" rel="noopener"></a>';
+      const av = a.querySelector('.g-av');
+      if (v.foto) { const im = new Image(44, 44); im.alt = ''; im.loading = 'lazy'; im.referrerPolicy = 'no-referrer'; im.src = v.foto; av.appendChild(im); }
+      else av.textContent = (v.autor || 'G').charAt(0).toUpperCase();
+      a.querySelector('.voz-name').textContent = v.autor;
+      const st = a.querySelector('.g-st'); st.textContent = estrellas(Math.max(0, Math.min(5, v.estrellas))); st.setAttribute('aria-label', v.estrellas + ' de 5 estrellas');
+      a.querySelector('.g-when').textContent = v.cuando;
+      a.querySelector('.g-q').textContent = corta(v.texto);
+      const src = a.querySelector('.g-src'); src.href = v.url || d.url; src.textContent = lang === 'en' ? 'Review on Google' : 'Opinión publicada en Google';
+      frag.appendChild(a);
+    });
+    grid.prepend(frag);
+    const sum = document.getElementById('g-sum');
+    if (sum && d.nota) {
+      const nota = lang === 'en' ? d.nota.toFixed(1) : d.nota.toFixed(1).replace('.', ',');
+      const n = d.total, txt = lang === 'en' ? (n === 1 ? '1 review' : n + ' reviews') : (n === 1 ? '1 opinión' : n + ' opiniones');
+      sum.innerHTML = '<span class="g-st" aria-hidden="true">' + estrellas(Math.round(d.nota)) + '</span> <b>' + nota + '</b> ' + (lang === 'en' ? 'on Google' : 'en Google') + ' · <a target="_blank" rel="noopener"></a>';
+      const l = sum.querySelector('a'); l.href = d.url; l.textContent = txt;
+      sum.hidden = false;
+    }
+  }
+  let pedido = false;
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting || pedido) return;
+    pedido = true; io.disconnect();
+    fetch('/api/resenas').then((r) => r.ok ? r.json() : null).then((d) => {
+      if (!d || !d.ok || !d.reviews || !d.reviews.length) return;
+      pintaGoogle(d); arma();
+    }).catch(() => {});
+  }, { rootMargin: '1500px 0px' });
+  io.observe(sec);
 })();
 
 // ═══ "Así de simple": tipografía en movimiento dirigida por el scroll ═══
@@ -1325,7 +1374,7 @@ const __start = () => { if (__ready) return; __ready = true; applyStatics(); ren
 requestAnimationFrame(() => setTimeout(__start, 0));
 setTimeout(__start, 800);
 
-// ═══ Tu negocio: el nombre que escribe el visitante aparece en ocho productos ═══
+// ═══ Tu negocio: al escribir el nombre aparecen ocho productos con ese nombre ═══
 // Nada de esto sale del navegador: el nombre solo viaja si la persona abre WhatsApp o envía el formulario.
 (function(){
   const input = document.getElementById('ty-in'), sec = document.getElementById('tuyo');
@@ -1338,7 +1387,9 @@ setTimeout(__start, 800);
   if (track && !reduce) {
     Array.from(track.children).forEach(el => { const c = el.cloneNode(true); c.setAttribute('aria-hidden', 'true'); if (c.tagName === 'A') c.setAttribute('tabindex', '-1'); track.appendChild(c); });
   }
-  const KEY = 'bie_tuyo', DEMO = ['Panadería Rosita', 'Consultorio Sonríe', 'Ferretería El Clavo', 'Moda Amaru'];
+  const KEY = 'bie_tuyo', PAL = { es: ['negocio', 'proyecto', 'empresa', 'emprendimiento'], en: ['business', 'project', 'company', 'venture'] };
+  let abierto = false, visible = false, wi = 0;
+  const palabra = () => PAL[lang === 'en' ? 'en' : 'es'][wi % 4] + '.';
   let nombre = '';
   try { nombre = (sessionStorage.getItem(KEY) || '').slice(0, 40); } catch (e) {}
   if (nombre) input.value = nombre;
@@ -1360,7 +1411,10 @@ setTimeout(__start, 800);
   }
   function aplica(){
     const n = limpio();
-    if (!demoOn) pinta(n);
+    pinta(n);
+    // los ejemplos se muestran recién cuando hay un nombre; después se quedan
+    if (n && !abierto) { abierto = true; document.querySelectorAll('.tuyo').forEach((s) => s.classList.add('ty-on')); }
+    document.querySelectorAll('.tuyo .ty-wi').forEach((el) => { if (!el.classList.contains('ty-out')) el.textContent = palabra(); });
     btnN.textContent = n || (lang === 'es' ? 'mi negocio' : 'my business');
     btn.href = wa((lang === 'es'
       ? 'Hola, tengo ' + (n || 'un negocio') + '. Vi en su página cómo se vería y quiero saber más. Vendo: '
@@ -1379,53 +1433,41 @@ setTimeout(__start, 800);
     if (!input.value) input.placeholder = UI.ty_ph[lang];
   }
 
-  // Mientras nadie escribe, la sección se escribe sola para que se entienda la idea.
-  let demoOn = false, demoT = 0, di = 0, ci = 0, borra = false;
-  function paso(){
-    if (!demoOn) return;
-    const w = DEMO[di % DEMO.length];
-    ci += borra ? -1 : 1;
-    const parte = w.slice(0, ci);
-    input.placeholder = parte || ' ';
-    document.querySelectorAll('.tuyo .ty-in').forEach((el) => { if (el !== input) el.placeholder = input.placeholder; });
-    pinta(parte);
-    let t = borra ? 26 : 72;
-    if (!borra && ci >= w.length) { borra = true; t = 2800; }
-    else if (borra && ci <= 0) { borra = false; di++; t = 320; }
-    demoT = setTimeout(paso, t);
+  // «negocio», «proyecto», «empresa», «emprendimiento»: la palabra cambia mientras nadie escribe.
+  let rotT = 0;
+  function gira(){
+    const els = document.querySelectorAll('.tuyo .ty-wi');
+    els.forEach((el) => el.classList.add('ty-out'));
+    setTimeout(() => {
+      wi++;
+      els.forEach((el) => { el.textContent = palabra(); el.classList.remove('ty-out'); el.classList.add('ty-pre'); });
+      void sec.offsetWidth;
+      els.forEach((el) => el.classList.remove('ty-pre'));
+    }, 430);
   }
-  function demo(on){
-    if (on === demoOn) return;
-    demoOn = on;
-    clearTimeout(demoT);
-    if (on) { ci = 0; borra = false; paso(); }
-    else aplica();
+  function rota(){
+    clearInterval(rotT);
+    if (visible && !reduce && !limpio() && document.activeElement !== input) rotT = setInterval(gira, 2600);
   }
 
   // El marquee CSS reemplaza el auto-avance; solo pausamos al tocar.
-  let auto = false, ai = 0, autoT = 0;
-  const avanza = () => {};
   let touchT;
   row.addEventListener('touchstart', () => { clearTimeout(touchT); row.classList.add('ty-paused'); }, { passive: true });
   row.addEventListener('touchend', () => { touchT = setTimeout(() => row.classList.remove('ty-paused'), 1200); }, { passive: true });
 
-  let visible = false;
-  new IntersectionObserver(([e]) => {
-    visible = e.isIntersecting;
-    clearInterval(autoT);
-    if (visible) autoT = setInterval(avanza, 3800);
-    demo(visible && !reduce && !limpio() && document.activeElement !== input);
-  }, { threshold: 0.2 }).observe(sec);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; rota(); }, { threshold: 0.2 }).observe(sec);
 
   let contado = false;
-  input.addEventListener('focus', () => { demo(false); input.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); });
-  input.addEventListener('blur', () => demo(visible && !reduce && !limpio()));
+  // en teléfono el teclado tapa media pantalla: se sube la casilla para que los ejemplos se vean debajo
+  input.addEventListener('focus', () => { rota(); if (innerWidth <= 860) sec.querySelector('.ty-q').scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); });
+  input.addEventListener('blur', rota);
   input.addEventListener('input', () => {
     nombre = input.value.slice(0, 40);
     try { sessionStorage.setItem(KEY, nombre); } catch (e) {}
     // Solo se cuenta que alguien escribió; el nombre nunca se envía.
     if (!contado && limpio()) { contado = true; if (window.bieTrack) window.bieTrack('quiz_step', { meta: { step: 'tuyo', host: location.hostname } }); }
     aplica();
+    rota();
   });
   input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); input.blur(); } });
 
