@@ -1,472 +1,478 @@
 [
- {
-  "slug": "analisis-de-marca",
-  "fuente": "unsplash",
-  "pagina": "https://unsplash.com/photos/a-person-standing-in-front-of-a-store-with-many-vases-and-vases-IIJ9Z-o1uyg",
-  "directa": "https://images.unsplash.com/photo-1670609506418-f5f1740913fa",
-  "autor": "ALLAN LAINEZ (@17allansfilms)",
-  "licencia": "Unsplash License",
-  "describe": "Dueña de una tienda de artesanías y cerámica pintada en Ojojona (Honduras), de pie y serena entre sus propios productos, en luz natural de día.",
-  "ubicacion": "Ojojona, Honduras"
- },
- {
-  "slug": "analisis-de-competencia",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/asphalt-road-between-buildings-2873419/",
-  "directa": "https://images.pexels.com/photos/2873419/pexels-photo-2873419.jpeg",
-  "autor": "K (@kelly)",
-  "licencia": "Pexels License",
-  "describe": "Calle comercial de un pueblo ecuatoriano con locales a ambos lados, árboles podados, peatones y montañas al fondo bajo cielo nublado; letreros pequeños de negocios locales al borde.",
-  "ubicacion": "Ecuador"
- },
- {
-  "slug": "analisis-de-mercado",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/vibrant-market-scene-in-cajamarca-peru-39960569/",
-  "directa": "https://images.pexels.com/photos/39960569/pexels-photo-39960569.jpeg",
-  "autor": "Joshuan Barboza (@jbarbozameca)",
-  "licencia": "Pexels License",
-  "describe": "Mercado andino al aire libre en Cajamarca: vendedora con sombrero de paja sentada junto a su cebollín, cliente con bicicleta y puestos de verduras bajo lonas blancas.",
-  "ubicacion": "Cajamarca, Perú"
- },
- {
-  "slug": "analisis-conversaciones-venta",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-in-a-restaurant-kitchen-looking-at-a-smartphone-16782670/",
-  "directa": "https://images.pexels.com/photos/16782670/pexels-photo-16782670.jpeg",
-  "autor": "Israel Torres (@israwmx)",
-  "licencia": "Pexels License",
-  "describe": "Dueña de un puesto de comida en Ciudad de México, con mandil, revisando su celular en el mostrador mientras atiende pedidos; vasos y manos de clientes en primer plano.",
-  "ubicacion": "Ciudad de México (según la serie del autor; la ficha no lo indica)"
- },
- {
-  "slug": "estructuracion-de-empresa",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/professional-craftsman-sketching-new-project-on-paper-5973966/",
-  "directa": "https://images.pexels.com/photos/5973966/pexels-photo-5973966.jpeg",
-  "autor": "Ono Kosuki",
-  "licencia": "Pexels License",
-  "describe": "Artesano de un taller de carpintería dibujando y anotando planos sobre su banco de trabajo, rodeado de tablas y herramientas, con luz de ventana.",
-  "ubicacion": null
- },
- {
-  "slug": "analisis-contable",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-person-writing-on-white-notebook-5466814/",
-  "directa": "https://images.pexels.com/photos/5466814/pexels-photo-5466814.jpeg",
-  "autor": "olia danilevich",
-  "licencia": "Pexels License",
-  "describe": "Primer plano de manos anotando cuentas en un cuaderno con calculadora y billetes de dólar sobre mesa de madera (el dólar sirve para Ecuador).",
-  "ubicacion": null
- },
- {
-  "slug": "analisis-legal",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/side-view-of-a-woman-writing-on-the-contract-8730368/",
-  "directa": "https://images.pexels.com/photos/8730368/pexels-photo-8730368.jpeg",
-  "autor": "Mikhail Nilov",
-  "licencia": "Pexels License",
-  "describe": "Mujer de cabello rizado revisando y firmando un contrato sobre una mesa de madera, en un despacho cálido con paneles de madera.",
-  "ubicacion": null
- },
- {
-  "slug": "identidad-de-marca",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-sitting-at-a-wooden-table-with-color-palette-samples-9492918/",
-  "directa": "https://images.pexels.com/photos/9492918/pexels-photo-9492918.jpeg",
-  "autor": "Helena Lopes",
-  "licencia": "Pexels License",
-  "describe": "Diseñadora sonriente frente a abanicos de muestras de color extendidos sobre una mesa de madera rústica, pared clara detrás.",
-  "ubicacion": null
- },
- {
-  "slug": "estrategia-de-contenidos",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/pensive-woman-taking-notes-at-table-with-laptop-and-cup-of-coffee-7034439/",
-  "directa": "https://images.pexels.com/photos/7034439/pexels-photo-7034439.jpeg",
-  "autor": "George Milton",
-  "licencia": "Pexels License",
-  "describe": "Mujer pensativa planificando en una libreta junto a su laptop y una taza de café, luz natural suave y planta desenfocada en primer plano; pantalla sin texto legible.",
-  "ubicacion": null
- },
- {
-  "slug": "gestion-redes-sociales",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-standing-at-table-7224291/",
-  "directa": "https://images.pexels.com/photos/7224291/pexels-photo-7224291.jpeg",
-  "autor": "cottonbro studio",
-  "licencia": "Pexels License",
-  "describe": "Ceramista fotografiando con su celular la vajilla que hizo, dispuesta sobre una mesa de madera en su taller de paredes grises.",
-  "ubicacion": null
- },
- {
-  "slug": "jingle-corporativo",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/men-recording-music-in-studio-8132973/",
-  "directa": "https://images.pexels.com/photos/8132973/pexels-photo-8132973.jpeg",
-  "autor": "Anna Pou",
-  "licencia": "Pexels License",
-  "describe": "Estudio de grabación pequeño: técnico de espaldas en la consola y cantante con audífonos grabando tras el vidrio de la cabina; pantalla solo con ondas de audio.",
-  "ubicacion": null
- },
- {
-  "slug": "musica-ambiental",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/people-inside-room-and-surrounding-table-1581554/",
-  "directa": "https://images.pexels.com/photos/1581554/pexels-photo-1581554.jpeg",
-  "autor": "Lawrence Suzara",
-  "licencia": "Pexels License",
-  "describe": "Cafetería acogedora de madera con lámparas de mimbre, ventanales con luz natural y grupos de clientes conversando en las mesas.",
-  "ubicacion": null
- },
- {
-  "slug": "soundtrack-para-contenido",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/man-sitting-in-front-of-two-monitors-8770513/",
-  "directa": "https://images.pexels.com/photos/8770513/pexels-photo-8770513.jpeg",
-  "autor": "Orlando Allo",
-  "licencia": "Pexels License",
-  "describe": "Joven latino de espaldas editando video con música en dos monitores, en un estudio casero con parlantes y luz cálida anaranjada.",
-  "ubicacion": null
- },
- {
-  "slug": "identidad-sonora",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-guitarist-sitting-behind-a-white-table-with-laptop-4680076/",
-  "directa": "https://images.pexels.com/photos/4680076/pexels-photo-4680076.jpeg",
-  "autor": "Artem Podrez",
-  "licencia": "Pexels License",
-  "describe": "Vista cenital de un músico componiendo con guitarra acústica en un escritorio blanco con laptop, hoja y lápiz; luz natural, muy limpia.",
-  "ubicacion": null
- },
- {
-  "slug": "investigacion-de-plataformas",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/ethnic-businessman-working-with-laptop-and-smartphone-7129690/",
-  "directa": "https://images.pexels.com/photos/7129690/pexels-photo-7129690.jpeg",
-  "autor": "Michael Burrows",
-  "licencia": "Pexels License",
-  "describe": "Joven emprendedor latino mirando su celular frente a la laptop y un cuaderno abierto, en una mesa de madera junto a una pared blanca.",
-  "ubicacion": null
- },
- {
-  "slug": "dominio-y-hosting",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/man-in-blue-white-and-red-plaid-dress-shirt-and-gray-denim-jeans-sitting-on-brown-4491870/",
-  "directa": "https://images.pexels.com/photos/4491870/pexels-photo-4491870.jpeg",
-  "autor": "Ivan S",
-  "licencia": "Pexels License",
-  "describe": "Carpintero con camisa a cuadros y gorra trabajando en su laptop dentro de su taller de madera, rodeado de tablas y herramientas; luz natural.",
-  "ubicacion": null
- },
- {
-  "slug": "pagina-web",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/serious-woman-working-on-laptop-and-using-drawing-tablet-7014916/",
-  "directa": "https://images.pexels.com/photos/7014916/pexels-photo-7014916.jpeg",
-  "autor": "George Milton",
-  "licencia": "Pexels License",
-  "describe": "Diseñadora trabajando en laptop y tableta gráfica en un estudio casero luminoso con plantas y bocetos en la pared.",
-  "ubicacion": null
- },
- {
-  "slug": "link-hub",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/elderly-man-in-hat-using-smartphone-19638953/",
-  "directa": "https://images.pexels.com/photos/19638953/pexels-photo-19638953.jpeg",
-  "autor": "Chris Luengas",
-  "licencia": "Pexels License",
-  "describe": "Señor con sombrero blanco revisando su celular en un puesto de antigüedades de un mercado de Puebla, México; tonos cálidos, escena real.",
-  "ubicacion": "Puebla, México"
- },
- {
-  "slug": "posicionamiento-seo",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-using-smartphone-outdoors-in-mexico-city-32166288/",
-  "directa": "https://images.pexels.com/photos/32166288/pexels-photo-32166288.jpeg",
-  "autor": "Julio Lopez",
-  "licencia": "Pexels License",
-  "describe": "Mujer de suéter rojo buscando algo en su celular al aire libre en Ciudad de México; encuadre cerrado, rostro cortado, fondo verde desenfocado.",
-  "ubicacion": "Ciudad de México, México"
- },
- {
-  "slug": "perfil-google-maps",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/charming-streetfront-cafe-in-quito-ecuador-37758914/",
-  "directa": "https://images.pexels.com/photos/37758914/pexels-photo-37758914.jpeg",
-  "autor": "Dave Garcia (DΛVΞ GΛRCIΛ, @davegarcia)",
-  "licencia": "Pexels License",
-  "describe": "Fachada de un café de barrio en Quito con toldo a rayas, pizarra en la vereda y una mujer en la puerta; se lee el nombre del local («Dos Barrios»), sin logos de marcas grandes.",
-  "ubicacion": "Quito, Pichincha, Ecuador"
- },
- {
-  "slug": "fotografia-de-producto-ia",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-in-white-long-sleeves-taking-photos-of-a-handbag-5717974/",
-  "directa": "https://images.pexels.com/photos/5717974/pexels-photo-5717974.jpeg",
-  "autor": "Karola G",
-  "licencia": "Pexels License",
-  "describe": "Emprendedora fotografiando con el celular una cartera de cuero de su marca para venderla en línea, sobre fondo blanco con plantas secas; luz natural suave.",
-  "ubicacion": null
- },
- {
-  "slug": "asistente-inteligente-whatsapp",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/silhouette-of-a-woman-using-her-phone-12265472/",
-  "directa": "https://images.pexels.com/photos/12265472/pexels-photo-12265472.jpeg",
-  "autor": "Alexander Taranenko",
-  "licencia": "Pexels License",
-  "describe": "Silueta de una mujer mirando el celular detrás del mostrador de un café ya en penumbra, con la vitrina y luces cálidas al fondo (sensación de cierre de jornada).",
-  "ubicacion": null
- },
- {
-  "slug": "crm-ia",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/businesswoman-talking-on-phone-and-taking-notes-10041245/",
-  "directa": "https://images.pexels.com/photos/10041245/pexels-photo-10041245.jpeg",
-  "autor": "Los Muertos Crew",
-  "licencia": "Pexels License",
-  "describe": "Mujer joven hablando por celular mientras anota en su cuaderno, en un escritorio claro junto a una ventana; ambiente de oficina pequeña, no corporativa.",
-  "ubicacion": "México"
- },
- {
-  "slug": "sistema-operativo",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-talking-to-a-customer-6545444/",
-  "directa": "https://images.pexels.com/photos/6545444/pexels-photo-6545444.jpeg",
-  "autor": "Tima Miroshnichenko",
-  "licencia": "Pexels License",
-  "describe": "Dueña de una tienda de abarrotes a granel atendiendo a una clienta desde el mostrador, con su laptop abierta y estanterías de madera llenas de producto.",
-  "ubicacion": null
- },
- {
-  "slug": "automatizaciones",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-man-roasting-coffee-beans-7175982/",
-  "directa": "https://images.pexels.com/photos/7175982/pexels-photo-7175982.jpeg",
-  "autor": "Antoni Shkraba",
-  "licencia": "Pexels License",
-  "describe": "Dueño de una tostadora de café pequeña, sonriendo y con la mano libre, mientras la máquina tuesta sola a su lado. Taller de ladrillo con luz natural. Sesión de 2021; la biografía del autor menciona un estudio de IA, pero esta foto no está marcada como IA y se ve como una sesión real.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "whatsapp-business-commerce",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-boxing-ceramics-earthenware-7679686/",
-  "directa": "https://images.pexels.com/photos/7679686/pexels-photo-7679686.jpeg",
-  "autor": "MART PRODUCTION",
-  "licencia": "Pexels License",
-  "describe": "Emprendedora con gorro naranja empacando cerámica hecha a mano en cajas de cartón, en una mesa de cocina-taller de madera con la laptop al lado. Tonos cálidos y luz natural.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "data-analytics",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-using-a-laptop-at-the-counter-7772023/",
-  "directa": "https://images.pexels.com/photos/7772023/pexels-photo-7772023.jpeg",
-  "autor": "Anna Tarazevich",
-  "licencia": "Pexels License",
-  "describe": "Dueña de una tienda a granel revisando números en su laptop detrás del mostrador de madera, rodeada de frascos. Plano abierto y cálido. Ojo: una pizarra a la derecha tiene escrito a mano «refill» (genérico, no es una marca).",
-  "ubicacion": "no indicada (la autora trabaja en Sídney)"
- },
- {
-  "slug": "google-ads",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-beside-flower-shop-using-smartphone-3772531/",
-  "directa": "https://images.pexels.com/photos/3772531/pexels-photo-3772531.jpeg",
-  "autor": "Andrea Piacquadio",
-  "licencia": "Pexels License",
-  "describe": "Mujer sonriendo mientras busca algo en el celular, parada en la vereda junto a la entrada de una florería de barrio. Día soleado, tonos cálidos. Contexto urbano neutro (no latinoamericano); arriba a la izquierda asoma un trozo de letrero ilegible.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "meta-ads",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-woman-using-a-smartphone-4747813/",
-  "directa": "https://images.pexels.com/photos/4747813/pexels-photo-4747813.jpeg",
-  "autor": "Gilmer Diaz Estela",
-  "licencia": "Pexels License",
-  "describe": "Joven peruana con audífonos mirando su celular y sonriendo, en su casa de paredes color durazno, con una guitarra al fondo. Natural y sin pose.",
-  "ubicacion": "Lima, Perú"
- },
- {
-  "slug": "tiktok-ads",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-smartphone-on-the-tripod-7669755/",
-  "directa": "https://images.pexels.com/photos/7669755/pexels-photo-7669755.jpeg",
-  "autor": "Polina Tankilevitch",
-  "licencia": "Pexels License",
-  "describe": "Celular en un mini trípode grabando a una mujer que saca una bandeja del horno, en una cocina luminosa. La protagonista es la grabación casera para redes. Muy limpia y clara.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "email-marketing",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/hispanic-female-student-using-laptop-near-tea-mug-in-room-6347902/",
-  "directa": "https://images.pexels.com/photos/6347902/pexels-photo-6347902.jpeg",
-  "autor": "Liza Summer",
-  "licencia": "Pexels License",
-  "describe": "Joven latinoamericana con suéter celeste escribiendo en la laptop en la mesa de su casa, con una taza amarilla al lado. Luz suave, la pantalla no se ve.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "marketplace-y-ecommerce",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-writing-down-on-a-carton-box-while-looking-at-a-clipboard-6169033/",
-  "directa": "https://images.pexels.com/photos/6169033/pexels-photo-6169033.jpeg",
-  "autor": "Tima Miroshnichenko",
-  "licencia": "Pexels License",
-  "describe": "Emprendedora con gorra rotulando cajas para envío en una bodega pequeña de ladrillo blanco, con estantes llenos de paquetes. Solo etiquetas genéricas («FRAGILE», símbolos de embalaje); el monitor se ve de espaldas y sin logo.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "video-marketing",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/black-dslr-camera-on-tripod-7964644/",
-  "directa": "https://images.pexels.com/photos/7964644/pexels-photo-7964644.jpeg",
-  "autor": "Kampus Production",
-  "licencia": "Pexels License",
-  "describe": "Detrás de cámaras de un rodaje pequeño: cámara en trípode y aro de luz enfocando a una cocinera desenfocada al fondo, en una cocina con pared verde. Tonos oscuros pero cálidos.",
-  "ubicacion": "Portugal"
- },
- {
-  "slug": "reputacion-online",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-in-green-tank-top-smiling-7772195/",
-  "directa": "https://images.pexels.com/photos/7772195/pexels-photo-7772195.jpeg",
-  "autor": "Los Muertos Crew",
-  "licencia": "Pexels License",
-  "describe": "Clienta feliz riendo en la mesa de un restaurante mexicano al aire libre, con antojitos y bebidas y amigos en primer plano desenfocados. Muy cálida y auténtica, sin marcas visibles.",
-  "ubicacion": "México"
- },
- {
-  "slug": "constitucion-de-empresa",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-in-red-blazer-sitting-by-the-table-having-a-meeting-4063791/",
-  "directa": "https://images.pexels.com/photos/4063791/pexels-photo-4063791.jpeg",
-  "autor": "Marcus Aurelius",
-  "licencia": "Pexels License",
-  "describe": "Dos socias planificando su negocio en la mesa de madera de un café, con laptop, cuaderno y luz de tarde. No firman nada: es la reunión de arranque. No encontré una foto auténtica de socios latinos firmando la constitución en su local que no fuera de stock frío o de IDs recientes sospechosos.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "elaboracion-de-contratos",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/person-signing-legal-document-on-wooden-table-30268252/",
-  "directa": "https://images.pexels.com/photos/30268252/pexels-photo-30268252.jpeg",
-  "autor": "Matheus Lara",
-  "licencia": "Pexels License",
-  "describe": "Manos morenas con pulsera firmando un documento sobre una mesa de madera cálida. Real y sin corbatas; el texto del papel es pequeño y genérico.",
-  "ubicacion": "no indicada"
- },
- {
-  "slug": "registro-de-marca",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/elderly-farmer-with-coffee-display-outdoors-29892493/",
-  "directa": "https://images.pexels.com/photos/29892493/pexels-photo-29892493.jpeg",
-  "autor": "Daniel Morales",
-  "licencia": "Pexels License",
-  "describe": "Caficultor latinoamericano con sombrero sostiene la bolsa de café de su propia marca frente a una mesa de frascos con granos, en su taller de paredes de bloque; luz natural cálida.",
-  "ubicacion": "No indicada (contexto rural latinoamericano)"
- },
- {
-  "slug": "proteccion-de-datos",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-person-with-hand-on-the-file-folder-6538576/",
-  "directa": "https://images.pexels.com/photos/6538576/pexels-photo-6538576.jpeg",
-  "autor": "cottonbro studio",
-  "licencia": "Pexels License",
-  "describe": "Mano que reposa sobre carpetas y archivadores con fichas, en una oficina pequeña con luz suave de ventana y mucho fondo claro desenfocado. Sin rostros ni texto legible.",
-  "ubicacion": "No indicada"
- },
- {
-  "slug": "declaracion-de-impuestos",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-at-wooden-desk-reading-a-receipt-5900077/",
-  "directa": "https://images.pexels.com/photos/5900077/pexels-photo-5900077.jpeg",
-  "autor": "Karola G",
-  "licencia": "Pexels License",
-  "describe": "Mujer en su mesa de madera revisando un recibo, con calculadora, comprobantes y billetes de dólar (moneda de Ecuador); cortinas blancas y plantas, luz natural.",
-  "ubicacion": "No indicada"
- },
- {
-  "slug": "facturacion-electronica",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/a-group-of-women-in-aprons-are-working-in-a-kitchen-16837818/",
-  "directa": "https://images.pexels.com/photos/16837818/pexels-photo-16837818.jpeg",
-  "autor": "Israel Torres (israwmx)",
-  "licencia": "Pexels License",
-  "describe": "Puesto de comida en un mercado de Ciudad de México: vendedoras con delantal atienden a una clienta en el mostrador, con balanza al lado; escena real y cálida.",
-  "ubicacion": "Ciudad de México, México"
- },
- {
-  "slug": "reportes-financieros",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/female-colleagues-planning-on-a-project-8853407/",
-  "directa": "https://images.pexels.com/photos/8853407/pexels-photo-8853407.jpeg",
-  "autor": "Los Muertos Crew (cristian-rojas)",
-  "licencia": "Pexels License",
-  "describe": "Dos mujeres latinas revisan hojas impresas sobre una mesa de madera, una explica y la otra anota; sala luminosa con pared blanca (pizarra a la derecha con notas a mano poco legibles).",
-  "ubicacion": "No indicada"
- },
- {
-  "slug": "asesoria-tributaria",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/bearded-man-showing-papers-to-a-couple-sitting-at-the-table-8439766/",
-  "directa": "https://images.pexels.com/photos/8439766/pexels-photo-8439766.jpeg",
-  "autor": "Kampus Production",
-  "licencia": "Pexels License",
-  "describe": "Asesor explica un documento a una pareja mayor sentada en una mesa de madera con tazas; ambiente doméstico claro, conversación cercana y sin traje corporativo de oficina.",
-  "ubicacion": "Portugal"
- },
- {
-  "slug": "ingreso-de-personal",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/person-tying-apron-13735835/",
-  "directa": "https://images.pexels.com/photos/13735835/pexels-photo-13735835.jpeg",
-  "autor": "Mizuno K",
-  "licencia": "Pexels License",
-  "describe": "Persona de espaldas atándose el delantal antes de empezar su turno en un café; pared de listones de madera cálida que deja la mitad derecha libre. Sin rostros ni logos.",
-  "ubicacion": "No indicada"
- },
- {
-  "slug": "gestion-de-nomina",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/professional-chefs-working-in-a-busy-mexican-kitchen-28805273/",
-  "directa": "https://images.pexels.com/photos/28805273/pexels-photo-28805273.jpeg",
-  "autor": "Aaron Rivas",
-  "licencia": "Pexels License",
-  "describe": "Equipo de cocina de un restaurante en Querétaro trabajando con delantales naranjas iguales en una cocina abierta; luz natural, se lee como un equipo de un local.",
-  "ubicacion": "Santiago de Querétaro, México"
- },
- {
-  "slug": "liquidacion-de-personal",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/couple-of-colleagues-having-conversation-in-street-near-cafeteria-6205470/",
-  "directa": "https://images.pexels.com/photos/6205470/pexels-photo-6205470.jpeg",
-  "autor": "Tim Douglas",
-  "licencia": "Pexels License",
-  "describe": "Dueño de café con delantal y una empleada conversan con calma sentados afuera del local, con un café en la mano; tono sereno, luz natural de día.",
-  "ubicacion": "No indicada"
- },
- {
-  "slug": "capacitacion-digital",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/smiling-woman-sitting-with-people-17558080/",
-  "directa": "https://images.pexels.com/photos/17558080/pexels-photo-17558080.jpeg",
-  "autor": "Stiven Rivera",
-  "licencia": "Pexels License",
-  "describe": "Taller con un grupo pequeño de adultos latinos sentados alrededor de una mesa con mantel a cuadros, celulares y una laptop; ambiente cálido y participativo.",
-  "ubicacion": "No indicada (fotógrafo latinoamericano)"
- },
- {
-  "slug": "creacion-de-cursos-online",
-  "fuente": "pexels",
-  "pagina": "https://www.pexels.com/photo/woman-setting-up-a-camera-for-recording-9040615/",
-  "directa": "https://images.pexels.com/photos/9040615/pexels-photo-9040615.jpeg",
-  "autor": "Alena Darmel",
-  "licencia": "Pexels License",
-  "describe": "Mujer sentada en un puf en la terraza de su casa ajusta una cámara en trípode para grabar una clase, con la laptop en las piernas y libros al lado; luz natural de tarde.",
-  "ubicacion": "No indicada"
- }
+  {
+    "slug": "analisis-de-marca",
+    "fuente": "unsplash",
+    "pagina": "https://unsplash.com/photos/a-person-standing-in-front-of-a-store-with-many-vases-and-vases-IIJ9Z-o1uyg",
+    "directa": "https://images.unsplash.com/photo-1670609506418-f5f1740913fa",
+    "autor": "ALLAN LAINEZ (@17allansfilms)",
+    "licencia": "Unsplash License",
+    "describe": "Dueña de una tienda de artesanías y cerámica pintada en Ojojona (Honduras), de pie y serena entre sus propios productos, en luz natural de día.",
+    "ubicacion": "Ojojona, Honduras"
+  },
+  {
+    "slug": "analisis-de-competencia",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/asphalt-road-between-buildings-2873419/",
+    "directa": "https://images.pexels.com/photos/2873419/pexels-photo-2873419.jpeg",
+    "autor": "K (@kelly)",
+    "licencia": "Pexels License",
+    "describe": "Calle comercial de un pueblo ecuatoriano con locales a ambos lados, árboles podados, peatones y montañas al fondo bajo cielo nublado; letreros pequeños de negocios locales al borde.",
+    "ubicacion": "Ecuador"
+  },
+  {
+    "slug": "analisis-de-mercado",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/vibrant-market-scene-in-cajamarca-peru-39960569/",
+    "directa": "https://images.pexels.com/photos/39960569/pexels-photo-39960569.jpeg",
+    "autor": "Joshuan Barboza (@jbarbozameca)",
+    "licencia": "Pexels License",
+    "describe": "Mercado andino al aire libre en Cajamarca: vendedora con sombrero de paja sentada junto a su cebollín, cliente con bicicleta y puestos de verduras bajo lonas blancas.",
+    "ubicacion": "Cajamarca, Perú"
+  },
+  {
+    "slug": "analisis-conversaciones-venta",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-in-a-restaurant-kitchen-looking-at-a-smartphone-16782670/",
+    "directa": "https://images.pexels.com/photos/16782670/pexels-photo-16782670.jpeg",
+    "autor": "Israel Torres (@israwmx)",
+    "licencia": "Pexels License",
+    "describe": "Dueña de un puesto de comida en Ciudad de México, con mandil, revisando su celular en el mostrador mientras atiende pedidos; vasos y manos de clientes en primer plano.",
+    "ubicacion": "Ciudad de México (según la serie del autor; la ficha no lo indica)"
+  },
+  {
+    "slug": "estructuracion-de-empresa",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/professional-craftsman-sketching-new-project-on-paper-5973966/",
+    "directa": "https://images.pexels.com/photos/5973966/pexels-photo-5973966.jpeg",
+    "autor": "Ono Kosuki",
+    "licencia": "Pexels License",
+    "describe": "Artesano de un taller de carpintería dibujando y anotando planos sobre su banco de trabajo, rodeado de tablas y herramientas, con luz de ventana.",
+    "ubicacion": null
+  },
+  {
+    "slug": "analisis-contable",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-person-writing-on-white-notebook-5466814/",
+    "directa": "https://images.pexels.com/photos/5466814/pexels-photo-5466814.jpeg",
+    "autor": "olia danilevich",
+    "licencia": "Pexels License",
+    "describe": "Primer plano de manos anotando cuentas en un cuaderno con calculadora y billetes de dólar sobre mesa de madera (el dólar sirve para Ecuador).",
+    "ubicacion": null
+  },
+  {
+    "slug": "analisis-legal",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/side-view-of-a-woman-writing-on-the-contract-8730368/",
+    "directa": "https://images.pexels.com/photos/8730368/pexels-photo-8730368.jpeg",
+    "autor": "Mikhail Nilov",
+    "licencia": "Pexels License",
+    "describe": "Mujer de cabello rizado revisando y firmando un contrato sobre una mesa de madera, en un despacho cálido con paneles de madera.",
+    "ubicacion": null
+  },
+  {
+    "slug": "identidad-de-marca",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-woman-sitting-at-a-wooden-table-with-color-palette-samples-9492918/",
+    "directa": "https://images.pexels.com/photos/9492918/pexels-photo-9492918.jpeg",
+    "autor": "Helena Lopes",
+    "licencia": "Pexels License",
+    "describe": "Diseñadora sonriente frente a abanicos de muestras de color extendidos sobre una mesa de madera rústica, pared clara detrás.",
+    "ubicacion": null
+  },
+  {
+    "slug": "estrategia-de-contenidos",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/happy-asian-woman-writing-notes-in-shop-5410103/",
+    "directa": "https://images.pexels.com/photos/5410103/pexels-photo-5410103.jpeg",
+    "autor": "Amina Filkins (@Amina-Filkins)",
+    "licencia": "Pexels License",
+    "describe": "Dueña de una florería planificando en su cuaderno en la mesa de trabajo de su propio local, con flores cortadas y taza al lado; 6000×4000, sin marca de IA.",
+    "ubicacion": "no indicada",
+    "verificada": "2026-11-19 agente verificador: encaje 3/5, identificacion 3/5"
+  },
+  {
+    "slug": "gestion-redes-sociales",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-woman-standing-at-table-7224291/",
+    "directa": "https://images.pexels.com/photos/7224291/pexels-photo-7224291.jpeg",
+    "autor": "cottonbro studio",
+    "licencia": "Pexels License",
+    "describe": "Ceramista fotografiando con su celular la vajilla que hizo, dispuesta sobre una mesa de madera en su taller de paredes grises.",
+    "ubicacion": null
+  },
+  {
+    "slug": "jingle-corporativo",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/men-recording-music-in-studio-8132973/",
+    "directa": "https://images.pexels.com/photos/8132973/pexels-photo-8132973.jpeg",
+    "autor": "Anna Pou",
+    "licencia": "Pexels License",
+    "describe": "Estudio de grabación pequeño: técnico de espaldas en la consola y cantante con audífonos grabando tras el vidrio de la cabina; pantalla solo con ondas de audio.",
+    "ubicacion": null
+  },
+  {
+    "slug": "musica-ambiental",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/people-inside-room-and-surrounding-table-1581554/",
+    "directa": "https://images.pexels.com/photos/1581554/pexels-photo-1581554.jpeg",
+    "autor": "Lawrence Suzara",
+    "licencia": "Pexels License",
+    "describe": "Cafetería acogedora de madera con lámparas de mimbre, ventanales con luz natural y grupos de clientes conversando en las mesas.",
+    "ubicacion": null
+  },
+  {
+    "slug": "soundtrack-para-contenido",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/man-sitting-in-front-of-two-monitors-8770513/",
+    "directa": "https://images.pexels.com/photos/8770513/pexels-photo-8770513.jpeg",
+    "autor": "Orlando Allo",
+    "licencia": "Pexels License",
+    "describe": "Joven latino de espaldas editando video con música en dos monitores, en un estudio casero con parlantes y luz cálida anaranjada.",
+    "ubicacion": null
+  },
+  {
+    "slug": "identidad-sonora",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-guitarist-sitting-behind-a-white-table-with-laptop-4680076/",
+    "directa": "https://images.pexels.com/photos/4680076/pexels-photo-4680076.jpeg",
+    "autor": "Artem Podrez",
+    "licencia": "Pexels License",
+    "describe": "Vista cenital de un músico componiendo con guitarra acústica en un escritorio blanco con laptop, hoja y lápiz; luz natural, muy limpia.",
+    "ubicacion": null
+  },
+  {
+    "slug": "investigacion-de-plataformas",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/ethnic-businessman-working-with-laptop-and-smartphone-7129690/",
+    "directa": "https://images.pexels.com/photos/7129690/pexels-photo-7129690.jpeg",
+    "autor": "Michael Burrows",
+    "licencia": "Pexels License",
+    "describe": "Joven emprendedor latino mirando su celular frente a la laptop y un cuaderno abierto, en una mesa de madera junto a una pared blanca.",
+    "ubicacion": null
+  },
+  {
+    "slug": "dominio-y-hosting",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/man-in-blue-white-and-red-plaid-dress-shirt-and-gray-denim-jeans-sitting-on-brown-4491870/",
+    "directa": "https://images.pexels.com/photos/4491870/pexels-photo-4491870.jpeg",
+    "autor": "Ivan S",
+    "licencia": "Pexels License",
+    "describe": "Carpintero con camisa a cuadros y gorra trabajando en su laptop dentro de su taller de madera, rodeado de tablas y herramientas; luz natural.",
+    "ubicacion": null
+  },
+  {
+    "slug": "pagina-web",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/serious-woman-working-on-laptop-and-using-drawing-tablet-7014916/",
+    "directa": "https://images.pexels.com/photos/7014916/pexels-photo-7014916.jpeg",
+    "autor": "George Milton",
+    "licencia": "Pexels License",
+    "describe": "Diseñadora trabajando en laptop y tableta gráfica en un estudio casero luminoso con plantas y bocetos en la pared.",
+    "ubicacion": null
+  },
+  {
+    "slug": "link-hub",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/elderly-man-in-hat-using-smartphone-19638953/",
+    "directa": "https://images.pexels.com/photos/19638953/pexels-photo-19638953.jpeg",
+    "autor": "Chris Luengas",
+    "licencia": "Pexels License",
+    "describe": "Señor con sombrero blanco revisando su celular en un puesto de antigüedades de un mercado de Puebla, México; tonos cálidos, escena real.",
+    "ubicacion": "Puebla, México"
+  },
+  {
+    "slug": "posicionamiento-seo",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-using-smartphone-outdoors-in-mexico-city-32166288/",
+    "directa": "https://images.pexels.com/photos/32166288/pexels-photo-32166288.jpeg",
+    "autor": "Julio Lopez",
+    "licencia": "Pexels License",
+    "describe": "Mujer de suéter rojo buscando algo en su celular al aire libre en Ciudad de México; encuadre cerrado, rostro cortado, fondo verde desenfocado.",
+    "ubicacion": "Ciudad de México, México"
+  },
+  {
+    "slug": "perfil-google-maps",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/charming-streetfront-cafe-in-quito-ecuador-37758914/",
+    "directa": "https://images.pexels.com/photos/37758914/pexels-photo-37758914.jpeg",
+    "autor": "Dave Garcia (DΛVΞ GΛRCIΛ, @davegarcia)",
+    "licencia": "Pexels License",
+    "describe": "Fachada de un café de barrio en Quito con toldo a rayas, pizarra en la vereda y una mujer en la puerta; se lee el nombre del local («Dos Barrios»), sin logos de marcas grandes.",
+    "ubicacion": "Quito, Pichincha, Ecuador"
+  },
+  {
+    "slug": "fotografia-de-producto-ia",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-seamstress-taking-a-photo-of-a-box-6358860/",
+    "directa": "https://images.pexels.com/photos/6358860/pexels-photo-6358860.jpeg",
+    "autor": "Anna Tarazevich (@anntarazevich)",
+    "licencia": "Pexels License",
+    "describe": "Costurera en su taller lleno de hilos y máquinas fotografiando con el celular el producto que va a vender, dentro de su caja; luz de ventana, escena de trabajo real. 3500×2333, sin marca de IA. Misma autora que data-analytics, pero otra persona y otro lugar.",
+    "ubicacion": "no indicada",
+    "verificada": "2026-11-19 agente verificador: encaje 4/5, identificacion 4/5"
+  },
+  {
+    "slug": "asistente-inteligente-whatsapp",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/silhouette-of-a-woman-using-her-phone-12265472/",
+    "directa": "https://images.pexels.com/photos/12265472/pexels-photo-12265472.jpeg",
+    "autor": "Alexander Taranenko",
+    "licencia": "Pexels License",
+    "describe": "Silueta de una mujer mirando el celular detrás del mostrador de un café ya en penumbra, con la vitrina y luces cálidas al fondo (sensación de cierre de jornada).",
+    "ubicacion": null
+  },
+  {
+    "slug": "crm-ia",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-man-in-blue-jump-suit-6870321/",
+    "directa": "https://images.pexels.com/photos/6870321/pexels-photo-6870321.jpeg",
+    "autor": "Gustavo Fring (@gustavo-fring)",
+    "licencia": "Pexels License",
+    "describe": "Mecánico en overol azul llamando por teléfono con la carpeta de la orden en la mano, junto a un auto en su taller: es literalmente «llamar al cliente». 5760×3840, sin marca de IA.",
+    "ubicacion": "no indicada",
+    "verificada": "2026-11-19 agente verificador: encaje 5/5, identificacion 4/5"
+  },
+  {
+    "slug": "sistema-operativo",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/serious-ethnic-male-chef-writing-order-on-paper-5920674/",
+    "directa": "https://images.pexels.com/photos/5920674/pexels-photo-5920674.jpeg",
+    "autor": "Kampus Production (@kampus)",
+    "licencia": "Pexels License",
+    "describe": "Dueño de un puesto de comida con mandil anotando a mano en un papel el pedido de las clientas que esperan frente al mostrador: todo en papel y en la cabeza. 4104×2736, sin marca de IA. Mismo autor que video-marketing y asesoria-tributaria, pero otra persona y otro lugar.",
+    "ubicacion": "no indicada",
+    "verificada": "2026-11-19 agente verificador: encaje 4/5, identificacion 3/5"
+  },
+  {
+    "slug": "automatizaciones",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-man-roasting-coffee-beans-7175982/",
+    "directa": "https://images.pexels.com/photos/7175982/pexels-photo-7175982.jpeg",
+    "autor": "Antoni Shkraba",
+    "licencia": "Pexels License",
+    "describe": "Dueño de una tostadora de café pequeña, sonriendo y con la mano libre, mientras la máquina tuesta sola a su lado. Taller de ladrillo con luz natural. Sesión de 2021; la biografía del autor menciona un estudio de IA, pero esta foto no está marcada como IA y se ve como una sesión real.",
+    "ubicacion": "no indicada"
+  },
+  {
+    "slug": "whatsapp-business-commerce",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-using-phone-in-a-small-local-shop-37212313/",
+    "directa": "https://images.pexels.com/photos/37212313/pexels-photo-37212313.jpeg",
+    "autor": "Mico Medel (@micomedel)",
+    "licencia": "Pexels License",
+    "describe": "Dueña de una tiendita de barrio escribiendo en el celular detrás del mostrador, entre frascos de caramelos y canastas colgadas; escena documental, sin pose. 4096×2730, sin marca de IA. Es de Filipinas (etiquetas de la ficha), pero se lee como cualquier tienda de barrio latinoamericana.",
+    "ubicacion": "Filipinas (según etiquetas de la ficha)",
+    "verificada": "2026-11-19 agente verificador: encaje 4/5, identificacion 4/5"
+  },
+  {
+    "slug": "data-analytics",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-woman-using-a-laptop-at-the-counter-7772023/",
+    "directa": "https://images.pexels.com/photos/7772023/pexels-photo-7772023.jpeg",
+    "autor": "Anna Tarazevich",
+    "licencia": "Pexels License",
+    "describe": "Dueña de una tienda a granel revisando números en su laptop detrás del mostrador de madera, rodeada de frascos. Plano abierto y cálido. Ojo: una pizarra a la derecha tiene escrito a mano «refill» (genérico, no es una marca).",
+    "ubicacion": "no indicada (la autora trabaja en Sídney)"
+  },
+  {
+    "slug": "google-ads",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-mechanic-in-blue-coverall-using-his-cellphone-inside-the-workshop-8986141/",
+    "directa": "https://images.pexels.com/photos/8986141/pexels-photo-8986141.jpeg",
+    "autor": "Artem Podrez (@artempodrez)",
+    "licencia": "Pexels License",
+    "describe": "Dueño de un taller mecánico revisando el celular con gesto serio, de pie entre su banco de herramientas y la compresora: «¿y qué pasó con lo que pagué?». 6037×4025, sin marca de IA. Ojo: es el segundo taller mecánico si también se usa el reemplazo de crm-ia (otra persona y otro taller, mismo overol azul).",
+    "ubicacion": "no indicada",
+    "verificada": "2026-11-19 agente verificador: encaje 3/5, identificacion 4/5"
+  },
+  {
+    "slug": "meta-ads",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-woman-using-a-smartphone-4747813/",
+    "directa": "https://images.pexels.com/photos/4747813/pexels-photo-4747813.jpeg",
+    "autor": "Gilmer Diaz Estela",
+    "licencia": "Pexels License",
+    "describe": "Joven peruana con audífonos mirando su celular y sonriendo, en su casa de paredes color durazno, con una guitarra al fondo. Natural y sin pose.",
+    "ubicacion": "Lima, Perú"
+  },
+  {
+    "slug": "tiktok-ads",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-smartphone-on-the-tripod-7669755/",
+    "directa": "https://images.pexels.com/photos/7669755/pexels-photo-7669755.jpeg",
+    "autor": "Polina Tankilevitch",
+    "licencia": "Pexels License",
+    "describe": "Celular en un mini trípode grabando a una mujer que saca una bandeja del horno, en una cocina luminosa. La protagonista es la grabación casera para redes. Muy limpia y clara.",
+    "ubicacion": "no indicada"
+  },
+  {
+    "slug": "email-marketing",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/hispanic-female-student-using-laptop-near-tea-mug-in-room-6347902/",
+    "directa": "https://images.pexels.com/photos/6347902/pexels-photo-6347902.jpeg",
+    "autor": "Liza Summer",
+    "licencia": "Pexels License",
+    "describe": "Joven latinoamericana con suéter celeste escribiendo en la laptop en la mesa de su casa, con una taza amarilla al lado. Luz suave, la pantalla no se ve.",
+    "ubicacion": "no indicada"
+  },
+  {
+    "slug": "marketplace-y-ecommerce",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-writing-down-on-a-carton-box-while-looking-at-a-clipboard-6169033/",
+    "directa": "https://images.pexels.com/photos/6169033/pexels-photo-6169033.jpeg",
+    "autor": "Tima Miroshnichenko",
+    "licencia": "Pexels License",
+    "describe": "Emprendedora con gorra rotulando cajas para envío en una bodega pequeña de ladrillo blanco, con estantes llenos de paquetes. Solo etiquetas genéricas («FRAGILE», símbolos de embalaje); el monitor se ve de espaldas y sin logo.",
+    "ubicacion": "no indicada"
+  },
+  {
+    "slug": "video-marketing",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/black-dslr-camera-on-tripod-7964644/",
+    "directa": "https://images.pexels.com/photos/7964644/pexels-photo-7964644.jpeg",
+    "autor": "Kampus Production",
+    "licencia": "Pexels License",
+    "describe": "Detrás de cámaras de un rodaje pequeño: cámara en trípode y aro de luz enfocando a una cocinera desenfocada al fondo, en una cocina con pared verde. Tonos oscuros pero cálidos.",
+    "ubicacion": "Portugal"
+  },
+  {
+    "slug": "reputacion-online",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-in-green-tank-top-smiling-7772195/",
+    "directa": "https://images.pexels.com/photos/7772195/pexels-photo-7772195.jpeg",
+    "autor": "Los Muertos Crew",
+    "licencia": "Pexels License",
+    "describe": "Clienta feliz riendo en la mesa de un restaurante mexicano al aire libre, con antojitos y bebidas y amigos en primer plano desenfocados. Muy cálida y auténtica, sin marcas visibles.",
+    "ubicacion": "México"
+  },
+  {
+    "slug": "constitucion-de-empresa",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-in-red-blazer-sitting-by-the-table-having-a-meeting-4063791/",
+    "directa": "https://images.pexels.com/photos/4063791/pexels-photo-4063791.jpeg",
+    "autor": "Marcus Aurelius",
+    "licencia": "Pexels License",
+    "describe": "Dos socias planificando su negocio en la mesa de madera de un café, con laptop, cuaderno y luz de tarde. No firman nada: es la reunión de arranque. No encontré una foto auténtica de socios latinos firmando la constitución en su local que no fuera de stock frío o de IDs recientes sospechosos.",
+    "ubicacion": "no indicada"
+  },
+  {
+    "slug": "elaboracion-de-contratos",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/person-signing-legal-document-on-wooden-table-30268252/",
+    "directa": "https://images.pexels.com/photos/30268252/pexels-photo-30268252.jpeg",
+    "autor": "Matheus Lara",
+    "licencia": "Pexels License",
+    "describe": "Manos morenas con pulsera firmando un documento sobre una mesa de madera cálida. Real y sin corbatas; el texto del papel es pequeño y genérico.",
+    "ubicacion": "no indicada"
+  },
+  {
+    "slug": "registro-de-marca",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/elderly-farmer-with-coffee-display-outdoors-29892493/",
+    "directa": "https://images.pexels.com/photos/29892493/pexels-photo-29892493.jpeg",
+    "autor": "Daniel Morales",
+    "licencia": "Pexels License",
+    "describe": "Caficultor latinoamericano con sombrero sostiene la bolsa de café de su propia marca frente a una mesa de frascos con granos, en su taller de paredes de bloque; luz natural cálida.",
+    "ubicacion": "No indicada (contexto rural latinoamericano)"
+  },
+  {
+    "slug": "proteccion-de-datos",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-person-with-hand-on-the-file-folder-6538576/",
+    "directa": "https://images.pexels.com/photos/6538576/pexels-photo-6538576.jpeg",
+    "autor": "cottonbro studio",
+    "licencia": "Pexels License",
+    "describe": "Mano que reposa sobre carpetas y archivadores con fichas, en una oficina pequeña con luz suave de ventana y mucho fondo claro desenfocado. Sin rostros ni texto legible.",
+    "ubicacion": "No indicada"
+  },
+  {
+    "slug": "declaracion-de-impuestos",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-at-wooden-desk-reading-a-receipt-5900077/",
+    "directa": "https://images.pexels.com/photos/5900077/pexels-photo-5900077.jpeg",
+    "autor": "Karola G",
+    "licencia": "Pexels License",
+    "describe": "Mujer en su mesa de madera revisando un recibo, con calculadora, comprobantes y billetes de dólar (moneda de Ecuador); cortinas blancas y plantas, luz natural.",
+    "ubicacion": "No indicada"
+  },
+  {
+    "slug": "facturacion-electronica",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/a-group-of-women-in-aprons-are-working-in-a-kitchen-16837818/",
+    "directa": "https://images.pexels.com/photos/16837818/pexels-photo-16837818.jpeg",
+    "autor": "Israel Torres (israwmx)",
+    "licencia": "Pexels License",
+    "describe": "Puesto de comida en un mercado de Ciudad de México: vendedoras con delantal atienden a una clienta en el mostrador, con balanza al lado; escena real y cálida.",
+    "ubicacion": "Ciudad de México, México"
+  },
+  {
+    "slug": "reportes-financieros",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/female-colleagues-planning-on-a-project-8853407/",
+    "directa": "https://images.pexels.com/photos/8853407/pexels-photo-8853407.jpeg",
+    "autor": "Los Muertos Crew (cristian-rojas)",
+    "licencia": "Pexels License",
+    "describe": "Dos mujeres latinas revisan hojas impresas sobre una mesa de madera, una explica y la otra anota; sala luminosa con pared blanca (pizarra a la derecha con notas a mano poco legibles).",
+    "ubicacion": "No indicada"
+  },
+  {
+    "slug": "asesoria-tributaria",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/bearded-man-showing-papers-to-a-couple-sitting-at-the-table-8439766/",
+    "directa": "https://images.pexels.com/photos/8439766/pexels-photo-8439766.jpeg",
+    "autor": "Kampus Production",
+    "licencia": "Pexels License",
+    "describe": "Asesor explica un documento a una pareja mayor sentada en una mesa de madera con tazas; ambiente doméstico claro, conversación cercana y sin traje corporativo de oficina.",
+    "ubicacion": "Portugal"
+  },
+  {
+    "slug": "ingreso-de-personal",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/person-tying-apron-13735835/",
+    "directa": "https://images.pexels.com/photos/13735835/pexels-photo-13735835.jpeg",
+    "autor": "Mizuno K",
+    "licencia": "Pexels License",
+    "describe": "Persona de espaldas atándose el delantal antes de empezar su turno en un café; pared de listones de madera cálida que deja la mitad derecha libre. Sin rostros ni logos.",
+    "ubicacion": "No indicada"
+  },
+  {
+    "slug": "gestion-de-nomina",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/professional-chefs-working-in-a-busy-mexican-kitchen-28805273/",
+    "directa": "https://images.pexels.com/photos/28805273/pexels-photo-28805273.jpeg",
+    "autor": "Aaron Rivas",
+    "licencia": "Pexels License",
+    "describe": "Equipo de cocina de un restaurante en Querétaro trabajando con delantales naranjas iguales en una cocina abierta; luz natural, se lee como un equipo de un local.",
+    "ubicacion": "Santiago de Querétaro, México"
+  },
+  {
+    "slug": "liquidacion-de-personal",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/couple-of-colleagues-having-conversation-in-street-near-cafeteria-6205470/",
+    "directa": "https://images.pexels.com/photos/6205470/pexels-photo-6205470.jpeg",
+    "autor": "Tim Douglas",
+    "licencia": "Pexels License",
+    "describe": "Dueño de café con delantal y una empleada conversan con calma sentados afuera del local, con un café en la mano; tono sereno, luz natural de día.",
+    "ubicacion": "No indicada"
+  },
+  {
+    "slug": "capacitacion-digital",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/smiling-woman-sitting-with-people-17558080/",
+    "directa": "https://images.pexels.com/photos/17558080/pexels-photo-17558080.jpeg",
+    "autor": "Stiven Rivera",
+    "licencia": "Pexels License",
+    "describe": "Taller con un grupo pequeño de adultos latinos sentados alrededor de una mesa con mantel a cuadros, celulares y una laptop; ambiente cálido y participativo.",
+    "ubicacion": "No indicada (fotógrafo latinoamericano)"
+  },
+  {
+    "slug": "creacion-de-cursos-online",
+    "fuente": "pexels",
+    "pagina": "https://www.pexels.com/photo/woman-setting-up-a-camera-for-recording-9040615/",
+    "directa": "https://images.pexels.com/photos/9040615/pexels-photo-9040615.jpeg",
+    "autor": "Alena Darmel",
+    "licencia": "Pexels License",
+    "describe": "Mujer sentada en un puf en la terraza de su casa ajusta una cámara en trípode para grabar una clase, con la laptop en las piernas y libros al lado; luz natural de tarde.",
+    "ubicacion": "No indicada"
+  }
 ]
