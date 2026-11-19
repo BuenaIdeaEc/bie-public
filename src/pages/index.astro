@@ -2,6 +2,7 @@
 import { UI } from '../data/home-ui';
 import { PHASES } from '../data/catalogo';
 import EsteMes from '../components/ui/EsteMes.astro';
+import A01Esencial from '../components/ui/A01Esencial.astro';
 import { ESTE_MES, PRECIOS_WEB, formatearDinero, formatFechaCorta } from '../data/este-mes';
 import CuboHero from '../components/interactive/CuboHero.astro';
 import homeJs from '../scripts/home.js?url';
@@ -44,6 +45,7 @@ const PX_CATS = PX_ORDER.map((num) => {
   return { num, products: [...p.products.slice(k), ...p.products.slice(0, k)] };
 });
 const PX_ITEMS = PX_CATS.flatMap((c) => c.products.map((x) => ({ ...x, cat: c.num })));
+const WA_A01E_SSR = waSSR('Hola, quiero la conversación de 30 minutos, sin costo, del Análisis de Marca Esencial. Mi negocio es: \n\n— Origen: web/home/a01e/es');
 const WA_DIAG_SSR = waSSR('Hola, quiero un diagnóstico gratuito para mi empresa.\n\n— Origen: web/home/catalogo/es');
 const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Origen: web/home/comunidad/es');
 // BIE-P06 — Home (v37b: copy honesto en feed_sub, sin prometer sincronizacion automatica que no existe).
@@ -161,12 +163,13 @@ html.promo-web-on #nav{top:var(--promo-h)}
 .pf-new{font-size:18px;letter-spacing:-.03em;font-weight:500;color:var(--text);opacity:0;transform:translateY(6px);animation:pf-in .6s .85s cubic-bezier(.16,1,.3,1) forwards}
 @keyframes pf-in{to{opacity:1;transform:none}}
 .pf-until{font-size:13px;color:var(--text3);white-space:nowrap}
+.pf-also{font-size:13px;color:var(--text);white-space:nowrap;letter-spacing:-.01em}
 .pf-go{position:relative;z-index:1;background:var(--cta,#d92d2a);color:#fff;font-size:13px;letter-spacing:-.01em;padding:8px 14px;white-space:nowrap;transition:background .25s}
 #promo-franja:hover .pf-go{background:#b92220;color:#fff}
 @media (max-width:860px){
   :root,html.promo-web-on{--promo-h:64px}
   html.promo-web-on #promo-franja{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name go" "prices go";align-items:center;column-gap:12px;row-gap:0;padding:8px 56px 8px 14px;justify-content:stretch;text-align:left;gap:unset;flex-wrap:unset;font-size:13px;height:var(--promo-h);box-sizing:border-box}
-  .pf-k,.pf-until,.pf-m{display:none}
+  .pf-k,.pf-until,.pf-also,.pf-m{display:none}
   .pf-name{grid-area:name;font-size:14px;letter-spacing:-.02em}
   .pf-prices{grid-area:prices;gap:8px}
   .pf-old{font-size:13px}
@@ -1766,6 +1769,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
     <b class="pf-new"><span class="pf-c">{formatearDinero(PRECIOS_WEB.creacionPromo)}</span><span class="pf-m"> + {formatearDinero(PRECIOS_WEB.mesPromo)}/mes</span></b>
   </span>
   <span class="pf-until">Hasta el {formatFechaCorta(ESTE_MES.promo.vigenteHasta)}</span>
+  <span class="pf-also">Análisis de Marca Esencial · USD 47</span>
   <span class="pf-go">Ver oferta</span>
 </a>
 <nav id="nav">
@@ -2008,6 +2012,9 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
 
 <!-- ESTE MES EN BIE: destacado mensual (datos en src/data/este-mes.ts) -->
 <EsteMes data={ESTE_MES} />
+
+<!-- A-01E: Análisis de Marca Esencial (piloto aprobado 12/11; no se descuenta de la web) -->
+<A01Esencial waHref={WA_A01E_SSR} />
 
 <!-- LOS MÁS PEDIDOS -->
 <section id="top">

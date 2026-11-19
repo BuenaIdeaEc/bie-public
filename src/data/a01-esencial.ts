@@ -1,0 +1,20 @@
+export const A01E = {
+  codigo: 'A-01E',
+  nombre: 'Análisis de Marca Esencial',
+  precio: 'USD 47',
+  precioNota: 'pago único, IVA incluido',
+  kicker: 'Puerta de entrada',
+  lead: 'Antes, una conversación de 30 minutos, sin costo: miramos tu marca y te decimos con honestidad si el análisis te sirve.',
+  incluye: [
+    'Scorecard de marca',
+    'Mapa de canales',
+    '5 recomendaciones priorizadas',
+    'PDF de 8 a 10 páginas',
+    'Sesión de 30 minutos para recorrerlo',
+  ],
+  entrega: 'Entrega en 5 días hábiles.',
+  nota: 'Este análisis no se descuenta de la oferta de web profesional. El análisis completo (reporte de 15 a 25 páginas, FODA y presentación ejecutiva) se cotiza aparte.',
+  href: '/productos/analisis-de-marca/?src=home-a01e',
+  ctaVer: 'Ver qué incluye',
+  ctaHablar: 'Pedir la conversación',
+} as const;

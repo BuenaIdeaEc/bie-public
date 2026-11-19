@@ -1,0 +1,55 @@
+---
+import { A01E } from '../../data/a01-esencial';
+interface Props { waHref: string }
+const { waHref } = Astro.props;
+---
+<section id="a01-esencial" class="a01e" aria-labelledby="a01e-title">
+  <div class="a01e-inner">
+    <div class="a01e-copy">
+      <p class="a01e-k"><span>{A01E.kicker}</span><span class="a01e-code">{A01E.codigo}</span></p>
+      <h2 id="a01e-title" class="a01e-title">{A01E.nombre}</h2>
+      <p class="a01e-price"><b>{A01E.precio}</b><span>{A01E.precioNota}</span></p>
+      <p class="a01e-lead">{A01E.lead}</p>
+      <p class="a01e-nota">{A01E.nota}</p>
+    </div>
+    <div class="a01e-side">
+      <p class="a01e-incluye-k">Qué incluye</p>
+      <ul class="a01e-list">
+        {A01E.incluye.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="a01e-entrega">{A01E.entrega}</p>
+      <div class="a01e-actions">
+        <a class="a01e-cta" href={waHref} target="_blank" rel="noopener">{A01E.ctaHablar}</a>
+        <a class="a01e-link" href={A01E.href}>{A01E.ctaVer}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .a01e{background:#f7f6f3;color:var(--text);scroll-margin-top:calc(var(--promo-h, 0px) + 16px);border-top:1px solid rgba(8,8,8,.06)}
+  .a01e-inner{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,80px);align-items:start;padding:clamp(64px,8vw,110px) clamp(22px,6vw,80px);max-width:1280px;margin:0 auto}
+  .a01e-k{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px;margin:0 0 14px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3)}
+  .a01e-code{letter-spacing:.08em}
+  .a01e-title{font-size:clamp(32px,4.4vw,56px);font-weight:400;letter-spacing:-.04em;line-height:1.02;margin:0;max-width:14ch;text-wrap:balance}
+  .a01e-price{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin:22px 0 0}
+  .a01e-price b{font-size:clamp(28px,3vw,40px);font-weight:400;letter-spacing:-.03em;line-height:1}
+  .a01e-price span{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--text3)}
+  .a01e-lead{font-size:clamp(17px,1.6vw,21px);line-height:1.45;color:var(--text2);margin:18px 0 0;max-width:34ch}
+  .a01e-nota{font-size:15px;line-height:1.5;color:var(--text3);margin:20px 0 0;max-width:42ch}
+  .a01e-incluye-k{margin:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--text3)}
+  .a01e-list{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:10px}
+  .a01e-list li{font-size:18px;letter-spacing:-.02em;line-height:1.3;padding-left:18px;position:relative}
+  .a01e-list li::before{content:"";position:absolute;left:0;top:.55em;width:7px;height:1px;background:var(--text)}
+  .a01e-entrega{margin:18px 0 0;font-size:15px;color:var(--text2)}
+  .a01e-actions{display:flex;flex-wrap:wrap;align-items:center;gap:8px 22px;margin-top:28px}
+  .a01e-cta{display:inline-block;background:var(--text);color:#fff;font-size:16px;letter-spacing:-.01em;padding:16px 24px;transition:background .25s}
+  .a01e-cta:hover{background:#000;color:#fff}
+  .a01e-cta:focus-visible,.a01e-link:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+  .a01e-link{font-size:16px;color:var(--text);text-decoration:underline;text-underline-offset:4px}
+  .a01e-link:hover{color:var(--cta,#d92d2a)}
+  @media (max-width:860px){
+    .a01e-inner{grid-template-columns:1fr;gap:32px;padding:56px 22px}
+    .a01e-cta{width:100%;text-align:center}
+  }
+</style>
