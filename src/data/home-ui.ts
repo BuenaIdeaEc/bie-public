@@ -57,12 +57,12 @@ export const UI: Record<string, { es: any; en: any }> = {
   pk3_n:{es:'Que funcione solo',en:'Make it run itself'},
   pk3_d:{es:'Si vendes bien, pero todo lo llevas a mano.',en:'If you sell well, but do everything by hand.'},
   pk3_l:{es:['Tareas que se hacen solas','Registro de todos tus clientes','Un sistema para manejar tu negocio'],en:['Tasks that run on their own','A record of all your customers','A system to run your business']},
-  // Ruta 4 (pedido de EGO 23/11): crecer con marca y contenido. Precio pendiente de EGO.
+  // Ruta 4 (pedido de EGO 23/11): crecer con marca y contenido. USD 450 «desde», fijado por Claude con delegación de EGO (23/11).
   pk4_c:{es:'Tu marca se ve y se escucha igual en todas partes, y publicas sin improvisar.',en:'Your brand looks and sounds the same everywhere, and you post without improvising.'},
   pk4_n:{es:'Que te sigan',en:'Get followed'},
   pk4_d:{es:'Si quieres crecer con tu marca y tu contenido.',en:'If you want to grow with your brand and your content.'},
   pk4_l:{es:['Análisis de tu marca, tu competencia y tu mercado','Marca, redes y plan de contenido','Página web','Grabación, soporte y asesoría'],en:['Brand, competitor and market analysis','Brand, social media and content plan','Website','Filming, support and advice']},
-  pk4_p:{es:'por definir',en:'to be defined'},
+  pk4_p:{es:'USD 450',en:'USD 450'},
   pk3_p:{es:'USD 250',en:'USD 250'},
   top_gar:{es:'Si la primera propuesta de marca no te convence, la rehacemos sin costo.',en:'If the first brand proposal does not convince you, we redo it at no cost.'},
   top_pick:{es:'Ver los productos uno por uno',en:'See the products one by one'},
