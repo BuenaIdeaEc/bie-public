@@ -1,59 +1,291 @@
 ---
 import type { EsteMes } from '../../data/este-mes';
+import { formatFechaCorta, hostVisible } from '../../data/este-mes';
 interface Props { data: EsteMes }
 const { data } = Astro.props;
+const hasta = formatFechaCorta(data.promo.vigenteHasta);
 ---
-<section id="este-mes" class="em" aria-labelledby="em-title">
-  <div class="em-inner">
-    <div class="em-card">
-      <a class="em-shot" href={data.href} aria-label="Ver la oferta de página web"><img src="/images/demo/web-1440.webp" alt="Página web de ejemplo creada por BIE para una panadería: portada, productos y pedido por WhatsApp" width="1600" height="1000" loading="lazy" decoding="async"></a>
+<section id="este-mes" class="em" data-promo-story="web-90-immersive" aria-labelledby="em-title">
+  <div class="em-track">
+    <div class="em-pin">
       <div class="em-copy">
-        <p class="em-label">{data.etiqueta} <span class="em-code">{data.codigo}</span></p>
+        <p class="em-k"><span class="em-k-promo">{data.etiquetaPromo}</span><span class="em-k-base">{data.etiqueta}</span></p>
         <h2 id="em-title" class="em-title">{data.titulo}</h2>
-        <p class="em-text">{data.texto}</p>
-        <ul class="em-cond">
-          {data.condiciones.map((c) => <li>{c}</li>)}
-        </ul>
-      </div>
-      <div class="em-buy">
-        <div class="em-prices">
-          {data.precios.map((p, i) => (
-            <>
-              {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
-              <div class="em-price"><b>{p.valor}</b><span>{p.nota}</span></div>
-            </>
-          ))}
+        <p class="em-lead">{data.texto}</p>
+
+        <div class="em-priceblock">
+          <div class="em-prices em-prices-regular">
+            {data.precios.map((p, i) => (
+              <>
+                {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
+                <div class="em-amt">
+                  <b class="em-strike"><span>{p.valor}</span></b>
+                  <span class="em-nota">{p.nota}</span>
+                  <em class="em-reg">{data.promo.etiquetaRegular}</em>
+                </div>
+              </>
+            ))}
+          </div>
+          <div class="em-prices em-prices-promo">
+            {data.promo.precios.map((p, i) => (
+              <>
+                {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
+                <div class="em-amt em-amt-now">
+                  <b>{p.valor}</b>
+                  <span class="em-nota">{p.nota}</span>
+                </div>
+              </>
+            ))}
+          </div>
+          <p class="em-until">{data.promo.etiquetaHasta} {hasta}</p>
+          <div class="em-prices em-prices-alone">
+            {data.precios.map((p, i) => (
+              <>
+                {i > 0 && <span class="em-plus" aria-hidden="true">+</span>}
+                <div class="em-amt">
+                  <b>{p.valor}</b>
+                  <span class="em-nota">{p.nota}</span>
+                </div>
+              </>
+            ))}
+          </div>
         </div>
-        <a class="em-btn" href={data.href}>{data.cta} <span aria-hidden="true">→</span></a>
+
+        <p class="em-growth">{data.lineaCrecimiento}</p>
+        <ol class="em-evo" aria-hidden="true">
+          {data.evoPasos.map((paso) => <li>{paso}</li>)}
+        </ol>
+        <a class="em-cta" href={data.href}>{data.cta}</a>
+      </div>
+
+      <div class="em-visual">
+        <p class="em-visual-k">{data.etiquetaEjemplos}</p>
+        <div class="em-carousel" data-em-carousel>
+          <div class="em-viewport">
+            {data.ejemplos.map((ej, i) => (
+              <a
+                class:list={['em-slide', i === 0 && 'is-on']}
+                href={ej.url}
+                target="_blank"
+                rel="noopener"
+                data-i={i}
+                aria-label={ej.nombre + ' (' + hostVisible(ej.url) + '), se abre en otra pestaña'}
+              >
+                <span class="em-frame">
+                  <span class="em-chrome"><span class="em-dots" aria-hidden="true"></span><span class="em-url">{hostVisible(ej.url)}</span></span>
+                  <span class="em-shot">
+                    <img
+                      src={ej.imagenCorta}
+                      srcset={ej.imagenCorta + ' 800w, ' + ej.imagen + ' 1440w'}
+                      sizes="(max-width: 860px) 92vw, 46vw"
+                      alt={ej.alt}
+                      width="1440"
+                      height="900"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                </span>
+                <span class="em-caption">
+                  <span class="em-cap-name">{ej.nombre}</span>
+                  <span class="em-cap-url">{hostVisible(ej.url)}</span>
+                </span>
+              </a>
+            ))}
+          </div>
+          <div class="em-dots-nav" role="tablist" aria-label="Casos de web profesional">
+            {data.ejemplos.map((ej, i) => (
+              <button type="button" class:list={['em-dot', i === 0 && 'is-on']} data-go={i} aria-label={'Ver ' + ej.nombre}></button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  .em{padding:70px 0 20px;border-top:1px solid var(--border)}
-  .em-inner{max-width:1150px;margin:0 auto;padding:0 44px}
-  .em-shot{grid-column:1 / -1;display:block;border:1px solid var(--line);overflow:hidden;aspect-ratio:16/10;max-width:100%}
-  .em-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .9s var(--ease)}
-  .em-shot:hover img{transform:scale(1.02)}
-  .em-card{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;border:1px solid var(--border);background:var(--surface);padding:36px}
-  .em-label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-dark)}
-  .em-code{color:var(--text3);margin-left:10px}
-  .em-title{font-size:clamp(24px,3vw,34px);font-weight:400;letter-spacing:-.015em;line-height:1.15;margin-top:12px;text-wrap:balance}
-  .em-text{font-size:16px;line-height:1.6;color:var(--text2);margin-top:12px;max-width:52ch}
-  .em-cond{margin-top:18px;padding-left:18px;display:grid;gap:8px}
-  .em-cond li{font-size:14px;line-height:1.55;color:var(--text3);max-width:56ch}
-  .em-buy{display:flex;flex-direction:column;justify-content:center;gap:24px}
-  .em-prices{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
-  .em-price b{display:block;font-size:clamp(26px,3vw,34px);font-weight:400;letter-spacing:-.02em;color:var(--text)}
-  .em-price span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:4px;max-width:22ch}
-  .em-plus{font-size:24px;color:var(--text3)}
-  .em-btn{align-self:flex-start;display:inline-block;border:1px solid var(--bone);color:var(--bone);font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;transition:background .4s,border-color .4s,color .4s}
-  .em-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-  .em-btn:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
-  @media(max-width:860px){
-    .em{padding:48px 0 10px}
-    .em-inner{padding:0 22px}
-    .em-card{grid-template-columns:1fr;gap:26px;padding:24px 20px}
+  .em{--em-ease:cubic-bezier(.16,1,.3,1);background:#fff;color:var(--text);scroll-margin-top:calc(var(--promo-h, 0px) + 8px)}
+  .em-track{position:relative}
+  .em-pin{display:grid;grid-template-columns:minmax(0,0.96fr) minmax(0,1.04fr);gap:clamp(28px,4.5vw,72px);align-items:center;padding:clamp(72px,10vw,140px) clamp(22px,6vw,80px) clamp(56px,7vw,110px);max-width:1280px;margin:0 auto}
+  .em-k{font-size:15px;color:var(--text3);margin:0 0 12px;letter-spacing:.02em}
+  .em-k-base{display:none}
+  .em-title{font-size:clamp(40px,6.2vw,88px);font-weight:400;letter-spacing:-.045em;line-height:.96;margin:0;max-width:10ch;text-wrap:balance}
+  .em-lead{font-size:clamp(18px,1.8vw,24px);line-height:1.35;color:var(--text2);margin:16px 0 0;max-width:22ch}
+  .em-priceblock{margin-top:28px}
+  .em-prices{display:flex;flex-wrap:nowrap;align-items:flex-start;gap:8px 16px}
+  .em-prices-promo{margin-top:14px}
+  .em-plus{font-size:22px;color:var(--text3);padding-top:.12em;line-height:1}
+  .em-amt{min-width:0}
+  .em-amt b{display:inline-block;font-size:clamp(26px,3vw,44px);font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--text)}
+  .em-nota,.em-reg{display:block;margin-top:6px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);font-style:normal;max-width:18ch}
+  .em-strike{position:relative;display:inline-block}
+  .em-strike span{color:#7a7a76}
+  .em-strike::after{content:'';position:absolute;left:0;top:48%;height:2px;width:100%;background:var(--cta,#d92d2a);transform:scaleX(0);transform-origin:left center;pointer-events:none}
+  .em[data-stage] .em-strike::after{transform:scaleX(1);transition:transform .8s var(--em-ease)}
+  .em-until{margin:14px 0 0;font-size:14px;color:var(--text3)}
+  .em-prices-alone{display:none}
+  .em-growth{font-size:clamp(16px,1.5vw,20px);line-height:1.45;color:var(--text);margin:24px 0 0;max-width:28ch}
+  .em-evo{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+  .em-evo li{font-size:13px;color:var(--text3);letter-spacing:.04em;text-transform:uppercase;opacity:.4;transition:opacity .5s var(--em-ease),color .5s}
+  .em-evo li.is-on{opacity:1;color:var(--text)}
+  .em-cta{display:inline-block;margin-top:22px;background:var(--cta,#d92d2a);color:#fff;font-size:16px;font-weight:400;letter-spacing:-.01em;padding:16px 26px;border:0;transition:background .25s}
+  .em-cta:hover{background:#b92220;color:#fff}
+  .em-cta:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+  .em-visual-k{font-size:13px;color:var(--text3);margin:0 0 14px}
+  .em-carousel{position:relative}
+  .em-viewport{display:grid}
+  .em-slide{grid-area:1/1;display:flex;flex-direction:column;opacity:0;transform:translateX(18px);transition:opacity 1s var(--em-ease),transform 1.15s var(--em-ease);pointer-events:none;color:inherit;min-width:0}
+  .em-slide.is-on{opacity:1;transform:none;pointer-events:auto;z-index:1}
+  .em-frame{display:flex;flex-direction:column;min-width:0}
+  .em-chrome{display:flex;align-items:center;gap:10px;height:36px;padding:0 14px;background:#f4f4f2;border:1px solid rgba(8,8,8,.08);border-bottom:0;flex:0 0 auto}
+  .em-dots{width:10px;height:10px;border-radius:0;box-shadow:0 0 0 1px rgba(8,8,8,.2), 16px 0 0 1px rgba(8,8,8,.2), 32px 0 0 1px rgba(8,8,8,.2);margin-right:28px}
+  .em-url{font-size:12px;color:var(--text3);letter-spacing:.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .em-shot{aspect-ratio:16/10;overflow:hidden;border:1px solid rgba(8,8,8,.08);border-top:0;background:#f4f4f2}
+  .em-slide img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transform:scale(1.02);transition:transform 8s linear}
+  .em-slide.is-on img{transform:scale(1.08) translateY(-2%)}
+  .em-caption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:12px;flex-shrink:0}
+  .em-cap-name{font-size:16px;color:var(--text)}
+  .em-cap-url{font-size:13px;color:var(--text3)}
+  .em-dots-nav{display:flex;gap:8px;margin-top:14px}
+  .em-dot{width:22px;height:3px;padding:0;border:0;background:rgba(8,8,8,.18);cursor:pointer}
+  .em-dot.is-on{background:var(--text)}
+  .em-dot:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+  :global(html:not(.promo-web-on)) .em-k-promo,
+  :global(html:not(.promo-web-on)) .em-prices-regular,
+  :global(html:not(.promo-web-on)) .em-prices-promo,
+  :global(html:not(.promo-web-on)) .em-until{display:none}
+  :global(html:not(.promo-web-on)) .em-k-base{display:inline}
+  :global(html:not(.promo-web-on)) .em-prices-alone{display:flex}
+
+  @media (min-width:861px){
+    .em-track{height:420vh}
+    .em-pin{position:sticky;top:0;min-height:100svh;box-sizing:border-box;padding-top:calc(72px + var(--promo-h, 0px));padding-bottom:40px;align-content:center}
+    .em-copy .em-priceblock,
+    .em-copy .em-until,
+    .em-copy .em-growth,
+    .em-copy .em-evo,
+    .em-copy .em-cta,
+    .em-visual{opacity:0;transform:translateY(24px);transition:opacity .7s var(--em-ease),transform .8s var(--em-ease)}
+    .em[data-stage="price"] .em-priceblock,
+    .em[data-stage="until"] .em-priceblock,
+    .em[data-stage="cases"] .em-priceblock,
+    .em[data-stage="evo"] .em-priceblock,
+    .em[data-stage="cta"] .em-priceblock,
+    .em[data-stage="until"] .em-until,
+    .em[data-stage="cases"] .em-until,
+    .em[data-stage="evo"] .em-until,
+    .em[data-stage="cta"] .em-until,
+    .em[data-stage="cases"] .em-visual,
+    .em[data-stage="evo"] .em-visual,
+    .em[data-stage="cta"] .em-visual,
+    .em[data-stage="evo"] .em-growth,
+    .em[data-stage="evo"] .em-evo,
+    .em[data-stage="cta"] .em-growth,
+    .em[data-stage="cta"] .em-evo,
+    .em[data-stage="cta"] .em-cta{opacity:1;transform:none}
+    .em[data-stage="until"] .em-until{opacity:1}
+  }
+
+  @media (max-width:860px){
+    .em-track{height:auto}
+    .em-pin{grid-template-columns:1fr;gap:28px;padding:calc(var(--promo-h, 0px) + 28px) 22px 56px;min-height:0}
+    .em-visual{order:-1}
+    .em-title{font-size:clamp(36px,11vw,56px)}
+    .em-cta{width:100%;text-align:center}
+    .em-prices{flex-wrap:wrap}
+    .em-growth{margin-top:28px}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .em-track{height:auto}
+    .em-pin{position:static;min-height:0}
+    .em-copy .em-priceblock,
+    .em-copy .em-growth,
+    .em-copy .em-evo,
+    .em-copy .em-cta,
+    .em-visual,
+    .em-slide,
+    .em-slide img,
+    .em-strike::after{opacity:1;transform:none;transition:none;animation:none}
+    .em-evo li{opacity:1;color:var(--text)}
   }
 </style>
+
+<script>
+  const root = document.getElementById('este-mes');
+  if (root) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const carousel = root.querySelector('[data-em-carousel]');
+    const slides = carousel ? Array.from(carousel.querySelectorAll('.em-slide')) : [];
+    const dots = carousel ? Array.from(carousel.querySelectorAll('.em-dot')) : [];
+    let i = 0, timer = 0, paused = false, startX = 0;
+
+    const go = (n) => {
+      if (!slides.length) return;
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-on', k === i));
+      dots.forEach((d, k) => d.classList.toggle('is-on', k === i));
+    };
+    const stop = () => { paused = true; if (timer) { clearInterval(timer); timer = 0; } };
+    const play = () => {
+      if (reduce || !slides.length || document.hidden) return;
+      paused = false;
+      if (timer) clearInterval(timer);
+      timer = window.setInterval(() => go(i + 1), 6500);
+    };
+    dots.forEach((d) => d.addEventListener('click', () => { go(Number(d.getAttribute('data-go'))); play(); }));
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', play);
+      carousel.addEventListener('focusin', stop);
+      carousel.addEventListener('focusout', play);
+      carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
+      carousel.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+        play();
+      }, { passive: true });
+    }
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else play(); });
+    if (!reduce) play();
+
+    const pin = root.querySelector('.em-pin');
+    const evo = Array.from(root.querySelectorAll('.em-evo li'));
+    const setStage = (name) => { if (root.getAttribute('data-stage') !== name) root.setAttribute('data-stage', name); };
+    const paint = () => {
+      if (reduce || window.matchMedia('(max-width: 860px)').matches) {
+        root.style.height = '';
+        setStage('cta');
+        evo.forEach((li) => li.classList.add('is-on'));
+        return;
+      }
+      const r = root.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const span = root.offsetHeight - vh;
+      const p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+      let name = 'offer';
+      if (p > 0.14) name = 'price';
+      if (p > 0.28) name = 'until';
+      if (p > 0.40) name = 'cases';
+      if (p > 0.66) name = 'evo';
+      if (p > 0.82) name = 'cta';
+      setStage(name);
+      const ev = (p - 0.66) / 0.16;
+      evo.forEach((li, k) => li.classList.toggle('is-on', ev > k / Math.max(1, evo.length)));
+    };
+    if (!reduce) {
+      let last = -1;
+      const loop = () => {
+        requestAnimationFrame(loop);
+        const t = Math.round((root.getBoundingClientRect().top + root.offsetHeight) * 0.2);
+        if (t !== last) { last = t; paint(); }
+      };
+      requestAnimationFrame(loop);
+      window.addEventListener('resize', paint, { passive: true });
+    } else {
+      setStage('cta');
+      evo.forEach((li) => li.classList.add('is-on'));
+    }
+  }
+</script>

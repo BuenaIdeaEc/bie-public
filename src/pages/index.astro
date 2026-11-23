@@ -2,7 +2,8 @@
 import { UI } from '../data/home-ui';
 import { PHASES } from '../data/catalogo';
 import EsteMes from '../components/ui/EsteMes.astro';
-import { ESTE_MES } from '../data/este-mes';
+import A01Esencial from '../components/ui/A01Esencial.astro';
+import { ESTE_MES, PRECIOS_WEB, formatearDinero, formatFechaCorta } from '../data/este-mes';
 import CuboHero from '../components/interactive/CuboHero.astro';
 import homeJs from '../scripts/home.js?url';
 import { TASTING_ALT } from '../data/tasting-alt';
@@ -22,13 +23,6 @@ const WA_PK2_SSR = waSSR('Hola, me interesa la ruta "Que te compren" (WhatsApp B
 const WA_PK3_SSR = waSSR('Hola, me interesa la ruta "Que funcione solo" (automatizaciones, CRM, sistema). Mi negocio es: \n\n— Origen: web/home/ruta-3/es');
 const WA_EST_SSR = waSSR('Hola, quiero el acompañamiento mensual de BIE. Mi negocio es: \n\n— Origen: web/home/acompanamiento/es');
 const WA_SIM_SSR = waSSR('Hola, quiero empezar. Les cuento mi negocio para saber qué necesito.\n\n— Origen: web/home/asi-de-simple/es');
-// Qué hacemos: trabajo real de clientes; el video de WhatsApp es una escena generada y se rotula como tal
-const SERVICIOS: { k: string, href: string, img?: string, video?: string, alt: string }[] = [
-  { k: 'sv1', href: '/productos/identidad-de-marca/?src=home-que-hacemos', img: '/images/casos/tasting/branding.webp', alt: 'Marca de Tasting Ecuador: logo, colores y aplicaciones' },
-  { k: 'sv2', href: '/productos/pagina-web/?src=home-que-hacemos', img: '/images/casos/escuela-heridas/web.webp', alt: 'Página web de la Escuela de Heridas Guayaquil' },
-  { k: 'sv3', href: '/productos/asistente-inteligente-whatsapp/?src=home-que-hacemos', video: 'asistente-inteligente-whatsapp', alt: '' },
-  { k: 'sv4', href: '/productos/sistema-operativo/?src=home-que-hacemos', img: '/images/casos/luway/os.webp', alt: 'Sistema de Luway con ventas, inventario y métricas' },
-];
 // Catálogo en el inicio: los mismos 47 productos de /catalogo/, con nombres de categoría en lenguaje simple
 const CATS: Record<string, { es: string; en: string }> = {
   '01': { es: 'Entender tu mercado', en: 'Understand your market' },
@@ -41,6 +35,7 @@ const CATS: Record<string, { es: string; en: string }> = {
   '08': { es: 'Capacitar a tu equipo', en: 'Train your team' },
 };
 const pHref = (slug?: string) => '/productos/' + slug + '/?src=home-catalogo';
+const tyHref = (slug: string) => '/productos/' + slug + '/?src=home-tuyo';
 // orden de la rueda: primero lo que más se busca; dentro de cada categoría, en su orden del catálogo
 const PX_ORDER = ['04', '03', '05', '06', '07', '01', '02', '08'];
 const PX_START: Record<string, string> = { '04': 'pagina-web' };
@@ -50,6 +45,7 @@ const PX_CATS = PX_ORDER.map((num) => {
   return { num, products: [...p.products.slice(k), ...p.products.slice(0, k)] };
 });
 const PX_ITEMS = PX_CATS.flatMap((c) => c.products.map((x) => ({ ...x, cat: c.num })));
+const WA_A01E_SSR = waSSR('Hola, quiero la conversación de 30 minutos, sin costo, del Análisis de Marca Esencial. Mi negocio es: \n\n— Origen: web/home/a01e/es');
 const WA_DIAG_SSR = waSSR('Hola, quiero un diagnóstico gratuito para mi empresa.\n\n— Origen: web/home/catalogo/es');
 const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Origen: web/home/comunidad/es');
 // BIE-P06 — Home (v37b: copy honesto en feed_sub, sin prometer sincronizacion automatica que no existe).
@@ -58,6 +54,12 @@ const WA_COMM_SSR = waSSR('Hola, quiero unirme a la comunidad de BIE.\n\n— Ori
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<script is:inline define:vars={{ promoHasta: ESTE_MES.promo.vigenteHasta }}>
+(function () {
+  var on = Date.now() <= Date.parse(promoHasta + 'T23:59:59.999-05:00');
+  document.documentElement.classList.toggle('promo-web-on', on);
+})();
+</script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <meta name="theme-color" content="#101012">
@@ -144,6 +146,42 @@ button{cursor:pointer}
 .nav-cta:hover::before{transform:none}
 .nav-cta span{position:relative;z-index:1}
 #progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:200;width:0}
+:root{--promo-h:56px}
+#promo-franja{position:fixed;top:0;left:0;right:0;z-index:110;display:none;align-items:center;justify-content:center;gap:10px 22px;flex-wrap:nowrap;min-height:var(--promo-h);padding:0 44px;color:var(--text);border-bottom:1px solid rgba(8,8,8,.08);font-size:15px;line-height:1.2;text-align:center;overflow:hidden;
+  background:linear-gradient(180deg,#fff 0%,#fff8f7 100%);
+  transition:opacity .5s ease,transform .5s ease}
+#promo-franja::after{content:"";position:absolute;inset:0 auto 0 -30%;width:28%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(217,45,42,.08),transparent);animation:pf-shine 5.5s ease-in-out infinite}
+@keyframes pf-shine{0%{transform:translateX(0)}100%{transform:translateX(500%)}}
+html.promo-web-on #promo-franja{display:flex}
+html.promo-web-on #nav{top:var(--promo-h)}
+.pf-k{font-size:12px;color:var(--text3);white-space:nowrap;letter-spacing:.04em}
+.pf-name{font-size:16px;letter-spacing:-.02em;white-space:nowrap}
+.pf-prices{display:inline-flex;align-items:baseline;gap:10px;white-space:nowrap}
+.pf-old{position:relative;color:#7a7a76;text-decoration:none;font-size:14px}
+.pf-old::after{content:"";position:absolute;left:0;top:50%;height:1.5px;width:100%;background:var(--cta,#d92d2a);transform:scaleX(0);transform-origin:left center;animation:pf-strike .7s .35s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes pf-strike{to{transform:scaleX(1)}}
+.pf-new{font-size:18px;letter-spacing:-.03em;font-weight:500;color:var(--text);opacity:0;transform:translateY(6px);animation:pf-in .6s .85s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes pf-in{to{opacity:1;transform:none}}
+.pf-until{font-size:13px;color:var(--text3);white-space:nowrap}
+.pf-also{font-size:13px;color:var(--text);white-space:nowrap;letter-spacing:-.01em}
+.pf-go{position:relative;z-index:1;background:var(--cta,#d92d2a);color:#fff;font-size:13px;letter-spacing:-.01em;padding:8px 14px;white-space:nowrap;transition:background .25s}
+#promo-franja:hover .pf-go{background:#b92220;color:#fff}
+@media (max-width:860px){
+  :root,html.promo-web-on{--promo-h:64px}
+  html.promo-web-on #promo-franja{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"name go" "prices go";align-items:center;column-gap:12px;row-gap:0;padding:8px 56px 8px 14px;justify-content:stretch;text-align:left;gap:unset;flex-wrap:unset;font-size:13px;height:var(--promo-h);box-sizing:border-box}
+  .pf-k,.pf-until,.pf-also,.pf-m{display:none}
+  .pf-name{grid-area:name;font-size:14px;letter-spacing:-.02em}
+  .pf-prices{grid-area:prices;gap:8px}
+  .pf-old{font-size:13px}
+  .pf-new{font-size:17px}
+  .pf-go{grid-area:go;padding:8px 13px;font-size:13px;justify-self:end}
+  html.promo-web-on body #nav,html.promo-web-on body #nav.dark-zone,html.promo-web-on body #nav.scrolled{top:calc(8px + var(--promo-h))}
+}
+@media (prefers-reduced-motion: reduce){
+  #promo-franja::after,.pf-old::after,.pf-new{animation:none}
+  .pf-old::after{transform:scaleX(1)}
+  .pf-new{opacity:1;transform:none}
+}
 
 /* Hamburger + mobile menu */
 #burger{display:none;background:none;border:none;width:44px;height:44px;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
@@ -687,6 +725,8 @@ top-mark{}.top-tile:hover{background:var(--bone);color:var(--ink);transform:tran
 #nav,#progress{transition:opacity .5s ease,transform .5s ease}
 body.cubo-intro #nav{opacity:0;transform:translateY(-10px);pointer-events:none}
 body.cubo-intro #progress{opacity:0}
+body.cubo-intro #promo-franja{opacity:0;transform:translateY(-10px);pointer-events:none}
+@media (prefers-reduced-motion: reduce){body.cubo-intro #promo-franja{opacity:1;transform:none;pointer-events:auto}}
 @media (prefers-reduced-motion: reduce){body.cubo-intro #nav{opacity:1;transform:none;pointer-events:auto}}
 .g-slide.real>*{animation:none}
 .g-slide .g-photo{width:100%;height:100%;max-width:100%;object-fit:cover}
@@ -1448,43 +1488,20 @@ html body .gx-info,html body .section-sub{position:relative}
 html body .est-right,html body .qz-answer{background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);border:1px solid rgba(8,8,8,.07)}
 html body .pack-body{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3)}
 html body .top-tile.has-img{background:rgba(255,255,255,.7)}
-/* Qué hacemos */
-#hacemos{position:relative;z-index:1}
-.sv-p{--in:1;--out:0;position:sticky;top:0;height:100vh;height:100dvh;background:#fff;overflow:hidden}
-.sv-p.entering{box-shadow:0 -34px 60px -44px rgba(8,8,8,.4)}
-.sv-in{height:100%;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);transform:scale(calc(1 - var(--out) * .05));transform-origin:50% 30%;opacity:calc(1 - var(--out) * .35);will-change:transform}
-.sv-text{display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:14px;padding:clamp(84px,12vh,120px) clamp(24px,4vw,64px) clamp(36px,7vh,72px) clamp(24px,6vw,80px)}
-.sv-text>*{opacity:calc(var(--in) * 1.5 - .5);transform:translateY(calc((1 - var(--in)) * 46px))}
-.sv-k{margin:0 0 auto;font-size:16px;color:var(--text3)}
-.sv-h{margin:0;font-size:clamp(46px,6.6vw,104px);font-weight:500;letter-spacing:-.03em;line-height:1}
-.sv-d{margin:0;font-size:clamp(18px,1.6vw,23px);line-height:1.32;color:var(--text2);max-width:30ch}
-.sv-go{margin-top:8px;font-size:17px;color:var(--text);border-bottom:1px solid currentColor;padding-bottom:3px;transition:color .25s}
-.sv-go:hover{color:var(--cta)}
-.sv-media{position:relative;overflow:hidden;background:#111}
-.sv-media img,.sv-media video{display:block;width:100%;height:100%;object-fit:cover;transform:scale(calc(1.14 - var(--in) * .14));will-change:transform}
-.sv-cap{position:absolute;left:14px;bottom:14px;padding:9px 13px;font-size:14px;color:var(--text);background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4)}
 @media (max-width:860px){
-  .sv-in{display:flex;flex-direction:column}
-  .sv-media{order:-1;flex:none;width:100%;aspect-ratio:1;max-height:56dvh}
-  .sv-text{flex:1;justify-content:flex-end;padding:18px 22px 30px;gap:10px;min-height:0}
-  .sv-k{margin:0 0 auto;font-size:15px}
-  .sv-h{font-size:clamp(44px,12.4vw,58px)}
-  .sv-d{font-size:18px;max-width:30ch}
   /* en teléfono el desenfoque sobre un fondo en movimiento pesa: blanco casi sólido */
   html body .pack-body,html body .est-right,html body .qz-answer{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(255,255,255,.93)}
 }
-@media (prefers-reduced-motion: reduce){.sv-p{position:relative;height:auto}.sv-in{transform:none;opacity:1}.sv-text>*{opacity:1;transform:none}.sv-media img,.sv-media video{transform:none}}
 /* === Ronda 5 (2026-11-01): alto estable, mundo rojo, cubo que se abre hacia el primer panel === */
 #lvh{position:fixed;top:0;left:0;width:0;height:100vh;height:100lvh;visibility:hidden;pointer-events:none}
 #campo{height:100vh;height:100lvh}
-.cubo-sticky,.sv-p,.kin-sticky,.voces-sticky,html body .nicho-sticky{height:100vh;height:100lvh}
+.cubo-sticky,.kin-sticky,.voces-sticky,html body .nicho-sticky{height:100vh;height:100lvh}
 /* lo que va abajo no queda detrás de la barra del navegador */
 html body .cubo-copy{bottom:calc(11vh + 100lvh - 100svh)}
-.sv-text{padding-bottom:calc(clamp(36px,7vh,72px) + 100lvh - 100svh)}
-/* el primer panel vive dentro del cubo hasta que termina de abrirse */
-#hacemos{margin-top:-100vh;margin-top:-100lvh}
-.sv-p:first-child{visibility:hidden}
-body.past-cube .sv-p:first-child{visibility:visible}
+/* el cubo se abre directo en «Tu negocio»: la sección real toma el lugar de la copia al terminar */
+#tuyo{margin-top:-100vh;margin-top:-100lvh;visibility:hidden}
+body.past-cube #tuyo{visibility:visible}
+body.past-cube #cubo-reveal{visibility:hidden!important}
 html body .cubo-line[data-i="0"] .cubo-h{max-width:21ch}
 /* mundo rojo */
 html body #nicho{background:transparent}
@@ -1504,12 +1521,10 @@ html body .voces-head.out + .voces-grid{margin-top:0}
 html body #voces .voces-grid{transition:margin .65s var(--ease)}
 @media (max-width:860px){
   html body .cubo-copy{bottom:calc(32px + 100lvh - 100svh)}
-  .sv-text{padding-bottom:calc(30px + 100lvh - 100svh)}
   html body .cubo-line[data-i="0"] .cubo-h{font-size:clamp(29px,7.8vw,36px);max-width:none}
 }
 @media (prefers-reduced-motion: reduce){
-  #hacemos{margin-top:0}
-  .sv-p:first-child{visibility:visible}
+  #tuyo{margin-top:0;visibility:visible}
   .nx-red{clip-path:none}
   .nx-tunnel{display:none}
   html body .nicho-inner,html body .nicho-bar{opacity:1}
@@ -1594,14 +1609,18 @@ html body .px-ctas .btn-primary span::before{display:none}
 }
 
 /* ═══ Tu negocio: el nombre del visitante en los cuatro productos ═══ */
-#tuyo{position:relative;z-index:1;padding:clamp(80px,11vw,170px) 0 clamp(60px,8vw,120px);overflow:hidden;scroll-margin-top:0}
+.tuyo{position:relative;z-index:1;padding:clamp(80px,11vw,170px) 0 clamp(60px,8vw,120px);overflow:hidden;scroll-margin-top:0}
 html body .ty-q{display:block;margin:0;cursor:text}
 .ty-in{display:block;width:100%;margin:clamp(14px,2vw,26px) 0 0;padding:0 0 10px;border:0;border-bottom:1px solid var(--text);border-radius:0;background:transparent;outline:0;font-family:var(--font);font-size:clamp(30px,5vw,68px);font-weight:400;letter-spacing:-.035em;line-height:1.1;color:var(--accent);caret-color:var(--accent);scroll-margin-top:28px;-webkit-appearance:none;appearance:none}
 .ty-in::placeholder{color:#8a8a87;opacity:1}
 .ty-in:focus{border-bottom-width:2px;padding-bottom:9px}
 .ty-sub{margin:14px 0 0;font-size:clamp(16px,1.4vw,20px);color:var(--text2)}
-.ty-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:min(100%,1500px);margin:clamp(26px,3.4vw,50px) auto 0;padding:0 clamp(22px,6vw,80px)}
-.ty-c{min-width:0}
+.ty-row{overflow:hidden;width:100%;margin:clamp(26px,3.4vw,50px) auto 0;padding:0}
+.ty-track{display:flex;gap:14px;width:max-content;animation:ty-scroll 48s linear infinite;will-change:transform}
+@keyframes ty-scroll{to{transform:translateX(-50%)}}
+.ty-row:hover .ty-track,.ty-row:focus-within .ty-track,.ty-row.ty-paused .ty-track{animation-play-state:paused}
+#cubo-reveal .ty-track{animation-play-state:paused}
+.ty-c{flex:0 0 clamp(260px,20vw,340px);min-width:0}
 .ty-s{height:clamp(280px,25vw,360px);border:1px solid rgba(8,8,8,.14);background:#fff;overflow:hidden;display:flex;flex-direction:column;--ty-f:24px}
 .ty-t{margin:14px 0 0;font-size:17px;font-weight:500;letter-spacing:-.015em;color:var(--text)}
 .ty-d{margin:3px 0 0;font-size:15px;line-height:1.35;color:var(--text2)}
@@ -1635,28 +1654,93 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-sis em{font-style:normal;font-size:13px;color:var(--text3)}
 .ty-sis em.rev{color:var(--accent-dark)}
 @media (max-width:1040px){
-  .ty-row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0 22px;scroll-padding:0 22px}
-  .ty-row::-webkit-scrollbar{display:none}
-  .ty-c{flex:0 0 min(78vw,360px);scroll-snap-align:start}
+  .ty-c{flex:0 0 min(78vw,360px)}
   .ty-s{height:clamp(240px,34lvh,320px)}
 }
+@media (prefers-reduced-motion:reduce){
+  .ty-track{animation:none!important;will-change:auto}
+  .ty-row{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;padding:0 clamp(22px,6vw,80px)}
+  .ty-row::-webkit-scrollbar{display:none}
+  .ty-c{scroll-snap-align:start}
+}
 @media (max-width:640px){
-  #tuyo{padding-top:72px}
+  html body .tuyo{padding-top:72px}
   .ty-foot{flex-direction:column;align-items:stretch}
   html body .ty-foot .btn-primary{width:100%;text-align:center}
   .ty-note{flex:none}
 }
 /* nombres de la galería: legibles aunque no estén elegidos */
 html body .gx-names button:not(.on):not(:hover){color:#757573}
-html body #tuyo .section-inner{width:min(100%,1500px);max-width:none;margin-inline:auto;padding-inline:clamp(22px,6vw,80px)}
-html body #tuyo .ty-foot{margin-top:clamp(26px,3vw,44px)}
+html body .tuyo .section-inner{width:min(100%,1500px);max-width:none;margin-inline:auto;padding-inline:clamp(22px,6vw,80px)}
+html body .tuyo .ty-foot{margin-top:clamp(26px,3vw,44px)}
 @media (min-width:861px){.ty-in{scroll-margin-top:96px}}
 @media (min-width:861px){
   html body .ty-q{font-size:clamp(34px,3.4vw,50px);line-height:1.05}
   .ty-in{font-size:clamp(30px,3.4vw,50px)}
-  #tuyo{padding-top:clamp(84px,8vw,120px)}
+  html body .tuyo{padding-top:clamp(84px,8vw,120px)}
   .ty-s{height:clamp(240px,29vh,320px)}
 }
+/* === Tu negocio con ocho ejemplos (2026-11-10): cada uno lleva a su producto === */
+a.ty-c{display:block;color:inherit;text-decoration:none}
+.ty-c .ty-s{transition:border-color .3s ease}
+.ty-c .ty-t::after{content:' →';opacity:0;transition:opacity .25s ease}
+@media (hover:hover){.ty-c:hover .ty-s{border-color:rgba(8,8,8,.45)}.ty-c:hover .ty-t::after{opacity:1}}
+.ty-c:focus-visible{outline:2px solid var(--text);outline-offset:4px}
+.ty-c:focus-visible .ty-t::after{opacity:1}
+@media (min-width:861px){
+  .ty-s{height:clamp(220px,17vw,290px)}
+  html body .tuyo .ty-q{max-width:none}
+}
+/* tarjeta de presentación: el frente blanco y el reverso en el color de la marca */
+.ty-card{position:relative;background:#f4f4f2}
+.ty-card>div{position:absolute;width:66%;aspect-ratio:1.75;display:flex;flex-direction:column;overflow:hidden}
+.ty-k2{right:8%;top:11%;background:#E53935;color:#fff;align-items:flex-end;padding:5% 6%}
+.ty-k2 b{max-width:70%;font-size:14px;font-weight:500;letter-spacing:-.02em;text-transform:lowercase;text-align:right;overflow-wrap:anywhere;line-height:1.05}
+.ty-k1{left:8%;bottom:11%;background:#fff;border:1px solid rgba(8,8,8,.16);justify-content:space-between;padding:6% 7%}
+.ty-k1 b{font-size:16px;font-weight:600;letter-spacing:-.035em;line-height:1.05;overflow-wrap:anywhere;color:#080808}
+.ty-k1 small{font-size:10.5px;line-height:1.35;color:var(--text3)}
+/* en Google: con poco alto, el buscador y el resultado no se encogen; se esconden las líneas de abajo */
+.ty-web .ty-bus,.ty-web .ty-res{flex:none}
+/* Google Maps */
+.ty-mapa{position:relative;flex:1;min-height:0;background-color:#ecece8;background-image:
+  linear-gradient(90deg,transparent 44%,#fff 44%,#fff 48%,transparent 48%),
+  linear-gradient(0deg,transparent 56%,#fff 56%,#fff 60%,transparent 60%),
+  linear-gradient(32deg,transparent 22%,#fff 22%,#fff 24.5%,transparent 24.5%),
+  repeating-linear-gradient(0deg,transparent 0 33px,rgba(8,8,8,.045) 33px 34px),
+  repeating-linear-gradient(90deg,transparent 0 41px,rgba(8,8,8,.045) 41px 42px)}
+.ty-pin{position:absolute;left:46%;top:58%;width:22px;height:22px;margin:-30px 0 0 -11px;background:#E53935;border:3px solid #fff;box-shadow:0 0 0 1px rgba(8,8,8,.12)}
+.ty-pin::after{content:'';position:absolute;left:50%;top:100%;margin:3px 0 0 -6px;border:6px solid transparent;border-top:7px solid #E53935}
+.ty-ficha{flex:none;padding:11px 14px 13px;border-top:1px solid rgba(8,8,8,.1);background:#fff}
+.ty-ficha b{display:block;font-size:16px;font-weight:600;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ty-ficha small{display:block;margin-top:2px;font-size:12px;color:var(--text3)}
+.ty-ficha p{display:flex;gap:6px;margin:10px 0 0}
+.ty-ficha span{flex:1;min-width:0;padding:6px 4px;border:1px solid rgba(8,8,8,.2);font-size:11.5px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ty-ficha span:first-child{background:#080808;border-color:#080808;color:#fff}
+/* Instagram */
+.ty-ig{padding:12px;gap:11px}
+.ty-ig header{display:flex;align-items:center;gap:10px;min-width:0}
+.ty-ig header i{flex:none;width:40px;height:40px;border-radius:50%;background:#080808;color:#fff;display:grid;place-items:center;font-style:normal;font-size:17px;font-weight:600}
+.ty-ig header div{min-width:0}
+.ty-ig header b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ty-ig header small{display:block;font-size:12px;color:var(--text3)}
+.ty-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:3px}
+.ty-grid span{display:flex;align-items:flex-end;padding:6px;overflow:hidden;font-size:11px;font-weight:600;line-height:1.05;letter-spacing:-.01em;overflow-wrap:anywhere}
+.ty-grid .g1{background:#080808;color:#fff}
+.ty-grid .g2{background:#E53935}
+.ty-grid .g3{background:#f4f4f2;color:#080808;text-transform:lowercase;font-weight:500}
+.ty-grid .g4{background:#fff;border:1px solid rgba(8,8,8,.12)}
+.ty-grid .g5{background:#E53935;color:#fff;align-items:center;justify-content:center;text-align:center}
+.ty-grid .g6{background:#080808}
+/* factura electrónica */
+.ty-fac{padding:13px 16px 12px;gap:8px;font-size:13px;color:var(--text)}
+.ty-fac header{display:flex;flex-direction:column;gap:1px;padding-bottom:9px;border-bottom:1px solid rgba(8,8,8,.1)}
+.ty-fac header b{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ty-fac header small{font-size:11.5px;color:var(--text3)}
+.ty-fac ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.ty-fac li{display:flex;justify-content:space-between;gap:10px;color:var(--text2);font-variant-numeric:tabular-nums}
+.ty-tot{margin:auto 0 0;display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;border-top:1px solid var(--text)}
+.ty-tot b{font-size:20px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ty-fac em{font-style:normal;font-size:11.5px;color:var(--text3)}
 html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-events:none}
 .top-gar{margin:clamp(24px,3vw,40px) 0 0;max-width:30ch;font-size:clamp(23px,2.5vw,36px);font-weight:400;line-height:1.14;letter-spacing:-.03em;color:var(--text);text-wrap:balance}
 .top-gar+.pc-one{margin-top:clamp(20px,2.4vw,30px)}
@@ -1677,6 +1761,17 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
   <div class="reel-hint" id="reel-hint"></div>
 </div>
 
+<a id="promo-franja" href="#este-mes" data-promo="web-90">
+  <span class="pf-k">{ESTE_MES.promo.etiquetaFranja}</span>
+  <span class="pf-name">Web profesional</span>
+  <span class="pf-prices">
+    <s class="pf-old"><span class="pf-c">{formatearDinero(PRECIOS_WEB.creacionRegular)}</span><span class="pf-m"> + {formatearDinero(PRECIOS_WEB.mesRegular)}/mes</span></s>
+    <b class="pf-new"><span class="pf-c">{formatearDinero(PRECIOS_WEB.creacionPromo)}</span><span class="pf-m"> + {formatearDinero(PRECIOS_WEB.mesPromo)}/mes</span></b>
+  </span>
+  <span class="pf-until">Hasta el {formatFechaCorta(ESTE_MES.promo.vigenteHasta)}</span>
+  <span class="pf-also">Análisis de Marca Esencial · USD 47</span>
+  <span class="pf-go">Ver oferta</span>
+</a>
 <nav id="nav">
   <a class="nav-logo" href="/" aria-label="BIE, inicio"><img src="/images/marca/bie-cuadro-96.webp" width="40" height="40" alt="BIE"></a>
   <div class="nav-links">
@@ -1733,30 +1828,8 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
 
 <div id="marquee"><div class="marquee-track" id="mq-track"></div></div>
 
-<!-- QUÉ HACEMOS: cuatro paneles que se apilan al bajar -->
-<section id="hacemos" aria-label="Qué hacemos">
-  {SERVICIOS.map((x) => (
-    <article class="sv-p">
-      <div class="sv-in">
-        <div class="sv-text">
-          <p class="sv-k" data-i18n="sv_k" set:html={es('sv_k')}></p>
-          <h2 class="sv-h" data-i18n={x.k + '_h'} set:html={es(x.k + '_h')}></h2>
-          <p class="sv-d" data-i18n={x.k + '_d'} set:html={es(x.k + '_d')}></p>
-          <a class="sv-go" href={x.href}><span data-i18n="sv_go" set:html={es('sv_go')}></span> →</a>
-        </div>
-        <div class="sv-media">
-          {x.video
-            ? <video data-src={'/videos/productos/' + x.video + '.mp4'} data-poster={'/images/productos/' + x.video + '.webp'} muted loop playsinline preload="none" aria-hidden="true"></video>
-            : <img src={x.img.replace('.webp', '-800.webp')} srcset={x.img.replace('.webp', '-800.webp') + ' 800w, ' + x.img + ' 1600w'} sizes="(max-width:860px) 100vw, 50vw" alt={x.alt} width="1600" height="1600" loading="lazy" decoding="async" fetchpriority="low" />}
-          <span class="sv-cap" data-i18n={x.k + '_c'} set:html={es(x.k + '_c')}></span>
-        </div>
-      </div>
-    </article>
-  ))}
-</section>
-
-<!-- TU NEGOCIO: el visitante escribe su nombre y se ve en los cuatro productos -->
-<section id="tuyo" aria-label="Míralo con el nombre de tu negocio">
+<!-- TU NEGOCIO: lo primero después del cubo. El visitante escribe su nombre y lo ve en ocho productos reales del catálogo -->
+<section id="tuyo" class="tuyo" aria-label="Lo que hacemos, con el nombre de tu negocio">
   <div class="section-inner">
     <p class="section-label" data-i18n="ty_k" set:html={es('ty_k')}></p>
     <label class="section-h2 ty-q" for="ty-in" data-i18n="ty_q" set:html={es('ty_q')}></label>
@@ -1764,40 +1837,83 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
     <p class="ty-sub" data-i18n="ty_sub" set:html={es('ty_sub')}></p>
   </div>
   <div class="ty-row" id="ty-row">
-    <article class="ty-c">
+  <div class="ty-track" id="ty-track">
+    <a class="ty-c" href={tyHref('identidad-de-marca')}>
       <div class="ty-s ty-marca" aria-hidden="true">
-        <b class="ty-m1" data-ty></b>
-        <b class="ty-m2" data-ty></b>
-        <b class="ty-m3" data-ty></b>
+        <b class="ty-m1" data-ty>Tu negocio</b>
+        <b class="ty-m2" data-ty>Tu negocio</b>
+        <b class="ty-m3" data-ty>Tu negocio</b>
       </div>
       <h3 class="ty-t" data-i18n="ty_c1_k" set:html={es('ty_c1_k')}></h3>
       <p class="ty-d" data-i18n="ty_c1" set:html={es('ty_c1')}></p>
-    </article>
-    <article class="ty-c">
+    </a>
+    <a class="ty-c" href={tyHref('identidad-de-marca')}>
+      <div class="ty-s ty-card" aria-hidden="true">
+        <div class="ty-k2"><b data-ty>Tu negocio</b></div>
+        <div class="ty-k1"><b data-ty>Tu negocio</b><small><span data-ty-dom>tunegocio.ec</span><br><span data-i18n="ty_k_tel" set:html={es('ty_k_tel')}></span></small></div>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c5_k" set:html={es('ty_c5_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c5" set:html={es('ty_c5')}></p>
+    </a>
+    <a class="ty-c" href={tyHref('pagina-web')}>
       <div class="ty-s ty-web" aria-hidden="true">
-        <p class="ty-bus" data-ty></p>
+        <p class="ty-bus" data-ty>Tu negocio</p>
         <div class="ty-res">
-          <small data-ty-dom></small>
-          <b><span data-ty></span> | <span data-i18n="ty_w_t" set:html={es('ty_w_t')}></span></b>
+          <small data-ty-dom>tunegocio.ec</small>
+          <b><span data-ty>Tu negocio</span> | <span data-i18n="ty_w_t" set:html={es('ty_w_t')}></span></b>
           <p data-i18n="ty_w_d" set:html={es('ty_w_d')}></p>
         </div>
         <i></i><i></i><i></i><i></i>
       </div>
       <h3 class="ty-t" data-i18n="ty_c2_k" set:html={es('ty_c2_k')}></h3>
       <p class="ty-d" data-i18n="ty_c2" set:html={es('ty_c2')}></p>
-    </article>
-    <article class="ty-c">
+    </a>
+    <a class="ty-c" href={tyHref('perfil-google-maps')}>
+      <div class="ty-s ty-map" aria-hidden="true">
+        <div class="ty-mapa"><i class="ty-pin"></i></div>
+        <div class="ty-ficha">
+          <b data-ty>Tu negocio</b>
+          <small data-i18n="ty_g_h" set:html={es('ty_g_h')}></small>
+          <p><span data-i18n="ty_g_1" set:html={es('ty_g_1')}></span><span data-i18n="ty_g_2" set:html={es('ty_g_2')}></span><span>WhatsApp</span></p>
+        </div>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c6_k" set:html={es('ty_c6_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c6" set:html={es('ty_c6')}></p>
+    </a>
+    <a class="ty-c" href={tyHref('gestion-redes-sociales')}>
+      <div class="ty-s ty-ig" aria-hidden="true">
+        <header><i data-ty-ini>T</i><div><b data-ty-at>tunegocio</b><small data-i18n="ty_i_bio" set:html={es('ty_i_bio')}></small></div></header>
+        <div class="ty-grid"><span class="g1" data-ty>Tu negocio</span><span class="g2"></span><span class="g3" data-ty>Tu negocio</span><span class="g4"></span><span class="g5" data-ty>Tu negocio</span><span class="g6"></span></div>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c7_k" set:html={es('ty_c7_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c7" set:html={es('ty_c7')}></p>
+    </a>
+    <a class="ty-c" href={tyHref('asistente-inteligente-whatsapp')}>
       <div class="ty-s ty-chat" aria-hidden="true">
-        <header><b data-ty></b><small data-i18n="ty_m_on" set:html={es('ty_m_on')}></small></header>
+        <header><b data-ty>Tu negocio</b><small data-i18n="ty_m_on" set:html={es('ty_m_on')}></small></header>
         <p class="ty-in-m"><span data-i18n="ty_m_q" set:html={es('ty_m_q')}></span><time>23:07</time></p>
-        <p class="ty-out-m"><span data-i18n="ty_m_a" set:html={es('ty_m_a')}></span> <b data-ty></b>. <span data-i18n="ty_m_b" set:html={es('ty_m_b')}></span><time>23:07</time></p>
+        <p class="ty-out-m"><span data-i18n="ty_m_a" set:html={es('ty_m_a')}></span> <b data-ty>Tu negocio</b>. <span data-i18n="ty_m_b" set:html={es('ty_m_b')}></span><time>23:07</time></p>
       </div>
       <h3 class="ty-t" data-i18n="ty_c3_k" set:html={es('ty_c3_k')}></h3>
       <p class="ty-d" data-i18n="ty_c3" set:html={es('ty_c3')}></p>
-    </article>
-    <article class="ty-c">
+    </a>
+    <a class="ty-c" href={tyHref('facturacion-electronica')}>
+      <div class="ty-s ty-fac" aria-hidden="true">
+        <header><b data-ty>Tu negocio</b><small data-i18n="ty_f_n" set:html={es('ty_f_n')}></small></header>
+        <ul>
+          <li><span data-i18n="ty_f_1" set:html={es('ty_f_1')}></span><span data-i18n="ty_f_v1" set:html={es('ty_f_v1')}></span></li>
+          <li><span data-i18n="ty_f_2" set:html={es('ty_f_2')}></span><span data-i18n="ty_f_v2" set:html={es('ty_f_v2')}></span></li>
+          <li><span data-i18n="ty_f_3" set:html={es('ty_f_3')}></span><span data-i18n="ty_f_v3" set:html={es('ty_f_v3')}></span></li>
+        </ul>
+        <p class="ty-tot"><span data-i18n="ty_f_t" set:html={es('ty_f_t')}></span><b data-i18n="ty_f_vt" set:html={es('ty_f_vt')}></b></p>
+        <em data-i18n="ty_f_ok" set:html={es('ty_f_ok')}></em>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c8_k" set:html={es('ty_c8_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c8" set:html={es('ty_c8')}></p>
+    </a>
+    <a class="ty-c" href={tyHref('sistema-operativo')}>
       <div class="ty-s ty-sis" aria-hidden="true">
-        <header><b data-ty></b><small data-i18n="ty_s_h" set:html={es('ty_s_h')}></small></header>
+        <header><b data-ty>Tu negocio</b><small data-i18n="ty_s_h" set:html={es('ty_s_h')}></small></header>
         <ul>
           <li><span data-i18n="ty_s1" set:html={es('ty_s1')}></span><em data-i18n="ty_ok" set:html={es('ty_ok')}></em></li>
           <li><span data-i18n="ty_s2" set:html={es('ty_s2')}></span><em class="rev" data-i18n="ty_rev" set:html={es('ty_rev')}></em></li>
@@ -1807,13 +1923,15 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
       </div>
       <h3 class="ty-t" data-i18n="ty_c4_k" set:html={es('ty_c4_k')}></h3>
       <p class="ty-d" data-i18n="ty_c4" set:html={es('ty_c4')}></p>
-    </article>
+    </a>
+  </div>
   </div>
   <div class="section-inner ty-foot">
     <a class="btn-primary" id="ty-wa" href={'https://wa.me/' + WA_NUM_SSR} target="_blank" rel="noopener"><span data-i18n="ty_btn" set:html={es('ty_btn')}></span> <span id="ty-wa-n">mi negocio</span></a>
     <p class="ty-note" data-i18n="ty_note" set:html={es('ty_note')}></p>
   </div>
 </section>
+
 
 <!-- CATÁLOGO: se entiende que son 47 y que se puede pedir uno solo -->
 <section id="productos" aria-label="Catálogo de productos">
@@ -1894,6 +2012,9 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
 
 <!-- ESTE MES EN BIE: destacado mensual (datos en src/data/este-mes.ts) -->
 <EsteMes data={ESTE_MES} />
+
+<!-- A-01E: Análisis de Marca Esencial (piloto aprobado 12/11; no se descuenta de la web) -->
+<A01Esencial waHref={WA_A01E_SSR} />
 
 <!-- LOS MÁS PEDIDOS -->
 <section id="top">

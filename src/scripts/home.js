@@ -287,7 +287,7 @@ const TOP = [
   { href:'/productos/link-hub/?src=home-mas-pedidos', n:B('Link Hub de Marca','Brand Link Hub'), hook:B('Todos tus enlaces, una sola puerta de entrada.','All your links, one single front door.') },
 ];
 function watchTileVideos(){
-  const vids = document.querySelectorAll('.top-tile video.tt-img, .pack-media video, .sv-media video');
+  const vids = document.querySelectorAll('.top-tile video.tt-img, .pack-media video');
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const load = (v) => { if (v.dataset.poster) { v.poster = v.dataset.poster; delete v.dataset.poster; } if (!still && v.dataset.src) { v.src = v.dataset.src; delete v.dataset.src; } };
   if (!('IntersectionObserver' in window)) { vids.forEach(load); return; }
@@ -505,27 +505,6 @@ function renderWork(){
   requestAnimationFrame(frame);
 })();
 
-// ═══ Qué hacemos: cada panel entra sobre el anterior, que se aleja un poco ═══
-(function(){
-  const panels = Array.from(document.querySelectorAll('.sv-p'));
-  if (!panels.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const c = (v) => Math.min(1, Math.max(0, v));
-  let queued = false;
-  function paint(){
-    queued = false;
-    const vh = LVH();
-    const tops = panels.map((p) => p.getBoundingClientRect().top);
-    if (tops[0] > vh * 1.2 || panels[panels.length - 1].getBoundingClientRect().bottom < -vh) return;
-    panels.forEach((p, i) => {
-      p.style.setProperty('--in', c(1 - tops[i] / vh).toFixed(3));
-      p.classList.toggle('entering', tops[i] > 1 && tops[i] < vh - 2);
-      p.style.setProperty('--out', (i < panels.length - 1 ? c(1 - tops[i + 1] / vh) : 0).toFixed(3));
-    });
-  }
-  const ask = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
-  addEventListener('scroll', ask, { passive: true }); addEventListener('resize', ask, { passive: true }); ask();
-})();
-
 // ═══ Fondo vivo: las piezas blancas del cubo siguen flotando detrás de la página y responden al scroll ═══
 (function(){
   const cv = document.getElementById('campo'), ctx = cv && cv.getContext('2d');
@@ -538,7 +517,7 @@ function renderWork(){
   })).sort((a, b) => a.z - b.z);
   const V = [[-.5,-.5,-.5],[.5,-.5,-.5],[.5,.5,-.5],[-.5,.5,-.5],[-.5,-.5,.5],[.5,-.5,.5],[.5,.5,.5],[-.5,.5,.5]];
   const FACES = [[[4,5,6,7],[0,0,1]],[[1,0,3,2],[0,0,-1]],[[5,1,2,6],[1,0,0]],[[0,4,7,3],[-1,0,0]],[[3,7,6,2],[0,1,0]],[[0,1,5,4],[0,-1,0]]];
-  const hero = document.getElementById('hero'), sv = document.getElementById('hacemos');
+  const hero = document.getElementById('hero');
   let W = 0, H = 0, dpr = 1, last = 0, sy = scrollY;
   // el lienzo mide lo mismo con o sin la barra del navegador: cambiarlo lo borraría y movería todas las piezas
   function size(){
@@ -571,9 +550,8 @@ function renderWork(){
   function frame(now){
     requestAnimationFrame(frame);
     if (document.hidden) return;
-    const hb = hero.getBoundingClientRect(), sb = sv.getBoundingClientRect();
-    // detrás del cubo y de los paneles no se ve: no se dibuja
-    if (hb.bottom >= innerHeight || (sb.top <= 0 && sb.bottom >= innerHeight)) { sy = scrollY; return; }
+    // detrás del cubo no se ve: no se dibuja
+    if (hero.getBoundingClientRect().bottom >= innerHeight) { sy = scrollY; return; }
     const diff = scrollY - sy, moving = Math.abs(diff) > .4;
     sy += diff * .13;
     if (!moving && now - last < 33) return;
@@ -1347,14 +1325,19 @@ const __start = () => { if (__ready) return; __ready = true; applyStatics(); ren
 requestAnimationFrame(() => setTimeout(__start, 0));
 setTimeout(__start, 800);
 
-// ═══ Tu negocio: el nombre que escribe el visitante aparece en los cuatro productos ═══
+// ═══ Tu negocio: el nombre que escribe el visitante aparece en ocho productos ═══
 // Nada de esto sale del navegador: el nombre solo viaja si la persona abre WhatsApp o envía el formulario.
 (function(){
   const input = document.getElementById('ty-in'), sec = document.getElementById('tuyo');
   if (!input || !sec) return;
   const row = document.getElementById('ty-row'), btn = document.getElementById('ty-wa'), btnN = document.getElementById('ty-wa-n');
+  const track = document.getElementById('ty-track');
   const titulo = document.querySelector('#contact .section-h2'), empresa = document.getElementById('in-comp');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Duplicate cards inside the track for seamless marquee loop
+  if (track && !reduce) {
+    Array.from(track.children).forEach(el => { const c = el.cloneNode(true); c.setAttribute('aria-hidden', 'true'); if (c.tagName === 'A') c.setAttribute('tabindex', '-1'); track.appendChild(c); });
+  }
   const KEY = 'bie_tuyo', DEMO = ['Panadería Rosita', 'Consultorio Sonríe', 'Ferretería El Clavo', 'Moda Amaru'];
   let nombre = '';
   try { nombre = (sessionStorage.getItem(KEY) || '').slice(0, 40); } catch (e) {}
@@ -1365,10 +1348,15 @@ setTimeout(__start, 800);
 
   function pinta(x){
     const v = x || (lang === 'es' ? 'Tu negocio' : 'Your business');
-    sec.querySelectorAll('[data-ty]').forEach((el) => { el.textContent = v; });
-    sec.querySelector('[data-ty-dom]').textContent = (dominio(x) || (lang === 'es' ? 'tunegocio' : 'yourbusiness')) + '.ec';
+    const d = dominio(x) || (lang === 'es' ? 'tunegocio' : 'yourbusiness');
     const f = v.length <= 13 ? 30 : v.length <= 20 ? 24 : v.length <= 30 ? 19 : 16;
-    sec.querySelector('.ty-marca').style.setProperty('--ty-f', f + 'px');
+    document.querySelectorAll('.tuyo').forEach((s) => {
+      s.querySelectorAll('[data-ty]').forEach((el) => { el.textContent = v; });
+      s.querySelectorAll('[data-ty-dom]').forEach((el) => { el.textContent = d + '.ec'; });
+      s.querySelectorAll('[data-ty-at]').forEach((el) => { el.textContent = d; });
+      s.querySelectorAll('[data-ty-ini]').forEach((el) => { el.textContent = v.charAt(0).toUpperCase(); });
+      s.querySelectorAll('.ty-marca').forEach(m => m.style.setProperty('--ty-f', f + 'px'));
+    });
   }
   function aplica(){
     const n = limpio();
@@ -1399,6 +1387,7 @@ setTimeout(__start, 800);
     ci += borra ? -1 : 1;
     const parte = w.slice(0, ci);
     input.placeholder = parte || ' ';
+    document.querySelectorAll('.tuyo .ty-in').forEach((el) => { if (el !== input) el.placeholder = input.placeholder; });
     pinta(parte);
     let t = borra ? 26 : 72;
     if (!borra && ci >= w.length) { borra = true; t = 2800; }
@@ -1413,15 +1402,12 @@ setTimeout(__start, 800);
     else aplica();
   }
 
-  // En teléfono las tarjetas pasan solas hasta que la persona las toca.
-  const cards = Array.from(row.children);
-  let auto = !reduce, ai = 0, autoT = 0;
-  const avanza = () => {
-    if (!auto || row.scrollWidth <= row.clientWidth + 4) return;
-    ai = (ai + 1) % cards.length;
-    row.scrollTo({ left: cards[ai].offsetLeft - cards[0].offsetLeft, behavior: 'smooth' });
-  };
-  ['touchstart', 'pointerdown', 'wheel'].forEach((e) => row.addEventListener(e, () => { auto = false; }, { passive: true, once: true }));
+  // El marquee CSS reemplaza el auto-avance; solo pausamos al tocar.
+  let auto = false, ai = 0, autoT = 0;
+  const avanza = () => {};
+  let touchT;
+  row.addEventListener('touchstart', () => { clearTimeout(touchT); row.classList.add('ty-paused'); }, { passive: true });
+  row.addEventListener('touchend', () => { touchT = setTimeout(() => row.classList.remove('ty-paused'), 1200); }, { passive: true });
 
   let visible = false;
   new IntersectionObserver(([e]) => {
@@ -1456,7 +1442,7 @@ setTimeout(__start, 800);
 // ═══ Hasta dónde llega cada visita ═══
 // Un solo evento al salir de la página: una llamada por sección gastaría funciones de Netlify sin necesidad.
 (function(){
-  const ORDEN = ['hero', 'hacemos', 'tuyo', 'productos', 'work', 'voces', 'top', 'catalog', 'simple', 'estrella', 'nicho', 'contact'];
+  const ORDEN = ['hero', 'tuyo', 'productos', 'work', 'voces', 'top', 'catalog', 'simple', 'estrella', 'nicho', 'contact'];
   const vistas = new Set(['hero']);
   let enviadas = 0;
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) vistas.add(e.target.id); }), { rootMargin: '-50% 0px -50% 0px' });
