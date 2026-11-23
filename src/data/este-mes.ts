@@ -9,7 +9,7 @@ export const PRECIOS_WEB = {
   creacionPromo: 90,
   mesPromo: 18,
   /** Inclusive. Después del 31/12/2026 (America/Guayaquil) la promo se oculta sola. */
-  vigenciaHasta: '2026-12-31',
+  vigenciaHasta: '2026-11-22', // EGO 23/11: la oferta de USD 90 terminó; queda el precio regular
 } as const;
 
 export type PrecioItem = { valor: string; nota: string };

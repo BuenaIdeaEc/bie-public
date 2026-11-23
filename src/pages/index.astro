@@ -20,6 +20,7 @@ const WA_MENU_SSR = waSSR('Hola, quiero cotizar un producto de BIE. ¿Qué me re
 const WA_START_SSR = waSSR('Hola, no sé por dónde empezar. Les cuento mi negocio: \n\n— Origen: web/home/empezar/es');
 const WA_PK1_SSR = waSSR('Hola, me interesa la ruta "Que te encuentren" (página web, Google Maps, marca). Mi negocio es: \n\n— Origen: web/home/ruta-1/es');
 const WA_PK2_SSR = waSSR('Hola, me interesa la ruta "Que te compren" (WhatsApp Business, asistente 24/7, redes). Mi negocio es: \n\n— Origen: web/home/ruta-2/es');
+const WA_PK4_SSR = waSSR('Hola, me interesa la ruta "Que te sigan" (análisis, marca, redes, contenido, web, grabación y asesoría). Mi negocio es: \n\n— Origen: web/home/ruta-4/es');
 const WA_PK3_SSR = waSSR('Hola, me interesa la ruta "Que funcione solo" (automatizaciones, CRM, sistema). Mi negocio es: \n\n— Origen: web/home/ruta-3/es');
 const WA_EST_SSR = waSSR('Hola, quiero el acompañamiento mensual de BIE. Mi negocio es: \n\n— Origen: web/home/acompanamiento/es');
 const WA_SIM_SSR = waSSR('Hola, quiero empezar. Les cuento mi negocio para saber qué necesito.\n\n— Origen: web/home/asi-de-simple/es');
@@ -1344,6 +1345,8 @@ html body .voz-name{font-size:17px;letter-spacing:-.015em}
 html body .voz-q{font-size:clamp(23px,2.7vw,40px);line-height:1.14;letter-spacing:-.03em;color:var(--text)}
 /* precios */
 html body .packs{gap:clamp(14px,1.6vw,24px);margin-top:clamp(36px,5vw,60px)}
+@media (min-width:861px){html body .packs{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1180px){html body .packs{grid-template-columns:repeat(4,1fr)}}
 html body .pack,html body .pack-hot,html body .pack:hover{border:0;background:none}
 html body .pack-media{aspect-ratio:1}
 html body .pack:hover .pack-media img,html body .pack:hover .pack-media video{transform:scale(1.03)}
@@ -1668,6 +1671,14 @@ html body .ty-q{display:block;margin:0;cursor:text}
   .ty-foot{flex-direction:column;align-items:stretch}
   html body .ty-foot .btn-primary{width:100%;text-align:center}
   .ty-note{flex:none}
+}
+/* teléfono y tableta: las tarjetas se deslizan con el dedo (el marquee solo en computadora, donde se pausa con el mouse) */
+@media (hover:none),(max-width:1040px){
+  #tuyo .ty-row{overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:clamp(22px,6vw,80px);scroll-padding-inline:clamp(22px,6vw,80px)}
+  #tuyo .ty-row::-webkit-scrollbar{display:none}
+  .ty-track{animation:none!important;will-change:auto}
+  .ty-track>[aria-hidden="true"]{display:none}
+  .ty-c{scroll-snap-align:start}
 }
 /* nombres de la galería: legibles aunque no estén elegidos */
 html body .gx-names button:not(.on):not(:hover){color:#757573}
@@ -2026,7 +2037,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
       <p class="section-sub" data-i18n="top_sub" set:html={es('top_sub')}></p>
     </div>
     <div class="packs reveal d1">
-      {([['pk1', WA_PK1_SSR, '/images/casos/escuela-heridas/web.webp', false], ['pk2', WA_PK2_SSR, 'whatsapp-business-commerce', true], ['pk3', WA_PK3_SSR, '/images/casos/luway/os.webp', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
+      {([['pk1', WA_PK1_SSR, '/images/casos/escuela-heridas/web.webp', false], ['pk2', WA_PK2_SSR, 'whatsapp-business-commerce', true], ['pk3', WA_PK3_SSR, '/images/casos/luway/os.webp', false], ['pk4', WA_PK4_SSR, '/images/catalogo/video-marketing-1200.webp', false]] as [string, string, string, boolean][]).map(([k, href, media, vid], i) => (
         <a class={'pack' + (i === 1 ? ' pack-hot' : '')} href={href} target="_blank" rel="noopener">
           <span class="pack-media">{vid ? <video data-src={'/videos/productos/' + media + '.mp4'} data-poster={'/images/productos/' + media + '.webp'} muted loop playsinline preload="none" aria-hidden="true"></video> : <img src={media} alt="" width="1600" height="1600" loading="lazy" decoding="async" />}{i === 1 && <span class="pack-tag" data-i18n="pk_tag2" set:html={es('pk_tag2')}></span>}</span>
           <div class="pack-body">

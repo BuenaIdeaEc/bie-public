@@ -159,12 +159,15 @@ function frame(now: number) {
   // en teléfonos bajos el cubo armado sube para dejarle sitio al título
   if (short) canvas.style.transform = 'translateY(' + (-cp * (1 - f1) * 21).toFixed(2) + '%)';
   core.intensity = f2 * 4;
-  const rp = smooth(clamp01((fin - 0.1) / 0.72));
+  // la copia termina de abrirse justo cuando el panel real toma su lugar (raw = 1): si terminara antes,
+  // en el teléfono quedaba un tramo en que «Tu negocio» se veía listo pero no respondía al toque
+  const rp = smooth(clamp01((fin - 0.1) / 0.9));
   if (rp !== lastRp) {
     lastRp = rp;
     if (revealEl) {
       const W = stickyEl.clientWidth, H = stickyEl.clientHeight, half = rp * Math.max(W, H) * 0.52;
       revealEl.style.visibility = rp > 0 ? 'visible' : 'hidden';
+      revealEl.style.pointerEvents = rp > 0.5 ? 'auto' : 'none';
       revealEl.style.clipPath = 'inset(' + Math.max(0, H / 2 - half).toFixed(1) + 'px ' + Math.max(0, W / 2 - half).toFixed(1) + 'px)';
       revealEl.style.setProperty('--in', rp.toFixed(3));
     }
@@ -173,6 +176,7 @@ function frame(now: number) {
   if (drawn) canvas.style.opacity = (1 - smooth(clamp01((fin - 0.8) / 0.2))).toFixed(3);
   setFin(fin);
   copyEl.style.opacity = (1 - clamp01(fin * 5)).toFixed(3);
+  copyEl.style.visibility = fin * 5 >= 1 ? 'hidden' : '';
   camera.lookAt(fin > 0.001 ? group.position.x * 0.3 * (1 - f1) : group.position.x * 0.3, fin > 0.001 ? (group.position.y - 0.2) * (1 - f1) : group.position.y - 0.2, 0);
   redRim.intensity = 0.2 + cp * 0.6;
   floor.material.opacity = (0.05 + cp * 0.1) * (1 - f1);

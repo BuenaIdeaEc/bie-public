@@ -1402,12 +1402,20 @@ setTimeout(__start, 800);
     else aplica();
   }
 
-  // El marquee CSS reemplaza el auto-avance; solo pausamos al tocar.
-  let auto = false, ai = 0, autoT = 0;
-  const avanza = () => {};
+  // En computadora el marquee CSS mueve las tarjetas. En teléfono se deslizan con el dedo y, si nadie
+  // las toca, avanzan solas de a una; al tocarlas se detienen 8 s para no pelear con la mano.
+  const deslizable = matchMedia('(hover: none), (max-width: 1040px)');
+  let autoT = 0, tocado = 0;
+  const avanza = () => {
+    if (!deslizable.matches || reduce || Date.now() - tocado < 8000 || document.activeElement === input) return;
+    const c = row.querySelector('.ty-c'); if (!c) return;
+    const paso = c.getBoundingClientRect().width + 14, max = row.scrollWidth - row.clientWidth;
+    row.scrollTo({ left: row.scrollLeft + paso > max - 4 ? 0 : row.scrollLeft + paso, behavior: 'smooth' });
+  };
   let touchT;
-  row.addEventListener('touchstart', () => { clearTimeout(touchT); row.classList.add('ty-paused'); }, { passive: true });
-  row.addEventListener('touchend', () => { touchT = setTimeout(() => row.classList.remove('ty-paused'), 1200); }, { passive: true });
+  row.addEventListener('pointerdown', () => { tocado = Date.now(); }, { passive: true });
+  row.addEventListener('touchstart', () => { tocado = Date.now(); clearTimeout(touchT); row.classList.add('ty-paused'); }, { passive: true });
+  row.addEventListener('touchend', () => { tocado = Date.now(); touchT = setTimeout(() => row.classList.remove('ty-paused'), 1200); }, { passive: true });
 
   let visible = false;
   new IntersectionObserver(([e]) => {
