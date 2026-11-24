@@ -1761,6 +1761,9 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
 @media (max-width:640px){.tuyo .ty-head{min-height:calc(100lvh - 72px)}}
 /* la copia que se ve mientras el cubo se abre muestra lo mismo que la sección al llegar: solo la pregunta */
 #cubo-reveal .ty-row,#cubo-reveal .ty-ctl,#cubo-reveal .ty-foot{visibility:hidden}
+/* la pregunta queda al centro de la pantalla, como el siguiente paso después del cubo (EGO 25/11); la indicación de bajar, abajo */
+html body .tuyo .ty-head>.section-label{margin-top:auto}
+.ty-cue{padding-top:clamp(28px,6svh,64px)}
 .ty-cue{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin:auto 0 0;padding:28px 0 calc(clamp(26px,5svh,54px) + 100lvh - 100svh);font-size:14px;color:var(--text3)}
 .ty-cue i{display:block;width:1px;height:34px;background:var(--text);transform-origin:top;animation:ty-cue 2.4s cubic-bezier(.65,0,.35,1) infinite}
 @keyframes ty-cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
