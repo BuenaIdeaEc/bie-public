@@ -1334,10 +1334,6 @@ setTimeout(__start, 800);
   const track = document.getElementById('ty-track');
   const titulo = document.querySelector('#contact .section-h2'), empresa = document.getElementById('in-comp');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Duplicate cards inside the track for seamless marquee loop
-  if (track && !reduce) {
-    Array.from(track.children).forEach(el => { const c = el.cloneNode(true); c.setAttribute('aria-hidden', 'true'); if (c.tagName === 'A') c.setAttribute('tabindex', '-1'); track.appendChild(c); });
-  }
   const KEY = 'bie_tuyo', DEMO = ['Panadería Rosita', 'Consultorio Sonríe', 'Ferretería El Clavo', 'Moda Amaru'];
   let nombre = '';
   try { nombre = (sessionStorage.getItem(KEY) || '').slice(0, 40); } catch (e) {}
@@ -1402,26 +1398,74 @@ setTimeout(__start, 800);
     else aplica();
   }
 
-  // En computadora el marquee CSS mueve las tarjetas. En teléfono se deslizan con el dedo y, si nadie
-  // las toca, avanzan solas de a una; al tocarlas se detienen 8 s para no pelear con la mano.
-  const deslizable = matchMedia('(hover: none), (max-width: 1040px)');
-  let autoT = 0, tocado = 0;
-  const avanza = () => {
-    if (!deslizable.matches || reduce || Date.now() - tocado < 8000 || document.activeElement === input) return;
-    const c = row.querySelector('.ty-c'); if (!c) return;
-    const paso = c.getBoundingClientRect().width + 14, max = row.scrollWidth - row.clientWidth;
-    row.scrollTo({ left: row.scrollLeft + paso > max - 4 ? 0 : row.scrollLeft + paso, behavior: 'smooth' });
+  // Recorrido guiado (EGO 24/11): al llegar solo se ve la pregunta. Cuando la persona baja, las ocho
+  // tarjetas entran y avanzan solas de a una; la barra muestra cuánto falta para la siguiente. Puede
+  // pausar, adelantar o regresar con los botones, o deslizar con el dedo (eso deja el control en su mano).
+  const cards = Array.from(track.children);
+  const segs = Array.from(document.querySelectorAll('#ty-prog i'));
+  const num = document.getElementById('ty-i'), bPlay = document.getElementById('ty-play');
+  const bPrev = document.getElementById('ty-prev'), bNext = document.getElementById('ty-next');
+  const N = cards.length;
+  let cur = 0, go = false, enVista = false, mano = reduce, propio = 0;
+  cards.forEach((c, k) => c.style.setProperty('--i', String(k)));
+  if (!reduce) document.documentElement.classList.add('ty-js');
+  const etiquetas = () => {
+    bPrev.setAttribute('aria-label', lang === 'es' ? 'Anterior' : 'Previous');
+    bNext.setAttribute('aria-label', lang === 'es' ? 'Siguiente' : 'Next');
+    bPlay.setAttribute('aria-label', mano ? (lang === 'es' ? 'Reproducir' : 'Play') : (lang === 'es' ? 'Pausar' : 'Pause'));
   };
-  let touchT;
-  row.addEventListener('pointerdown', () => { tocado = Date.now(); }, { passive: true });
-  row.addEventListener('touchstart', () => { tocado = Date.now(); clearTimeout(touchT); row.classList.add('ty-paused'); }, { passive: true });
-  row.addEventListener('touchend', () => { tocado = Date.now(); touchT = setTimeout(() => row.classList.remove('ty-paused'), 1200); }, { passive: true });
+  const estado = () => {
+    sec.classList.toggle('ty-user', mano);
+    sec.classList.toggle('ty-stop', mano || !enVista || !go);
+    etiquetas();
+  };
+  function marca(){
+    cards.forEach((c, k) => c.classList.toggle('on', go && k === cur));
+    segs.forEach((s, k) => { s.classList.toggle('ok', k < cur); s.classList.remove('cur'); });
+    if (go && segs[cur]) { void segs[cur].offsetWidth; segs[cur].classList.add('cur'); }
+    if (num) num.textContent = String(cur + 1);
+  }
+  function ir(k, suave){
+    cur = (k + N) % N;
+    const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft) || 0;
+    propio = Date.now();
+    row.scrollTo({ left: Math.max(0, cards[cur].offsetLeft - pad), behavior: suave && !reduce ? 'smooth' : 'auto' });
+    marca();
+  }
+  // la barra llena = pasa a la siguiente (al terminar vuelve a la primera)
+  segs.forEach((s, k) => s.addEventListener('animationend', () => { if (k === cur && !mano) ir(cur + 1, true); }));
+  const tomaMano = () => { if (!mano) { mano = true; estado(); } };
+  bPlay.addEventListener('click', () => { mano = !mano; estado(); if (!mano) marca(); });
+  bPrev.addEventListener('click', () => { tomaMano(); ir(cur - 1, true); });
+  bNext.addEventListener('click', () => { tomaMano(); ir(cur + 1, true); });
+  // con el mouse encima se detiene mientras lo lee; con el dedo, el control pasa a la persona
+  row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') sec.classList.add('ty-stop'); });
+  row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') estado(); });
+  row.addEventListener('touchstart', tomaMano, { passive: true });
+  row.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) tomaMano(); }, { passive: true });
+  let scT = 0;
+  row.addEventListener('scroll', () => {
+    if (Date.now() - propio < 900) return;
+    clearTimeout(scT);
+    scT = setTimeout(() => {
+      const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft) || 0, x = row.scrollLeft + pad;
+      let best = 0; cards.forEach((c, k) => { if (Math.abs(c.offsetLeft - x) < Math.abs(cards[best].offsetLeft - x)) best = k; });
+      if (best !== cur) { cur = best; marca(); }
+    }, 140);
+  }, { passive: true });
+  const arranca = () => { if (go) return; go = true; sec.classList.add('ty-go'); estado(); setTimeout(marca, reduce ? 0 : 650); };
+  new IntersectionObserver(([e]) => { enVista = e.isIntersecting; if (enVista) arranca(); estado(); }, { threshold: 0.3 }).observe(row);
+  // red de seguridad: si el observador no avisara, al pasar por delante igual aparecen
+  addEventListener('scroll', function chequeo(){
+    if (go) { removeEventListener('scroll', chequeo); return; }
+    const r = row.getBoundingClientRect();
+    if (r.top < innerHeight * 0.85 && r.bottom > 0) arranca();
+  }, { passive: true });
+  estado();
 
   let visible = false;
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
-    clearInterval(autoT);
-    if (visible) autoT = setInterval(avanza, 3800);
     demo(visible && !reduce && !limpio() && document.activeElement !== input);
   }, { threshold: 0.2 }).observe(sec);
 

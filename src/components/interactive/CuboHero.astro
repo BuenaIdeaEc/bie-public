@@ -77,7 +77,7 @@ if (reveal && tuyo && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   copy.removeAttribute('id'); copy.removeAttribute('aria-label');
   copy.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
   copy.querySelectorAll('label[for]').forEach((el) => el.removeAttribute('for'));
-  copy.querySelectorAll('a,input').forEach((el) => el.setAttribute('tabindex', '-1'));
+  copy.querySelectorAll('a,input,button').forEach((el) => el.setAttribute('tabindex', '-1'));
   reveal.appendChild(copy);
   // Si alguien toca la copia antes de que el panel real tome su lugar, se termina el recorrido
   // en ese instante y, si tocó el campo, queda escribiendo en el real (en el teléfono no se traba).

@@ -1,19 +1,22 @@
 ---
 import type { EsteMes } from '../../data/este-mes';
-import { formatFechaCorta, hostVisible } from '../../data/este-mes';
+import { formatFechaCorta, hostVisible, promoVigente } from '../../data/este-mes';
 interface Props { data: EsteMes }
 const { data } = Astro.props;
 const hasta = formatFechaCorta(data.promo.vigenteHasta);
+// terminada la oferta, su texto ya no se genera (antes quedaba oculto en el HTML)
+const promo = promoVigente(data.promo.vigenteHasta);
 ---
 <section id="este-mes" class="em" data-promo-story="web-90-immersive" aria-labelledby="em-title">
   <div class="em-track">
     <div class="em-pin">
       <div class="em-copy">
-        <p class="em-k"><span class="em-k-promo">{data.etiquetaPromo}</span><span class="em-k-base">{data.etiqueta}</span></p>
+        <p class="em-k">{promo && <span class="em-k-promo">{data.etiquetaPromo}</span>}<span class="em-k-base">{data.etiqueta}</span></p>
         <h2 id="em-title" class="em-title">{data.titulo}</h2>
         <p class="em-lead">{data.texto}</p>
 
         <div class="em-priceblock">
+          {promo && <>
           <div class="em-prices em-prices-regular">
             {data.precios.map((p, i) => (
               <>
@@ -38,6 +41,7 @@ const hasta = formatFechaCorta(data.promo.vigenteHasta);
             ))}
           </div>
           <p class="em-until">{data.promo.etiquetaHasta} {hasta}</p>
+          </>}
           <div class="em-prices em-prices-alone">
             {data.precios.map((p, i) => (
               <>

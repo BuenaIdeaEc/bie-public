@@ -3,7 +3,7 @@ import { UI } from '../data/home-ui';
 import { PHASES } from '../data/catalogo';
 import EsteMes from '../components/ui/EsteMes.astro';
 import A01Esencial from '../components/ui/A01Esencial.astro';
-import { ESTE_MES, PRECIOS_WEB, formatearDinero, formatFechaCorta } from '../data/este-mes';
+import { ESTE_MES, PRECIOS_WEB, formatearDinero, formatFechaCorta, promoVigente } from '../data/este-mes';
 import CuboHero from '../components/interactive/CuboHero.astro';
 import homeJs from '../scripts/home.js?url';
 import { TASTING_ALT } from '../data/tasting-alt';
@@ -1639,9 +1639,9 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-res small{display:block;font-size:12px;color:var(--text3)}
 .ty-res b{display:block;margin-top:3px;font-size:17px;font-weight:500;line-height:1.16;letter-spacing:-.015em;color:var(--text);overflow-wrap:anywhere}
 .ty-res p{margin:5px 0 0;font-size:13.5px;line-height:1.3;color:var(--text2)}
-.ty-web i{display:block;flex:0 0 11px;background:#f1f1ef}
+.ty-web i{display:block;flex:0 0 11px;background:#f4f4f2}
 .ty-web i:nth-of-type(even){width:68%}
-.ty-chat{background:#f6f6f4;font-size:14px;line-height:1.3}
+.ty-chat{background:#f4f4f2;font-size:14px;line-height:1.3}
 .ty-chat header,.ty-sis header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:13px 16px;background:#fff;border-bottom:1px solid rgba(8,8,8,.1)}
 .ty-chat header b,.ty-sis header b{min-width:0;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .ty-chat header small,.ty-sis header small{flex:none;font-size:12px;color:var(--text3)}
@@ -1736,12 +1736,11 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
 .ty-ig header small{display:block;font-size:12px;color:var(--text3)}
 .ty-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:3px}
 .ty-grid span{display:flex;align-items:flex-end;padding:6px;overflow:hidden;font-size:11px;font-weight:600;line-height:1.05;letter-spacing:-.01em;overflow-wrap:anywhere}
-.ty-grid .g1{background:#080808;color:#fff}
-.ty-grid .g2{background:#E53935}
-.ty-grid .g3{background:#f4f4f2;color:#080808;text-transform:lowercase;font-weight:500}
-.ty-grid .g4{background:#fff;border:1px solid rgba(8,8,8,.12)}
-.ty-grid .g5{background:#E53935;color:#fff;align-items:center;justify-content:center;text-align:center}
-.ty-grid .g6{background:#080808}
+.ty-grid .g1,.ty-grid .g6{background:#080808;color:#fff}
+.ty-grid .g2,.ty-grid .g4{background:#f4f4f2;color:#080808;font-weight:500}
+.ty-grid .g2{font-size:15px;letter-spacing:-.02em}
+.ty-grid .g3{background:#E53935;color:#fff;align-items:center;justify-content:center;font-size:30px;font-weight:500}
+.ty-grid .g5{background:#E53935;color:#fff;font-weight:500}
 /* factura electrónica */
 .ty-fac{padding:13px 16px 12px;gap:8px;font-size:13px;color:var(--text)}
 .ty-fac header{display:flex;flex-direction:column;gap:1px;padding-bottom:9px;border-bottom:1px solid rgba(8,8,8,.1)}
@@ -1755,6 +1754,48 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
 html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-events:none}
 .top-gar{margin:clamp(24px,3vw,40px) 0 0;max-width:30ch;font-size:clamp(23px,2.5vw,36px);font-weight:400;line-height:1.14;letter-spacing:-.03em;color:var(--text);text-wrap:balance}
 .top-gar+.pc-one{margin-top:clamp(20px,2.4vw,30px)}
+/* === «Tu negocio» como recorrido guiado (EGO 24/11): primero solo la pregunta; al bajar, las ocho tarjetas
+   entran y avanzan solas, y la persona las pausa, adelanta o regresa === */
+#tuyo .ty-head{display:flex;flex-direction:column;min-height:calc(100lvh - clamp(80px,11vw,170px))}
+@media (min-width:861px){#tuyo .ty-head{min-height:calc(100lvh - clamp(84px,8vw,120px))}}
+@media (max-width:640px){#tuyo .ty-head{min-height:calc(100lvh - 72px)}}
+.ty-cue{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin:auto 0 0;padding:28px 0 calc(clamp(26px,5svh,54px) + 100lvh - 100svh);font-size:14px;color:var(--text3)}
+.ty-cue i{display:block;width:1px;height:34px;background:var(--text);transform-origin:top;animation:ty-cue 2.4s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes ty-cue{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+#tuyo .ty-row{position:relative;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x mandatory;margin-top:0;padding-inline:max(clamp(22px,6vw,80px),calc((100% - 1500px) / 2 + clamp(22px,6vw,80px)));scroll-padding-inline:max(clamp(22px,6vw,80px),calc((100% - 1500px) / 2 + clamp(22px,6vw,80px)))}
+#tuyo .ty-row::-webkit-scrollbar{display:none}
+#tuyo .ty-track{animation:none!important;will-change:auto}
+#tuyo .ty-c{scroll-snap-align:start}
+#tuyo .ty-c.on .ty-s{border-color:#080808}
+html.ty-js #tuyo .ty-c{opacity:0;transform:translate3d(56px,0,0);transition:opacity .5s ease calc(var(--i,0) * 90ms),transform .9s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 90ms)}
+html.ty-js #tuyo.ty-go .ty-c{opacity:1;transform:none}
+html.ty-js #tuyo .ty-ctl,html.ty-js #tuyo .ty-foot{opacity:0;transition:opacity .5s ease .45s}
+html.ty-js #tuyo.ty-go .ty-ctl,html.ty-js #tuyo.ty-go .ty-foot{opacity:1}
+.ty-ctl{display:flex;align-items:center;gap:clamp(14px,2vw,24px);margin-top:clamp(20px,2.4vw,30px)}
+.ty-prog{flex:0 1 360px;display:flex;gap:4px}
+.ty-prog i{position:relative;flex:1;height:2px;background:rgba(8,8,8,.14);overflow:hidden}
+.ty-prog i::after{content:'';position:absolute;inset:0;background:#080808;transform:scaleX(0);transform-origin:left}
+.ty-prog i.ok::after{transform:none}
+.ty-prog i.cur::after{animation:ty-fill var(--ty-dur,4200ms) linear forwards}
+#tuyo.ty-stop .ty-prog i.cur::after{animation-play-state:paused}
+@keyframes ty-fill{to{transform:none}}
+.ty-num{margin:0;font-size:14px;color:var(--text3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ty-btns{display:flex;gap:6px;margin-left:auto}
+.ty-b{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid rgba(8,8,8,.2);border-radius:0;background:#fff;color:var(--text);cursor:pointer;transition:border-color .2s ease}
+.ty-b svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:square}
+.ty-b .ty-ic-play{fill:currentColor;stroke:none}
+.ty-b .ty-ic-play,#tuyo.ty-user .ty-b .ty-ic-pause{display:none}
+#tuyo.ty-user .ty-b .ty-ic-play{display:block}
+.ty-b:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+@media (hover:hover){.ty-b:hover{border-color:#080808}}
+@media (max-width:640px){.ty-prog{flex:1 1 auto}.ty-num{display:none}}
+@media (prefers-reduced-motion:reduce){.ty-cue i{animation:none}}
+/* tarjeta «Tu marca»: tres versiones de la misma marca, sin mayúsculas espaciadas */
+html body .ty-marca .ty-m1{gap:10px}
+.ty-m1 i{flex:none;display:grid;place-items:center;width:calc(var(--ty-f) * 1.3);height:calc(var(--ty-f) * 1.3);background:#E53935;color:#fff;font-style:normal;font-size:calc(var(--ty-f) * .8);font-weight:600;letter-spacing:0}
+.ty-m1 span{min-width:0}
+html body .ty-marca .ty-m2{letter-spacing:-.03em;text-transform:none;font-size:var(--ty-f)!important;font-weight:500}
+html body .ty-marca .ty-m3{text-transform:none}
 </style>
 
 
@@ -1772,7 +1813,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
   <div class="reel-hint" id="reel-hint"></div>
 </div>
 
-<a id="promo-franja" href="#este-mes" data-promo="web-90">
+{promoVigente(ESTE_MES.promo.vigenteHasta) && <a id="promo-franja" href="#este-mes" data-promo="web-90">
   <span class="pf-k">{ESTE_MES.promo.etiquetaFranja}</span>
   <span class="pf-name">Web profesional</span>
   <span class="pf-prices">
@@ -1782,7 +1823,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
   <span class="pf-until">Hasta el {formatFechaCorta(ESTE_MES.promo.vigenteHasta)}</span>
   <span class="pf-also">Análisis de Marca Esencial · USD 47</span>
   <span class="pf-go">Ver oferta</span>
-</a>
+</a>}
 <nav id="nav">
   <a class="nav-logo" href="/" aria-label="BIE, inicio"><img src="/images/marca/bie-cuadro-96.webp" width="40" height="40" alt="BIE"></a>
   <div class="nav-links">
@@ -1841,17 +1882,18 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
 
 <!-- TU NEGOCIO: lo primero después del cubo. El visitante escribe su nombre y lo ve en ocho productos reales del catálogo -->
 <section id="tuyo" class="tuyo" aria-label="Lo que hacemos, con el nombre de tu negocio">
-  <div class="section-inner">
+  <div class="section-inner ty-head">
     <p class="section-label" data-i18n="ty_k" set:html={es('ty_k')}></p>
     <label class="section-h2 ty-q" for="ty-in" data-i18n="ty_q" set:html={es('ty_q')}></label>
     <input class="ty-in" id="ty-in" type="text" maxlength="40" autocomplete="organization" autocapitalize="words" enterkeyhint="done" spellcheck="false" placeholder={es('ty_ph')} />
     <p class="ty-sub" data-i18n="ty_sub" set:html={es('ty_sub')}></p>
+    <p class="ty-cue" aria-hidden="true"><span data-i18n="ty_cue" set:html={es('ty_cue')}></span><i></i></p>
   </div>
   <div class="ty-row" id="ty-row">
   <div class="ty-track" id="ty-track">
     <a class="ty-c" href={tyHref('identidad-de-marca')}>
       <div class="ty-s ty-marca" aria-hidden="true">
-        <b class="ty-m1" data-ty>Tu negocio</b>
+        <b class="ty-m1"><i data-ty-ini>T</i><span data-ty>Tu negocio</span></b>
         <b class="ty-m2" data-ty>Tu negocio</b>
         <b class="ty-m3" data-ty>Tu negocio</b>
       </div>
@@ -1894,7 +1936,7 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
     <a class="ty-c" href={tyHref('gestion-redes-sociales')}>
       <div class="ty-s ty-ig" aria-hidden="true">
         <header><i data-ty-ini>T</i><div><b data-ty-at>tunegocio</b><small data-i18n="ty_i_bio" set:html={es('ty_i_bio')}></small></div></header>
-        <div class="ty-grid"><span class="g1" data-ty>Tu negocio</span><span class="g2"></span><span class="g3" data-ty>Tu negocio</span><span class="g4"></span><span class="g5" data-ty>Tu negocio</span><span class="g6"></span></div>
+        <div class="ty-grid"><span class="g1" data-ty>Tu negocio</span><span class="g2" data-i18n="ty_ig_new" set:html={es('ty_ig_new')}></span><span class="g3" data-ty-ini>T</span><span class="g4" data-i18n="ty_ig_open" set:html={es('ty_ig_open')}></span><span class="g5" data-i18n="ty_ig_promo" set:html={es('ty_ig_promo')}></span><span class="g6" data-ty>Tu negocio</span></div>
       </div>
       <h3 class="ty-t" data-i18n="ty_c7_k" set:html={es('ty_c7_k')}></h3>
       <p class="ty-d" data-i18n="ty_c7" set:html={es('ty_c7')}></p>
@@ -1936,6 +1978,15 @@ html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-e
       <p class="ty-d" data-i18n="ty_c4" set:html={es('ty_c4')}></p>
     </a>
   </div>
+  </div>
+  <div class="section-inner ty-ctl" id="ty-ctl">
+    <div class="ty-prog" id="ty-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="ty-num" aria-live="polite"><span id="ty-i">1</span> / 8</p>
+    <div class="ty-btns">
+      <button type="button" class="ty-b" id="ty-prev" aria-label="Anterior"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg></button>
+      <button type="button" class="ty-b" id="ty-play" aria-label="Pausar"><svg class="ty-ic-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5v11M13 4.5v11"/></svg><svg class="ty-ic-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.2 15.5 10l-9 5.8z"/></svg></button>
+      <button type="button" class="ty-b" id="ty-next" aria-label="Siguiente"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4l6 6-6 6"/></svg></button>
+    </div>
   </div>
   <div class="section-inner ty-foot">
     <a class="btn-primary" id="ty-wa" href={'https://wa.me/' + WA_NUM_SSR} target="_blank" rel="noopener"><span data-i18n="ty_btn" set:html={es('ty_btn')}></span> <span id="ty-wa-n">mi negocio</span></a>
