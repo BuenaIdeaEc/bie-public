@@ -1428,7 +1428,7 @@ setTimeout(__start, 800);
   function ir(k, suave){
     cur = (k + N) % N;
     const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft) || 0;
-    propio = Date.now();
+    propio = Date.now(); clearTimeout(scT);
     row.scrollTo({ left: Math.max(0, cards[cur].offsetLeft - pad), behavior: suave && !reduce ? 'smooth' : 'auto' });
     marca();
   }
@@ -1445,7 +1445,7 @@ setTimeout(__start, 800);
   row.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) tomaMano(); }, { passive: true });
   let scT = 0;
   row.addEventListener('scroll', () => {
-    if (Date.now() - propio < 900) return;
+    if (Date.now() - propio < 1200) return;
     clearTimeout(scT);
     scT = setTimeout(() => {
       const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft) || 0, x = row.scrollLeft + pad;
