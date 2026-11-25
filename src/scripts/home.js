@@ -1334,7 +1334,7 @@ setTimeout(__start, 800);
   const track = document.getElementById('ty-track');
   const titulo = document.querySelector('#contact .section-h2'), empresa = document.getElementById('in-comp');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const KEY = 'bie_tuyo', DEMO = ['Panadería Rosita', 'Consultorio Sonríe', 'Ferretería El Clavo', 'Moda Amaru'];
+  const KEY = 'bie_tuyo', DEMO = ['Panadería Rosita', 'Consultorio Sonríe', 'Ferretería El Clavo', 'Moda Amaru', 'Café Molino', 'Gimnasio Fuerza'];
   let nombre = '';
   try { nombre = (sessionStorage.getItem(KEY) || '').slice(0, 40); } catch (e) {}
   if (nombre) input.value = nombre;
@@ -1342,21 +1342,22 @@ setTimeout(__start, 800);
   const esc = (x) => x.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const dominio = (x) => x.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '').slice(0, 24);
 
+  // Sin nombre escrito, cada tarjeta muestra su propio negocio de ejemplo (data-demo); con nombre, todas muestran el de la persona.
   function pinta(x){
-    const v = x || (lang === 'es' ? 'Tu negocio' : 'Your business');
-    const d = dominio(x) || (lang === 'es' ? 'tunegocio' : 'yourbusiness');
-    const f = v.length <= 13 ? 30 : v.length <= 20 ? 24 : v.length <= 30 ? 19 : 16;
-    document.querySelectorAll('.tuyo').forEach((s) => {
-      s.querySelectorAll('[data-ty]').forEach((el) => { el.textContent = v; });
-      s.querySelectorAll('[data-ty-dom]').forEach((el) => { el.textContent = d + '.ec'; });
-      s.querySelectorAll('[data-ty-at]').forEach((el) => { el.textContent = d; });
-      s.querySelectorAll('[data-ty-ini]').forEach((el) => { el.textContent = v.charAt(0).toUpperCase(); });
-      s.querySelectorAll('.ty-marca').forEach(m => m.style.setProperty('--ty-f', f + 'px'));
+    document.querySelectorAll('.tuyo .ty-c').forEach((card) => {
+      const v = x || card.dataset.demo || (lang === 'es' ? 'Tu negocio' : 'Your business');
+      const d = dominio(v) || (lang === 'es' ? 'tunegocio' : 'yourbusiness');
+      const f = v.length <= 13 ? 30 : v.length <= 20 ? 24 : v.length <= 30 ? 19 : 16;
+      card.querySelectorAll('[data-ty]').forEach((el) => { el.textContent = v; });
+      card.querySelectorAll('[data-ty-dom]').forEach((el) => { el.textContent = d + '.ec'; });
+      card.querySelectorAll('[data-ty-at]').forEach((el) => { el.textContent = d; });
+      card.querySelectorAll('[data-ty-ini]').forEach((el) => { el.textContent = v.charAt(0).toUpperCase(); });
+      card.querySelectorAll('.ty-marca').forEach(m => m.style.setProperty('--ty-f', f + 'px'));
     });
   }
   function aplica(){
     const n = limpio();
-    if (!demoOn) pinta(n);
+    pinta(n);
     btnN.textContent = n || (lang === 'es' ? 'mi negocio' : 'my business');
     btn.href = wa((lang === 'es'
       ? 'Hola, tengo ' + (n || 'un negocio') + '. Vi en su página cómo se vería y quiero saber más. Vendo: '
@@ -1384,7 +1385,6 @@ setTimeout(__start, 800);
     const parte = w.slice(0, ci);
     input.placeholder = parte || ' ';
     document.querySelectorAll('.tuyo .ty-in').forEach((el) => { if (el !== input) el.placeholder = input.placeholder; });
-    pinta(parte);
     let t = borra ? 26 : 72;
     if (!borra && ci >= w.length) { borra = true; t = 2800; }
     else if (borra && ci <= 0) { borra = false; di++; t = 320; }

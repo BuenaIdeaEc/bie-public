@@ -1641,7 +1641,7 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-res p{margin:5px 0 0;font-size:13.5px;line-height:1.3;color:var(--text2)}
 .ty-web i{display:block;flex:0 0 11px;background:#f4f4f2}
 .ty-web i:nth-of-type(even){width:68%}
-.ty-chat{background:#f4f4f2;font-size:14px;line-height:1.3}
+.ty-chat{background:var(--ty-accent-light,#f4f4f2);font-size:14px;line-height:1.3}
 .ty-chat header,.ty-sis header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:13px 16px;background:#fff;border-bottom:1px solid rgba(8,8,8,.1)}
 .ty-chat header b,.ty-sis header b{min-width:0;font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .ty-chat header small,.ty-sis header small{flex:none;font-size:12px;color:var(--text3)}
@@ -1655,7 +1655,7 @@ html body .ty-q{display:block;margin:0;cursor:text}
 .ty-sis li{flex:1;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(8,8,8,.08);font-size:15px;color:var(--text)}
 .ty-sis li:last-child{border-bottom:0}
 .ty-sis em{font-style:normal;font-size:13px;color:var(--text3)}
-.ty-sis em.rev{color:var(--accent-dark)}
+.ty-sis em.rev{color:var(--ty-accent-text,var(--accent-dark))}
 @media (max-width:1040px){
   .ty-c{flex:0 0 min(78vw,360px)}
   .ty-s{height:clamp(240px,34lvh,320px)}
@@ -1703,9 +1703,9 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
   html body .tuyo .ty-q{max-width:none}
 }
 /* tarjeta de presentación: el frente blanco y el reverso en el color de la marca */
-.ty-card{position:relative;background:#f4f4f2}
+.ty-card{position:relative;background:var(--ty-accent-light,#f4f4f2)}
 .ty-card>div{position:absolute;width:66%;aspect-ratio:1.75;display:flex;flex-direction:column;overflow:hidden}
-.ty-k2{right:8%;top:11%;background:#E53935;color:#fff;align-items:flex-end;padding:5% 6%}
+.ty-k2{right:8%;top:11%;background:var(--ty-accent,#E53935);color:var(--ty-on,#fff);align-items:flex-end;padding:5% 6%}
 .ty-k2 b{max-width:70%;font-size:14px;font-weight:500;letter-spacing:-.02em;text-transform:lowercase;text-align:right;overflow-wrap:anywhere;line-height:1.05}
 .ty-k1{left:8%;bottom:11%;background:#fff;border:1px solid rgba(8,8,8,.16);justify-content:space-between;padding:6% 7%}
 .ty-k1 b{font-size:16px;font-weight:600;letter-spacing:-.035em;line-height:1.05;overflow-wrap:anywhere;color:#080808}
@@ -1719,28 +1719,28 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
   linear-gradient(32deg,transparent 22%,#fff 22%,#fff 24.5%,transparent 24.5%),
   repeating-linear-gradient(0deg,transparent 0 33px,rgba(8,8,8,.045) 33px 34px),
   repeating-linear-gradient(90deg,transparent 0 41px,rgba(8,8,8,.045) 41px 42px)}
-.ty-pin{position:absolute;left:46%;top:58%;width:22px;height:22px;margin:-30px 0 0 -11px;background:#E53935;border:3px solid #fff;box-shadow:0 0 0 1px rgba(8,8,8,.12)}
-.ty-pin::after{content:'';position:absolute;left:50%;top:100%;margin:3px 0 0 -6px;border:6px solid transparent;border-top:7px solid #E53935}
+.ty-pin{position:absolute;left:46%;top:58%;width:22px;height:22px;margin:-30px 0 0 -11px;background:var(--ty-accent,#E53935);border:3px solid #fff;box-shadow:0 0 0 1px rgba(8,8,8,.12)}
+.ty-pin::after{content:'';position:absolute;left:50%;top:100%;margin:3px 0 0 -6px;border:6px solid transparent;border-top:7px solid var(--ty-accent,#E53935)}
 .ty-ficha{flex:none;padding:11px 14px 13px;border-top:1px solid rgba(8,8,8,.1);background:#fff}
 .ty-ficha b{display:block;font-size:16px;font-weight:600;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .ty-ficha small{display:block;margin-top:2px;font-size:12px;color:var(--text3)}
 .ty-ficha p{display:flex;gap:6px;margin:10px 0 0}
 .ty-ficha span{flex:1;min-width:0;padding:6px 4px;border:1px solid rgba(8,8,8,.2);font-size:11.5px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
-.ty-ficha span:first-child{background:#080808;border-color:#080808;color:#fff}
+.ty-ficha span:first-child{background:var(--ty-accent,#E53935);border-color:var(--ty-accent,#E53935);color:var(--ty-on,#fff)}
 /* Instagram */
 .ty-ig{padding:12px;gap:11px}
 .ty-ig header{display:flex;align-items:center;gap:10px;min-width:0}
-.ty-ig header i{flex:none;width:40px;height:40px;border-radius:50%;background:#080808;color:#fff;display:grid;place-items:center;font-style:normal;font-size:17px;font-weight:600}
+.ty-ig header i{flex:none;width:40px;height:40px;border-radius:50%;background:var(--ty-accent,#080808);color:var(--ty-on,#fff);display:grid;place-items:center;font-style:normal;font-size:17px;font-weight:600}
 .ty-ig header div{min-width:0}
 .ty-ig header b{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
 .ty-ig header small{display:block;font-size:12px;color:var(--text3)}
 .ty-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:3px}
 .ty-grid span{display:flex;align-items:flex-end;padding:6px;overflow:hidden;font-size:11px;font-weight:600;line-height:1.05;letter-spacing:-.01em;overflow-wrap:anywhere}
 .ty-grid .g1,.ty-grid .g6{background:#080808;color:#fff}
-.ty-grid .g2,.ty-grid .g4{background:#f4f4f2;color:#080808;font-weight:500}
+.ty-grid .g2,.ty-grid .g4{background:var(--ty-accent-light,#f4f4f2);color:#080808;font-weight:500}
 .ty-grid .g2{font-size:15px;letter-spacing:-.02em}
-.ty-grid .g3{background:#E53935;color:#fff;align-items:center;justify-content:center;font-size:30px;font-weight:500}
-.ty-grid .g5{background:#E53935;color:#fff;font-weight:500}
+.ty-grid .g3{background:var(--ty-accent,#E53935);color:var(--ty-on,#fff);align-items:center;justify-content:center;font-size:30px;font-weight:500}
+.ty-grid .g5{background:var(--ty-accent,#E53935);color:var(--ty-on,#fff);font-weight:500}
 /* factura electrónica */
 .ty-fac{padding:13px 16px 12px;gap:8px;font-size:13px;color:var(--text)}
 .ty-fac header{display:flex;flex-direction:column;gap:1px;padding-bottom:9px;border-bottom:1px solid rgba(8,8,8,.1)}
@@ -1748,12 +1748,87 @@ a.ty-c{display:block;color:inherit;text-decoration:none}
 .ty-fac header small{font-size:11.5px;color:var(--text3)}
 .ty-fac ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
 .ty-fac li{display:flex;justify-content:space-between;gap:10px;color:var(--text2);font-variant-numeric:tabular-nums}
-.ty-tot{margin:auto 0 0;display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;border-top:1px solid var(--text)}
+.ty-tot{margin:auto 0 0;display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;border-top:2px solid var(--ty-accent,var(--text))}
 .ty-tot b{font-size:20px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .ty-fac em{font-style:normal;font-size:11.5px;color:var(--text3)}
 html body.in-contact #wa-fab,html body.in-contact #wa-bubble{opacity:0;pointer-events:none}
 .top-gar{margin:clamp(24px,3vw,40px) 0 0;max-width:30ch;font-size:clamp(23px,2.5vw,36px);font-weight:400;line-height:1.14;letter-spacing:-.03em;color:var(--text);text-wrap:balance}
 .top-gar+.pc-one{margin-top:clamp(20px,2.4vw,30px)}
+/* gama de rojos de la marca por tarjeta (EGO 24/11): del vino al rosado; los oscuros llevan texto blanco y los claros tinta (AA) */
+#tuyo .ty-c:nth-child(1),#cubo-reveal .ty-c:nth-child(1){--ty-accent:#E53935;--ty-on:#080808;--ty-accent-light:#FDECEA;--ty-accent-text:#C62A26}
+#tuyo .ty-c:nth-child(2),#cubo-reveal .ty-c:nth-child(2){--ty-accent:#5E1A1D;--ty-on:#fff;--ty-accent-light:#F5E8E8;--ty-accent-text:#5E1A1D}
+#tuyo .ty-c:nth-child(3),#cubo-reveal .ty-c:nth-child(3){--ty-accent:#B3261E;--ty-on:#fff;--ty-accent-light:#FBE7E5;--ty-accent-text:#B3261E}
+#tuyo .ty-c:nth-child(4),#cubo-reveal .ty-c:nth-child(4){--ty-accent:#EF6C5A;--ty-on:#080808;--ty-accent-light:#FEF0ED;--ty-accent-text:#B3261E}
+#tuyo .ty-c:nth-child(5),#cubo-reveal .ty-c:nth-child(5){--ty-accent:#8C1D24;--ty-on:#fff;--ty-accent-light:#F8E6E6;--ty-accent-text:#8C1D24}
+#tuyo .ty-c:nth-child(6),#cubo-reveal .ty-c:nth-child(6){--ty-accent:#F4A7A1;--ty-on:#080808;--ty-accent-light:#FEF3F2;--ty-accent-text:#B3261E}
+#tuyo .ty-c:nth-child(7),#cubo-reveal .ty-c:nth-child(7){--ty-accent:#D92D2A;--ty-on:#fff;--ty-accent-light:#FDEDEC;--ty-accent-text:#C62A26}
+#tuyo .ty-c:nth-child(8),#cubo-reveal .ty-c:nth-child(8){--ty-accent:#5E1A1D;--ty-on:#fff;--ty-accent-light:#F5E8E8;--ty-accent-text:#5E1A1D}
+#tuyo .ty-c:nth-child(9),#cubo-reveal .ty-c:nth-child(9){--ty-accent:#EF6C5A;--ty-on:#080808;--ty-accent-light:#FEF0ED;--ty-accent-text:#B3261E}
+#tuyo .ty-c:nth-child(10),#cubo-reveal .ty-c:nth-child(10){--ty-accent:#F4A7A1;--ty-on:#080808;--ty-accent-light:#FEF3F2;--ty-accent-text:#B3261E}
+#tuyo .ty-c:nth-child(11),#cubo-reveal .ty-c:nth-child(11){--ty-accent:#B3261E;--ty-on:#fff;--ty-accent-light:#FBE7E5;--ty-accent-text:#B3261E}
+#tuyo .ty-c:nth-child(12),#cubo-reveal .ty-c:nth-child(12){--ty-accent:#8C1D24;--ty-on:#fff;--ty-accent-light:#F8E6E6;--ty-accent-text:#8C1D24}
+#tuyo .ty-c:nth-child(13),#cubo-reveal .ty-c:nth-child(13){--ty-accent:#D92D2A;--ty-on:#fff;--ty-accent-light:#FDEDEC;--ty-accent-text:#C62A26}
+#tuyo .ty-c:nth-child(14),#cubo-reveal .ty-c:nth-child(14){--ty-accent:#5E1A1D;--ty-on:#fff;--ty-accent-light:#F5E8E8;--ty-accent-text:#5E1A1D}
+/* reserva en línea */
+.ty-rsv{padding:13px 16px 12px;gap:6px;font-size:13px;color:var(--text)}
+.ty-rsv header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:9px;border-bottom:1px solid rgba(8,8,8,.1)}
+.ty-rsv header b{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ty-rsv header small{font-size:12px;color:var(--text3)}
+.ty-rsv ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.ty-rsv li{display:flex;justify-content:space-between;gap:10px;color:var(--text2)}
+.ty-rsv em{font-style:normal;font-size:12px;color:var(--text3)}
+.ty-rsv em.rev{color:var(--ty-accent-text,#C62A26);font-weight:500}
+/* catálogo / menú digital */
+.ty-cata{padding:13px 16px 12px;gap:6px;font-size:13px;color:var(--text)}
+.ty-cata header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:9px;border-bottom:1px solid rgba(8,8,8,.1)}
+.ty-cata header b{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ty-cata header small{font-size:12px;color:var(--ty-accent-text,#C62A26);font-weight:500}
+.ty-cata ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px}
+.ty-cata li{display:flex;justify-content:space-between;gap:10px;color:var(--text2);font-variant-numeric:tabular-nums}
+/* anuncio Google */
+.ty-ad{padding:14px 16px;gap:10px}
+.ty-ad .ty-bus{margin:0;padding:9px 12px;border:1px solid rgba(8,8,8,.2);font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ty-ad .ty-res{flex:1;min-height:0}
+.ty-ad .ty-res small{display:block;font-size:12px;color:var(--ty-accent-text,#C62A26);font-weight:500}
+.ty-ad .ty-res b{display:block;margin-top:3px;font-size:17px;font-weight:500;line-height:1.16;letter-spacing:-.015em;color:var(--text);overflow-wrap:anywhere}
+.ty-ad .ty-res p{margin:3px 0 0;font-size:13px;color:var(--text3)}
+.ty-ad-cta{display:inline-block;margin-top:auto;padding:7px 14px;border:1px solid var(--ty-accent-text,#C62A26);font-style:normal;font-size:13px;font-weight:500;color:var(--ty-accent-text,#C62A26)}
+/* reel / TikTok */
+.ty-reel{position:relative;overflow:hidden;background:var(--ty-accent,#E53935)}
+.ty-reel-bg{display:grid;place-items:center;height:100%;font-size:96px;font-weight:500;letter-spacing:-.04em;color:var(--ty-on,#fff);opacity:.22;font-style:normal}
+.ty-reel-info{position:absolute;left:12px;bottom:12px;right:12px;display:flex;align-items:baseline;gap:8px;color:var(--ty-on,#fff);font-size:14px;font-weight:600}
+.ty-reel-info small{font-size:12px;font-weight:400;opacity:.8}
+/* tienda en línea */
+.ty-shop{padding:13px 16px 12px;gap:8px}
+.ty-shop header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px;border-bottom:1px solid rgba(8,8,8,.1)}
+.ty-shop header b{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ty-shop header small{font-size:12px;color:var(--ty-accent-text,#C62A26);font-weight:500}
+.ty-shop-grid{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ty-shop-grid span{background:var(--ty-accent-light,#FDECEA);border:1px solid rgba(8,8,8,.06)}
+.ty-shop-cta{display:block;margin-top:auto;padding:8px;background:var(--ty-accent,#E53935);color:var(--ty-on,#fff);font-style:normal;font-size:13px;font-weight:500;text-align:center}
+/* curso online */
+.ty-curso{padding:14px 16px;gap:10px}
+.ty-curso header{display:flex;justify-content:space-between;align-items:baseline}
+.ty-curso header b{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ty-curso header small{font-size:12px;color:var(--text3)}
+.ty-curso-bar{height:4px;background:rgba(8,8,8,.1);overflow:hidden}
+.ty-curso-bar i{display:block;height:100%;background:var(--ty-accent,#E53935)}
+.ty-curso-info{margin:0;font-size:13px;color:var(--text2)}
+.ty-curso-cta{display:block;margin-top:auto;padding:8px;background:var(--ty-accent,#E53935);color:var(--ty-on,#fff);font-style:normal;font-size:13px;font-weight:500;text-align:center}
+/* cada sistema lleva la cabecera en el color de su marca (EGO 24/11: que cada ejemplo se vea distinto) */
+.ty-chat header,.ty-sis header{background:var(--ty-accent,#fff);border-bottom-color:transparent}
+.ty-rsv header,.ty-cata header,.ty-fac header,.ty-shop header{margin:-13px -16px 4px;padding:11px 16px;background:var(--ty-accent,#fff);border-bottom:0}
+.ty-curso header{margin:-14px -16px 0;padding:11px 16px;background:var(--ty-accent,#fff)}
+.ty-chat header b,.ty-sis header b,.ty-rsv header b,.ty-cata header b,.ty-fac header b,.ty-shop header b,.ty-curso header b{color:var(--ty-on,var(--text))}
+html body .ty-c .ty-s:not(.ty-ig) header small{color:var(--ty-on,var(--text3))}
+.ty-rsv ul,.ty-cata ul{flex:1}
+.ty-rsv li,.ty-cata li{flex:1;align-items:center;border-bottom:1px solid rgba(8,8,8,.08)}
+.ty-rsv li:last-child,.ty-cata li:last-child{border-bottom:0}
+.ty-shop-grid span:nth-child(1),.ty-shop-grid span:nth-child(4){background:var(--ty-accent,#E53935)}
+.ty-curso-l{flex:1;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;font-size:13px;color:var(--text2)}
+.ty-curso-l li{flex:1;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(8,8,8,.08)}
+.ty-curso-l li::before{content:'';flex:none;width:9px;height:9px;border:1px solid var(--ty-accent-text,#C62A26)}
+.ty-curso-l li.ok::before{background:var(--ty-accent-text,#C62A26)}
 /* === «Tu negocio» como recorrido guiado (EGO 24/11): primero solo la pregunta; al bajar, las ocho tarjetas
    entran y avanzan solas, y la persona las pausa, adelanta o regresa === */
 .tuyo .ty-head{display:flex;flex-direction:column;min-height:calc(100lvh - clamp(80px,11vw,170px))}
@@ -1797,10 +1872,10 @@ html.ty-js #tuyo.ty-go .ty-ctl,html.ty-js #tuyo.ty-go .ty-foot{opacity:1}
 @media (prefers-reduced-motion:reduce){.ty-cue i{animation:none}}
 /* tarjeta «Tu marca»: tres versiones de la misma marca, sin mayúsculas espaciadas */
 html body .ty-marca .ty-m1{gap:10px}
-.ty-m1 i{flex:none;display:grid;place-items:center;width:calc(var(--ty-f) * 1.3);height:calc(var(--ty-f) * 1.3);background:#E53935;color:#fff;font-style:normal;font-size:calc(var(--ty-f) * .8);font-weight:600;letter-spacing:0}
+.ty-m1 i{flex:none;display:grid;place-items:center;width:calc(var(--ty-f) * 1.3);height:calc(var(--ty-f) * 1.3);background:var(--ty-accent,#E53935);color:var(--ty-on,#fff);font-style:normal;font-size:calc(var(--ty-f) * .8);font-weight:600;letter-spacing:0}
 .ty-m1 span{min-width:0}
 html body .ty-marca .ty-m2{letter-spacing:-.03em;text-transform:none;font-size:var(--ty-f)!important;font-weight:500}
-html body .ty-marca .ty-m3{text-transform:none}
+html body .ty-marca .ty-m3{text-transform:none;background:var(--ty-accent,#E53935);color:var(--ty-on,#fff)}
 </style>
 
 
@@ -1896,29 +1971,29 @@ html body .ty-marca .ty-m3{text-transform:none}
   </div>
   <div class="ty-row" id="ty-row">
   <div class="ty-track" id="ty-track">
-    <a class="ty-c" href={tyHref('identidad-de-marca')}>
+    <a class="ty-c" data-demo="Panadería Rosita" href={tyHref('identidad-de-marca')}>
       <div class="ty-s ty-marca" aria-hidden="true">
-        <b class="ty-m1"><i data-ty-ini>T</i><span data-ty>Tu negocio</span></b>
-        <b class="ty-m2" data-ty>Tu negocio</b>
-        <b class="ty-m3" data-ty>Tu negocio</b>
+        <b class="ty-m1"><i data-ty-ini>P</i><span data-ty>Panadería Rosita</span></b>
+        <b class="ty-m2" data-ty>Panadería Rosita</b>
+        <b class="ty-m3" data-ty>Panadería Rosita</b>
       </div>
       <h3 class="ty-t" data-i18n="ty_c1_k" set:html={es('ty_c1_k')}></h3>
       <p class="ty-d" data-i18n="ty_c1" set:html={es('ty_c1')}></p>
     </a>
-    <a class="ty-c" href={tyHref('identidad-de-marca')}>
+    <a class="ty-c" data-demo="Estudio Vera Abogados" href={tyHref('identidad-de-marca')}>
       <div class="ty-s ty-card" aria-hidden="true">
-        <div class="ty-k2"><b data-ty>Tu negocio</b></div>
-        <div class="ty-k1"><b data-ty>Tu negocio</b><small><span data-ty-dom>tunegocio.ec</span><br><span data-i18n="ty_k_tel" set:html={es('ty_k_tel')}></span></small></div>
+        <div class="ty-k2"><b data-ty>Estudio Vera Abogados</b></div>
+        <div class="ty-k1"><b data-ty>Estudio Vera Abogados</b><small><span data-ty-dom>estudioveraabogados.ec</span><br><span data-i18n="ty_k_tel" set:html={es('ty_k_tel')}></span></small></div>
       </div>
       <h3 class="ty-t" data-i18n="ty_c5_k" set:html={es('ty_c5_k')}></h3>
       <p class="ty-d" data-i18n="ty_c5" set:html={es('ty_c5')}></p>
     </a>
-    <a class="ty-c" href={tyHref('pagina-web')}>
+    <a class="ty-c" data-demo="Ferretería El Clavo" href={tyHref('pagina-web')}>
       <div class="ty-s ty-web" aria-hidden="true">
-        <p class="ty-bus" data-ty>Tu negocio</p>
+        <p class="ty-bus" data-ty>Ferretería El Clavo</p>
         <div class="ty-res">
-          <small data-ty-dom>tunegocio.ec</small>
-          <b><span data-ty>Tu negocio</span> | <span data-i18n="ty_w_t" set:html={es('ty_w_t')}></span></b>
+          <small data-ty-dom>ferreteriaelclavo.ec</small>
+          <b><span data-ty>Ferretería El Clavo</span> | <span data-i18n="ty_w_t" set:html={es('ty_w_t')}></span></b>
           <p data-i18n="ty_w_d" set:html={es('ty_w_d')}></p>
         </div>
         <i></i><i></i><i></i><i></i>
@@ -1926,11 +2001,11 @@ html body .ty-marca .ty-m3{text-transform:none}
       <h3 class="ty-t" data-i18n="ty_c2_k" set:html={es('ty_c2_k')}></h3>
       <p class="ty-d" data-i18n="ty_c2" set:html={es('ty_c2')}></p>
     </a>
-    <a class="ty-c" href={tyHref('perfil-google-maps')}>
+    <a class="ty-c" data-demo="Café Molino" href={tyHref('perfil-google-maps')}>
       <div class="ty-s ty-map" aria-hidden="true">
         <div class="ty-mapa"><i class="ty-pin"></i></div>
         <div class="ty-ficha">
-          <b data-ty>Tu negocio</b>
+          <b data-ty>Café Molino</b>
           <small data-i18n="ty_g_h" set:html={es('ty_g_h')}></small>
           <p><span data-i18n="ty_g_1" set:html={es('ty_g_1')}></span><span data-i18n="ty_g_2" set:html={es('ty_g_2')}></span><span>WhatsApp</span></p>
         </div>
@@ -1938,26 +2013,26 @@ html body .ty-marca .ty-m3{text-transform:none}
       <h3 class="ty-t" data-i18n="ty_c6_k" set:html={es('ty_c6_k')}></h3>
       <p class="ty-d" data-i18n="ty_c6" set:html={es('ty_c6')}></p>
     </a>
-    <a class="ty-c" href={tyHref('gestion-redes-sociales')}>
+    <a class="ty-c" data-demo="Moda Amaru" href={tyHref('gestion-redes-sociales')}>
       <div class="ty-s ty-ig" aria-hidden="true">
-        <header><i data-ty-ini>T</i><div><b data-ty-at>tunegocio</b><small data-i18n="ty_i_bio" set:html={es('ty_i_bio')}></small></div></header>
-        <div class="ty-grid"><span class="g1" data-ty>Tu negocio</span><span class="g2" data-i18n="ty_ig_new" set:html={es('ty_ig_new')}></span><span class="g3" data-ty-ini>T</span><span class="g4" data-i18n="ty_ig_open" set:html={es('ty_ig_open')}></span><span class="g5" data-i18n="ty_ig_promo" set:html={es('ty_ig_promo')}></span><span class="g6" data-ty>Tu negocio</span></div>
+        <header><i data-ty-ini>M</i><div><b data-ty-at>modaamaru</b><small data-i18n="ty_i_bio" set:html={es('ty_i_bio')}></small></div></header>
+        <div class="ty-grid"><span class="g1" data-ty>Moda Amaru</span><span class="g2" data-i18n="ty_ig_new" set:html={es('ty_ig_new')}></span><span class="g3" data-ty-ini>M</span><span class="g4" data-i18n="ty_ig_open" set:html={es('ty_ig_open')}></span><span class="g5" data-i18n="ty_ig_promo" set:html={es('ty_ig_promo')}></span><span class="g6" data-ty>Moda Amaru</span></div>
       </div>
       <h3 class="ty-t" data-i18n="ty_c7_k" set:html={es('ty_c7_k')}></h3>
       <p class="ty-d" data-i18n="ty_c7" set:html={es('ty_c7')}></p>
     </a>
-    <a class="ty-c" href={tyHref('asistente-inteligente-whatsapp')}>
+    <a class="ty-c" data-demo="Consultorio Sonríe" href={tyHref('asistente-inteligente-whatsapp')}>
       <div class="ty-s ty-chat" aria-hidden="true">
-        <header><b data-ty>Tu negocio</b><small data-i18n="ty_m_on" set:html={es('ty_m_on')}></small></header>
+        <header><b data-ty>Consultorio Sonríe</b><small data-i18n="ty_m_on" set:html={es('ty_m_on')}></small></header>
         <p class="ty-in-m"><span data-i18n="ty_m_q" set:html={es('ty_m_q')}></span><time>23:07</time></p>
-        <p class="ty-out-m"><span data-i18n="ty_m_a" set:html={es('ty_m_a')}></span> <b data-ty>Tu negocio</b>. <span data-i18n="ty_m_b" set:html={es('ty_m_b')}></span><time>23:07</time></p>
+        <p class="ty-out-m"><span data-i18n="ty_m_a" set:html={es('ty_m_a')}></span> <b data-ty>Consultorio Sonríe</b>. <span data-i18n="ty_m_b" set:html={es('ty_m_b')}></span><time>23:07</time></p>
       </div>
       <h3 class="ty-t" data-i18n="ty_c3_k" set:html={es('ty_c3_k')}></h3>
       <p class="ty-d" data-i18n="ty_c3" set:html={es('ty_c3')}></p>
     </a>
-    <a class="ty-c" href={tyHref('facturacion-electronica')}>
+    <a class="ty-c" data-demo="Taller Andino" href={tyHref('facturacion-electronica')}>
       <div class="ty-s ty-fac" aria-hidden="true">
-        <header><b data-ty>Tu negocio</b><small data-i18n="ty_f_n" set:html={es('ty_f_n')}></small></header>
+        <header><b data-ty>Taller Andino</b><small data-i18n="ty_f_n" set:html={es('ty_f_n')}></small></header>
         <ul>
           <li><span data-i18n="ty_f_1" set:html={es('ty_f_1')}></span><span data-i18n="ty_f_v1" set:html={es('ty_f_v1')}></span></li>
           <li><span data-i18n="ty_f_2" set:html={es('ty_f_2')}></span><span data-i18n="ty_f_v2" set:html={es('ty_f_v2')}></span></li>
@@ -1969,9 +2044,9 @@ html body .ty-marca .ty-m3{text-transform:none}
       <h3 class="ty-t" data-i18n="ty_c8_k" set:html={es('ty_c8_k')}></h3>
       <p class="ty-d" data-i18n="ty_c8" set:html={es('ty_c8')}></p>
     </a>
-    <a class="ty-c" href={tyHref('sistema-operativo')}>
+    <a class="ty-c" data-demo="Veterinaria Patitas" href={tyHref('sistema-operativo')}>
       <div class="ty-s ty-sis" aria-hidden="true">
-        <header><b data-ty>Tu negocio</b><small data-i18n="ty_s_h" set:html={es('ty_s_h')}></small></header>
+        <header><b data-ty>Veterinaria Patitas</b><small data-i18n="ty_s_h" set:html={es('ty_s_h')}></small></header>
         <ul>
           <li><span data-i18n="ty_s1" set:html={es('ty_s1')}></span><em data-i18n="ty_ok" set:html={es('ty_ok')}></em></li>
           <li><span data-i18n="ty_s2" set:html={es('ty_s2')}></span><em class="rev" data-i18n="ty_rev" set:html={es('ty_rev')}></em></li>
@@ -1982,11 +2057,81 @@ html body .ty-marca .ty-m3{text-transform:none}
       <h3 class="ty-t" data-i18n="ty_c4_k" set:html={es('ty_c4_k')}></h3>
       <p class="ty-d" data-i18n="ty_c4" set:html={es('ty_c4')}></p>
     </a>
+    <a class="ty-c" data-demo="Salón Bella Luna" href={tyHref('aplicacion-web')}>
+      <div class="ty-s ty-rsv" aria-hidden="true">
+        <header><b data-ty>Salón Bella Luna</b><small data-i18n="ty_rsv_h" set:html={es('ty_rsv_h')}></small></header>
+        <ul>
+          <li><span data-i18n="ty_rsv_1" set:html={es('ty_rsv_1')}></span><em data-i18n="ty_rsv_ok" set:html={es('ty_rsv_ok')}></em></li>
+          <li><span data-i18n="ty_rsv_2" set:html={es('ty_rsv_2')}></span><em data-i18n="ty_rsv_ok" set:html={es('ty_rsv_ok')}></em></li>
+          <li><span data-i18n="ty_rsv_3" set:html={es('ty_rsv_3')}></span><em class="rev" data-i18n="ty_rsv_new" set:html={es('ty_rsv_new')}></em></li>
+          <li><span data-i18n="ty_rsv_4" set:html={es('ty_rsv_4')}></span><em data-i18n="ty_rsv_ok" set:html={es('ty_rsv_ok')}></em></li>
+        </ul>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c9_k" set:html={es('ty_c9_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c9" set:html={es('ty_c9')}></p>
+    </a>
+    <a class="ty-c" data-demo="Cevichería La Ola" href={tyHref('whatsapp-business-commerce')}>
+      <div class="ty-s ty-cata" aria-hidden="true">
+        <header><b data-ty>Cevichería La Ola</b><small data-i18n="ty_cat_h" set:html={es('ty_cat_h')}></small></header>
+        <ul>
+          <li><span data-i18n="ty_cat_1" set:html={es('ty_cat_1')}></span><span data-i18n="ty_cat_v1" set:html={es('ty_cat_v1')}></span></li>
+          <li><span data-i18n="ty_cat_2" set:html={es('ty_cat_2')}></span><span data-i18n="ty_cat_v2" set:html={es('ty_cat_v2')}></span></li>
+          <li><span data-i18n="ty_cat_3" set:html={es('ty_cat_3')}></span><span data-i18n="ty_cat_v3" set:html={es('ty_cat_v3')}></span></li>
+          <li><span data-i18n="ty_cat_4" set:html={es('ty_cat_4')}></span><span data-i18n="ty_cat_v4" set:html={es('ty_cat_v4')}></span></li>
+        </ul>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c10_k" set:html={es('ty_c10_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c10" set:html={es('ty_c10')}></p>
+    </a>
+    <a class="ty-c" data-demo="Inmobiliaria Cumbre" href={tyHref('google-ads')}>
+      <div class="ty-s ty-ad" aria-hidden="true">
+        <p class="ty-bus" data-ty>Inmobiliaria Cumbre</p>
+        <div class="ty-res">
+          <small data-i18n="ty_ad_k" set:html={es('ty_ad_k')}></small>
+          <b data-ty>Inmobiliaria Cumbre</b>
+          <p data-ty-dom>inmobiliariacumbre.ec</p>
+        </div>
+        <em class="ty-ad-cta" data-i18n="ty_ad_cta" set:html={es('ty_ad_cta')}></em>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c11_k" set:html={es('ty_c11_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c11" set:html={es('ty_c11')}></p>
+    </a>
+    <a class="ty-c" data-demo="Gimnasio Fuerza" href={tyHref('video-marketing')}>
+      <div class="ty-s ty-reel" aria-hidden="true">
+        <div class="ty-reel-bg"><i data-ty-ini>G</i></div>
+        <div class="ty-reel-info">
+          <b data-ty-at>gimnasiofuerza</b>
+          <small data-i18n="ty_reel_1" set:html={es('ty_reel_1')}></small>
+        </div>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c12_k" set:html={es('ty_c12_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c12" set:html={es('ty_c12')}></p>
+    </a>
+    <a class="ty-c" data-demo="Tejidos Killa" href={tyHref('tienda-online')}>
+      <div class="ty-s ty-shop" aria-hidden="true">
+        <header><b data-ty>Tejidos Killa</b><small data-i18n="ty_shop_1" set:html={es('ty_shop_1')}></small></header>
+        <div class="ty-shop-grid"><span></span><span></span><span></span><span></span></div>
+        <em class="ty-shop-cta" data-i18n="ty_shop_cta" set:html={es('ty_shop_cta')}></em>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c13_k" set:html={es('ty_c13_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c13" set:html={es('ty_c13')}></p>
+    </a>
+    <a class="ty-c" data-demo="Academia Kawsay" href={tyHref('creacion-de-cursos-online')}>
+      <div class="ty-s ty-curso" aria-hidden="true">
+        <header><b data-ty>Academia Kawsay</b><small data-i18n="ty_curso_1" set:html={es('ty_curso_1')}></small></header>
+        <div class="ty-curso-bar"><i style="width:16%"></i></div>
+        <p class="ty-curso-info" data-i18n="ty_curso_2" set:html={es('ty_curso_2')}></p>
+        <ol class="ty-curso-l"><li class="ok" data-i18n="ty_curso_l1" set:html={es('ty_curso_l1')}></li><li data-i18n="ty_curso_l2" set:html={es('ty_curso_l2')}></li><li data-i18n="ty_curso_l3" set:html={es('ty_curso_l3')}></li></ol>
+        <em class="ty-curso-cta" data-i18n="ty_curso_cta" set:html={es('ty_curso_cta')}></em>
+      </div>
+      <h3 class="ty-t" data-i18n="ty_c14_k" set:html={es('ty_c14_k')}></h3>
+      <p class="ty-d" data-i18n="ty_c14" set:html={es('ty_c14')}></p>
+    </a>
   </div>
   </div>
   <div class="section-inner ty-ctl" id="ty-ctl">
-    <div class="ty-prog" id="ty-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <p class="ty-num" aria-live="polite"><span id="ty-i">1</span> / 8</p>
+    <div class="ty-prog" id="ty-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="ty-num" aria-live="polite"><span id="ty-i">1</span> / 14</p>
     <div class="ty-btns">
       <button type="button" class="ty-b" id="ty-prev" aria-label="Anterior"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6"/></svg></button>
       <button type="button" class="ty-b" id="ty-play" aria-label="Pausar"><svg class="ty-ic-pause" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5v11M13 4.5v11"/></svg><svg class="ty-ic-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.2 15.5 10l-9 5.8z"/></svg></button>
