@@ -1428,7 +1428,7 @@ setTimeout(__start, 800);
   function ir(k, suave){
     cur = (k + N) % N;
     const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft) || 0;
-    propio = Date.now(); clearTimeout(scT);
+    propio = Date.now(); manual = false; clearTimeout(scT);
     row.scrollTo({ left: Math.max(0, cards[cur].offsetLeft - pad), behavior: suave && !reduce ? 'smooth' : 'auto' });
     marca();
   }
@@ -1441,11 +1441,12 @@ setTimeout(__start, 800);
   // con el mouse encima se detiene mientras lo lee; con el dedo, el control pasa a la persona
   row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') sec.classList.add('ty-stop'); });
   row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') estado(); });
-  row.addEventListener('touchstart', tomaMano, { passive: true });
-  row.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) tomaMano(); }, { passive: true });
-  let scT = 0;
+  // solo un desplazamiento hecho por la persona cambia la tarjeta actual; el de los botones ya la fijó
+  let scT = 0, manual = false;
+  row.addEventListener('touchstart', () => { manual = true; tomaMano(); }, { passive: true });
+  row.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { manual = true; tomaMano(); } }, { passive: true });
   row.addEventListener('scroll', () => {
-    if (Date.now() - propio < 1200) return;
+    if (!manual) return;
     clearTimeout(scT);
     scT = setTimeout(() => {
       const pad = parseFloat(getComputedStyle(row).scrollPaddingLeft) || 0, x = row.scrollLeft + pad;
