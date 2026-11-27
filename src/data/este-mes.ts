@@ -4,7 +4,7 @@
 
 export const PRECIOS_WEB = {
   moneda: 'USD',
-  creacionRegular: 150,
+  creacionRegular: 350, // EGO 27/11: la web pasa de 150 a 350 + 25/mes
   mesRegular: 25,
   creacionPromo: 90,
   mesPromo: 18,

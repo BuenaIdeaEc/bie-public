@@ -27,7 +27,7 @@ export const UI: Record<string, { es: any; en: any }> = {
           en:'Every project started with a message. <span class="serif">Yours can be next.</span>'},
   band_btn:{es:'Escribirnos ahora',en:'Message us now'},
   pc_k:{es:'Catálogo',en:'Catalog'},
-  pc_h:{es:'No son solo esos catorce.<br><span class="serif">Son 47. Pide solo el que necesitas.</span>',en:'It is not just those fourteen.<br><span class="serif">There are 47. Order only the one you need.</span>'},
+  pc_h:{es:'¿O ya sabes lo que necesitas?<br><span class="serif">Son 47 productos. Pide solo el tuyo.</span>',en:'Or do you already know what you need?<br><span class="serif">There are 47 products. Order only yours.</span>'},
   pc_d:{es:'Desde un jingle hasta tu declaración de impuestos. No tienes que contratar todo: puedes empezar por uno.',en:'From a jingle to your tax return. You do not have to hire everything: you can start with one.'},
   px_wa:{es:'Quiero solo este →',en:'I only want this →'},
   px_see:{es:'Ver detalles',en:'See details'},

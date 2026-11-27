@@ -1403,21 +1403,14 @@ setTimeout(__start, 800);
   // pausar, adelantar o regresar con los botones, o deslizar con el dedo (eso deja el control en su mano).
   const cards = Array.from(track.children);
   const segs = Array.from(document.querySelectorAll('#ty-prog i'));
-  const num = document.getElementById('ty-i'), bPlay = document.getElementById('ty-play');
-  const bPrev = document.getElementById('ty-prev'), bNext = document.getElementById('ty-next');
+  const num = document.getElementById('ty-i');
   const N = cards.length;
   let cur = 0, go = false, enVista = false, mano = reduce, propio = 0;
   cards.forEach((c, k) => c.style.setProperty('--i', String(k)));
   if (!reduce) document.documentElement.classList.add('ty-js');
-  const etiquetas = () => {
-    bPrev.setAttribute('aria-label', lang === 'es' ? 'Anterior' : 'Previous');
-    bNext.setAttribute('aria-label', lang === 'es' ? 'Siguiente' : 'Next');
-    bPlay.setAttribute('aria-label', mano ? (lang === 'es' ? 'Reproducir' : 'Play') : (lang === 'es' ? 'Pausar' : 'Pause'));
-  };
   const estado = () => {
     sec.classList.toggle('ty-user', mano);
     sec.classList.toggle('ty-stop', mano || !enVista || !go);
-    etiquetas();
   };
   function marca(){
     cards.forEach((c, k) => c.classList.toggle('on', go && k === cur));
@@ -1434,10 +1427,14 @@ setTimeout(__start, 800);
   }
   // la barra llena = pasa a la siguiente (al terminar vuelve a la primera)
   segs.forEach((s, k) => s.addEventListener('animationend', () => { if (k === cur && !mano) ir(cur + 1, true); }));
-  const tomaMano = () => { if (!mano) { mano = true; estado(); } };
-  bPlay.addEventListener('click', () => { mano = !mano; estado(); if (!mano) marca(); });
-  bPrev.addEventListener('click', () => { tomaMano(); ir(cur - 1, true); });
-  bNext.addEventListener('click', () => { tomaMano(); ir(cur + 1, true); });
+  // EGO 27/11: sin botones. Avanza solo; si la persona lo mueve, el control es suyo, y si lo deja
+  // quieto unos segundos, el recorrido sigue solo desde donde quedó.
+  let vuelveT = 0;
+  const tomaMano = () => {
+    if (!mano) { mano = true; estado(); }
+    clearTimeout(vuelveT);
+    if (!reduce) vuelveT = setTimeout(() => { mano = false; estado(); marca(); }, 7000);
+  };
   // con el mouse encima se detiene mientras lo lee; con el dedo, el control pasa a la persona
   row.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') sec.classList.add('ty-stop'); });
   row.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') estado(); });
@@ -1445,6 +1442,25 @@ setTimeout(__start, 800);
   let scT = 0, manual = false;
   row.addEventListener('touchstart', () => { manual = true; tomaMano(); }, { passive: true });
   row.addEventListener('wheel', (e) => { if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) { manual = true; tomaMano(); } }, { passive: true });
+  // con el mouse también se arrastra, como en el teléfono; un arrastre no abre la tarjeta
+  let arr = null, movio = false;
+  row.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    arr = { x: e.clientX, l: row.scrollLeft }; movio = false;
+  });
+  addEventListener('pointermove', (e) => {
+    if (!arr) return;
+    const dx = e.clientX - arr.x;
+    if (!movio && Math.abs(dx) > 6) { movio = true; manual = true; tomaMano(); row.classList.add('ty-drag'); }
+    if (movio) { row.scrollLeft = arr.l - dx; tomaMano(); }
+  });
+  addEventListener('pointerup', () => {
+    if (!arr) return;
+    arr = null; row.classList.remove('ty-drag');
+    if (movio) row.dispatchEvent(new Event('scroll'));
+  });
+  row.addEventListener('click', (e) => { if (movio) { e.preventDefault(); e.stopPropagation(); movio = false; } }, true);
+  row.addEventListener('dragstart', (e) => e.preventDefault());
   row.addEventListener('scroll', () => {
     if (!manual) return;
     clearTimeout(scT);
@@ -1495,7 +1511,7 @@ setTimeout(__start, 800);
 // ═══ Hasta dónde llega cada visita ═══
 // Un solo evento al salir de la página: una llamada por sección gastaría funciones de Netlify sin necesidad.
 (function(){
-  const ORDEN = ['hero', 'tuyo', 'productos', 'work', 'voces', 'top', 'catalog', 'simple', 'estrella', 'nicho', 'contact'];
+  const ORDEN = ['hero', 'tuyo', 'work', 'voces', 'top', 'productos', 'catalog', 'simple', 'estrella', 'nicho', 'contact'];
   const vistas = new Set(['hero']);
   let enviadas = 0;
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) vistas.add(e.target.id); }), { rootMargin: '-50% 0px -50% 0px' });
