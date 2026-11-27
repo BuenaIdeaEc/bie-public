@@ -97,10 +97,18 @@ const armar = () => {
   armado = true;
   import('../../lib/cubo3d').then((m) => m.init()).catch(() => { document.body.classList.remove('cubo-intro'); document.body.classList.add('past-cube'); });
 };
-// el póster ya muestra el primer cuadro: el cubo llega al primer gesto o cuando la página descansa
+// el póster ya muestra el primer cuadro; el 3D llega al primer gesto o cuando el
+// navegador está libre (requestIdleCallback), con un mínimo de 3 s para no pelear
+// con el hilo principal durante el primer pintado y la carga de home.js
 const esperar = () => {
   ['scroll', 'touchstart', 'pointerdown', 'keydown'].forEach((e) => addEventListener(e, armar, { once: true, passive: true }));
-  const luego = () => setTimeout(armar, 900);
+  const luego = () => {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => armar(), { timeout: 4000 });
+    } else {
+      setTimeout(armar, 3000);
+    }
+  };
   if (document.readyState === 'complete') luego(); else addEventListener('load', luego, { once: true });
 };
 if (document.readyState === 'loading') addEventListener('DOMContentLoaded', esperar, { once: true }); else esperar();
