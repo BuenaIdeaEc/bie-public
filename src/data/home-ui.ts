@@ -49,7 +49,7 @@ export const UI: Record<string, { es: any; en: any }> = {
   pk1_n:{es:'Que te encuentren',en:'Get found'},
   pk1_d:{es:'Si hoy nadie te encuentra en internet.',en:'If nobody finds you online today.'},
   pk1_l:{es:['Página web','Perfil en Google Maps','Logo y marca'],en:['Website','Google Maps profile','Logo and brand']},
-  pk1_p:{es:'USD 275',en:'USD 275'},
+  pk1_p:{es:'USD 397',en:'USD 397'},
   pk2_n:{es:'Que te compren',en:'Get bought'},
   pk2_d:{es:'Si te escriben mucho y no alcanzas a responder.',en:'If people write to you and you cannot keep up.'},
   pk2_l:{es:['WhatsApp Business con catálogo','Un asistente que responde a toda hora','Manejo de tus redes sociales'],en:['WhatsApp Business with catalog','An assistant that answers at any hour','Your social media managed']},
